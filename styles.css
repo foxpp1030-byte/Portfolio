@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+header {
+    width: 100%;
+    height: var(--gnb_height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.gnb {
+    width: var(--inner_width);
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font);
+    font-size: var(--font_size);
+}
+
+.gnb_tit {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+
+/* 기본: 모두 연한 색 (기본은 진한 색 X) */
+.gnb_tit,
+.gnb_menu {
+    position: relative;
+    color: var(--text_color);
+    text-decoration: none;
+    opacity: var(--inactive_opacity);
+    transition: opacity 0.25s ease;
+    user-select: none;
+}
+
+.gnb_menu i {
+    font-size: 24px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: 0.2s;
+    
+}
