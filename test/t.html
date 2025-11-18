@@ -21,34 +21,35 @@
 </head>
 
 <style>
-.rotate_logo {
-    position: absolute;
-    left: 40px;       /* 피그마 느낌 맞게 조정 가능 */
-    bottom: 40px;     /* 피그마 기준 */
-    width: 130px;
-    height: 128px;
-    pointer-events: none; /* 클릭 안 잡히게 */
-    z-index: 5;
-    opacity: 1;
-    transform-origin: center center;
-    animation: rotate360 10s linear infinite;
-}
+    .rotate_logo {
+        position: absolute;
+        right: 110px;
+        bottom: 120px;
 
-@keyframes rotate360 {
-    from {
-        transform: rotate(0deg);
+        width: 130px;
+        height: 128px;
+        z-index: 3;
+
+        pointer-events: none;
+        animation: rotate360 18s linear infinite;
+        transform-origin: center center;
     }
-    to {
-        transform: rotate(360deg);
+
+    @keyframes rotate360 {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
     }
-}
 
-/* 스크롤 내려가면 사라지는 처리 */
-.rotate_logo_hidden {
-    opacity: 0;
-    transition: opacity .6s ease;
-}
-
+    /* 스크롤 내려가면 사라지는 처리 */
+    .rotate_logo_hidden {
+        opacity: 0;
+        transition: opacity .6s ease;
+    }
 </style>
 
 
@@ -164,7 +165,7 @@
                         </clipPath>
                     </defs>
                 </svg>
-
+            </div>
         </section>
 
 

@@ -181,7 +181,35 @@ main>section {
 }
 
 
+.rotate_logo {
+    position: absolute;
+    right: 110px;
+    bottom: 120px;
 
+    width: 130px;
+    height: 128px;
+    z-index: 3;
+
+    pointer-events: none;
+    animation: rotate360 18s linear infinite;
+    transform-origin: center center;
+}
+
+@keyframes rotate360 {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 스크롤 내려가면 사라지는 처리 */
+.rotate_logo_hidden {
+    opacity: 0;
+    transition: opacity .6s ease;
+}
 
 
 
