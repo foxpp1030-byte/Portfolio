@@ -5,15 +5,15 @@ window.addEventListener("load", () => {
     const length = path.getTotalLength();
 
     path.style.strokeDasharray = length;
-    path.style.strokeDashoffset = length;
+    path.style.strokeDashoffset = length; // ← 출발점: 전체 숨김(왼→오 준비)
 
-    gsap.to(path, {
-        strokeDashoffset: 0,
+    gsap.to('.hero_path', {
+        strokeDashoffset: 0,            // ← 도착점: 0 (왼→오로 드로잉됨)
         duration: 2,
         ease: "power1.out",
         scrollTrigger: {
             trigger: ".hero",
-            start: "top top",
+            start: "top 100px",
             end: "bottom top",
             scrub: true,
             pin: true,
@@ -21,6 +21,7 @@ window.addEventListener("load", () => {
         }
     });
 });
+
 
 
 document.addEventListener("scroll", () => {
