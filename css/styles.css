@@ -214,7 +214,52 @@ main>section {
 
 
 
+.object_page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+}
 
+.object_inner {
+    position: relative;
+    width: 1700px;
+    height: 950px;
+    overflow: hidden;
+}
+
+/* 공통 오브젝트 */
+.obj {
+    position: absolute;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.obj_key {
+    left: -54px;
+    top: -37px;
+}
+
+.obj_dessert {
+    left: 50%;
+    top: 50px;
+    transform: translateX(-50%);
+}
+
+.obj_bread {
+    left: 1329px;
+    top: 10px;
+}
+
+.obj_earphone {
+    left: 155px;
+    top: 513px;
+}
+
+.obj_skillset {
+    left: 1150px;
+    top: 510px;
+}
 
 
 
