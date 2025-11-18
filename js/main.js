@@ -38,6 +38,13 @@ document.addEventListener("scroll", () => {
 });
 
 
+document.querySelectorAll('.obj[data_target]').forEach(obj => {
+    obj.addEventListener('click', () => {
+        const target = obj.getAttribute('data_target');
+        gsap.to(window, { duration: 1, scrollTo: target, ease: "power2.out" });
+    });
+});
+
 
 document.addEventListener("DOMContentLoaded", function () {
     //스크롤에 따라 경로 애니메이션 진행

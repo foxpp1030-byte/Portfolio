@@ -21,6 +21,63 @@
 </head>
 
 <style>
+    .object_page {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 200px;
+    }
+
+
+    .object_wrap {
+        position: relative;
+        width: 1700px;
+        height: 950px;
+    }
+
+    .object_inner {
+        position: relative;
+        width: 1700px;
+        height: 950px;
+    }
+
+    .obj {
+        position: absolute;
+        cursor: pointer;
+        pointer-events: auto;
+    }
+
+
+    .obj_key {
+        left: -54px;
+        top: -37px;
+    }
+
+
+    .obj_dessert {
+        left: 602px;
+        top: 166px;
+    }
+
+
+    .obj_bread {
+        left: 1429px;
+        top: 133px;
+    }
+
+
+    .obj_earphone {
+        left: 165px;
+        top: 643px;
+    }
+
+
+    .obj_skillset {
+        left: 1250px;
+        top: 670px;
+        transform: rotate(-20deg);
+    }
 </style>
 
 
@@ -41,6 +98,7 @@
             </div>
         </div>
     </header>
+
     <div class="mobile_menu">
         <ul>
             <li><a href="#about">About</a></li>
@@ -146,6 +204,16 @@
         </section><!-- //hero title section  -->
 
 
+        <!-- object_page -->
+        <section id="object-page" class="object_page">
+            <div class="object_inner">
+                <img src="/img/key.png" class="obj_key" />
+                <img src="/img/dessert.png" class="obj_dessert" />
+                <img src="/img/bread01.png" class="obj_bread" />
+                <img src="/img/earphone.png" class="obj_earphone" />
+                <img src="/img/skillset.png" class="obj_skillset" />
+            </div>
+        </section>
 
 
         <section id="about">
