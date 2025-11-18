@@ -1,97 +1,207 @@
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-window.addEventListener("load", () => {
-    const path = document.querySelector(".hero_path");
-    const length = path.getTotalLength();
+document.addEventListener("DOMContentLoaded", () => {
 
-    path.style.strokeDasharray = length;
-    path.style.strokeDashoffset = length; // ← 출발점: 전체 숨김(왼→오 준비)
-
-    gsap.to('.hero_path', {
-        strokeDashoffset: 0,            // ← 도착점: 0 (왼→오로 드로잉됨)
-        duration: 2,
-        ease: "power1.out",
-        scrollTrigger: {
-            trigger: ".hero",
-            start: "top 100px",
-            end: "bottom top",
-            scrub: true,
-            pin: true,
-            anticipatePin: 1
-        }
+    // ==================== Lenis ====================
+    const lenis = new Lenis({
+        duration: 0.8,
+        easing: (t) => t, // 선형 (빠른 반응)
+        smooth: true,
+        smoothTouch: true, // 모바일 터치 스크롤 부드럽게
     });
-});
 
-
-
-document.addEventListener("scroll", () => {
-    const hero = document.querySelector(".hero_section");
-    const logo = document.querySelector(".rotate_logo");
-
-    const hero_bottom = hero.getBoundingClientRect().bottom;
-
-    if (hero_bottom <= 0) {
-        logo.classList.add("rotate_logo_hidden");
-    } else {
-        logo.classList.remove("rotate_logo_hidden");
+    function raf(t) {
+        lenis.raf(t);
+        ScrollTrigger.update();
+        requestAnimationFrame(raf);
     }
-});
+    requestAnimationFrame(raf);
 
 
+    /* ================== Navigation Active ================== */
+    const navLinks = document.querySelectorAll(".gnb li");
 
-
-const scrollMap = [
-    { selector: ".obj_key", target: "#about" },
-    { selector: ".obj_dessert", target: "#projects" },
-    { selector: ".obj_earphone", target: "#visual" },
-    { selector: ".obj_skillset", target: "#skills" }
-];
-
-
-scrollMap.forEach(item => {
-    const el = document.querySelector(item.selector);
-    const target = document.querySelector(item.target);
-
-
-    if (el && target) {
-        el.addEventListener("click", () => {
-            gsap.to(window, {
-                duration: 1.2,
-                scrollTo: target,
-                ease: "power2.out"
-            });
+    function set_active(target) {
+        navLinks.forEach((li) => {
+            const a = li.querySelector("a");
+            if (!a) return;
+            li.classList.toggle("on", a.getAttribute("href") === target);
         });
     }
-});
 
 
-
-
-document.addEventListener("DOMContentLoaded", () => {
+    /* ================== Overlay Control ================== */
+    let overlayActivatedOnce = false;
     const hamMenu = document.querySelector(".ham_menu");
-    const overlay = document.querySelector(".mobile-overlay");
-    const closeBtn = document.querySelector(".close-btn");
     const hamIcon = document.querySelector(".ham_menu i");
+    const main = document.querySelector('main');
+    main.dataset.prevHeight = main.offsetHeight;
 
-    // 햄버거 클릭 → 오버레이 열림
     hamMenu.addEventListener("click", () => {
-        overlay.classList.add("active");
+        if (main.classList.contains("overlay")) {
+            removeOverlay();
+        } else {
+            addOverlay();
+        }
+    });
+
+
+    const scrollMap = [
+        { selector: ".obj_key", target: "#about" },
+        { selector: ".obj_dessert", target: "#projects" },
+        { selector: ".obj_earphone", target: "#visual" },
+        { selector: ".obj_skillset", target: "#skills" }
+    ];
+
+    scrollMap.forEach(item => {
+        const el = document.querySelector(item.selector);
+        const target = document.querySelector(item.target);
+
+        if (el && target) {
+            el.addEventListener("click", () => {
+                set_active(item.target);
+                removeOverlay(target);
+            });
+        }
+    });
+    // 🔥 overlay 강제 제어 함수
+    function addOverlay() {
+        main.dataset.prevHeight = main.offsetHeight;
+
+        main.classList.add("overlay");
+
+        // ▶ overlay 동안 main 높이를 고정
+        main.style.height = window.innerHeight + "px";
+        main.style.overflow = "hidden";
+
         hamIcon.classList.remove("fa-bars");
         hamIcon.classList.add("fa-xmark");
-    });
+    }
 
-    // 닫기 버튼(X) 클릭 → 오버레이 닫힘
-    closeBtn.addEventListener("click", () => {
-        overlay.classList.remove("active");
-        hamIcon.classList.remove("fa-xmark");
+    function removeOverlay(target) {
+        main.classList.remove("overlay");
         hamIcon.classList.add("fa-bars");
+        hamIcon.classList.remove("fa-xmark");
+        overlayActivatedOnce = true;
+        // ▶ overlay 전에 저장된 높이로 복구
+        if (main.dataset.prevHeight) {
+            main.style.height = main.dataset.prevHeight + "px";
+        } else {
+            main.style.height = "auto"; // fallback
+        }
+        main.style.overflow = ""; // 스크롤 복구
+
+        if (target) {
+            gsap.to(window, {
+                duration: 0.5,
+                scrollTo: target,
+                ease: "power2.out",
+                onComplete: () => {
+                    ScrollTrigger.refresh();
+
+                },
+                onEnter: () => set_active(target),
+                onEnterBack: () => set_active(target),
+            });
+        } else {
+            console.log(target)
+        }
+
+    }
+
+
+    /* ================== Section Scroll Active ================== */
+    ["about", "projects", "visual", "skills"].forEach((id) => {
+        ScrollTrigger.create({
+            trigger: "#" + id,
+            start: "top center",
+            end: "bottom center",
+            onEnter: () => set_active("#" + id),
+            onEnterBack: () => set_active("#" + id),
+        });
     });
-});
+
+
+
+    window.addEventListener("load", () => {
+        ScrollTrigger.refresh();
+        setTimeout(() => ScrollTrigger.refresh(), 500); // ✅ Lenis 초기화 후 0.5초 뒤 다시
+
+        const path = document.querySelector(".hero_path");
+        const length = path.getTotalLength();
+
+        path.style.strokeDasharray = length;
+        path.style.strokeDashoffset = length; // ← 출발점: 전체 숨김(왼→오 준비)
+
+        gsap.to('.hero_path', {
+            strokeDashoffset: 0,            // ← 도착점: 0 (왼→오로 드로잉됨)
+            duration: 2,
+            ease: "power1.out",
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top 100px",
+                end: "bottom top",
+                scrub: true,
+                pin: true,
+                anticipatePin: 1,
+                // ⭐ 아래로 내려가서 hero를 벗어나는 순간
+                onLeave: () => {
+                    if (overlayActivatedOnce) return; // 이미 실행됨 → 다시 실행 X
+                    overlayActivatedOnce = true;
+
+                    gsap.to(window, {
+                        scrollTo: "#about",
+                        duration: 1.2,
+                        ease: "power2.out",
+                        onComplete: () => {
+                            addOverlay();
+                        }
+                    });
+                },
+
+                // ⭐ 다시 위로 올라와 hero에 재진입했을 때
+                onEnterBack: () => {
+                    // overlay 갑자기 꺼지지 않게 → 부드럽게 제거
+
+                }
+            }
+        });
+    });
 
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
+
+
+
+
+    document.addEventListener("scroll", () => {
+        /*     const hero = document.querySelector(".hero_section");
+            const logo = document.querySelector(".rotate_logo");
+        
+            const hero_bottom = hero.getBoundingClientRect().bottom;
+        
+            if (hero_bottom <= 0) {
+                logo.classList.add("rotate_logo_hidden");
+            } else {
+                logo.classList.remove("rotate_logo_hidden");
+            } */
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //스크롤에 따라 경로 애니메이션 진행
     function calcDashOffset(scrollY, element, length) {
         const ratio = (scrollY - element.offsetTop) / element.offsetHeight; // 스크롤 위치와 요소 높이 비율 계산
@@ -128,7 +238,7 @@ document.addEventListener("DOMContentLoaded", function () {
             start: 'top top', //스크롤이 맨 위에 닿을때 시작
             end: () => "+=" + (horizontal.offsetWidth - innerWidth), //스크롤 끝나는 위치 계산
             pin: true, //해당 부분에서 화면을 고정해서 보여줌
-            markers: true,//디버그용 마커 보여주기
+            //markers: true,//디버그용 마커 보여주기
             scrub: 1, //스크롤에 따라 실시간으로 움직임
             anticipatePin: 1, // 핀 고정 시 살짝 미리 준비해서 부드럽게
             invalidateOnRefresh: true, // 새로고침하면 위치 다시 계산해줌
@@ -185,9 +295,9 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     })
 
+    window.addEventListener("resize", () => ScrollTrigger.refresh());
+
 });
-
-
 
 
 
