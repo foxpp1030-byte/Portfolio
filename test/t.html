@@ -21,7 +21,43 @@
 </head>
 
 <style>
+    .obj_label {
+        position: absolute;
+        font-family: 'SUIT Variable', sans-serif;
+        font-weight: 800;
+        font-size: 40px;
+        color: #000;
+        transform-origin: center;
+        white-space: nowrap;
+    }
 
+    /* PROFILE */
+    .label_profile {
+        left: 240px;
+        top: 330px;
+        transform: rotate(90deg);
+    }
+
+    /* VISUAL ARCHIVE */
+    .label_visual {
+        left: 260px;
+        top: 840px;
+        transform: rotate(15deg);
+    }
+
+    /* PROJECTS */
+    .label_projects {
+        left: 875px;
+        top: 760px;
+        transform: rotate(15deg);
+    }
+
+    /* SKILL SET */
+    .label_skillset {
+        left: 1280px;
+        top: 730px;
+        transform: rotate(-75deg);
+    }
 </style>
 
 
@@ -156,6 +192,10 @@
                 <img src="/img/bread01.png" class="obj obj_bread" />
                 <img src="/img/earphone.png" class="obj obj_earphone" />
                 <img src="/img/skillset.png" class="obj obj_skillset" />
+                <span class="obj_label label_profile">PROFILE</span>
+                <span class="obj_label label_visual">VISUAL ARCHIVE</span>
+                <span class="obj_label label_projects">PROJECTS</span>
+                <span class="obj_label label_skillset">SKILL SET</span>
             </div>
         </section>
 
