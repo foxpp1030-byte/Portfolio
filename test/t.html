@@ -21,43 +21,54 @@
 </head>
 
 <style>
-    .obj_label {
-        position: absolute;
-        font-family: 'SUIT Variable', sans-serif;
-        font-weight: 800;
-        font-size: 40px;
-        color: #000;
-        transform-origin: center;
-        white-space: nowrap;
-    }
+   /* 모바일 메뉴 오버레이 */
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.97);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+    z-index: 9999;
+}
 
-    /* PROFILE */
-    .label_profile {
-        left: 240px;
-        top: 330px;
-        transform: rotate(90deg);
-    }
+.mobile-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
 
-    /* VISUAL ARCHIVE */
-    .label_visual {
-        left: 260px;
-        top: 840px;
-        transform: rotate(15deg);
-    }
+.mobile-overlay ul {
+    list-style: none;
+    text-align: center;
+}
 
-    /* PROJECTS */
-    .label_projects {
-        left: 875px;
-        top: 760px;
-        transform: rotate(15deg);
-    }
+.mobile-overlay ul li {
+    margin: 20px 0;
+}
 
-    /* SKILL SET */
-    .label_skillset {
-        left: 1280px;
-        top: 730px;
-        transform: rotate(-75deg);
-    }
+.mobile-overlay ul li a {
+    font-family: "SUIT", sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #000;
+}
+
+.close-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: none;
+    border: none;
+    font-size: 48px;
+    cursor: pointer;
+}
+
 </style>
 
 
@@ -79,7 +90,8 @@
         </div>
     </header>
 
-    <div class="mobile_menu">
+ <div class="mobile-overlay">
+        <button class="close-btn"><i class="fa-solid fa-xmark"></i></button>
         <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
@@ -87,6 +99,15 @@
             <li><a href="#visual">Visual Archive</a></li>
         </ul>
     </div>
+
+    <!-- <div class="mobile_menu">
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#visual">Visual Archive</a></li>
+        </ul>
+    </div> -->
     <!-- header -->
 
 
@@ -192,10 +213,6 @@
                 <img src="/img/bread01.png" class="obj obj_bread" />
                 <img src="/img/earphone.png" class="obj obj_earphone" />
                 <img src="/img/skillset.png" class="obj obj_skillset" />
-                <span class="obj_label label_profile">PROFILE</span>
-                <span class="obj_label label_visual">VISUAL ARCHIVE</span>
-                <span class="obj_label label_projects">PROJECTS</span>
-                <span class="obj_label label_skillset">SKILL SET</span>
             </div>
         </section>
 

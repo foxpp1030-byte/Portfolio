@@ -40,6 +40,56 @@ document.addEventListener("scroll", () => {
 
 
 
+const scrollMap = [
+    { selector: ".obj_key", target: "#about" },
+    { selector: ".obj_dessert", target: "#projects" },
+    { selector: ".obj_earphone", target: "#visual" },
+    { selector: ".obj_skillset", target: "#skills" }
+];
+
+
+scrollMap.forEach(item => {
+    const el = document.querySelector(item.selector);
+    const target = document.querySelector(item.target);
+
+
+    if (el && target) {
+        el.addEventListener("click", () => {
+            gsap.to(window, {
+                duration: 1.2,
+                scrollTo: target,
+                ease: "power2.out"
+            });
+        });
+    }
+});
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const hamMenu = document.querySelector(".ham_menu");
+    const overlay = document.querySelector(".mobile-overlay");
+    const closeBtn = document.querySelector(".close-btn");
+    const hamIcon = document.querySelector(".ham_menu i");
+
+    // 햄버거 클릭 → 오버레이 열림
+    hamMenu.addEventListener("click", () => {
+        overlay.classList.add("active");
+        hamIcon.classList.remove("fa-bars");
+        hamIcon.classList.add("fa-xmark");
+    });
+
+    // 닫기 버튼(X) 클릭 → 오버레이 닫힘
+    closeBtn.addEventListener("click", () => {
+        overlay.classList.remove("active");
+        hamIcon.classList.remove("fa-xmark");
+        hamIcon.classList.add("fa-bars");
+    });
+});
+
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
     //스크롤에 따라 경로 애니메이션 진행
