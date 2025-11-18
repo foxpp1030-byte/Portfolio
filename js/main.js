@@ -23,6 +23,21 @@ window.addEventListener("load", () => {
 });
 
 
+document.addEventListener("scroll", () => {
+    const hero = document.querySelector(".hero_section");
+    const logo = document.querySelector(".rotate_logo");
+
+    const hero_bottom = hero.getBoundingClientRect().bottom;
+
+    if (hero_bottom <= 0) {
+        logo.classList.add("rotate_logo_hidden");
+    } else {
+        logo.classList.remove("rotate_logo_hidden");
+    }
+});
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
     //스크롤에 따라 경로 애니메이션 진행
     function calcDashOffset(scrollY, element, length) {
