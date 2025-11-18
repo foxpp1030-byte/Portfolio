@@ -16,59 +16,58 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollToPlugin.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
-    <script src="/js/main.js" defer></script>
+    <script src="../js/main.js" defer></script>
 
 </head>
 
 <style>
-   /* 모바일 메뉴 오버레이 */
-.mobile-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.97);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.35s ease;
-    z-index: 9999;
-}
+    /* 모바일 메뉴 오버레이 */
+    .mobile-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.97);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+        z-index: 9999;
+    }
 
-.mobile-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-}
+    .mobile-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
 
-.mobile-overlay ul {
-    list-style: none;
-    text-align: center;
-}
+    .mobile-overlay ul {
+        list-style: none;
+        text-align: center;
+    }
 
-.mobile-overlay ul li {
-    margin: 20px 0;
-}
+    .mobile-overlay ul li {
+        margin: 20px 0;
+    }
 
-.mobile-overlay ul li a {
-    font-family: "SUIT", sans-serif;
-    font-size: 36px;
-    font-weight: 700;
-    color: #000;
-}
+    .mobile-overlay ul li a {
+        font-family: "SUIT", sans-serif;
+        font-size: 36px;
+        font-weight: 700;
+        color: #000;
+    }
 
-.close-btn {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    background: none;
-    border: none;
-    font-size: 48px;
-    cursor: pointer;
-}
-
+    .close-btn {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        background: none;
+        border: none;
+        font-size: 48px;
+        cursor: pointer;
+    }
 </style>
 
 
@@ -90,7 +89,7 @@
         </div>
     </header>
 
- <div class="mobile-overlay">
+    <div class="mobile-overlay">
         <button class="close-btn"><i class="fa-solid fa-xmark"></i></button>
         <ul>
             <li><a href="#about">About</a></li>
