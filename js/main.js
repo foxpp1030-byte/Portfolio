@@ -1,5 +1,27 @@
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+window.addEventListener("load", () => {
+    const path = document.querySelector(".hero_path");
+    const length = path.getTotalLength();
+
+    path.style.strokeDasharray = length;
+    path.style.strokeDashoffset = length;
+
+    gsap.to(path, {
+        strokeDashoffset: 0,
+        duration: 2,
+        ease: "power1.out",
+        scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+            pin: true,
+            anticipatePin: 1
+        }
+    });
+});
+
 
 document.addEventListener("DOMContentLoaded", function () {
     //스크롤에 따라 경로 애니메이션 진행
@@ -96,3 +118,8 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
 });
+
+
+
+
+
