@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ["about", "projects", "visual", "skills"].forEach((id) => {
         ScrollTrigger.create({
             trigger: "#" + id,
-            start: "top center",
+            start: "top top",
             end: "bottom center",
             onEnter: () => set_active("#" + id),
             onEnterBack: () => set_active("#" + id),
@@ -201,34 +201,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
-    //스크롤에 따라 경로 애니메이션 진행
-    function calcDashOffset(scrollY, element, length) {
-        const ratio = (scrollY - element.offsetTop) / element.offsetHeight; // 스크롤 위치와 요소 높이 비율 계산
-        const value = length - (length * ratio); // 대시 오프셋 값을 계산
-        return Math.max(0, Math.min(value, length)); // 범위 내에서 반환
-    }
-
-    //스크롤 이벤트에 따른 경로 애니메이션 처리
-    function scrollHandler(svgCon, path, pathLenght) {
-        const scrollY = window.scrollY + (window.innerHeight * 0.8);
-        //화면 높이 고려한 스크롤 위치 계산
-        path.style.strokeDashoffset = calcDashOffset(scrollY, svgCon, pathLenght)
-    }
-    window.addEventListener('scroll', () => {
-        //svg 경로 애니메이션 설정
-        const svgCon = document.querySelector('#projects');
-        const path = document.querySelector('.path1');
-        const pathLenght = path.getTotalLength(); //경로의 총 길이 계산
-        path.style.strokeDasharray = pathLenght; //경로를 점선처럼 보이게 설정
-        path.style.strokeDashoffset = pathLenght; //경로를 숨기기 위해 대시 오프셋을 길이로 설정
-        scrollHandler(svgCon, path, pathLenght)
-
-    }); //스크롤 이벤트 리스너 추가});
-
     //가로 스크롤 섹션 애니메이션 설정
     const horizontal = document.querySelector('.horizontal');
-    const sections = gsap.utils.toArray('.horizontal>section');
+    const sections = gsap.utils.toArray('.horizontal>article');
     let ani = [];
     const scrollTween = gsap.to(sections, {
         xPercent: -100 * (sections.length - 1),//전체 섹션 수만큼 왼쪽으로 밀기
