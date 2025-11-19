@@ -29,11 +29,6 @@ body main.overlay {
     /*     overflow-y: hidden; */
 }
 
-
-
-
-
-
 :root {
     --gnb_height: 64px;
     --inner_width: 1700px;
@@ -375,6 +370,69 @@ main>section {
 
 
 
+
+/* About Me Section */
+
+
+.about_section {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    padding-top: 150px;
+}
+
+.about_inner {
+    position: relative;
+}
+
+/* 왼쪽 키 이미지 - 퍼센트 위치 */
+.about_key {
+    position: absolute;
+    left: 0%;
+    /* 왼쪽 끝 */
+    top: 0%;
+}
+
+/* 오른쪽 타이틀 */
+.about_title {
+    position: absolute;
+    right: 0%;
+    /* 오른쪽 끝 */
+    top: 8%;
+    /* 위에서 8% */
+}
+
+.about_heading {
+    font-family: 'SUIT';
+    font-weight: 300;
+    font-size: 8vw;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+/* 카드 3개 */
+.cards_inner {
+    width: 100%;
+    margin-top: 35%;
+    padding-top: 160px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card_item {
+    width: 30%;
+    /* 세 개 나누기 (약 517px) */
+    aspect-ratio: 517 / 674;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card_img {
+    object-fit: contain;
+}
 
 
 
