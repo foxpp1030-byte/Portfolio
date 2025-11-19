@@ -331,7 +331,7 @@ main>section {
 
 .obj_skillset {
     left: 1138px;
-    top: 510px;
+    bottom: 0;
 }
 
 .obj_label {

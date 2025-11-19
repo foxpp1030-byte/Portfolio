@@ -4,60 +4,74 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>포트폴리오1</title>
+    <title>Portfolio-도연</title>
 
     <!-- SUIT Font -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
     <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/styles.css" />
-
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/styles.css" />
     <!-- FontAwesome -->
     <script src="https://kit.fontawesome.com/1b41f4f82b.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollToPlugin.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
-    <script src="js/main.js" defer></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.35/dist/lenis.min.js"></script>
+    <script src="../js/main.js" defer></script>
 
 </head>
 
-<body>
-    <!-- header -->
-    <header>
-        <div class="inner">
-            <nav class="gnb">
-                <ul class="gnb_tit">
-                    <li class="on"><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#visual">Visual Archive</a></li>
-                </ul>
-            </nav>
-            <div class="ham_menu">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-        </div>
-    </header>
-    <div class="mobile_menu">
+
+
+<body class="">
+
+    <!-- <div class="mobile_menu">
         <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#visual">Visual Archive</a></li>
         </ul>
-    </div>
+    </div> -->
     <!-- header -->
 
 
     <!-- main -->
-    <main>
-
+    <main class="wrap">
+        <!-- header -->
+        <header>
+            <div class="inner">
+                <nav class="gnb">
+                    <ul class="gnb_tit">
+                        <li class="on"><a href="#about">Profile</a></li>
+                        <li><a href="#skills">Skillset</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#visual">Visual Archive</a></li>
+                    </ul>
+                </nav>
+                <div class="ham_menu">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </header>
+        <!-- object_page -->
+        <section id="object-page" class="object_page mobile-overlay">
+            <!-- <button class="close-btn"><i class="fa-solid fa-xmark"></i></button> -->
+            <div class="object_inner">
+                <img src="../img/key.png" class="obj obj_key" />
+                <img src="../img/dessert.png" class="obj obj_dessert" />
+                <img src="../img/bread01.png" class="obj obj_bread" />
+                <img src="../img/earphone.png" class="obj obj_earphone" />
+                <img src="../img/skillset.png" class="obj obj_skillset" />
+            </div>
+        </section>
         <!-- hero title section -->
         <section id="hero" class="hero">
             <div class="hero_inner">
                 <h3 class="hero_role">UX/UI DESIGNER</h3>
                 <h1 class="hero_title">PORTFOLIO</h1>
             </div>
+
 
             <div class="hero_bg">
                 <svg class="hero_svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1879 610"
@@ -72,6 +86,7 @@
                 </svg>
 
             </div>
+
 
             <div class="rotate_logo">
                 <svg xmlns="http://www.w3.org/2000/svg" width="130" height="128" viewBox="0 0 130 128" fill="none">
@@ -140,24 +155,14 @@
             </div>
         </section><!-- //hero title section  -->
 
-        <!-- object_page -->
-        <section id="object-page" class="object_page">
-            <div class="object_inner">
-                <img src="/img/key.png" class="obj obj_key" />
-                <img src="/img/dessert.png" class="obj obj_dessert" />
-                <img src="/img/bread01.png" class="obj obj_bread" />
-                <img src="/img/earphone.png" class="obj obj_earphone" />
-                <img src="/img/skillset.png" class="obj obj_skillset" />
-            </div>
-        </section>
-
-
         <section id="about">
             <h2>About Me</h2>
         </section>
+
         <section id="skills">
             <h2>My Skills</h2>
         </section>
+
         <section id="projects" class="full horizontal">
             <h2>Projects</h2>
             <section id="con4_1" class="hItem">
@@ -171,28 +176,29 @@
                     </svg>
                 </figure>
             </section>
+            
             <section id="con4_2" class="hItem">
                 <h3>con4_2</h3>
-                <figure class="imgWrap iw2"><img src="img/s1.jpg" alt=""></figure>
+                <figure class="imgWrap iw2"><img src="./img/s1.jpg" alt=""></figure>
             </section>
             <section id="con4_3" class="hItem">
                 <h3>con4_3</h3>
-                <figure class="imgWrap iw3"><img src="img/s1.jpg" alt=""></figure>
+                <figure class="imgWrap iw3"><img src="./img/s1.jpg" alt=""></figure>
             </section>
             <section id="con4_4" class="hItem">
                 <h3>con4_4</h3>
-                <figure class="imgWrap iw4"><img src="img/s1.jpg" alt=""></figure>
+                <figure class="imgWrap iw4"><img src="./img/s1.jpg" alt=""></figure>
             </section>
             <section id="con4_5" class="hItem">
                 <h3>con4_5</h3>
-                <figure class="imgWrap iw5"><img src="img/s1.jpg" alt=""></figure>
+                <figure class="imgWrap iw5"><img src="./img/s1.jpg" alt=""></figure>
             </section>
         </section>
-        </section>
+
 
         <section id="visual">
             <h2>Visual Archive</h2>
-
+        </section>
     </main>
     <!-- main -->
 
