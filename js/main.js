@@ -16,7 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
         requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
+    lenis.on('scroll', () => {
+        ScrollTrigger.update();
+    });
 
+    // 기본 스크롤(윈도우) 기준이므로 scroller 지정 불필요
+    ScrollTrigger.defaults({
+        scrub: 1,
+    });
 
     /* ================== Navigation Active ================== */
     const navLinks = document.querySelectorAll(".gnb li");
@@ -31,19 +38,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ================== Overlay Control ================== */
-    let overlayActivatedOnce = false;
-    const hamMenu = document.querySelector(".ham_menu");
-    const hamIcon = document.querySelector(".ham_menu i");
-    const main = document.querySelector('main');
-    main.dataset.prevHeight = main.offsetHeight;
-
-    hamMenu.addEventListener("click", () => {
-        if (main.classList.contains("overlay")) {
-            removeOverlay();
-        } else {
-            addOverlay();
-        }
-    });
+    /*     let overlayActivatedOnce = false;
+        const hamMenu = document.querySelector(".ham_menu");
+        const hamIcon = document.querySelector(".ham_menu i");
+        const main = document.querySelector('main');
+        main.dataset.prevHeight = main.offsetHeight;
+    
+        hamMenu.addEventListener("click", () => {
+            if (main.classList.contains("overlay")) {
+                removeOverlay();
+            } else {
+                addOverlay();
+            }
+        }); */
 
 
     const scrollMap = [
@@ -60,58 +67,57 @@ document.addEventListener("DOMContentLoaded", () => {
         if (el && target) {
             el.addEventListener("click", () => {
                 set_active(item.target);
-                removeOverlay(target);
+                // removeOverlay(target);
             });
         }
     });
     // 🔥 overlay 강제 제어 함수
-    function addOverlay() {
-        main.dataset.prevHeight = main.offsetHeight;
-
-        main.classList.add("overlay");
-
-        // ▶ overlay 동안 main 높이를 고정
-        main.style.height = window.innerHeight + "px";
-        main.style.overflow = "hidden";
-
-        hamIcon.classList.remove("fa-bars");
-        hamIcon.classList.add("fa-xmark");
-    }
-
-    function removeOverlay(target) {
-        main.classList.remove("overlay");
-        hamIcon.classList.add("fa-bars");
-        hamIcon.classList.remove("fa-xmark");
-        overlayActivatedOnce = true;
-        // ▶ overlay 전에 저장된 높이로 복구
-        if (main.dataset.prevHeight) {
-            main.style.height = main.dataset.prevHeight + "px";
-        } else {
-            main.style.height = "auto"; // fallback
+    /*     function addOverlay() {
+            main.dataset.prevHeight = main.offsetHeight;
+    
+            main.classList.add("overlay");
+    
+            main.style.height = window.innerHeight + "px";
+            main.style.overflow = "hidden";
+    
+            hamIcon.classList.remove("fa-bars");
+            hamIcon.classList.add("fa-xmark");
         }
-        main.style.overflow = ""; // 스크롤 복구
-
-        if (target) {
-            gsap.to(window, {
-                duration: 0.5,
-                scrollTo: target,
-                ease: "power2.out",
-                onComplete: () => {
-                    ScrollTrigger.refresh();
-
-                },
-                onEnter: () => set_active(target),
-                onEnterBack: () => set_active(target),
-            });
-        } else {
-            console.log(target)
+    
+        function removeOverlay(target) {
+            main.classList.remove("overlay");
+            hamIcon.classList.add("fa-bars");
+            hamIcon.classList.remove("fa-xmark");
+            overlayActivatedOnce = true;
+    
+            if (main.dataset.prevHeight) {
+                main.style.height = main.dataset.prevHeight + "px";
+            } else {
+                main.style.height = "auto";
+            }
+            main.style.overflow = "";
+    
+            if (target) {
+                gsap.to(window, {
+                    duration: 0.5,
+                    scrollTo: target,
+                    ease: "power2.out",
+                    onComplete: () => {
+                        ScrollTrigger.refresh();
+    
+                    },
+                    onEnter: () => set_active(target),
+                    onEnterBack: () => set_active(target),
+                });
+            } else {
+                console.log(target)
+            }
+    
         }
-
-    }
-
+     */
 
     /* ================== Section Scroll Active ================== */
-    ["about", "projects", "visual", "skills"].forEach((id) => {
+    ["about", "projects", "visual", "skills", "vision"].forEach((id) => {
         ScrollTrigger.create({
             trigger: "#" + id,
             start: "top top",
@@ -145,20 +151,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 pin: true,
                 anticipatePin: 1,
                 // ⭐ 아래로 내려가서 hero를 벗어나는 순간
-                onLeave: () => {
-                    if (overlayActivatedOnce) return; // 이미 실행됨 → 다시 실행 X
-                    overlayActivatedOnce = true;
-
-                    gsap.to(window, {
-                        scrollTo: "#about",
-                        duration: 1.2,
-                        ease: "power2.out",
-                        onComplete: () => {
-                            addOverlay();
-                        }
-                    });
-                },
-
+                /*            onLeave: () => {
+                               if (overlayActivatedOnce) return;
+                               overlayActivatedOnce = true;
+           
+                               gsap.to(window, {
+                                   scrollTo: "#about",
+                                   duration: 1.2,
+                                   ease: "power2.out",
+                                   onComplete: () => {
+                                       
+                                   }
+                               });
+                           },
+            */
                 // ⭐ 다시 위로 올라와 hero에 재진입했을 때
                 onEnterBack: () => {
                     // overlay 갑자기 꺼지지 않게 → 부드럽게 제거
@@ -167,28 +173,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
-
-
-
-
-
-
-
-
-    document.addEventListener("scroll", () => {
-        /*     const hero = document.querySelector(".hero_section");
-            const logo = document.querySelector(".rotate_logo");
-        
-            const hero_bottom = hero.getBoundingClientRect().bottom;
-        
-            if (hero_bottom <= 0) {
-                logo.classList.add("rotate_logo_hidden");
-            } else {
-                logo.classList.remove("rotate_logo_hidden");
-            } */
-    });
-
-
 
 
 
@@ -270,7 +254,33 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     })
 
+
+
+
+
+    const visionCards = gsap.utils.toArray(".vision .card");
+
+    visionCards.forEach((card, i) => {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".vision",
+                start: `top+=${i * 600} 75%`,   // ⭐ 시작 늦춰짐
+                end: `top+=${(i + 1) * 600} center`,
+                scrub: 2.5,                     // ⭐ 천천히 따라감
+            }
+        });
+
+        tl.fromTo(card, { rotationY: 0 }, {
+            rotationY: 180,
+            transformOrigin: "center center",
+            ease: "power2.out"
+        });
+    });
+
     window.addEventListener("resize", () => ScrollTrigger.refresh());
+    // Reduced Motion 설정이 바뀌면 새로고침 (선택 사항)
+    window.matchMedia('(prefers-reduced-motion: reduce)')
+        .addEventListener('change', () => location.reload());
 
 });
 

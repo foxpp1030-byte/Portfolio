@@ -9,6 +9,7 @@
 html,
 body {
     width: 100%;
+
 }
 
 body {
@@ -262,6 +263,7 @@ main {
     pointer-events: none;
     transition: opacity 0.35s ease;
     z-index: 100;
+    display: none;
     /*   margin-top: 200px; */
 }
 
@@ -368,6 +370,7 @@ main {
 
 .about_section {
     width: 100%;
+    height: 2000px;
     height: auto;
     display: flex;
     /*     justify-content: center; */
@@ -406,7 +409,7 @@ main {
 }
 
 /* 카드 3개 */
-.cards_inner {
+/* .cards_inner {
     width: 100%;
     margin-top: 35%;
     padding-top: 160px;
@@ -416,16 +419,237 @@ main {
 
 .card_item {
     width: 30%;
-    /* 세 개 나누기 (약 517px) */
     aspect-ratio: 517 / 674;
     background: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
+} */
+
+/* .card_img {
+    object-fit: contain;
+}
+ */
+
+
+
+.vision {
+    width: 100%;
+    height: 2000px;
+    /*    padding: 500px 0; */
+    background: linear-gradient(to top,
+            rgba(255, 255, 255, .3),
+            #035f4e) no-repeat;
+    background-image: url(../img/key.png);
+    background-position: left top;
+
+    /* ===== Sticky wrapper ===== */
+    & .sticky {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* align-items: center; */
+        /* position: sticky; top: 0; → 필요 시 활성화 */
+
+        /* ===== Title 영역 ===== */
+    }
+
+    & .sticky_title {
+        font-family: 'SUIT';
+        font-weight: 300;
+        font-size: 8vw;
+        line-height: 1;
+        white-space: nowrap;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    /* ===== 카드 컨테이너 ===== */
+    & .sticky_con {
+        /*  width: 95%; */
+        width: 1700px;
+        height: 70vh;
+        margin: 0 auto;
+        position: relative;
+
+        & ul {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            position: absolute;
+            left: 0;
+            top: 40px;
+            perspective: 100vw;
+
+            & li {
+                width: 30%;
+                height: 100%;
+                position: relative;
+                transform-style: preserve-3d;
+
+                &>div {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    left: 0;
+                    top: 0;
+                    text-align: center;
+                    /* color: #fcefc0; */
+                    cursor: default;
+                    backface-visibility: hidden;
+                    /* border-radius: 50px; */
+                    background-size: cover;
+                    background-position: center center;
+                }
+
+                /* 카드별 색상 */
+                &:nth-child(1)>div {
+                    /* background-color: #91a864; */
+                }
+
+                &:nth-child(2)>div {
+                    /* background-color: #6aa864; */
+                }
+
+                &:nth-child(3)>div {
+                    /* background-color: #64a887; */
+                }
+
+                /* 카드 앞면 이미지 */
+                &:nth-child(1) .front {
+                    background-image: url(../img/card1.png);
+                }
+
+                &:nth-child(2) .front {
+                    background-image: url(../img/card2.png);
+                }
+
+                &:nth-child(3) .front {
+                    background-image: url(../img/card3.png);
+                }
+
+                /* 카드 뒷면 */
+                &>.back {
+                    transform: rotateY(180deg);
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+
+                /* 아이콘별 이미지 */
+                &:nth-child(1) .back {
+                    background-image: url(../img/card1_back.png);
+                }
+
+                &:nth-child(2) .back {
+                    background-image: url(../img/card2_back.png);
+                }
+
+                &:nth-child(3) .back {
+                    background-image: url(../img/card3_back.png);
+                }
+
+
+                &:hover .icon {
+                    transform: translateY(-10px) rotate(0deg);
+                }
+
+                /* 카드 텍스트 */
+                & h3 {
+                    font-size: 2.8rem;
+                    font-weight: 600;
+                }
+
+                & p {
+                    font-size: 1.4rem;
+                    line-height: 1.8rem;
+                }
+            }
+        }
+    }
 }
 
-.card_img {
-    object-fit: contain;
+
+
+/* =============================
+     🟡 텍스트 영역 (스크롤 배경)
+     ============================= */
+section.txt_area {
+    font-family: var(--eng-lang2);
+    height: 150vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #000a09, #035f4e) no-repeat;
+    background-size: 100% 0;
+    /* 처음에는 세로 100%, 가로 0% */
+    background-position: left top;
+    transition: none;
+    opacity: 0;
+
+    & h2 {
+        font-size: 4.6vw;
+        font-weight: 200;
+        line-height: 1.36;
+        color: #ccc;
+        text-align: center;
+
+        & .tit {
+            position: relative;
+            display: block;
+            color: rgba(253, 184, 95, 0.2);
+            width: 100%;
+            background: linear-gradient(to top,
+                    var(--primary-color-full),
+                    var(--primary-color),
+                    var(--point-color3)) no-repeat;
+            -webkit-background-clip: text;
+            background-clip: text;
+            background-size: 0%;
+            transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s;
+        }
+
+        & b {
+            font-size: 4.8vw;
+        }
+
+        & em {
+            font-size: 10vw;
+        }
+
+        & span {
+            font-family: var(--eng-lang);
+        }
+    }
+}
+
+/* =============================
+     🟡 공통 섹션 타이틀 (.s_tit)
+     ============================= */
+.s_tit {
+    padding: var(--pd-tit);
+    position: relative;
+
+    & h2 {
+        font-size: 4.4vw;
+        text-transform: uppercase;
+        font-weight: 400;
+        font-family: var(--eng-lang);
+    }
+
+    & p {
+        font-size: 1.2vw;
+        font-weight: 200;
+        line-height: 1.2;
+        margin-top: 20px;
+    }
 }
 
 
