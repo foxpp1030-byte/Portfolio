@@ -451,6 +451,7 @@ main {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        gap: 20vh;
         /* align-items: center; */
         /* position: sticky; top: 0; → 필요 시 활성화 */
 
@@ -474,6 +475,7 @@ main {
         height: 70vh;
         margin: 0 auto;
         position: relative;
+        background: #ccc;
 
         & ul {
             width: 100%;

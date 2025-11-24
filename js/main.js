@@ -263,10 +263,10 @@ document.addEventListener("DOMContentLoaded", () => {
     visionCards.forEach((card, i) => {
         const tl = gsap.timeline({
             scrollTrigger: {
-                trigger: ".vision",
-                start: `top+=${i * 600} 75%`,   // ⭐ 시작 늦춰짐
-                end: `top+=${(i + 1) * 600} center`,
-                scrub: 2.5,                     // ⭐ 천천히 따라감
+                trigger: visionCards,
+                start: `top  center`,   // ⭐ 시작 늦춰짐
+                end: `top+=${(i + 1) * 800} center`,
+                scrub: 2,                     // ⭐ 천천히 따라감
             }
         });
 
