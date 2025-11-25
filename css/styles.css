@@ -363,80 +363,9 @@ main {
 
 
 
-
-
-/* About Me Section */
-
-
-.about_section {
-    width: 100%;
-    height: 2000px;
-    height: auto;
-    display: flex;
-    /*     justify-content: center; */
-    padding-top: 150px;
-    background: #ccc;
-    position: relative;
-}
-
-.about_inner {
-    position: relative;
-}
-
-/* 왼쪽 키 이미지 - 퍼센트 위치 */
-.about_key {
-    position: absolute;
-    left: 0%;
-    /* 왼쪽 끝 */
-    top: 0%;
-}
-
-/* 오른쪽 타이틀 */
-.about_title {
-    position: absolute;
-    right: 0%;
-    /* 오른쪽 끝 */
-    top: 8%;
-    /* 위에서 8% */
-}
-
-.about_heading {
-    font-family: 'SUIT';
-    font-weight: 300;
-    font-size: 8vw;
-    line-height: 1;
-    white-space: nowrap;
-}
-
-/* 카드 3개 */
-/* .cards_inner {
-    width: 100%;
-    margin-top: 35%;
-    padding-top: 160px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.card_item {
-    width: 30%;
-    aspect-ratio: 517 / 674;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
-
-/* .card_img {
-    object-fit: contain;
-}
- */
-
-
-
 .vision {
     width: 100%;
     height: 2000px;
-    /*    padding: 500px 0; */
     background: linear-gradient(to top,
             rgba(255, 255, 255, .3),
             #035f4e) no-repeat;
@@ -452,10 +381,6 @@ main {
         flex-direction: column;
         justify-content: center;
         gap: 20vh;
-        /* align-items: center; */
-        /* position: sticky; top: 0; → 필요 시 활성화 */
-
-        /* ===== Title 영역 ===== */
     }
 
     & .sticky_title {
@@ -470,7 +395,6 @@ main {
 
     /* ===== 카드 컨테이너 ===== */
     & .sticky_con {
-        /*  width: 95%; */
         width: 1700px;
         height: 70vh;
         margin: 0 auto;
@@ -579,7 +503,6 @@ main {
 }
 
 
-
 /* =============================
      🟡 텍스트 영역 (스크롤 배경)
      ============================= */
@@ -653,6 +576,43 @@ section.txt_area {
         margin-top: 20px;
     }
 }
+
+
+
+/* ==============================
+   SKILLSET SECTION
+   ============================== */
+
+#skills {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f7f7f7;
+    /* 필요하면 색 바꿔 */
+}
+
+.skills_inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skillset_img {
+    width: 368px;
+    /* Figma 값 */
+    height: 634px;
+    /* Figma 값 */
+    background: url("../img/skillset01.png") center/contain no-repeat;
+    /* 처음 상태: 아래에서 올라오도록 */
+    opacity: 0;
+    transform: translateY(80px);
+}
+
+
 
 
 

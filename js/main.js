@@ -284,5 +284,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+// ================== Skillset receipt from bottom ==================
+const skillReceipt = document.querySelector(".skillset_img");
+
+if (skillReceipt) {
+    gsap.fromTo(
+        skillReceipt,
+        { y: 80, opacity: 0 },
+        {
+            y: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: "#skills",
+                start: "top 80%",     // 화면 아래쪽에서 살짝 보일 때 시작
+                end: "top 50%",       // 크게 의미는 없지만 여유 범위
+                scrub: false,         // 디폴트 scrub 1 끄기 (한 번 쭉 재생)
+                toggleActions: "play none none reverse"
+            }
+        }
+    );
+}
 
 
