@@ -223,6 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 각 섹션에 애니메이션 적용
     const animations = [
+        { target: ".iw0", properties: { y: -200 } },
         { target: ".iw1", properties: { y: -200 }, duration: 2, ease: "elastic" },
         { target: ".iw2", properties: { rotation: 720 }, duration: 2, ease: "elastic" },
         { target: ".iw3", properties: { scale: 0.3 }, duration: 2, ease: "elastic" },
