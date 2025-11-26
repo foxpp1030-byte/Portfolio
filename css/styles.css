@@ -785,11 +785,9 @@ section.txt_area {
 
 #con4_2 .bjo_wrap {
     position: relative;
-    width: 2000px;
-    /* 1920 → 2000 으로 살짝 넓게 */
-    height: 1080px;
-    transform: scale(0.75);
-    transform-origin: center center;
+    width: 100%;
+    height: 100%;
+
 }
 
 
@@ -814,7 +812,7 @@ section.txt_area {
 /* 오른쪽 위 작은 곡선 */
 #con4_2 .bjo_line_right {
     width: 20%;
-    right: 0px;
+    right: 0;
     top: 150px;
     position: absolute;
 }
