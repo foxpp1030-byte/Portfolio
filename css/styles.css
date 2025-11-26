@@ -404,7 +404,6 @@ main {
         height: 70vh;
         margin: 0 auto;
         position: relative;
-        background: #ccc;
 
         & ul {
             width: 100%;
