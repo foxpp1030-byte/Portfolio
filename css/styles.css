@@ -782,7 +782,7 @@ section.txt_area {
     align-items: center;
 }
 
-/* Figma 프레임 사이즈 그대로 */
+
 #con4_2 .bjo_wrap {
     position: relative;
     width: 2000px;
@@ -792,7 +792,7 @@ section.txt_area {
     transform-origin: center center;
 }
 
-/* 공통 SVG 스타일 */
+
 #con4_2 .bjo_line {
     position: absolute;
     fill: none;
@@ -807,7 +807,6 @@ section.txt_area {
 #con4_2 .bjo_line_left {
     width: 80%;
     left: 0px;
-    /* Figma에서 path X값 */
     top: 400px;
     position: absolute;
 }
@@ -820,7 +819,7 @@ section.txt_area {
     position: absolute;
 }
 
-/* 공통 이미지 스타일 */
+
 #con4_2 .bjo_img {
     position: absolute;
     display: block;
@@ -828,28 +827,27 @@ section.txt_area {
     object-fit: cover;
 }
 
-/* 위 왼쪽 항아리+튜브 */
+
 #con4_2 .bjo_img_top {
     width: 28%;
     left: 10%;
     top: 18%;
 }
 
-/* 가운데 맥북 */
+
 #con4_2 .bjo_img_center {
     width: 40%;
     left: 32%;
     top: 22%;
 }
 
-/* 왼쪽 아래 인삼 */
+
 #con4_2 .bjo_img_bottom {
     width: 22%;
     left: 30%;
     top: 58%;
 }
 
-/* 오른쪽 인물 */
 #con4_2 .bjo_img_right {
     width: 24%;
     right: 9%;
