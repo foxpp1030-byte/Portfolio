@@ -9,7 +9,6 @@
 html,
 body {
     width: 100%;
-
 }
 
 body {
@@ -355,6 +354,12 @@ main {
 }
 
 /* SKILL SET */
+#skillset {
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
 .label_skillset {
     left: 1280px;
     top: 730px;
@@ -616,12 +621,124 @@ section.txt_area {
 
 
 
-
 #projects {
     position: relative;
-    background: yellowgreen;
     display: flex;
     width: 500vw;
+    background-color: #fff;
+}
+
+.hItem {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    /* 디버그 테두리 제거 */
+    flex-shrink: 0;
+}
+
+
+
+.hItem.projects_page {
+    justify-content: flex-start;
+    align-items: stretch;
+    border: none;
+    font-family: "SUIT", sans-serif;
+}
+
+.projects_page .projects_layout {
+    width: clamp(50vw, 90%, var(--inner_width));
+    max-width: var(--inner_width);
+    height: 100%;
+    margin: 0 auto;
+    padding: 120px 0;
+    display: grid;
+    grid-template-columns: 1fr 946px;
+    column-gap: 80px;
+}
+
+/* 왼쪽 */
+.projects_page .projects_left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.projects_page .projects_big {
+    font-size: 100px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #111;
+}
+
+.projects_page .projects_vertical {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    white-space: nowrap;
+    transform: rotate(-90deg);
+    transform-origin: left bottom;
+    color: #000;
+}
+
+/* 오른쪽 */
+.projects_page .projects_right {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+}
+
+.projects_page .projects_list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.projects_page .proj_line {
+    display: grid;
+    grid-template-columns: auto minmax(0, 3fr) auto;
+    padding: 60px 0;
+    border-top: 1px solid #ddd;
+
+}
+
+.projects_page .projects_list li:last-child .proj_line {
+    border-bottom: 1px solid #ddd;
+}
+
+
+.projects_page .proj_name {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111;
+    line-height: 1.4;
+}
+
+.projects_page .proj_sub {
+    font-size: 20px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.projects_page .proj_meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    font-size: 16px;
+    color: #b3b3b3;
+    white-space: nowrap;
+}
+
+.projects_page .proj_meta span+span {
+    margin-top: 4px;
 }
 
 #projects img {
@@ -629,9 +746,9 @@ section.txt_area {
 }
 
 #projects h2 {
-    position: absolute;
     left: 0;
     top: 100px;
+    align-items: flex-start;
 }
 
 #projects svg {

@@ -177,14 +177,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
-
-
-
-
-
-
-
     //가로 스크롤 섹션 애니메이션 설정
     const horizontal = document.querySelector('.horizontal');
     const sections = gsap.utils.toArray('.horizontal>article');
@@ -253,8 +245,6 @@ document.addEventListener("DOMContentLoaded", () => {
             containerAnimation: scrollTween, // 가로 스크롤 애니메이션과 동기화   
         })
     })
-
-
 
 
 
