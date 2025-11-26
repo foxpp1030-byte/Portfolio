@@ -785,12 +785,10 @@ section.txt_area {
 /* Figma 프레임 사이즈 그대로 */
 #con4_2 .bjo_wrap {
     position: relative;
-    width: 1920px;
-    /* Figma 프레임 폭 */
+    width: 2000px;
+    /* 1920 → 2000 으로 살짝 넓게 */
     height: 1080px;
-    /* Figma 프레임 높이 */
     transform: scale(0.75);
-    /* 화면에 맞게 축소 */
     transform-origin: center center;
 }
 
