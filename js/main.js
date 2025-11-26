@@ -195,7 +195,31 @@ document.addEventListener("DOMContentLoaded", () => {
             invalidateOnRefresh: true, // 새로고침하면 위치 다시 계산해줌
         }
     })
+    const bjoPaths = document.querySelectorAll(".bjo_line path");
 
+    if (bjoPaths.length) {
+        // 1) 처음엔 선 안 보이게 세팅
+        bjoPaths.forEach((path) => {
+            const len = path.getTotalLength();
+            path.style.strokeDasharray = len;
+            path.style.strokeDashoffset = len;
+        });
+
+        // 2) 가로 스크롤에 맞춰 선이 그려지도록
+        gsap.to(bjoPaths, {
+            strokeDashoffset: 0,
+            ease: "none",
+            stagger: 0.15,
+            scrollTrigger: {
+                trigger: ".bjo_wrap",        // con4_2 안 랩퍼
+                containerAnimation: scrollTween, // 가로 스크롤이랑 싱크
+                start: "left center",
+                end: "right center",
+                scrub: true,
+                // markers: true,  // 확인용
+            }
+        });
+    }
 
     // 각 섹션에 애니메이션 적용
     const animations = [

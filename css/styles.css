@@ -741,9 +741,6 @@ section.txt_area {
     margin-top: 4px;
 }
 
-#projects img {
-    height: 300px;
-}
 
 #projects h2 {
     left: 0;
@@ -751,11 +748,7 @@ section.txt_area {
     align-items: flex-start;
 }
 
-#projects svg {
-    position: absolute;
-    left: 0;
-    top: 0;
-}
+
 
 .hItem {
     width: 100vw;
@@ -776,4 +769,91 @@ section.txt_area {
     font-family: "Lato";
     font-weight: 100;
     z-index: 100;
+}
+
+/* =========================
+   PROJECTS - 조선미녀 
+   ========================= */
+#con4_2 {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Figma 프레임 사이즈 그대로 */
+#con4_2 .bjo_wrap {
+    position: relative;
+    width: 1920px;
+    /* Figma 프레임 폭 */
+    height: 1080px;
+    /* Figma 프레임 높이 */
+    transform: scale(0.75);
+    /* 화면에 맞게 축소 */
+    transform-origin: center center;
+}
+
+/* 공통 SVG 스타일 */
+#con4_2 .bjo_line {
+    position: absolute;
+    fill: none;
+    stroke: #DDDDDD;
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-miterlimit: 16;
+    opacity: 0.5;
+}
+
+/* 왼쪽 아래 큰 곡선 */
+#con4_2 .bjo_line_left {
+    width: 80%;
+    left: 0px;
+    /* Figma에서 path X값 */
+    top: 400px;
+    position: absolute;
+}
+
+/* 오른쪽 위 작은 곡선 */
+#con4_2 .bjo_line_right {
+    width: 20%;
+    right: 0px;
+    top: 150px;
+    position: absolute;
+}
+
+/* 공통 이미지 스타일 */
+#con4_2 .bjo_img {
+    position: absolute;
+    display: block;
+    height: auto;
+    object-fit: cover;
+}
+
+/* 위 왼쪽 항아리+튜브 */
+#con4_2 .bjo_img_top {
+    width: 28%;
+    left: 10%;
+    top: 18%;
+}
+
+/* 가운데 맥북 */
+#con4_2 .bjo_img_center {
+    width: 40%;
+    left: 32%;
+    top: 22%;
+}
+
+/* 왼쪽 아래 인삼 */
+#con4_2 .bjo_img_bottom {
+    width: 22%;
+    left: 30%;
+    top: 58%;
+}
+
+/* 오른쪽 인물 */
+#con4_2 .bjo_img_right {
+    width: 24%;
+    right: 9%;
+    top: 27%;
 }
