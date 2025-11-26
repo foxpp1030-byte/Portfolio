@@ -807,7 +807,7 @@ section.txt_area {
 #con4_2 .bjo_line_left {
     width: 80%;
     left: 0px;
-    top: 400px;
+    top: 440px;
     position: absolute;
 }
 
@@ -828,28 +828,26 @@ section.txt_area {
 }
 
 
+/* 위 왼쪽 항아리 */
 #con4_2 .bjo_img_top {
-    width: 28%;
-    left: 10%;
+    left: 8%;
     top: 18%;
 }
 
-
+/* 가운데 맥북 */
 #con4_2 .bjo_img_center {
-    width: 40%;
-    left: 32%;
+    left: 34%;
     top: 22%;
 }
 
-
+/* 왼쪽 아래 인삼 – 제일 많이 겹치는 애 */
 #con4_2 .bjo_img_bottom {
-    width: 22%;
-    left: 30%;
-    top: 58%;
+    left: 18%;
+    top: 62%;
 }
 
+/* 오른쪽 인물 */
 #con4_2 .bjo_img_right {
-    width: 24%;
-    right: 9%;
-    top: 27%;
+    right: 0%;
+    top: 50%;
 }
