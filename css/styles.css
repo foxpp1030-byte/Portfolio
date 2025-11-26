@@ -585,19 +585,19 @@ section.txt_area {
 
 #skills {
     width: 100%;
-    height: 100vh;
+    min-height: 130vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f7f7f7;
-    /* 필요하면 색 바꿔 */
+    padding-top: 80px;
+    padding-bottom: 200px;
 }
 
 .skills_inner {
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 }
 
