@@ -930,6 +930,7 @@ PROJECTS - heAi 섹션
     position: absolute;
     width: 19%;
     right: 0;
+    left: auto;
     top: -2%;
 }
 
