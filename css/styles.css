@@ -825,7 +825,7 @@ section.txt_area {
 /* 오른쪽 위 작은 곡선 */
 #con4_4 .bjo_line_right {
     width: 19%;
-    left: 0;
+    left: 8%;
     top: 5%;
 }
 
@@ -876,7 +876,7 @@ PROJECTS - heAi 섹션
 .heai_wrap_left .heai_line_left {
     position: absolute;
     width: 30%;
-    right: 0%;
+    right: -20%;
     bottom: -4vh;
 }
 
@@ -929,7 +929,7 @@ PROJECTS - heAi 섹션
     position: absolute;
     width: 60%;
     /* 곡선 길이 */
-    left: 0;
+    left: -8%;
     /* 왼쪽에서 조금 떨어지게 */
     top: 10%;
     /* 위에서 조금 내려오게 */
