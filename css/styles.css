@@ -749,17 +749,6 @@ section.txt_area {
 
 
 
-.hItem {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 10px solid red;
-    flex-shrink: 0;
-}
-
 .hItem h3 {
     font-size: 5vw;
     position: absolute;
@@ -798,15 +787,15 @@ section.txt_area {
 /* 왼쪽 아래 큰 곡선 */
 #con4_2 .bjo_line_left {
     width: 75%;
-    left: -5px;
+    right: -5px;
     bottom: -5%;
 }
 
 /* 오른쪽 위 작은 곡선 */
 #con4_4 .bjo_line_right {
-    width: 20%;
-    right: 8%;
-    top: 8%;
+    width: 19%;
+    left: 0;
+    top: 5%;
 }
 
 #con4_3 .bjo_wrap {
@@ -827,24 +816,24 @@ section.txt_area {
 
 /* 위 왼쪽 항아리 */
 #con4_3 .bjo_img_top {
-    left: 8%;
-    top: 18%;
+    left: 4%;
+    top: 10%;
 }
 
 /* 가운데 맥북 */
 #con4_3 .bjo_img_center {
     left: 34%;
-    top: 22%;
+    top: 15%;
 }
 
 /* 왼쪽 아래 인삼 – 제일 많이 겹치는 애 */
 #con4_3 .bjo_img_bottom {
-    left: 18%;
-    top: 62%;
+    left: 16%;
+    top: 50%;
 }
 
 /* 오른쪽 인물 */
 #con4_3 .bjo_img_right {
-    right: 0%;
-    top: 50%;
+    left: 85%;
+    top: 45%;
 }
