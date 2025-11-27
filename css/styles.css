@@ -773,22 +773,19 @@ section.txt_area {
 /* =========================
    PROJECTS - 조선미녀 
    ========================= */
-#con4_2 {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.bjo_panel .bjo_wrap {
+    width: 100%;
+    max-width: 1700px;
+    /* 필요하면 1500~1700 사이로 조절 */
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
 }
 
 
-#con4_2 .bjo_wrap {
-    width: 2000px;
-    height: 1080px;
-}
-
-
-#con4_2 .bjo_line {
+/* 조선미녀 선 공통 스타일 */
+.bjo_line {
     position: absolute;
     fill: none;
     stroke: #DDDDDD;
@@ -800,22 +797,27 @@ section.txt_area {
 
 /* 왼쪽 아래 큰 곡선 */
 #con4_2 .bjo_line_left {
-    width: 80%;
-    left: 0px;
-    top: 440px;
-    position: absolute;
+    width: 75%;
+    left: -5px;
+    bottom: -5%;
 }
 
 /* 오른쪽 위 작은 곡선 */
-#con4_2 .bjo_line_right {
+#con4_4 .bjo_line_right {
     width: 20%;
-    right: 0;
-    top: 150px;
-    position: absolute;
+    right: 8%;
+    top: 8%;
 }
 
+#con4_3 .bjo_wrap {
+    width: 100%;
+    max-width: 1700px;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+}
 
-#con4_2 .bjo_img {
+#con4_3 .bjo_img {
     position: absolute;
     display: block;
     height: auto;
@@ -824,25 +826,25 @@ section.txt_area {
 
 
 /* 위 왼쪽 항아리 */
-#con4_2 .bjo_img_top {
+#con4_3 .bjo_img_top {
     left: 8%;
     top: 18%;
 }
 
 /* 가운데 맥북 */
-#con4_2 .bjo_img_center {
+#con4_3 .bjo_img_center {
     left: 34%;
     top: 22%;
 }
 
 /* 왼쪽 아래 인삼 – 제일 많이 겹치는 애 */
-#con4_2 .bjo_img_bottom {
+#con4_3 .bjo_img_bottom {
     left: 18%;
     top: 62%;
 }
 
 /* 오른쪽 인물 */
-#con4_2 .bjo_img_right {
+#con4_3 .bjo_img_right {
     right: 0%;
     top: 50%;
 }
