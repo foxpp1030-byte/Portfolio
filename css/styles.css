@@ -923,3 +923,26 @@ PROJECTS - heAi 섹션
     right: 10%;
     bottom: 13%;
 }
+
+/* heAi 중간(닫는) 선 위치 */
+.heai_wrap_mid .heai_line_mid {
+    position: absolute;
+    width: 60%;
+    /* 곡선 길이 */
+    left: 0;
+    /* 왼쪽에서 조금 떨어지게 */
+    top: 10%;
+    /* 위에서 조금 내려오게 */
+
+}
+
+
+
+
+/* 예술의전당 시작 짧은 선 위치 */
+.sac_wrap_left .sac_line_left {
+    position: absolute;
+    width: 18%;
+    right: -10%;
+    top: 0;
+}

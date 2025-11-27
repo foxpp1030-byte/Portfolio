@@ -197,12 +197,14 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 
-    const bjoPanels = gsap.utils.toArray(".bjo_panel");
+    // ================== 선 그리기 (조선미녀 / heAi / 예술의 전당 공통) ==================
+    const linePanels = gsap.utils.toArray(".line_panel");
 
-    bjoPanels.forEach((panel) => {
-        // ▽ 패널 안에 있는 모든 선(path) 다 가져오기
-        const paths = panel.querySelectorAll(".bjo_line path, .heai_line path");
-
+    linePanels.forEach((panel) => {
+        // 해당 패널 안에 있는 모든 라인(path)들 잡기
+        const paths = panel.querySelectorAll(
+            ".bjo_line path, .heai_line path, .sac_line path"
+        );
         if (!paths.length) return;
 
         paths.forEach((path) => {
@@ -214,13 +216,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 strokeDashoffset: 0,
                 ease: "none",
                 scrollTrigger: {
-                    trigger: panel,               // 그 아티클 기준
+                    trigger: panel,              // 이 패널이 화면 가운데 올 때
                     containerAnimation: scrollTween, // 가로 스크롤이랑 싱크
                     start: "left center",
                     end: "right center",
                     scrub: true,
                     // markers: true,
-                },
+                }
             });
         });
     });
