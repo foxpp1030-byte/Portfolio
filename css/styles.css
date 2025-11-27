@@ -623,7 +623,6 @@ section.txt_area {
 #projects {
     position: relative;
     display: flex;
-    width: 500vw;
     background-color: #fff;
 }
 
@@ -939,10 +938,58 @@ PROJECTS - heAi 섹션
 
 
 
+
+
+/* =========================
+   PROJECTS - 예술의전당 섹션
+   ========================= */
 /* 예술의전당 시작 짧은 선 위치 */
 .sac_wrap_left .sac_line_left {
     position: absolute;
     width: 18%;
     right: -10%;
     top: 0;
+}
+
+#con4_7 .sac_fig {
+    position: relative;
+    display: block;
+    width: 80%;
+    /* 전체 가로 비율 */
+    max-width: 1300px;
+    /* 너무 커지지 않게 제한 */
+    margin: 0 auto;
+}
+
+/* 가운데 노트북 메인 */
+#con4_7 .sac_main {
+    display: block;
+    width: 60%;
+    margin: 0 auto;
+    align-items: center;
+}
+
+/* 각 포스터 위치 (퍼센트로, 화면 비율 따라감) */
+#con4_7 .sac_poster1 {
+    /* 왼쪽 위 포스터 */
+    top: 4%;
+    left: -3%;
+}
+
+#con4_7 .sac_poster2 {
+    /* 왼쪽 아래 isometric */
+    bottom: -10%;
+    left: 5%;
+}
+
+#con4_7 .sac_poster3 {
+    /* 오른쪽 중간 검은 레이아웃 */
+    top: 18%;
+    right: -6%;
+}
+
+#con4_7 .sac_poster4 {
+    /* 오른쪽 아래 포스터 */
+    bottom: -14%;
+    right: 2%;
 }

@@ -180,6 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //가로 스크롤 섹션 애니메이션 설정
     const horizontal = document.querySelector('.horizontal');
     const sections = gsap.utils.toArray('.horizontal>article');
+    horizontal.style.width = `${sections.length * 100}vw`;
     let ani = [];
     const scrollTween = gsap.to(sections, {
         xPercent: -100 * (sections.length - 1),//전체 섹션 수만큼 왼쪽으로 밀기
