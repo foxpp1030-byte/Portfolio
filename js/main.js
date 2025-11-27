@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const bjoPanels = gsap.utils.toArray(".bjo_panel");
 
     bjoPanels.forEach((panel) => {
-        const path = panel.querySelector(".bjo_line path");
+        const path = panel.querySelector(".bjo_line path, .heai_line path");
         if (!path) return;
 
         const len = path.getTotalLength();
