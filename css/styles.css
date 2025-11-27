@@ -870,9 +870,56 @@ section.txt_area {
 }
 
 
+/* =========================
+PROJECTS - heAi 섹션
+========================= */
 .heai_wrap_left .heai_line_left {
     position: absolute;
     width: 30%;
     right: 0%;
     bottom: -4vh;
+}
+
+.heai_panel .heai_img_wrap {
+    position: relative;
+    width: 100%;
+    max-width: 1700px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+/* 가운데 메인 모형 이미지 */
+.heai_main {
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    transform: translate(-50%, -53%);
+    width: 850px;
+    height: auto;
+}
+
+/* 공통 캐릭터 기본값 */
+.heai_char {
+    position: absolute;
+    height: 190px;
+    /* 크기 마음에 안 들면 여기 조절 */
+    width: auto;
+}
+
+/* 왼쪽 파란이 */
+.heai_char_left {
+    left: 20%;
+    bottom: 15%;
+}
+
+/* 가운데(책 읽는) */
+.heai_char_mid {
+    right: 18%;
+    bottom: 14%;
+}
+
+/* 맨 오른쪽 축포 */
+.heai_char_right {
+    right: 10%;
+    bottom: 13%;
 }
