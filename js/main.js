@@ -195,28 +195,33 @@ document.addEventListener("DOMContentLoaded", () => {
             invalidateOnRefresh: true, // 새로고침하면 위치 다시 계산해줌
         }
     })
-    // ================== 조선미녀 선 그리기 ==================
+
+
     const bjoPanels = gsap.utils.toArray(".bjo_panel");
 
     bjoPanels.forEach((panel) => {
-        const path = panel.querySelector(".bjo_line path, .heai_line path");
-        if (!path) return;
+        // ▽ 패널 안에 있는 모든 선(path) 다 가져오기
+        const paths = panel.querySelectorAll(".bjo_line path, .heai_line path");
 
-        const len = path.getTotalLength();
-        path.style.strokeDasharray = len;
-        path.style.strokeDashoffset = len;
+        if (!paths.length) return;
 
-        gsap.to(path, {
-            strokeDashoffset: 0,
-            ease: "none",
-            scrollTrigger: {
-                trigger: panel,              // 각 패널 기준
-                containerAnimation: scrollTween, // 가로 스크롤이랑 싱크
-                start: "left center",
-                end: "right center",
-                scrub: true,
-                // markers: true,
-            }
+        paths.forEach((path) => {
+            const len = path.getTotalLength();
+            path.style.strokeDasharray = len;
+            path.style.strokeDashoffset = len;
+
+            gsap.to(path, {
+                strokeDashoffset: 0,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: panel,               // 그 아티클 기준
+                    containerAnimation: scrollTween, // 가로 스크롤이랑 싱크
+                    start: "left center",
+                    end: "right center",
+                    scrub: true,
+                    // markers: true,
+                },
+            });
         });
     });
 
