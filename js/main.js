@@ -318,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
     linePanels.forEach((panel) => {
         // 해당 패널 안에 있는 모든 라인(path)들 잡기
         const paths = panel.querySelectorAll(
-            ".bjo_line path,  .verra_line_end path"
+            ".bjo_line path, .verra_line_end path"
         );
         if (!paths.length) return;
 
