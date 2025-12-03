@@ -692,7 +692,8 @@ section.txt_area {
 /* 선들 공통 스타일 */
 .bjo_line path,
 .heai_line path,
-.sac_line path {
+.sac_line path,
+.verra_line_end path {
     stroke: #dddddd;
     stroke-width: 10;
     stroke-linecap: round;
@@ -1252,4 +1253,20 @@ PROJECTS - heAi 섹션
     background: #000;
     color: #fff;
     border-color: #000;
+}
+
+/* 닫는선 */
+.verra_end_panel {
+    position: relative;
+}
+
+/* svg 자체 위치 */
+.verra_line_end {
+    position: absolute;
+    width: 14%;
+    /* 선 크기 – 작다/크다 싶으면 여기 조절 */
+    left: -2%;
+    /* 화면 더 바깥에서 시작하고 싶으면 더 음수 */
+    bottom: -6%;
+    /* 얼마나 아래에서 시작할지 */
 }
