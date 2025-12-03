@@ -389,11 +389,12 @@ function visual_set_poster(src) {
 
 function visual_activate_item(item) {
     if (!item) return;
-    const src = item.getAttribute("data_poster");
+    const src = item.getAttribute("data_poster"); // data_poster 그대로 사용
     visual_set_poster(src);
 
     visual_items.forEach((el) => {
-        el.classList.toggle("visual_is_active", el === item);
+        // ✅ CSS랑 이름 맞추기
+        el.classList.toggle("is_active", el === item);
     });
 }
 
