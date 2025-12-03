@@ -363,6 +363,8 @@ document.addEventListener("DOMContentLoaded", () => {
         .addEventListener('change', () => location.reload());
 });
 
+// main.js
+
 // ================== Visual Archive ==================
 const visual_items = gsap.utils.toArray(".visual_item");
 const visual_poster_img = document.querySelector(".visual_poster_img");
@@ -370,17 +372,26 @@ const visual_poster_img = document.querySelector(".visual_poster_img");
 function visual_set_poster(src) {
     if (!visual_poster_img || !src) return;
 
+    // 현재 이미지와 바꿀 이미지가 같으면 실행 안 함
     const current = visual_poster_img.getAttribute("src");
     if (current === src) return;
 
+    // [수정된 로직] 깜빡임 없이 부드럽게 교체
+    // 1. 이미지를 살짝 투명하게 만들면서 작아졌다가
     gsap.to(visual_poster_img, {
         opacity: 0,
-        duration: 0.35,
+        scale: 0.95,
+        duration: 0.2, // 아주 빠르게 사라짐
+        ease: "power1.out",
         onComplete: () => {
+            // 2. 이미지 소스 교체
             visual_poster_img.setAttribute("src", src);
+
+            // 3. 다시 원래 크기와 불투명도로 복귀
             gsap.to(visual_poster_img, {
                 opacity: 1,
-                duration: 0.5,
+                scale: 1,
+                duration: 0.4,
                 ease: "power2.out",
             });
         },
@@ -389,32 +400,31 @@ function visual_set_poster(src) {
 
 function visual_activate_item(item) {
     if (!item) return;
-
-    // ✅ HTML의 data-poster랑 맞춰주기
-    const src = item.getAttribute("data-poster"); // 혹은 item.dataset.poster 도 가능
+    const src = item.getAttribute("data-poster");
     visual_set_poster(src);
 
-    // ✅ CSS에서 쓰는 클래스명이랑 맞춤
     visual_items.forEach((el) => {
         el.classList.toggle("is_active", el === item);
     });
 }
 
-// 각 아이템이 화면 가운데쯤 올 때마다 포스터/스타일 교체
+// 스크롤 트리거 부분은 기존 로직 유지하되, start/end 지점을 조금 더 중앙으로 맞춤
 visual_items.forEach((item, index) => {
     ScrollTrigger.create({
         trigger: item,
-        start: "top center",
-        end: "bottom center",
+        // 텍스트가 화면 중앙보다 조금 아래에 왔을 때부터, 중앙 위로 올라갈 때까지 인식
+        start: "top 60%",
+        end: "bottom 40%",
         onEnter: () => visual_activate_item(item),
         onEnterBack: () => visual_activate_item(item),
     });
 
-    // 첫 번째 아이템 기본 활성
+    // 로드 시 첫 번째 아이템 강제 활성화
     if (index === 0) {
         visual_activate_item(item);
     }
 });
+
 
 
 
