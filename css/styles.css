@@ -1260,11 +1260,11 @@ PROJECTS - heAi 섹션
 /* svg 자체 위치 */
 .verra_line_end {
     position: absolute;
-    width: 14%;
+    width: 20%;
     /* 선 크기 – 작다/크다 싶으면 여기 조절 */
-    left: -2%;
+    left: -15%;
     /* 화면 더 바깥에서 시작하고 싶으면 더 음수 */
-    bottom: -6%;
+    bottom: 50%;
     /* 얼마나 아래에서 시작할지 */
 }
 
