@@ -1392,9 +1392,7 @@ PROJECTS - heAi 섹션
     font-weight: 500;
     line-height: 1.5;
     color: #111111;
-    transition: font-size 0.3s 
-ease, color 0.3s 
-ease;
+    transition: font-size 0.3s ease, color 0.3s ease;
 }
 
 /* 오른쪽 포스터 프리뷰 */

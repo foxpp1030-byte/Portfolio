@@ -389,14 +389,15 @@ function visual_set_poster(src) {
 
 function visual_activate_item(item) {
     if (!item) return;
-    const src = item.getAttribute("data_poster"); // data_poster 그대로 사용
+    const src = item.getAttribute("data-poster");
+
     visual_set_poster(src);
 
     visual_items.forEach((el) => {
-        // ✅ CSS랑 이름 맞추기
         el.classList.toggle("is_active", el === item);
     });
 }
+
 
 visual_items.forEach((item, index) => {
     ScrollTrigger.create({
