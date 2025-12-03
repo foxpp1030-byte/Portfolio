@@ -667,9 +667,6 @@ section.txt_area {
     flex-shrink: 0;
 }
 
-.hItem:last-child {
-    background: yellow;
-}
 
 .hItem.projects_page {
     justify-content: flex-start;
@@ -1269,4 +1266,10 @@ PROJECTS - heAi 섹션
     /* 화면 더 바깥에서 시작하고 싶으면 더 음수 */
     bottom: -6%;
     /* 얼마나 아래에서 시작할지 */
+}
+
+/* pin 풀린 뒤에는 마지막 패널 숨기기 */
+#con4_7.hide-after-pin {
+    opacity: 0;
+    pointer-events: none;
 }

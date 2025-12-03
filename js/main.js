@@ -292,27 +292,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // ==================== projects Horizontal gallery ==================== //
+    // ==================== projects Horizontal gallery ====================
     scrollTween = gsap.to(".track", {
         x: () => -total_width(),
         ease: "none",
         scrollTrigger: {
             trigger: "#projects",
             start: "top top",
-            end: () => "+=" + (total_width() + window.innerHeight),
+            end: () => "+=" + total_width(),   // 가로 이동 거리만큼만 사용
             scrub: true,
             pin: true,
-            pinSpacing: true,
+            pinSpacing: true,                  // 다시 true (기본값)
             anticipatePin: 1,
             onEnter: () => set_active("#projects"),
-            onEnterBack: () => set_active("#projects"),
+            onEnterBack: () => {
+                set_active("#projects");
+                const last = document.querySelector("#con4_7");
+                if (last) last.classList.remove("hide-after-pin");
+            },
+            onLeave: () => {
+                // pin 끝난 뒤에는 마지막 패널 안 보이게
+                const last = document.querySelector("#con4_7");
+                if (last) last.classList.add("hide-after-pin");
+            },
+            onLeaveBack: () => {
+                // 다시 위로 올라가면 다시 보이게
+                const last = document.querySelector("#con4_7");
+                if (last) last.classList.remove("hide-after-pin");
+            },
+            // markers: true,
         },
     });
 
 
 
 
-    // ================== 선 그리기 (조선미녀 / heAi / 예술의 전당 공통) ==================
+    // ================== 선 그리기 (조선미녀 / heAi / 예술의 전당 공통) ================== 
     const linePanels = gsap.utils.toArray(".line_panel");
 
     linePanels.forEach((panel) => {
