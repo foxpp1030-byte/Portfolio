@@ -363,7 +363,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .addEventListener('change', () => location.reload());
 });
 
-// main.js
 
 // ================== Visual Archive ==================
 const visual_items = gsap.utils.toArray(".visual_item");
