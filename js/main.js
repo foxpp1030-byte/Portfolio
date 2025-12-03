@@ -364,65 +364,63 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// ================== Visual Archive ==================
-const visual_items = gsap.utils.toArray(".visual_item");
-const visual_poster_img = document.querySelector(".visual_poster_img");
+// ================== Visual Archive – 스크롤에 맞춰 포스터 바꾸기 ==================
+document.addEventListener("DOMContentLoaded", () => {
+    const visualItems = Array.from(document.querySelectorAll(".visual_item"));
+    const visualPosterImg = document.querySelector(".visual_poster_img");
 
-function visual_set_poster(src) {
-    if (!visual_poster_img || !src) return;
+    // 요소 없으면 그냥 종료
+    if (!visualItems.length || !visualPosterImg) return;
 
-    // 현재 이미지와 바꿀 이미지가 같으면 실행 안 함
-    const current = visual_poster_img.getAttribute("src");
-    if (current === src) return;
+    // 글 + 포스터 바꾸는 함수
+    function activateVisual(item) {
+        if (!item) return;
 
-    // [수정된 로직] 깜빡임 없이 부드럽게 교체
-    // 1. 이미지를 살짝 투명하게 만들면서 작아졌다가
-    gsap.to(visual_poster_img, {
-        opacity: 0,
-        scale: 0.95,
-        duration: 0.2, // 아주 빠르게 사라짐
-        ease: "power1.out",
-        onComplete: () => {
-            // 2. 이미지 소스 교체
-            visual_poster_img.setAttribute("src", src);
+        // 글자 하이라이트
+        visualItems.forEach((el) => el.classList.remove("is_active"));
+        item.classList.add("is_active");
 
-            // 3. 다시 원래 크기와 불투명도로 복귀
-            gsap.to(visual_poster_img, {
-                opacity: 1,
-                scale: 1,
-                duration: 0.4,
-                ease: "power2.out",
-            });
-        },
-    });
-}
+        // 포스터 이미지 교체
+        const src = item.dataset.poster;
+        if (src) {
+            visualPosterImg.src = src;
 
-function visual_activate_item(item) {
-    if (!item) return;
-    const src = item.getAttribute("data-poster");
-    visual_set_poster(src);
-
-    visual_items.forEach((el) => {
-        el.classList.toggle("is_active", el === item);
-    });
-}
-
-// 스크롤 트리거 부분은 기존 로직 유지하되, start/end 지점을 조금 더 중앙으로 맞춤
-visual_items.forEach((item, index) => {
-    ScrollTrigger.create({
-        trigger: item,
-        // 텍스트가 화면 중앙보다 조금 아래에 왔을 때부터, 중앙 위로 올라갈 때까지 인식
-        start: "top 60%",
-        end: "bottom 40%",
-        onEnter: () => visual_activate_item(item),
-        onEnterBack: () => visual_activate_item(item),
-    });
-
-    // 로드 시 첫 번째 아이템 강제 활성화
-    if (index === 0) {
-        visual_activate_item(item);
+            const titleEl = item.querySelector(".visual_item_title");
+            visualPosterImg.alt = titleEl ? titleEl.innerText.trim() : "Visual poster";
+        }
     }
+
+    // 스크롤 기준으로 “화면 가운데에 걸려 있는 애” 찾기
+    function updateByScroll() {
+        const centerY = window.innerHeight * 0.5; // 뷰포트 세로 중앙
+        let current = visualItems[0];
+
+        visualItems.forEach((item) => {
+            const rect = item.getBoundingClientRect();
+            if (rect.top <= centerY && rect.bottom >= centerY) {
+                current = item;
+            }
+        });
+
+        // 바뀌었을 때만 업데이트 (깜빡임 방지)
+        if (!current.classList.contains("is_active")) {
+            activateVisual(current);
+        }
+    }
+
+    // 초기 상태: 맨 위 아이템으로 세팅
+    activateVisual(visualItems[0]);
+    updateByScroll();
+
+    // 스크롤 할 때마다 중앙 기준으로 포스터 교체
+    window.addEventListener("scroll", updateByScroll);
+
+    // 마우스로 올려도 바로 바뀌게
+    visualItems.forEach((item) => {
+        item.addEventListener("mouseenter", () => activateVisual(item));
+    });
 });
+
 
 
 
