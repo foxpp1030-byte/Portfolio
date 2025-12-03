@@ -389,16 +389,18 @@ function visual_set_poster(src) {
 
 function visual_activate_item(item) {
     if (!item) return;
-    const src = item.getAttribute("data-poster");
 
+    // ✅ HTML의 data-poster랑 맞춰주기
+    const src = item.getAttribute("data-poster"); // 혹은 item.dataset.poster 도 가능
     visual_set_poster(src);
 
+    // ✅ CSS에서 쓰는 클래스명이랑 맞춤
     visual_items.forEach((el) => {
         el.classList.toggle("is_active", el === item);
     });
 }
 
-
+// 각 아이템이 화면 가운데쯤 올 때마다 포스터/스타일 교체
 visual_items.forEach((item, index) => {
     ScrollTrigger.create({
         trigger: item,
@@ -408,8 +410,11 @@ visual_items.forEach((item, index) => {
         onEnterBack: () => visual_activate_item(item),
     });
 
+    // 첫 번째 아이템 기본 활성
     if (index === 0) {
         visual_activate_item(item);
     }
 });
+
+
 

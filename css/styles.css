@@ -1304,7 +1304,7 @@ PROJECTS - heAi 섹션
 /* 왼쪽 텍스트 */
 
 .visual_header {
-    margin-bottom: 48px;
+    margin-bottom: 60px;
 }
 
 .visual_title {
@@ -1328,8 +1328,8 @@ PROJECTS - heAi 섹션
 
 .visual_year {
     font-size: 32px;
-    font-weight: 400;
-    margin-bottom: 40px;
+    /* font-weight: 400;
+    margin-bottom: 40px; */
 }
 
 .visual_groups {
@@ -1389,10 +1389,8 @@ PROJECTS - heAi 섹션
 
 .visual_item.is_active .visual_item_title {
     font-size: 24px;
-    font-weight: 500;
-    line-height: 1.5;
-    color: #111111;
-    transition: font-size 0.3s ease, color 0.3s ease;
+    font-weight: 600;
+    color: #000000;
 }
 
 /* 오른쪽 포스터 프리뷰 */
@@ -1400,7 +1398,6 @@ PROJECTS - heAi 섹션
 .visual_poster {
     position: sticky;
     top: 120px;
-
     align-self: flex-start;
 }
 
