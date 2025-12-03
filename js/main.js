@@ -292,7 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // ==================== projects Horizontal gallery ====================
+    // ==================== projects Horizontal gallery ==================== //
     scrollTween = gsap.to(".track", {
         x: () => -total_width(),
         ease: "none",
