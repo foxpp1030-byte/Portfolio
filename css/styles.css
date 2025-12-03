@@ -1064,7 +1064,12 @@ PROJECTS - heAi 섹션
    PROJECTS - 예술의전당 섹션
    ========================= */
 
-#con4_7 .sac_fig {
+.sac_panel {
+    position: relative;
+}
+
+/* 전체 프레임 */
+.sac_fig {
     position: relative;
     display: block;
     width: 80%;
@@ -1072,39 +1077,97 @@ PROJECTS - heAi 섹션
     margin: 0 auto;
 }
 
+/* 포스터가 기준 잡을 박스 */
+.sac_img_box {
+    position: relative;
+    width: 100%;
+    /* 필요하면 높이 감 조절용 */
+    /* padding-bottom: 60%; 이런 식으로 써도 됨 */
+}
+
 /* 가운데 노트북 메인 */
-#con4_7 .sac_main {
+.sac_main {
     display: block;
     width: 60%;
     margin: 0 auto;
-    align-items: center;
+}
+
+/* 공통 포스터 스타일 */
+.sac_poster {
+    position: absolute;
+    width: 280px;
+    /* 크기 마음에 안 들면 여기 조절 */
+    height: auto;
 }
 
 /* 각 포스터 위치 (퍼센트로, 화면 비율 따라감) */
-#con4_7 .sac_poster1 {
+.sac_poster1 {
     /* 왼쪽 위 포스터 */
-    top: 4%;
-    left: -3%;
+    top: -5%;
+    left: -4%;
 }
 
-#con4_7 .sac_poster2 {
+.sac_poster2 {
     /* 왼쪽 아래 isometric */
-    bottom: -10%;
-    left: 5%;
+    bottom: -15%;
+    left: -12%;
+    width: 400px;
 }
 
-#con4_7 .sac_poster3 {
+.sac_poster3 {
     /* 오른쪽 중간 검은 레이아웃 */
-    top: 18%;
-    right: -6%;
+    top: 10%;
+    right: -12%;
+    width: 400px;
 }
 
-#con4_7 .sac_poster4 {
+.sac_poster4 {
     /* 오른쪽 아래 포스터 */
     bottom: -14%;
-    right: 2%;
+    right: -4%;
 }
 
-#visual {
+/* 제목 + 버튼 라인 */
+.sac_info {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 480px;
+    white-space: nowrap;
+    font-family: "SUIT", sans-serif;
+    z-index: 3;
+    margin-top: 20px;
+}
+
+/* 예술의전당 타이틀 */
+.sac_title {
+    font-size: 40px;
+    font-weight: 400;
+}
+
+/* 버튼들 랩 */
+.sac_links {
+    display: flex;
+    gap: 8px;
+}
+
+.sac_btn {
+    padding: 12px 20px;
+    border-radius: 999px;
+    border: 1px solid #aaa;
+    font-size: 16px;
+    font-family: "SUIT", sans-serif;
     background: #fff;
+    color: #333;
+    white-space: nowrap;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.sac_btn:hover {
+    background: #000;
+    color: #fff;
+    border-color: #000;
 }
