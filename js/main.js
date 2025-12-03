@@ -357,13 +357,57 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-
-
-
-
-
     window.addEventListener("resize", () => ScrollTrigger.refresh());
     // Reduced Motion 설정이 바뀌면 새로고침 (선택 사항)
     window.matchMedia('(prefers-reduced-motion: reduce)')
         .addEventListener('change', () => location.reload());
 });
+
+// ================== Visual Archive ==================
+const visual_items = gsap.utils.toArray(".visual_item");
+const visual_poster_img = document.querySelector(".visual_poster_img");
+
+function visual_set_poster(src) {
+    if (!visual_poster_img || !src) return;
+
+    const current = visual_poster_img.getAttribute("src");
+    if (current === src) return;
+
+    gsap.to(visual_poster_img, {
+        opacity: 0,
+        duration: 0.35,
+        onComplete: () => {
+            visual_poster_img.setAttribute("src", src);
+            gsap.to(visual_poster_img, {
+                opacity: 1,
+                duration: 0.5,
+                ease: "power2.out",
+            });
+        },
+    });
+}
+
+function visual_activate_item(item) {
+    if (!item) return;
+    const src = item.getAttribute("data_poster");
+    visual_set_poster(src);
+
+    visual_items.forEach((el) => {
+        el.classList.toggle("visual_is_active", el === item);
+    });
+}
+
+visual_items.forEach((item, index) => {
+    ScrollTrigger.create({
+        trigger: item,
+        start: "top center",
+        end: "bottom center",
+        onEnter: () => visual_activate_item(item),
+        onEnterBack: () => visual_activate_item(item),
+    });
+
+    if (index === 0) {
+        visual_activate_item(item);
+    }
+});
+

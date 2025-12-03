@@ -1278,3 +1278,133 @@ PROJECTS - heAi 섹션
     opacity: 0;
     pointer-events: none;
 }
+
+
+
+/* ==============================
+   VISUAL ARCHIVE SECTION
+   ============================== */
+
+.visual_section {
+    width: 100%;
+    padding: 160px 0 200px;
+    background: #ffffff;
+    font-family: var(--font);
+}
+
+.visual_inner {
+    width: clamp(50vw, 90%, var(--inner_width));
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 2.3fr) minmax(0, 1.4fr);
+    column-gap: 96px;
+    align-items: flex-start;
+}
+
+/* 왼쪽 텍스트 */
+
+.visual_header {
+    margin-bottom: 48px;
+}
+
+.visual_title {
+    font-size: 72px;
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+}
+
+.visual_sub {
+    margin-top: 12px;
+    font-size: 30px;
+    color: #555555;
+}
+
+.visual_sub_kr {
+    margin-top: 4px;
+    font-size: 30px;
+    color: #8b8b8b;
+}
+
+.visual_year {
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 40px;
+}
+
+.visual_groups {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+}
+
+.visual_group_title {
+    font-size: 30px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #b4b4b4;
+    margin-bottom: 10px;
+}
+
+.visual_group_desc {
+    font-size: 28px;
+    color: #777777;
+    margin-bottom: 10px;
+}
+
+.visual_list {
+    list-style: none;
+}
+
+.visual_item {
+    padding: 10px 0 14px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease;
+}
+
+.visual_item_title {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #111111;
+    transition:
+        font-size 0.3s ease,
+        color 0.3s ease;
+}
+
+.visual_item_desc {
+    margin-top: 3px;
+    font-size: 20px;
+    line-height: 1.7;
+    color: #666666;
+}
+
+/* 활성화된 아이템 – 살짝 커지고 진해짐 */
+
+.visual_item.is_active {
+    transform: translateX(4px);
+}
+
+.visual_item.is_active .visual_item_title {
+    font-size: 19px;
+    font-weight: 600;
+    color: #000000;
+}
+
+/* 오른쪽 포스터 프리뷰 */
+
+.visual_poster {
+    position: relative;
+    top: 120px;
+    align-self: flex-start;
+}
+
+.visual_poster_img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 1;
+}
