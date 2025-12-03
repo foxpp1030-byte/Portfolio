@@ -823,6 +823,9 @@ section.txt_area {
 /* =========================
    PROJECTS - 조선미녀 
    ========================= */
+#con4_3 {
+    position: relative;
+}
 
 .bjo_panel .bjo_wrap {
     width: 100%;
@@ -858,6 +861,9 @@ section.txt_area {
     height: 100%;
     margin: 0 auto;
     position: relative;
+    pointer-events: auto;
+    z-index: 2;
+    /* 필요하면 위에 올라오게 */
 }
 
 #con4_3 .bjo_img {
@@ -877,7 +883,7 @@ section.txt_area {
 /* 가운데 맥북 */
 #con4_3 .bjo_img_center {
     left: 34%;
-    top: 15%;
+    top: 9%;
 }
 
 /* 왼쪽 아래 인삼 – 제일 많이 겹치는 애 */
@@ -890,6 +896,49 @@ section.txt_area {
 #con4_3 .bjo_img_right {
     left: 85%;
     top: 45%;
+}
+
+/* ✅ 제목 + 버튼 */
+#con4_3 .bjo_info {
+    position: absolute;
+    /* 섹션 높이 안 늘어나게 */
+    left: 59%;
+    bottom: 160px;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 330px;
+    white-space: nowrap;
+    /* 줄바꿈 방지 → 한 줄 */
+    font-family: "SUIT", sans-serif;
+}
+
+.bjo_title {
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.bjo_links {
+    display: flex;
+    gap: 8px;
+}
+
+.bjo_btn {
+    padding: 12px 20px;
+    border-radius: 999px;
+    border: 1px solid #aaa;
+    font-size: 16px;
+    font-family: "SUIT", sans-serif;
+    background: #fff;
+    white-space: nowrap;
+    cursor: pointer;
+    color: #333;
+}
+
+.bjo_btn:hover {
+    background: #000;
+    color: #fff;
+    border-color: #000;
 }
 
 
