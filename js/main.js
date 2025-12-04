@@ -500,9 +500,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // 기존 벽 제거 (리사이즈 대응)
         if (ground) Composite.remove(world, [ground, leftWall, rightWall]);
 
-        ground = Bodies.rectangle(width / 2, height + wallThick / 2, width, wallThick, wallOptions);
-        leftWall = Bodies.rectangle(0 - wallThick / 2, height / 2, wallThick, height * 5, wallOptions); // 높게 설정해서 못 넘어가게
-        rightWall = Bodies.rectangle(width + wallThick / 2, height / 2, wallThick, height * 5, wallOptions);
+        // ✅ 바닥을 화면 85% 지점에 배치 (더 자연스러운 위치)
+        ground = Bodies.rectangle(width / 2, height * 0.85, width, wallThick, wallOptions);
+        leftWall = Bodies.rectangle(0 - wallThick / 2, height / 2, wallThick, height * 2, wallOptions);
+        rightWall = Bodies.rectangle(width + wallThick / 2, height / 2, wallThick, height * 2, wallOptions);
 
         Composite.add(world, [ground, leftWall, rightWall]);
     }
