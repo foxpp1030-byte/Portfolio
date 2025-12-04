@@ -254,33 +254,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ================== Skillset ==================
-    const skillReceipt = document.querySelector('.skillset_img');
+    // const skillReceipt = document.querySelector('.skillset_img');
 
-    if (skillReceipt) {
+    // if (skillReceipt) {
 
-        // 🎯 fromTo는 딱 1번 — 중복 실행 절대 없음
-        gsap.fromTo(
-            skillReceipt,
-            { y: 500, opacity: 0.3 },
-            {
-                y: 0,
-                opacity: 1,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: "#skills",
-                    start: "top top",
-                    end: () => "+=" + window.innerHeight,
-                    scrub: 1,
-                    pin: true,
-                    anticipatePin: 1,
-                    pinSpacing: true,
-                    markers: false,
-                    onEnter: () => set_active("#skills"),
-                    onEnterBack: () => set_active("#skills"),
-                }
-            }
-        );
-    }
+    //     // 🎯 fromTo는 딱 1번 — 중복 실행 절대 없음
+    //     gsap.fromTo(
+    //         skillReceipt,
+    //         { y: 500, opacity: 0.3 },
+    //         {
+    //             y: 0,
+    //             opacity: 1,
+    //             ease: "power3.out",
+    //             scrollTrigger: {
+    //                 trigger: "#skills",
+    //                 start: "top top",
+    //                 end: () => "+=" + window.innerHeight,
+    //                 scrub: 1,
+    //                 pin: true,
+    //                 anticipatePin: 1,
+    //                 pinSpacing: true,
+    //                 markers: false,
+    //                 onEnter: () => set_active("#skills"),
+    //                 onEnterBack: () => set_active("#skills"),
+    //             }
+    //         }
+    //     );
+    // }
 
 
 

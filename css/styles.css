@@ -496,7 +496,7 @@ main {
                     /* margin-bottom: 32px; */
                     text-align: center;
                     width: 100%;
-                    background: #ccc;
+
                 }
 
                 /* 뒷면 리스트 */
@@ -512,7 +512,7 @@ main {
                     list-style: disc;
                     font-size: 0.8vw;
                     line-height: 1.7;
-                    background: yellow;
+
                 }
             }
         }
