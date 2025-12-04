@@ -381,11 +381,12 @@ main {
 .vision {
     width: 100%;
     height: 2000px;
-    background: linear-gradient(to top,
-            rgba(255, 255, 255, .3),
-            #035f4e) no-repeat;
+    background-color: #ffffff;
+    background-repeat: no-repeat;
+    background-position: 30px 0;
+    /* 왼쪽에서 40px 정도 띄우고 위에 붙이기 */
+    background-size: auto 70vh;
     background-image: url(../img/key.png);
-    background-position: left top;
 
     /* ===== Sticky wrapper ===== */
     & .sticky {
@@ -518,6 +519,9 @@ main {
     }
 }
 
+.vision .sticky_con ul li>div {
+    box-shadow: 0px 4px 6.2px rgba(0, 0, 0, 0.25);
+}
 
 /* =============================
      🟡 텍스트 영역 (스크롤 배경)
