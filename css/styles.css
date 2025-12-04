@@ -492,15 +492,9 @@ main {
                 }
 
 
-                &:hover .icon {
-                    transform: translateY(-10px) rotate(0deg);
-                }
-
-
                 /* 뒷면 제목만 스타일 */
                 &>.back h3 {
                     align-self: center;
-                    /* 가로 가운데 */
                     font-size: 2.4rem;
                     font-weight: 400;
                     letter-spacing: 0.08em;
@@ -517,7 +511,7 @@ main {
                     padding-left: 1.3rem;
                     display: flex;
                     flex-direction: column;
-                    gap: 4px;
+                    gap: 2px;
                     line-height: 1.8rem;
                 }
             }
@@ -535,6 +529,63 @@ main {
 
 .vision .sticky_con ul {
     top: 10px;
+}
+
+.vision .sticky_con .card .back {
+    transform: rotateY(180deg);
+    /* 뒤집힌 상태 유지 */
+    display: flex;
+    flex-direction: column;
+    /* 위→아래 쌓기 */
+    justify-content: space-between;
+    /* 첫 번째(제목) = 위, 마지막(리스트) = 아래 */
+    align-items: stretch;
+    padding: 60px 60px 72px;
+    text-align: left;
+}
+
+.vision .sticky_con .card .back {
+    transform: rotateY(180deg);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    /* 위: 제목 / 중간: 비워두기 / 아래: 리스트 */
+    align-content: stretch;
+    justify-items: stretch;
+    padding: 60px 60px 72px;
+    text-align: left;
+}
+
+/* 제목: 맨 위, 가로 가운데 */
+.vision .sticky_con .card .back h3 {
+    grid-row: 1;
+    justify-self: center;
+    /* 가로 중앙 */
+    align-self: start;
+    margin: 0 0 32px;
+    /* 아래만 간격 */
+    font-size: 2.4rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+}
+
+/* 리스트: 맨 아래 붙이기 */
+.vision .sticky_con .card .back .about_list {
+    grid-row: 3;
+    margin: 0;
+    padding-left: 1.3rem;
+    list-style: disc;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    white-space: normal;
+    word-break: keep-all;
+}
+
+.vision .sticky_con .card .back .about_list li {
+    display: list-item;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    width: 500px;
 }
 
 /* =============================
