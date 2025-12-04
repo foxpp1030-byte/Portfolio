@@ -3,19 +3,19 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
     // ==================== Lenis ====================
-    const lenis = new Lenis({
-        duration: 0.8,
-        easing: (t) => t, // 선형 (빠른 반응)
-        smooth: true,
-        smoothTouch: true, // 모바일 터치 스크롤 부드럽게
-    });
-
-    function raf(t) {
-        lenis.raf(t);
-        ScrollTrigger.update();
-        requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    /*     const lenis = new Lenis({
+            duration: 0.8,
+            easing: (t) => t, 
+            smooth: true,
+            smoothTouch: true, 
+        });
+    
+        function raf(t) {
+            lenis.raf(t);
+            ScrollTrigger.update();
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf); */
 
 
     // ==================== Horizontal gallery helper ====================
@@ -361,15 +361,17 @@ document.addEventListener("DOMContentLoaded", () => {
     // Reduced Motion 설정이 바뀌면 새로고침 (선택 사항)
     window.matchMedia('(prefers-reduced-motion: reduce)')
         .addEventListener('change', () => location.reload());
-});
 
 
-// ================== Visual Archive – 스크롤에 맞춰 포스터 바꾸기 ==================
-document.addEventListener("DOMContentLoaded", () => {
+
+    // ================== Visual Archive – 스크롤에 맞춰 포스터 바꾸기 ==================
+
+    // ================== Visual Archive – 스크롤에 맞춰 포스터 바꾸기 ==================
+
     const visualItems = Array.from(document.querySelectorAll(".visual_item"));
     const visualPosterImg = document.querySelector(".visual_poster_img");
 
-    // 요소 없으면 그냥 종료
+    // 요소 없으면 종료
     if (!visualItems.length || !visualPosterImg) return;
 
     // 글 + 포스터 바꾸는 함수
@@ -390,9 +392,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // 스크롤 기준으로 “화면 가운데에 걸려 있는 애” 찾기
+    // 스크롤 시 화면 중앙에 있는 아이템 탐색
     function updateByScroll() {
-        const centerY = window.innerHeight * 0.5; // 뷰포트 세로 중앙
+        const centerY = window.innerHeight * 0.5;
         let current = visualItems[0];
 
         visualItems.forEach((item) => {
@@ -402,25 +404,37 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // 바뀌었을 때만 업데이트 (깜빡임 방지)
         if (!current.classList.contains("is_active")) {
             activateVisual(current);
         }
     }
 
-    // 초기 상태: 맨 위 아이템으로 세팅
+    // 초기 상태
     activateVisual(visualItems[0]);
     updateByScroll();
 
-    // 스크롤 할 때마다 중앙 기준으로 포스터 교체
+    // 스크롤 업데이트
     window.addEventListener("scroll", updateByScroll);
 
-    // 마우스로 올려도 바로 바뀌게
+    // 마우스 오버 시 즉시 변경
     visualItems.forEach((item) => {
         item.addEventListener("mouseenter", () => activateVisual(item));
     });
-});
 
+
+    visualItems.forEach((item, i) => {
+        gsap.to(".visual_poster_frame", {
+            y: i * 80,   // 아이템 순서별 포스터 이동
+            scrollTrigger: {
+                trigger: item,
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1,
+            }
+        });
+    });
+
+});
 
 
 

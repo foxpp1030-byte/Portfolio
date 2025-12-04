@@ -672,7 +672,11 @@ section.txt_area {
     flex-shrink: 0;
 }
 
-
+/* .hItem img {
+    width: auto;
+    height: 80%;
+}
+ */
 .hItem.projects_page {
     justify-content: flex-start;
     align-items: stretch;
@@ -688,7 +692,6 @@ section.txt_area {
     display: grid;
     grid-template-columns: 1fr 946px;
     column-gap: 80px;
-    background: red;
 }
 
 /* 선들 공통 스타일 */
@@ -1287,22 +1290,31 @@ PROJECTS - heAi 섹션
 
 .visual_section {
     width: 100%;
-    padding: 160px 0 200px;
+    padding: 160px 0 150px;
     background: #ffffff;
     font-family: var(--font);
+    overflow: visible;
 }
 
 .visual_inner {
     width: clamp(50vw, 90%, var(--inner_width));
     margin: 0 auto;
+    /*     display: flex;
+    gap: 96px;
+    justify-content: center; */
     display: grid;
     grid-template-columns: minmax(0, 2.3fr) minmax(0, 1.4fr);
     column-gap: 96px;
     align-items: flex-start;
     position: relative;
+    overflow: visible;
 }
 
 /* 왼쪽 텍스트 */
+.visual_text {
+    /* width: 60%; */
+    cursor: pointer;
+}
 
 .visual_header {
     margin-bottom: 60px;
@@ -1398,8 +1410,18 @@ PROJECTS - heAi 섹션
 
 .visual_poster {
     position: sticky;
-    top: 150px;
-    align-self: flex-start;
+    top: 160px;
+    /*     position: absolute;
+    top: 160px; */
+    /* visual_section의 padding-top과 동일 */
+    right: calc((100% - clamp(50vw, 90%, var(--inner_width))) / 2);
+    /* width: calc(clamp(50vw, 90%, var(--inner_width)) * 0.30); */
+    height: 100%;
+}
+
+.visual_poster_frame {
+    position: relative;
+    will-change: transform;
 }
 
 .visual_poster_img {
