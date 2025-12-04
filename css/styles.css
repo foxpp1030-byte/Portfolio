@@ -399,6 +399,8 @@ main {
     }
 
     & .sticky_title {
+        width: 1700px;
+        margin: 0 auto;
         font-family: 'SUIT';
         font-weight: 300;
         font-size: 8vw;
@@ -1341,8 +1343,8 @@ PROJECTS - heAi 섹션
 
 .visual_year {
     font-size: 32px;
-    /* font-weight: 400;
-    margin-bottom: 40px; */
+    font-weight: 600;
+    margin-bottom: 40px;
 }
 
 .visual_groups {
@@ -1360,7 +1362,7 @@ PROJECTS - heAi 섹션
 }
 
 .visual_group_desc {
-    font-size: 28px;
+    font-size: 18px;
     color: #777777;
     margin-bottom: 10px;
 }

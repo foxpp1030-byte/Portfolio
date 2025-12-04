@@ -3,19 +3,19 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
     // ==================== Lenis ====================
-    /*     const lenis = new Lenis({
-            duration: 0.8,
-            easing: (t) => t, 
-            smooth: true,
-            smoothTouch: true, 
-        });
-    
-        function raf(t) {
-            lenis.raf(t);
-            ScrollTrigger.update();
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf); */
+    const lenis = new Lenis({
+        duration: 0.8,
+        easing: (t) => t,
+        smooth: true,
+        smoothTouch: true,
+    });
+
+    function raf(t) {
+        lenis.raf(t);
+        ScrollTrigger.update();
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
 
 
     // ==================== Horizontal gallery helper ====================
