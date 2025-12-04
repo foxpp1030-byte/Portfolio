@@ -422,18 +422,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    visualItems.forEach((item, i) => {
-        gsap.to(".visual_poster_frame", {
-            y: i,   // 아이템 순서별 포스터 이동
-            scrollTrigger: {
-                trigger: item,
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 1,
-                pin: true,
-            }
-        });
+    /*     visualItems.forEach((item, i) => {
+            gsap.to(".visual_poster_frame", {
+                y: i * 80,  
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1,
+                }
+            });
+        }); */
+    gsap.to(".visual_poster_frame", {
+        y: (visualItems.length - 1) * 80,
+        scrollTrigger: {
+            trigger: ".visual_poster_frame",
+            start: "top top",
+            end: "+=" + (visualItems.length * window.innerHeight),
+            scrub: 1,
+            pin: true,
+        }
     });
+
 
 });
 
