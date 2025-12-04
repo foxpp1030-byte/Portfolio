@@ -441,10 +441,8 @@ main {
                     left: 0;
                     top: 0;
                     text-align: center;
-                    /* color: #fcefc0; */
                     cursor: default;
                     backface-visibility: hidden;
-                    /* border-radius: 50px; */
                     background-size: cover;
                     background-position: center center;
                 }
@@ -469,11 +467,8 @@ main {
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-start;
-                    /* 위에서부터 쌓기 */
                     align-items: stretch;
-                    /* 가로로 꽉 채우기 */
-                    padding: 60px 60px 48px;
-                    /* 카드 안 여백 */
+                    padding: 8px 8px 70px;
                     text-align: left;
                 }
 
@@ -494,25 +489,32 @@ main {
 
                 /* 뒷면 제목만 스타일 */
                 &>.back h3 {
-                    align-self: center;
-                    font-size: 2.4rem;
+                    font-size: 38px;
                     font-weight: 400;
                     letter-spacing: 0.08em;
                     margin-bottom: 32px;
+                    width: 500px;
+                    max-width: 500px;
+                    margin-left: auto;
+                    margin-right: auto;
                 }
 
                 /* 뒷면 리스트 */
                 &>.back .about_list {
                     margin-top: auto;
-                    /* 아래로 밀기 */
-                    width: 100%;
-                    /* 카드 가로 꽉 찬 폭 */
+                    transform: translateY(-140px);
+                    width: 500px;
                     list-style: disc;
                     padding-left: 1.3rem;
                     display: flex;
                     flex-direction: column;
-                    gap: 2px;
-                    line-height: 1.8rem;
+                    gap: 4px;
+                    font-size: 0.9rem;
+                    line-height: 1.2;
+                }
+
+                & li {
+                    width: 500px;
                 }
             }
         }
@@ -531,61 +533,46 @@ main {
     top: 10px;
 }
 
-.vision .sticky_con .card .back {
-    transform: rotateY(180deg);
-    /* 뒤집힌 상태 유지 */
-    display: flex;
-    flex-direction: column;
-    /* 위→아래 쌓기 */
-    justify-content: space-between;
-    /* 첫 번째(제목) = 위, 마지막(리스트) = 아래 */
-    align-items: stretch;
-    padding: 60px 60px 72px;
-    text-align: left;
+/* 섹션 폭 정리 */
+.vision .sticky_title {
+    width: 100%;
+    max-width: 1700px;
+    padding: 0 40px;
+    margin: 0 auto;
 }
 
-.vision .sticky_con .card .back {
+.vision .sticky_con {
+    width: 100%;
+    max-width: 1700px;
+    margin: 0 auto;
+}
+
+
+/* 뒷면(텍스트 있는 쪽) 레이아웃: 타이틀 / (중앙 여백) / 리스트 구조 */
+.vision .sticky_con .card>.back {
     transform: rotateY(180deg);
     display: grid;
     grid-template-rows: auto 1fr auto;
-    /* 위: 제목 / 중간: 비워두기 / 아래: 리스트 */
-    align-content: stretch;
-    justify-items: stretch;
+    /* 위: 타이틀 / 가운데: 크루아상 여백 / 아래: 리스트 */
     padding: 60px 60px 72px;
     text-align: left;
 }
 
-/* 제목: 맨 위, 가로 가운데 */
-.vision .sticky_con .card .back h3 {
-    grid-row: 1;
-    justify-self: center;
-    /* 가로 중앙 */
-    align-self: start;
-    margin: 0 0 32px;
-    /* 아래만 간격 */
-    font-size: 2.4rem;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-}
 
-/* 리스트: 맨 아래 붙이기 */
-.vision .sticky_con .card .back .about_list {
+/* 리스트는 맨 아래 3번째 줄에 고정 */
+.vision .sticky_con .card>.back .about_list {
     grid-row: 3;
-    margin: 0;
-    padding-left: 1.3rem;
-    list-style: disc;
-    display: block;
     width: 100%;
-    max-width: 100%;
+    max-width: 500px;
+    margin: 0;
+    padding-left: 2rem;
+    list-style: disc;
+    font-size: 18px;
+    line-height: 1.7;
+    text-align: left;
     white-space: normal;
     word-break: keep-all;
-}
 
-.vision .sticky_con .card .back .about_list li {
-    display: list-item;
-    font-size: 1.2rem;
-    line-height: 1.6;
-    width: 500px;
 }
 
 /* =============================
