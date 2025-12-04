@@ -525,13 +525,10 @@ main {
 
 .vision .sticky {
     gap: 6vh;
-    /* 원래 20vh → 확 줄이기 */
 }
 
-/* 카드들을 조금 더 위로 붙이기 */
 .vision .sticky_con ul {
     top: 10px;
-    /* 원래 40px이면 10px 정도로 */
 }
 
 /* =============================
