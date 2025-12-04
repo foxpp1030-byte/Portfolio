@@ -741,7 +741,7 @@ section.txt_area {
 
 .projects_page .projects_vertical {
     position: absolute;
-    left: 0;
+    left: 40px;
     bottom: 0;
     font-size: 14px;
     letter-spacing: 0.2em;
