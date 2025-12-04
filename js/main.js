@@ -451,114 +451,124 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ==============================
-// ICON CLOUD (Visual Archive 아이콘 섹션)
+// ICON CLOUD (Matter.js Physics)
 // ==============================
-(function () {
-    const icon_layer = document.querySelector('[data_icon_layer]');
-    if (!icon_layer) return;
+document.addEventListener("DOMContentLoaded", () => {
+    const section = document.querySelector("#icon_cloud_section");
+    if (!section) return;
 
-    const icon_count = 9; // X 여러 개 + 마지막 크루아상 1개
-    const x_icon_src = './img/icon.png';      // X 아이콘 경로
-    const bread_icon_src = './img/bread01.png'; // 크루아상 경로
+    // 1. Matter.js 모듈 별칭 설정
+    const Engine = Matter.Engine,
+        Render = Matter.Render,
+        Runner = Matter.Runner,
+        Bodies = Matter.Bodies,
+        Composite = Matter.Composite,
+        Mouse = Matter.Mouse,
+        MouseConstraint = Matter.MouseConstraint,
+        Events = Matter.Events;
 
-    const duration_ms = 1100; // CSS animation 시간 1.1s
+    // 2. 엔진 생성
+    const engine = Engine.create();
+    const world = engine.world;
 
-    for (let i = 0; i < icon_count; i++) {
-        const img = document.createElement('img');
-        img.draggable = false;
-        img.classList.add('floating_icon');
-
-        if (i === icon_count - 1) {
-            img.src = bread_icon_src;
-            img.alt = 'bread_icon';
-            img.classList.add('floating_icon_bread');
-        } else {
-            img.src = x_icon_src;
-            img.alt = 'x_icon';
+    // 3. 렌더러 생성 (캔버스에 그림)
+    const render = Render.create({
+        element: section,
+        engine: engine,
+        options: {
+            width: section.clientWidth,
+            height: section.clientHeight,
+            background: 'transparent', // 배경 투명 (CSS 배경색 사용)
+            wireframes: false, // 와이어프레임 끄고 이미지 보여주기
+            pixelRatio: window.devicePixelRatio // 고해상도 대응
         }
+    });
 
-        // 가로 위치: 10% ~ 90% 랜덤
-        const random_left_percent = 10 + Math.random() * 80;
+    // 4. 벽과 바닥 생성 (화면 밖으로 나가지 않게)
+    const wallOptions = {
+        isStatic: true, // 고정된 물체
+        render: { visible: false } // 투명하게
+    };
 
-        // 최종 세로 위치: 아래쪽 70% ~ 85% 사이에 모이게
-        const random_final_top_percent = 70 + Math.random() * 15;
+    let ground, leftWall, rightWall;
 
-        // 떨어지는 시작 시간 살짝 랜덤
-        const random_delay = Math.random() * 0.6; // 0 ~ 0.6초
+    function createWalls() {
+        const width = section.clientWidth;
+        const height = section.clientHeight;
+        const wallThick = 100;
 
-        img.style.left = random_left_percent + '%';
-        img.style.setProperty('--final_top', random_final_top_percent + '%');
-        img.style.setProperty('--delay', random_delay + 's');
+        // 기존 벽 제거 (리사이즈 대응)
+        if (ground) Composite.remove(world, [ground, leftWall, rightWall]);
 
-        icon_layer.appendChild(img);
+        ground = Bodies.rectangle(width / 2, height + wallThick / 2, width, wallThick, wallOptions);
+        leftWall = Bodies.rectangle(0 - wallThick / 2, height / 2, wallThick, height * 5, wallOptions); // 높게 설정해서 못 넘어가게
+        rightWall = Bodies.rectangle(width + wallThick / 2, height / 2, wallThick, height * 5, wallOptions);
 
-        // 애니메이션이 끝난 뒤에 위치를 "고정"하고 드래그 기능 붙이기
-        const total_delay = duration_ms + random_delay * 1000 + 50;
-        setTimeout(function () {
-            freeze_icon_and_enable_drag(img, icon_layer);
-        }, total_delay);
+        Composite.add(world, [ground, leftWall, rightWall]);
+    }
+    createWalls();
+
+    // 5. 아이콘(오브젝트) 생성
+    const iconScale = 0.5; // 이미지 크기 조절 (필요시 0.5 ~ 1.0 사이 조절)
+
+    // X 아이콘들
+    for (let i = 0; i < 12; i++) { // 개수 12개
+        const xPos = Math.random() * section.clientWidth;
+        const yPos = Math.random() * -500 - 100; // 화면 위쪽에서 랜덤하게 시작
+
+        const icon = Bodies.rectangle(xPos, yPos, 80, 80, { // 80x80은 충돌 박스 크기
+            restitution: 0.5, // 탄성 (0~1)
+            friction: 0.1,    // 마찰력
+            angle: Math.random() * Math.PI, // 랜덤 회전
+            render: {
+                sprite: {
+                    texture: './img/icon.png', // 이미지 경로 확인!
+                    xScale: iconScale,
+                    yScale: iconScale
+                }
+            }
+        });
+        Composite.add(world, icon);
     }
 
-    // 애니메이션 끝난 위치를 px로 저장 + 드래그 이벤트 세팅
-    function freeze_icon_and_enable_drag(icon, layer) {
-        const layer_rect = layer.getBoundingClientRect();
-        const rect = icon.getBoundingClientRect();
+    // 크루아상 (하나만)
+    const bread = Bodies.rectangle(section.clientWidth / 2, -200, 120, 80, {
+        restitution: 0.6,
+        render: {
+            sprite: {
+                texture: './img/bread01.png', // 이미지 경로 확인!
+                xScale: 0.6, // 크루아상은 조금 더 크게
+                yScale: 0.6
+            }
+        }
+    });
+    Composite.add(world, bread);
 
-        // 아이콘 중심 좌표
-        const center_x = rect.left - layer_rect.left + rect.width / 2;
-        const center_y = rect.top - layer_rect.top + rect.height / 2;
 
-        // 애니메이션 완전히 제거하고, 현재 위치를 px로 고정
-        icon.style.animation = 'none';
-        icon.style.left = center_x + 'px';
-        icon.style.top = center_y + 'px';
-        icon.style.transform = 'translate(-50%, -50%)';
+    // 6. 마우스 컨트롤 (드래그 기능)
+    const mouse = Mouse.create(render.canvas);
+    const mouseConstraint = MouseConstraint.create(engine, {
+        mouse: mouse,
+        constraint: {
+            stiffness: 0.2,
+            render: { visible: false }
+        }
+    });
+    Composite.add(world, mouseConstraint);
 
-        enable_icon_drag(icon, layer);
-    }
+    // 스크롤과 마우스 휠 간섭 방지 (선택사항)
+    // mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
+    // mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
 
-    function enable_icon_drag(icon, layer) {
-        let is_dragging = false;
-        let offset_x = 0;
-        let offset_y = 0;
+    // 7. 실행
+    Render.run(render);
+    const runner = Runner.create();
+    Runner.run(runner, engine);
 
-        icon.addEventListener('pointerdown', function (event) {
-            is_dragging = true;
-            icon.setPointerCapture(event.pointerId);
-
-            const rect = icon.getBoundingClientRect();
-
-            // 포인터 위치 기준, 아이콘 "중심"에서 얼마나 벗어나 있는지 저장
-            offset_x = event.clientX - (rect.left + rect.width / 2);
-            offset_y = event.clientY - (rect.top + rect.height / 2);
-        });
-
-        icon.addEventListener('pointermove', function (event) {
-            if (!is_dragging) return;
-
-            const layer_rect = layer.getBoundingClientRect();
-
-            let x = event.clientX - layer_rect.left - offset_x;
-            let y = event.clientY - layer_rect.top - offset_y;
-
-            // 화면 밖으로 못 나가게 약간 여유
-            const padding = 40;
-            x = Math.max(padding, Math.min(layer_rect.width - padding, x));
-            y = Math.max(padding, Math.min(layer_rect.height - padding, y));
-
-            // left/top 은 항상 "중심" 좌표
-            icon.style.left = x + 'px';
-            icon.style.top = y + 'px';
-        });
-
-        icon.addEventListener('pointerup', function (event) {
-            if (!is_dragging) return;
-            is_dragging = false;
-            icon.releasePointerCapture(event.pointerId);
-        });
-
-        icon.addEventListener('pointercancel', function () {
-            is_dragging = false;
-        });
-    }
-})();
+    // 8. 화면 크기 변경 시 대응
+    window.addEventListener('resize', () => {
+        render.canvas.width = section.clientWidth;
+        render.canvas.height = section.clientHeight;
+        createWalls(); // 벽 위치 재조정
+    });
+});
