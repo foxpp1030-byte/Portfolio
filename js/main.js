@@ -439,3 +439,115 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+// ==============================
+// ICON CLOUD (Visual Archive 아이콘 섹션)
+// ==============================
+(function () {
+    const icon_layer = document.querySelector('[data_icon_layer]');
+    if (!icon_layer) return;
+
+    const icon_count = 9; // X 여러 개 + 마지막 크루아상 1개
+    const x_icon_src = './img/icon.png';      // X 아이콘 경로
+    const bread_icon_src = './img/bread01.png'; // 크루아상 경로
+
+    const duration_ms = 1100; // CSS animation 시간 1.1s
+
+    for (let i = 0; i < icon_count; i++) {
+        const img = document.createElement('img');
+        img.draggable = false;
+        img.classList.add('floating_icon');
+
+        if (i === icon_count - 1) {
+            img.src = bread_icon_src;
+            img.alt = 'bread_icon';
+            img.classList.add('floating_icon_bread');
+        } else {
+            img.src = x_icon_src;
+            img.alt = 'x_icon';
+        }
+
+        // 가로 위치: 10% ~ 90% 랜덤
+        const random_left_percent = 10 + Math.random() * 80;
+
+        // 최종 세로 위치: 아래쪽 70% ~ 85% 사이에 모이게
+        const random_final_top_percent = 70 + Math.random() * 15;
+
+        // 떨어지는 시작 시간 살짝 랜덤
+        const random_delay = Math.random() * 0.6; // 0 ~ 0.6초
+
+        img.style.left = random_left_percent + '%';
+        img.style.setProperty('--final_top', random_final_top_percent + '%');
+        img.style.setProperty('--delay', random_delay + 's');
+
+        icon_layer.appendChild(img);
+
+        // 애니메이션이 끝난 뒤에 위치를 "고정"하고 드래그 기능 붙이기
+        const total_delay = duration_ms + random_delay * 1000 + 50;
+        setTimeout(function () {
+            freeze_icon_and_enable_drag(img, icon_layer);
+        }, total_delay);
+    }
+
+    // 애니메이션 끝난 위치를 px로 저장 + 드래그 이벤트 세팅
+    function freeze_icon_and_enable_drag(icon, layer) {
+        const layer_rect = layer.getBoundingClientRect();
+        const rect = icon.getBoundingClientRect();
+
+        // 아이콘 중심 좌표
+        const center_x = rect.left - layer_rect.left + rect.width / 2;
+        const center_y = rect.top - layer_rect.top + rect.height / 2;
+
+        // 애니메이션 완전히 제거하고, 현재 위치를 px로 고정
+        icon.style.animation = 'none';
+        icon.style.left = center_x + 'px';
+        icon.style.top = center_y + 'px';
+        icon.style.transform = 'translate(-50%, -50%)';
+
+        enable_icon_drag(icon, layer);
+    }
+
+    function enable_icon_drag(icon, layer) {
+        let is_dragging = false;
+        let offset_x = 0;
+        let offset_y = 0;
+
+        icon.addEventListener('pointerdown', function (event) {
+            is_dragging = true;
+            icon.setPointerCapture(event.pointerId);
+
+            const rect = icon.getBoundingClientRect();
+
+            // 포인터 위치 기준, 아이콘 "중심"에서 얼마나 벗어나 있는지 저장
+            offset_x = event.clientX - (rect.left + rect.width / 2);
+            offset_y = event.clientY - (rect.top + rect.height / 2);
+        });
+
+        icon.addEventListener('pointermove', function (event) {
+            if (!is_dragging) return;
+
+            const layer_rect = layer.getBoundingClientRect();
+
+            let x = event.clientX - layer_rect.left - offset_x;
+            let y = event.clientY - layer_rect.top - offset_y;
+
+            // 화면 밖으로 못 나가게 약간 여유
+            const padding = 40;
+            x = Math.max(padding, Math.min(layer_rect.width - padding, x));
+            y = Math.max(padding, Math.min(layer_rect.height - padding, y));
+
+            // left/top 은 항상 "중심" 좌표
+            icon.style.left = x + 'px';
+            icon.style.top = y + 'px';
+        });
+
+        icon.addEventListener('pointerup', function (event) {
+            if (!is_dragging) return;
+            is_dragging = false;
+            icon.releasePointerCapture(event.pointerId);
+        });
+
+        icon.addEventListener('pointercancel', function () {
+            is_dragging = false;
+        });
+    }
+})();
