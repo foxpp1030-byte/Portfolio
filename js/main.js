@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!section || !linkEl.length) return;
 
         // skills, projects 제외
-        if (id === "#skills" || id === "#projects") return;
+        // if (id === "#skills" || id === "#projects") return;
 
         // 일반 섹션만
         ScrollTrigger.create({
@@ -272,37 +272,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // ================== Skillset (영수증 올라오는 효과) ==================
-    const skillReceipt = document.querySelector('.skillset_img');
-
-    // 1. 요소가 진짜로 잡혔는지 콘솔에 출력 (F12 눌러서 Console 탭 확인 가능)
-    if (skillReceipt) {
-        console.log("✅ Skillset 요소 찾음! 애니메이션 준비 완료.");
-
-        gsap.fromTo(skillReceipt,
-            {
-                y: 300,       // 시작: 300px 아래
-                opacity: 0    // 시작: 투명
-            },
-            {
-                y: 0,         // 끝: 제자리
-                opacity: 1,   // 끝: 선명함
-                duration: 1.5,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: "#skills", // 트리거 기준: Skills 섹션 전체
-                    start: "top 60%",   // 화면 위에서 60% 지점에 섹션이 닿으면 시작
-                    end: "top 30%",
-                    toggleActions: "play none none reverse",
-                    markers: true,      // 🔥 [중요] 화면에 'start', 'end' 선이 표시됩니다! (확인 후 지우세요)
-                    id: "skill-ani"     // 마커 이름
-                }
-            }
-        );
-    } else {
-        console.error("skillset_img");
-    }
-
+    // ================== Skillset (영수증 올라오는 효과) 
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: ".vid",
+            start: "top top",
+            end: "bottom center",
+            scrub: true,
+            // markers: true,
+            toggleClass: { targets: ".vid", className: "on" },
+        }
+    }).fromTo(".vid_box",
+        { scale: 0.45, opacity: 0.45, },
+        { scale: 1, opacity: 1, ease: "power2.out", duration: 2, immediateRender: false }
+    );
 
 
     // ==================== projects Horizontal gallery ====================
