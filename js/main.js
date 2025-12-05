@@ -306,38 +306,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ==================== projects Horizontal gallery ====================
-    scrollTween = gsap.to(".track", {
-        x: () => -total_width(),
-        ease: "none",
-        scrollTrigger: {
-            trigger: "#projects",
-            start: "top top",
-            end: () => "+=" + total_width(),   // 가로 이동 거리만큼만 사용
-            scrub: true,
-            pin: true,
-            pinSpacing: true,                  // 다시 true (기본값)
-            anticipatePin: 1,
-            onEnter: () => set_active("#projects"),
-            onEnterBack: () => {
-                set_active("#projects");
-                const last = document.querySelector("#con4_7");
-                if (last) last.classList.remove("hide-after-pin");
-            },
-            onLeave: () => {
-                // pin 끝난 뒤에는 마지막 패널 안 보이게
-                const last = document.querySelector("#con4_7");
-                if (last) last.classList.add("hide-after-pin");
-            },
-            onLeaveBack: () => {
-                // 다시 위로 올라가면 다시 보이게
-                const last = document.querySelector("#con4_7");
-                if (last) last.classList.remove("hide-after-pin");
-            },
-            // markers: true,
-        },
+    // const track = document.querySelector(".track");
+    // const projectSection = document.querySelector("#projects");
+
+    // // 가로 스크롤 길이 계산 함수
+    // function getScrollAmount() {
+    //     if (!track) return 0;
+    //     let trackWidth = track.scrollWidth;
+    //     return -(trackWidth - window.innerWidth);
+    // }
+
+    // if (track && projectSection) {
+    //     scrollTween = gsap.to(track, {
+    //         x: getScrollAmount, // 함수 참조를 전달하여 리사이즈 시 자동 재계산
+    //         ease: "none",
+    //         scrollTrigger: {
+    //             trigger: "#projects",
+    //             start: "top top",
+    //             end: () => `+=${track.scrollWidth - window.innerWidth}`, // 스크롤 길이만큼 확보
+    //             pin: true,
+    //             scrub: 1,
+    //             invalidateOnRefresh: true, // 리사이즈 시 값 재계산
+    //             anticipatePin: 1,
+    //             onEnter: () => set_active("#projects"),
+    //             onEnterBack: () => set_active("#projects"),
+    //         }
+    //     });
+    // }
+
+    ScrollTrigger.create({
+        trigger: "#projects",
+        start: "top center",
+        end: "bottom center",
+        onEnter: () => set_active("#projects"),
+        onEnterBack: () => set_active("#projects"),
     });
-
-
 
 
     // ================== 선 그리기 (조선미녀 / heAi / 예술의 전당 공통) ================== 

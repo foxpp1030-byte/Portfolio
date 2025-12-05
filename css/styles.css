@@ -670,646 +670,112 @@ section.txt_area {
 
 
 
-/* =============================
-     프로젝트 컨텐츠 부분
-============================= */
-
-#projects {
-    position: relative;
-    height: 100vh;
-    overflow: hidden;
+#projects.projects_vertical_section {
+    width: 100%;
     background: #fff;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
+    padding: 150px 0;
+    overflow: visible;
 }
 
-.track {
-    display: flex;
-    height: 100%;
-    align-items: center;
-    will-change: transform;
-    padding: 0 8vw
-}
-
-.hItem {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-/* .hItem img {
-    width: auto;
-    height: 80%;
-}
- */
-.hItem.projects_page {
-    justify-content: flex-start;
-    align-items: stretch;
-    font-family: "SUIT", sans-serif;
-}
-
-.projects_page .projects_layout {
-    width: clamp(50vw, 90%, var(--inner_width));
-    max-width: 100%;
-    height: 100%;
+#projects .inner {
+    width: 90%;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 120px 0;
-    display: grid;
-    grid-template-columns: 1fr 946px;
-    column-gap: 80px;
-}
-
-/* 선들 공통 스타일 */
-.bjo_line path,
-.heai_line path,
-.sac_line path,
-.verra_line_end path {
-    stroke: #dddddd;
-    stroke-width: 10;
-    stroke-linecap: round;
-    stroke-miterlimit: 16;
-    fill: none;
-}
-
-/* 패널들은 선 포지셔닝 기준이 되게 */
-.bjo_panel,
-.heai_panel,
-.sac_start,
-.sac_end {
-    position: relative;
-}
-
-/* 선 감싸는 랩퍼는 화면 전체 덮게 */
-.bjo_wrap,
-.heai_wrap,
-.sac_wrap_left,
-.sac_wrap_end {
-    position: absolute;
-    inset: 0;
-    /* top:0 right:0 bottom:0 left:0 */
-    pointer-events: none;
-    z-index: 1;
-    /* 이미지보다 뒤 or 앞으로 쓰고 싶으면 조절 */
-}
-
-/* 왼쪽 */
-.projects_page .projects_left {
-    position: relative;
     display: flex;
     flex-direction: column;
+    gap: 150px;
+    /* 아이템 간 간격 */
+}
+
+.jn_vertical_item {
+    width: 100%;
+    display: flex;
+    position: relative;
+}
+
+/* 짝수 번째 아이템 (2, 4...) */
+.jn_vertical_item:nth-child(even) {
+    justify-content: flex-end;
+}
+
+/* 홀수 번째 아이템 (1, 3...) */
+.jn_vertical_item:nth-child(odd) {
     justify-content: flex-start;
 }
 
-.projects_page .projects_big {
-    font-size: 100px;
-    font-weight: 400;
-    text-transform: uppercase;
-    color: #111;
+.jn_card {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
 }
 
-.projects_page .projects_vertical {
-    position: absolute;
-    left: 40px;
-    bottom: 0;
-    font-size: 14px;
-    letter-spacing: 0.2em;
-    white-space: nowrap;
-    transform: rotate(-90deg);
-    transform-origin: left bottom;
+/* (폰트 및 디테일 스타일은 기존 유지) */
+.jn_intro_text h2 {
+    font-size: 10vw;
+    font-family: 'Times New Roman', serif;
+    margin-bottom: 30px;
+    line-height: 0.9;
+    letter-spacing: -3px;
+}
+
+.jn_img_wrap {
+    width: 100%;
+    overflow: hidden;
+    background: #f4f4f4;
+    display: block;
+}
+
+.jn_img_wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.jn_img_wrap:hover img {
+    transform: scale(1.03);
+}
+
+.jn_info_left {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.jn_info_row {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    /* 위쪽 기준 정렬 */
+    border-top: 1px solid #000;
+    padding-top: 15px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.jn_proj_title {
+    font-size: 28px;
+    text-transform: uppercase;
+}
+
+.jn_proj_year {
+    font-size: 24px;
+    color: #777;
+}
+
+.jn_text_link {
+    font-family: "SUIT", sans-serif;
+    font-weight: 700;
+    text-decoration: none;
     color: #000;
 }
 
-/* 오른쪽 */
-.projects_page .projects_right {
+.jn_info_right {
     display: flex;
-    align-items: flex-end;
-    height: 100%;
+    gap: 10px;
 }
 
-.projects_page .projects_list {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.projects_page .proj_line {
-    display: grid;
-    grid-template-columns: auto minmax(0, 3fr) auto;
-    padding: 60px 0;
-    border-top: 1px solid #ddd;
-
-}
-
-.projects_page .projects_list li:last-child .proj_line {
-    border-bottom: 1px solid #ddd;
-}
-
-
-.projects_page .proj_name {
-    font-size: 24px;
-    font-weight: 600;
-    color: #111;
-    line-height: 1.4;
-}
-
-.projects_page .proj_sub {
-    font-size: 20px;
-    color: #666;
-    line-height: 1.5;
-}
-
-.projects_page .proj_meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
-    font-size: 16px;
-    color: #b3b3b3;
-    white-space: nowrap;
-}
-
-.projects_page .proj_meta span+span {
-    margin-top: 4px;
-}
-
-
-#projects h2 {
-    left: 0;
-    top: 100px;
-    align-items: flex-start;
-}
-
-.hItem h3 {
-    font-size: 5vw;
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-    font-family: "Lato";
-    font-weight: 100;
-    z-index: 100;
-}
-
-
-/* =========================
-   PROJECTS - 조선미녀 
-   ========================= */
-#con4_3 {
-    position: relative;
-}
-
-.bjo_panel .bjo_wrap {
-    width: 100%;
-    max-width: 1700px;
-    /* 필요하면 1500~1700 사이로 조절 */
-    height: 100%;
-    margin: 0 auto;
-    position: relative;
-}
-
-
-/* 조선미녀 선 공통 스타일 */
-.bjo_line {
-    position: absolute;
-    fill: none;
-    stroke: #DDDDDD;
-    stroke-width: 10;
-    stroke-linecap: round;
-    stroke-miterlimit: 16;
-    opacity: 0.5;
-}
-
-/* 왼쪽 아래 큰 곡선 */
-#con4_2 .bjo_line_left {
-    width: 75%;
-    right: -5px;
-    bottom: -5%;
-}
-
-#con4_3 .bjo_wrap {
-    width: 100%;
-    max-width: 1700px;
-    height: 100%;
-    margin: 0 auto;
-    position: relative;
-    pointer-events: auto;
-    z-index: 2;
-    /* 필요하면 위에 올라오게 */
-}
-
-#con4_3 .bjo_img {
-    position: absolute;
-    display: block;
-    height: auto;
-    object-fit: cover;
-}
-
-
-/* 위 왼쪽 항아리 */
-#con4_3 .bjo_img_top {
-    left: 4%;
-    top: 10%;
-}
-
-/* 가운데 맥북 */
-#con4_3 .bjo_img_center {
-    left: 34%;
-    top: 9%;
-}
-
-/* 왼쪽 아래 인삼 – 제일 많이 겹치는 애 */
-#con4_3 .bjo_img_bottom {
-    left: 16%;
-    top: 50%;
-}
-
-/* 오른쪽 인물 */
-#con4_3 .bjo_img_right {
-    left: 85%;
-    top: 45%;
-}
-
-/* ✅ 제목 + 버튼 */
-#con4_3 .bjo_info {
-    position: absolute;
-    /* 섹션 높이 안 늘어나게 */
-    left: 59%;
-    bottom: 160px;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 330px;
-    white-space: nowrap;
-    /* 줄바꿈 방지 → 한 줄 */
-    font-family: "SUIT", sans-serif;
-}
-
-.bjo_title {
-    font-size: 40px;
-    font-weight: 400;
-}
-
-.bjo_links {
-    display: flex;
-    gap: 8px;
-}
-
-.bjo_btn {
-    padding: 12px 20px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    font-size: 16px;
-    font-family: "SUIT", sans-serif;
-    background: rgba(0, 0, 0, 0.2);
-    white-space: nowrap;
-    cursor: pointer;
-    color: #fff;
-    text-decoration: none;
-    backdrop-filter: blur(6px);
-}
-
-.bjo_btn:hover {
-    background: #000;
-    color: #fff;
-    border-color: #000;
-}
-
-
-/* =========================
-PROJECTS - heAi 섹션
-========================= */
-#con4_4 {
-    position: relative;
-}
-
-.heai_panel .heai_img_wrap {
-    position: relative;
-    width: 100%;
-    max-width: 1700px;
-    height: 100%;
-    margin: 0 auto;
-}
-
-/* 가운데 메인 모형 이미지 */
-.heai_main {
-    position: absolute;
-    left: 50%;
-    top: 45%;
-    transform: translate(-50%, -53%);
-    width: 850px;
-    height: auto;
-}
-
-/* 공통 캐릭터 기본값 */
-.heai_char {
-    position: absolute;
-    height: 190px;
-    /* 크기 마음에 안 들면 여기 조절 */
-    width: auto;
-}
-
-/* 왼쪽 파란이 */
-.heai_char_left {
-    left: 20%;
-    bottom: 15%;
-}
-
-/* 가운데(책 읽는) */
-.heai_char_mid {
-    right: 22%;
-    bottom: 14%;
-}
-
-/* 맨 오른쪽 축포 */
-.heai_char_right {
-    right: 16%;
-    bottom: 13%;
-}
-
-/* heAi 중간(닫는) 선 위치 */
-.heai_wrap_mid .heai_line_mid {
-    width: 55%;
-    right: 0;
-    bottom: 0;
-}
-
-.heai_line.heai_line_left {
-    position: absolute;
-    left: 30%;
-    top: 10%;
-}
-
-
-/* 오른쪽 위 작은 곡선 */
-#con4_4 .heai_line_right {
-    position: absolute;
-    width: 19%;
-    right: 0;
-    left: auto;
-    top: -2%;
-}
-
-/* heAi 제목 + 버튼 라인 */
-#con4_4 .heai_info {
-    position: absolute;
-    left: 49%;
-    bottom: 160px;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 500px;
-    white-space: nowrap;
-    font-family: "SUIT", sans-serif;
-    z-index: 3;
-    /* 이미지 위로 올라오게 */
-}
-
-.heai_title {
-    font-size: 40px;
-    font-weight: 400;
-}
-
-.heai_links {
-    display: flex;
-    gap: 8px;
-}
-
-.heai_btn {
-    padding: 12px 20px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    font-size: 16px;
-    font-family: "SUIT", sans-serif;
-    background: rgba(0, 0, 0, 0.2);
-    white-space: nowrap;
-    cursor: pointer;
-    color: #fff;
-    text-decoration: none;
-    backdrop-filter: blur(6px);
-}
-
-.heai_btn:hover {
-    background: #000;
-    color: #fff;
-    border-color: #000;
-}
-
-/* =========================
-   PROJECTS - 예술의전당 섹션
-   ========================= */
-
-.sac_panel {
-    position: relative;
-}
-
-/* 전체 프레임 */
-.sac_fig {
-    position: relative;
-    display: block;
-    width: 80%;
-    max-width: 1300px;
-    margin: 0 auto;
-}
-
-/* 포스터가 기준 잡을 박스 */
-.sac_img_box {
-    position: relative;
-    width: 100%;
-    /* 필요하면 높이 감 조절용 */
-    /* padding-bottom: 60%; 이런 식으로 써도 됨 */
-}
-
-/* 가운데 노트북 메인 */
-.sac_main {
-    display: block;
-    width: 60%;
-    margin: 0 auto;
-}
-
-/* 공통 포스터 스타일 */
-.sac_poster {
-    position: absolute;
-    width: 280px;
-    /* 크기 마음에 안 들면 여기 조절 */
-    height: auto;
-}
-
-/* 각 포스터 위치 (퍼센트로, 화면 비율 따라감) */
-.sac_poster1 {
-    /* 왼쪽 위 포스터 */
-    top: -5%;
-    left: -4%;
-}
-
-.sac_poster2 {
-    /* 왼쪽 아래 isometric */
-    bottom: -15%;
-    left: -12%;
-    width: 400px;
-}
-
-.sac_poster3 {
-    /* 오른쪽 중간 검은 레이아웃 */
-    top: 10%;
-    right: -12%;
-    width: 400px;
-}
-
-.sac_poster4 {
-    /* 오른쪽 아래 포스터 */
-    bottom: -14%;
-    right: -4%;
-}
 
-/* 제목 + 버튼 라인 */
-.sac_info {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 480px;
-    white-space: nowrap;
-    font-family: "SUIT", sans-serif;
-    z-index: 3;
-    margin-top: 20px;
-}
-
-/* 예술의전당 타이틀 */
-.sac_title {
-    font-size: 40px;
-    font-weight: 400;
-}
-
-/* 버튼들 랩 */
-.sac_links {
-    display: flex;
-    gap: 8px;
-}
-
-.sac_btn {
-    padding: 12px 20px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    font-size: 16px;
-    font-family: "SUIT", sans-serif;
-    background: rgba(0, 0, 0, 0.2);
-    white-space: nowrap;
-    cursor: pointer;
-    color: #fff;
-    text-decoration: none;
-    backdrop-filter: blur(6px);
-}
-
-.sac_btn:hover {
-    background: #000;
-    color: #fff;
-    border-color: #000;
-}
-
-
-/* =========================
-   PROJECTS - verra 섹션
-   ========================= */
-
-.verra_panel {
-    position: relative;
-}
-
-.verra_wrap {
-    position: relative;
-    width: 80%;
-    max-width: 1300px;
-    margin: 0 auto;
-    height: 70vh;
-}
-
-/* 메인 이미지 */
-.verra_main {
-    position: absolute;
-    left: 50%;
-    top: -6%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: auto;
-
-}
-
-/* 제목 + 버튼 라인 */
-.verra_info {
-    position: absolute;
-    left: 50%;
-    bottom: -6%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 730px;
-    /* 제목이랑 버튼 사이 간격 */
-    font-family: "SUIT", sans-serif;
-    white-space: nowrap;
-    z-index: 2;
-    pointer-events: auto;
-}
-
-/* 타이틀 */
-.verra_title {
-    font-size: 40px;
-    font-weight: 400;
-
-}
-
-/* 버튼 묶음 */
-.verra_links {
-    display: flex;
-    gap: 8px;
-}
-
-/* 버튼 스타일 (다른 섹션이랑 느낌 맞춤) */
-.verra_btn {
-    padding: 12px 20px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    font-size: 16px;
-    font-family: "SUIT", sans-serif;
-    background: rgba(0, 0, 0, 0.2);
-    white-space: nowrap;
-    cursor: pointer;
-    color: #fff;
-    text-decoration: none;
-    backdrop-filter: blur(6px);
-}
-
-.verra_btn:hover {
-    background: #000;
-    color: #fff;
-    border-color: #000;
-}
-
-/* 닫는선 */
-.verra_end_panel {
-    position: relative;
-}
-
-/* svg 자체 위치 */
-.verra_line_end {
-    position: absolute;
-    width: 20%;
-    /* 선 크기 – 작다/크다 싶으면 여기 조절 */
-    left: -15%;
-    /* 화면 더 바깥에서 시작하고 싶으면 더 음수 */
-    bottom: 50%;
-    /* 얼마나 아래에서 시작할지 */
-}
-
-/* pin 풀린 뒤에는 마지막 패널 숨기기 */
-#con4_7.hide-after-pin {
-    opacity: 0;
-    pointer-events: none;
-}
 
 
 /* =========================================
