@@ -165,77 +165,105 @@ main {
     height: 100vh;
 }
 
-
-
+/* ================= HERO SECTION ================= */
 .hero {
     width: 100%;
     height: 100vh;
-    padding-top: 140px;
-    font-family: "SUIT", sans-serif;
+    padding-top: 0;
     position: relative;
     overflow: hidden;
-}
-
-
-.hero_inner {
-    position: relative;
-    max-width: 1173px;
-    margin: 0 auto;
+    background: #fff;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    z-index: 2;
-}
-
-
-/* UX/UI DESIGNER */
-.hero_role {
-    font-size: 50px;
-    font-weight: 300;
-    letter-spacing: 0.5px;
-    margin-bottom: 20px;
-}
-
-
-/* PORTFOLIO */
-.hero_title {
-    font-size: 200px;
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: 2px;
-}
-
-.hero_bg {
-    position: absolute;
-    inset: 0;
-    /* top:0; right:0; bottom:0; left:0; */
-    overflow: hidden;
-    z-index: 1;
-    pointer-events: none;
-    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
-.hero_svg {
-    width: 160%;
-    max-width: none;
-    margin-left: -10%;
-    padding-bottom: 150px;
+
+.hero_align_wrapper {
+    position: relative;
+    width: fit-content;
+    margin-top: -200px;
+    height: auto;
+    transform: translateY(-20px);
+    z-index: 10;
+    /* 시각적 중앙 보정 */
 }
 
+/* 메인 타이틀: PORTFOLIO */
+.hero_title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 220px;
+    font-weight: 400;
+    line-height: .9;
+    letter-spacing: -2px;
+    color: #1d1d1d;
+    margin: 0;
+    white-space: nowrap;
+}
 
+/* DESIGNER: 부모(PORTFOLIO박스) 기준 왼쪽 끝(0) 정렬 */
+.hero_role {
+    position: absolute;
+    top: -60px;
+    left: 5px;
+    font-family: 'SUIT', sans-serif;
+    font-weight: 400;
+    font-size: 50px;
+    letter-spacing: -0.5px;
+    color: #1d1d1d;
+    line-height: 1;
+}
+
+/* 2025: 부모(PORTFOLIO박스) 기준 오른쪽 끝(0) 정렬 */
+.hero_year {
+    position: absolute;
+    top: -140px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    line-height: 0.85;
+}
+
+.hero_year span {
+    font-family: 'SUIT', sans-serif;
+    font-weight: 300;
+    font-size: 80px;
+    color: #1d1d1d;
+}
+
+/* 빵 오브젝트 위치 수정 (피그마처럼 위로 올림) */
+.hero_bread_obj {
+    position: absolute;
+    left: 10%;
+    bottom: 20px;
+    width: 217px;
+    height: auto;
+    transform: translateY(-80%) rotate(-10deg)scaleX(-1);
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* 회전 로고 수정 */
 .rotate_logo {
     position: absolute;
     right: 110px;
     bottom: 150px;
-
     width: 130px;
-    height: 128px;
+    height: 130px;
     z-index: 3;
 
-    pointer-events: none;
+    /* 애니메이션 적용 */
     animation: rotate360 18s linear infinite;
     transform-origin: center center;
+}
+
+/* SVG 내부 크기 강제 지정 (끊김 방지) */
+.rotate_logo svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    /* 잘림 방지 */
 }
 
 @keyframes rotate360 {
@@ -248,11 +276,30 @@ main {
     }
 }
 
-/* 스크롤 내려가면 사라지는 처리 */
-/* .rotate_logo_hidden {
-    opacity: 0;
-    transition: opacity .6s ease;
-} */
+/* 반응형 (노트북 사이즈) */
+@media (max-width: 1600px) {
+    .hero_title {
+        font-size: 14vw;
+    }
+
+    .hero_role {
+        font-size: 3vw;
+        top: -3vw;
+    }
+
+    .hero_year span {
+        font-size: 5vw;
+    }
+
+    .hero_year {
+        top: -6vw;
+    }
+
+    .hero_bread_obj {
+        width: 180px;
+        left: 8%;
+    }
+}
 
 
 

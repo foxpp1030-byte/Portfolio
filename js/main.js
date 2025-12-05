@@ -187,45 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ScrollTrigger.refresh();
         }, 100);
 
-        const path = document.querySelector(".hero_path");
-        const length = path.getTotalLength();
 
-        path.style.strokeDasharray = length;
-        path.style.strokeDashoffset = length; // ← 출발점: 전체 숨김(왼→오 준비)
-
-        gsap.to('.hero_path', {
-            strokeDashoffset: 0,            // ← 도착점: 0 (왼→오로 드로잉됨)
-            duration: 2,
-            ease: "power1.out",
-            scrollTrigger: {
-                trigger: ".hero",
-                start: "top 100px",
-                end: "bottom top",
-                scrub: true,
-                pin: true,
-                anticipatePin: 1,
-                // ⭐ 아래로 내려가서 hero를 벗어나는 순간
-                /*            onLeave: () => {
-                               if (overlayActivatedOnce) return;
-                               overlayActivatedOnce = true;
-           
-                               gsap.to(window, {
-                                   scrollTo: "#about",
-                                   duration: 1.2,
-                                   ease: "power2.out",
-                                   onComplete: () => {
-                                       
-                                   }
-                               });
-                           },
-            */
-                // ⭐ 다시 위로 올라와 hero에 재진입했을 때
-                onEnterBack: () => {
-                    // overlay 갑자기 꺼지지 않게 → 부드럽게 제거
-
-                }
-            }
-        });
     });
 
     const keyImg = document.querySelector(".vision_key_obj");
