@@ -377,222 +377,141 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // ================== Visual Archive – 스크롤에 맞춰 포스터 바꾸기 ==================
+    // ================== Visual Archive Hover Effect ==================
+    const jnRows = document.querySelectorAll(".jn_row");
+    const jnCursorWrap = document.querySelector(".jn_cursor_img");
+    const jnPreviewImg = document.querySelector("#jn_preview_target");
 
-    // ================== Visual Archive – 스크롤에 맞춰 포스터 바꾸기 ==================
+    if (jnCursorWrap) { // 요소가 있을 때만 실행
+        let jnXTo = gsap.quickTo(jnCursorWrap, "x", { duration: 0.4, ease: "power3" });
+        let jnYTo = gsap.quickTo(jnCursorWrap, "y", { duration: 0.4, ease: "power3" });
 
-    const visualItems = Array.from(document.querySelectorAll(".visual_item"));
-    const visualPosterImg = document.querySelector(".visual_poster_img");
-
-    // 요소 없으면 종료
-    if (!visualItems.length || !visualPosterImg) return;
-
-    // 글 + 포스터 바꾸는 함수
-    function activateVisual(item) {
-        if (!item) return;
-
-        // 글자 하이라이트
-        visualItems.forEach((el) => el.classList.remove("is_active"));
-        item.classList.add("is_active");
-
-        // 포스터 이미지 교체
-        const src = item.dataset.poster;
-        if (src) {
-            visualPosterImg.src = src;
-
-            const titleEl = item.querySelector(".visual_item_title");
-            visualPosterImg.alt = titleEl ? titleEl.innerText.trim() : "Visual poster";
-        }
-    }
-
-    // 스크롤 시 화면 중앙에 있는 아이템 탐색
-    function updateByScroll() {
-        const centerY = window.innerHeight * 0.5;
-        let current = visualItems[0];
-
-        visualItems.forEach((item) => {
-            const rect = item.getBoundingClientRect();
-            if (rect.top <= centerY && rect.bottom >= centerY) {
-                current = item;
+        window.addEventListener("mousemove", (e) => {
+            if (jnCursorWrap.style.opacity > 0) {
+                jnXTo(e.clientX);
+                jnYTo(e.clientY);
             }
         });
 
-        if (!current.classList.contains("is_active")) {
-            activateVisual(current);
+        if (jnRows.length > 0) {
+            jnRows.forEach((row) => {
+                row.addEventListener("mouseenter", () => {
+                    const imgSrc = row.getAttribute("data-img");
+                    if (imgSrc && jnPreviewImg) {
+                        jnPreviewImg.src = imgSrc;
+                        gsap.to(jnCursorWrap, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" });
+                    }
+                });
+                row.addEventListener("mouseleave", () => {
+                    gsap.to(jnCursorWrap, { opacity: 0, scale: 0.8, duration: 0.3, ease: "power2.out" });
+                });
+            });
         }
     }
 
-    // 초기 상태
-    activateVisual(visualItems[0]);
-    updateByScroll();
 
-    // 스크롤 업데이트
-    window.addEventListener("scroll", updateByScroll);
+    // ==========================================================
+    // ICON CLOUD (Matter.js) - 중첩 리스너 제거 및 통합
+    // ==========================================================
+    const section = document.querySelector("#icon_cloud_section");
+    if (section) {
+        // 1. Matter.js 모듈
+        const Engine = Matter.Engine,
+            Render = Matter.Render,
+            Runner = Matter.Runner,
+            Bodies = Matter.Bodies,
+            Composite = Matter.Composite,
+            Mouse = Matter.Mouse,
+            MouseConstraint = Matter.MouseConstraint;
 
-    // 마우스 오버 시 즉시 변경
-    visualItems.forEach((item) => {
-        item.addEventListener("mouseenter", () => activateVisual(item));
-    });
+        // 2. 엔진 생성
+        const engine = Engine.create();
+        const world = engine.world;
 
-    gsap.to(".visual_poster_frame", {
-        y: 300,
-        scrollTrigger: {
-            trigger: ".visual_section",
-            start: "top top",
-            end: "bottom bottom",
-            scrub: 1,
-            pin: true,
-            markers: true,
+        // 3. 렌더러 생성
+        const render = Render.create({
+            element: section,
+            engine: engine,
+            options: {
+                width: section.clientWidth,
+                height: section.clientHeight,
+                background: 'transparent',
+                wireframes: false,
+                pixelRatio: window.devicePixelRatio
+            }
+        });
+
+        // 4. 벽 생성 함수
+        const wallOptions = { isStatic: true, render: { visible: false } };
+        let ground, leftWall, rightWall;
+
+        function createWalls() {
+            const width = section.clientWidth;
+            const height = section.clientHeight;
+            const wallThick = 100;
+
+            if (ground) Composite.remove(world, [ground, leftWall, rightWall]);
+
+            ground = Bodies.rectangle(width / 2, height * 0.85, width, wallThick, wallOptions);
+            leftWall = Bodies.rectangle(0 - wallThick / 2, height / 2, wallThick, height * 2, wallOptions);
+            rightWall = Bodies.rectangle(width + wallThick / 2, height / 2, wallThick, height * 2, wallOptions);
+
+            Composite.add(world, [ground, leftWall, rightWall]);
         }
-    });
-    /*     visualItems.forEach((item, i) => {
-            gsap.to(".visual_poster_frame", {
-                y: i * 80,
-                scrollTrigger: {
-                    trigger: item,
-                    start: "top top",
-                    end: "bottom bottom",
-                    scrub: 1,
+        createWalls();
+
+        // 5. 아이콘 생성
+        const iconScale = 0.5;
+        for (let i = 0; i < 12; i++) {
+            const xPos = Math.random() * section.clientWidth;
+            const yPos = Math.random() * -500 - 100;
+            const icon = Bodies.rectangle(xPos, yPos, 80, 80, {
+                restitution: 0.5,
+                friction: 0.1,
+                angle: Math.random() * Math.PI,
+                render: {
+                    sprite: {
+                        texture: './img/icon.png',
+                        xScale: iconScale,
+                        yScale: iconScale
+                    }
                 }
             });
-        }); */
-    /*     gsap.to(".visual_poster_frame", {
-            y: (visualItems.length - 1) * 80,
-            scrollTrigger: {
-                trigger: ".visual_poster_frame",
-                start: "top top",
-                end: "+=" + (visualItems.length * window.innerHeight),
-                scrub: 1,
-                pin: true,
-            }
-        }); */
-
-
-});
-
-
-
-
-// ==============================
-// ICON CLOUD (Matter.js Physics)
-// ==============================
-document.addEventListener("DOMContentLoaded", () => {
-    const section = document.querySelector("#icon_cloud_section");
-    if (!section) return;
-
-    // 1. Matter.js 모듈 별칭 설정
-    const Engine = Matter.Engine,
-        Render = Matter.Render,
-        Runner = Matter.Runner,
-        Bodies = Matter.Bodies,
-        Composite = Matter.Composite,
-        Mouse = Matter.Mouse,
-        MouseConstraint = Matter.MouseConstraint,
-        Events = Matter.Events;
-
-    // 2. 엔진 생성
-    const engine = Engine.create();
-    const world = engine.world;
-
-    // 3. 렌더러 생성 (캔버스에 그림)
-    const render = Render.create({
-        element: section,
-        engine: engine,
-        options: {
-            width: section.clientWidth,
-            height: section.clientHeight,
-            background: 'transparent', // 배경 투명 (CSS 배경색 사용)
-            wireframes: false, // 와이어프레임 끄고 이미지 보여주기
-            pixelRatio: window.devicePixelRatio // 고해상도 대응
+            Composite.add(world, icon);
         }
-    });
 
-    // 4. 벽과 바닥 생성 (화면 밖으로 나가지 않게)
-    const wallOptions = {
-        isStatic: true, // 고정된 물체
-        render: { visible: false } // 투명하게
-    };
-
-    let ground, leftWall, rightWall;
-
-    function createWalls() {
-        const width = section.clientWidth;
-        const height = section.clientHeight;
-        const wallThick = 100;
-
-        // 기존 벽 제거 (리사이즈 대응)
-        if (ground) Composite.remove(world, [ground, leftWall, rightWall]);
-
-        // ✅ 바닥을 화면 85% 지점에 배치 (더 자연스러운 위치)
-        ground = Bodies.rectangle(width / 2, height * 0.85, width, wallThick, wallOptions);
-        leftWall = Bodies.rectangle(0 - wallThick / 2, height / 2, wallThick, height * 2, wallOptions);
-        rightWall = Bodies.rectangle(width + wallThick / 2, height / 2, wallThick, height * 2, wallOptions);
-
-        Composite.add(world, [ground, leftWall, rightWall]);
-    }
-    createWalls();
-
-    // 5. 아이콘(오브젝트) 생성
-    const iconScale = 0.5; // 이미지 크기 조절 (필요시 0.5 ~ 1.0 사이 조절)
-
-    // X 아이콘들
-    for (let i = 0; i < 12; i++) { // 개수 12개
-        const xPos = Math.random() * section.clientWidth;
-        const yPos = Math.random() * -500 - 100; // 화면 위쪽에서 랜덤하게 시작
-
-        const icon = Bodies.rectangle(xPos, yPos, 80, 80, { // 80x80은 충돌 박스 크기
-            restitution: 0.5, // 탄성 (0~1)
-            friction: 0.1,    // 마찰력
-            angle: Math.random() * Math.PI, // 랜덤 회전
+        // 크루아상 생성
+        const bread = Bodies.rectangle(section.clientWidth / 2, -200, 120, 80, {
+            restitution: 0.6,
             render: {
                 sprite: {
-                    texture: './img/icon.png', // 이미지 경로 확인!
-                    xScale: iconScale,
-                    yScale: iconScale
+                    texture: './img/bread01.png',
+                    xScale: 0.6,
+                    yScale: 0.6
                 }
             }
         });
-        Composite.add(world, icon);
+        Composite.add(world, bread);
+
+        // 6. 마우스 컨트롤
+        const mouse = Mouse.create(render.canvas);
+        const mouseConstraint = MouseConstraint.create(engine, {
+            mouse: mouse,
+            constraint: { stiffness: 0.2, render: { visible: false } }
+        });
+        Composite.add(world, mouseConstraint);
+
+        // 7. 실행
+        Render.run(render);
+        const runner = Runner.create();
+        Runner.run(runner, engine);
+
+        // 8. 리사이즈 대응
+        window.addEventListener('resize', () => {
+            render.canvas.width = section.clientWidth;
+            render.canvas.height = section.clientHeight;
+            createWalls();
+        });
     }
 
-    // 크루아상 (하나만)
-    const bread = Bodies.rectangle(section.clientWidth / 2, -200, 120, 80, {
-        restitution: 0.6,
-        render: {
-            sprite: {
-                texture: './img/bread01.png', // 이미지 경로 확인!
-                xScale: 0.6, // 크루아상은 조금 더 크게
-                yScale: 0.6
-            }
-        }
-    });
-    Composite.add(world, bread);
-
-
-    // 6. 마우스 컨트롤 (드래그 기능)
-    const mouse = Mouse.create(render.canvas);
-    const mouseConstraint = MouseConstraint.create(engine, {
-        mouse: mouse,
-        constraint: {
-            stiffness: 0.2,
-            render: { visible: false }
-        }
-    });
-    Composite.add(world, mouseConstraint);
-
-    // 스크롤과 마우스 휠 간섭 방지 (선택사항)
-    // mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
-    // mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
-
-    // 7. 실행
-    Render.run(render);
-    const runner = Runner.create();
-    Runner.run(runner, engine);
-
-    // 8. 화면 크기 변경 시 대응
-    window.addEventListener('resize', () => {
-        render.canvas.width = section.clientWidth;
-        render.canvas.height = section.clientHeight;
-        createWalls(); // 벽 위치 재조정
-    });
-});
+}); // DOMContentLoaded 끝

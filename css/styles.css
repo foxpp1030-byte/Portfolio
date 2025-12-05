@@ -1312,156 +1312,153 @@ PROJECTS - heAi 섹션
 }
 
 
+/* =========================================
+   VISUAL ARCHIVE - Jenny Nordberg Style
+   ========================================= */
 
-/* ==============================
-   VISUAL ARCHIVE SECTION
-   ============================== */
-
-.visual_section {
+.jn_visual_section {
     width: 100%;
-    padding: 160px 0 150px;
-    background: #ffffff;
-    font-family: var(--font);
-    overflow: visible;
-}
-
-.visual_inner {
-    width: clamp(50vw, 90%, var(--inner_width));
-    margin: 0 auto;
-    /*     display: flex;
-    gap: 96px;
-    justify-content: center; */
-    display: grid;
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 2.3fr);
-    column-gap: 96px;
-    align-items: flex-start;
+    min-height: 100vh;
+    background: #fff;
+    padding: 160px 0;
+    /* 상단 여백 넉넉하게 */
     position: relative;
-    overflow: visible;
+    /* Jenny Nordberg 느낌의 기본 시스템 폰트 사용 (Raw한 느낌) */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #000;
+    z-index: 10;
+    background: #fff;
+    /* 배경 확실하게 흰색 */
 }
 
-/* 왼쪽 텍스트 */
-.visual_text {
-    /* width: 60%; */
-    cursor: pointer;
+.jn_container {
+    width: clamp(50vw, 90%, 1400px);
+    margin: 0 auto;
 }
 
-.visual_header {
-    margin-bottom: 60px;
+/* 헤더 스타일 */
+.jn_header {
+    margin-bottom: 80px;
+    padding-bottom: 20px;
+    /* 필요 시 밑줄 추가: border-bottom: 2px solid #000; */
 }
 
-.visual_title {
-    font-size: 72px;
-    font-weight: 300;
-    line-height: 1.1;
-    letter-spacing: 0.04em;
+.jn_page_title {
+    font-size: 60px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -1px;
+    margin: 0 0 10px 0;
 }
 
-.visual_sub {
-    margin-top: 12px;
-    font-size: 30px;
-    color: #555555;
+.jn_subtitle {
+    font-size: 16px;
+    color: #666;
+    font-weight: 400;
 }
 
-.visual_sub_kr {
-    margin-top: 4px;
-    font-size: 30px;
-    color: #8b8b8b;
-}
-
-.visual_year {
-    font-size: 32px;
-    font-weight: 600;
-    margin-bottom: 40px;
-}
-
-.visual_groups {
+/* 리스트 스타일 */
+.jn_list {
     display: flex;
     flex-direction: column;
-    gap: 56px;
+    gap: 0;
+    /* 아이템 간 간격 없음 (보더로 구분) */
 }
 
-.visual_group_title {
-    font-size: 30px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #b4b4b4;
-    margin-bottom: 10px;
-}
-
-.visual_group_desc {
-    font-size: 18px;
-    color: #777777;
-    margin-bottom: 10px;
-}
-
-.visual_list {
-    list-style: none;
-}
-
-.visual_item {
-    padding: 10px 0 14px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-    transition:
-        transform 0.3s ease,
-        color 0.3s ease;
-}
-
-.visual_item_title {
-    font-size: 24px;
-    font-weight: 500;
-    line-height: 1.5;
-    color: #111111;
-    transition:
-        font-size 0.3s ease,
-        color 0.3s ease;
-}
-
-.visual_item_desc {
-    margin-top: 3px;
-    font-size: 20px;
-    line-height: 1.7;
-    color: #666666;
-}
-
-/* 활성화된 아이템 – 살짝 커지고 진해짐 */
-
-.visual_item.is_active {
-    transform: translateX(4px);
-}
-
-.visual_item.is_active .visual_item_title {
-    font-size: 24px;
-    font-weight: 600;
-    color: #000000;
-}
-
-/* 오른쪽 포스터 프리뷰 */
-
-.visual_poster {
-    position: sticky;
-    top: 160px;
-    /*     position: absolute;
-    top: 160px; */
-    /* visual_section의 padding-top과 동일 */
-    left: calc((100% - clamp(50vw, 90%, var(--inner_width))) / 2);
-    /* width: calc(clamp(50vw, 90%, var(--inner_width)) * 0.30); */
-    /* height: 100%; */
-    height: 100vh;
-}
-
-.visual_poster_frame {
+.jn_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    /* 텍스트 베이스라인 정렬 */
+    padding: 18px 0;
+    /* 각 줄 높이 */
+    border-bottom: 1px solid #e0e0e0;
+    /* 연한 회색 라인 */
+    cursor: pointer;
+    transition: opacity 0.3s ease;
     position: relative;
-    /* will-change: transform; */
+    z-index: 2;
 }
 
-.visual_poster_img {
-    width: 80%;
+/* 마우스 올렸을 때: 해당 아이템 제외하고 흐리게 하기 */
+.jn_list:hover .jn_row {
+    opacity: 0.3;
+}
+
+.jn_list:hover .jn_row:hover {
+    opacity: 1;
+    border-bottom-color: #000;
+    /* 호버 시 라인 진하게 */
+}
+
+/* 타이틀 폰트 */
+.jn_title {
+    font-size: 28px;
+    font-weight: 400;
+    /* 너무 두껍지 않게 */
+    letter-spacing: -0.5px;
+    color: #000;
+}
+
+/* 오른쪽 메타 정보 (Category / Year) */
+.jn_meta {
+    font-size: 16px;
+    font-weight: 400;
+    color: #555;
+    text-align: right;
+    font-feature-settings: "tnum";
+    /* 숫자 등폭 */
+}
+
+/* =========================================
+   Floating Image (마우스 따라다니기)
+   ========================================= */
+.jn_cursor_img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 350px;
+    /* 이미지 최대 너비 */
+    height: auto;
+    pointer-events: none;
+    /* 마우스 클릭 통과 */
+    z-index: 999;
+    opacity: 0;
+    /* 평소엔 안 보임 */
+    transform: translate(-50%, -50%) scale(0.8);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.jn_cursor_inner img {
+    width: 100%;
     height: auto;
     display: block;
-    object-fit: contain;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    /* 이미지에 그림자 줘서 떠있는 느낌 */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    background: #fff;
 }
 
+/* 모바일 대응 */
+@media (max-width: 768px) {
+    .jn_page_title {
+        font-size: 40px;
+    }
+
+    .jn_title {
+        font-size: 20px;
+    }
+
+    .jn_meta {
+        font-size: 14px;
+    }
+
+    .jn_cursor_img {
+        display: none;
+    }
+
+    /* 모바일에서는 플로팅 이미지 숨김 */
+}
 
 /* styles.css */
 
