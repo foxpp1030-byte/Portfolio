@@ -434,10 +434,20 @@ document.addEventListener("DOMContentLoaded", () => {
         item.addEventListener("mouseenter", () => activateVisual(item));
     });
 
-
+    gsap.to(".visual_poster_frame", {
+        y: 300,
+        scrollTrigger: {
+            trigger: ".visual_section",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 1,
+            pin: true,
+            markers: true,
+        }
+    });
     /*     visualItems.forEach((item, i) => {
             gsap.to(".visual_poster_frame", {
-                y: i * 80,  
+                y: i * 80,
                 scrollTrigger: {
                     trigger: item,
                     start: "top top",
@@ -446,16 +456,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         }); */
-    gsap.to(".visual_poster_frame", {
-        y: (visualItems.length - 1) * 80,
-        scrollTrigger: {
-            trigger: ".visual_poster_frame",
-            start: "top top",
-            end: "+=" + (visualItems.length * window.innerHeight),
-            scrub: 1,
-            pin: true,
-        }
-    });
+    /*     gsap.to(".visual_poster_frame", {
+            y: (visualItems.length - 1) * 80,
+            scrollTrigger: {
+                trigger: ".visual_poster_frame",
+                start: "top top",
+                end: "+=" + (visualItems.length * window.innerHeight),
+                scrub: 1,
+                pin: true,
+            }
+        }); */
 
 
 });

@@ -1332,7 +1332,7 @@ PROJECTS - heAi 섹션
     gap: 96px;
     justify-content: center; */
     display: grid;
-    grid-template-columns: minmax(0, 2.3fr) minmax(0, 1.4fr);
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 2.3fr);
     column-gap: 96px;
     align-items: flex-start;
     position: relative;
@@ -1443,9 +1443,10 @@ PROJECTS - heAi 섹션
     /*     position: absolute;
     top: 160px; */
     /* visual_section의 padding-top과 동일 */
-    right: calc((100% - clamp(50vw, 90%, var(--inner_width))) / 2);
+    left: calc((100% - clamp(50vw, 90%, var(--inner_width))) / 2);
     /* width: calc(clamp(50vw, 90%, var(--inner_width)) * 0.30); */
-    height: 100%;
+    /* height: 100%; */
+    height: 100vh;
 }
 
 .visual_poster_frame {
