@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     /* ================== Navigation Active ================== */
-    const navLinks = document.querySelectorAll(".gnb li");
+    const navLinks = document.querySelectorAll(".gnb_tit li");
 
     function set_active(target) {
         // target is expected to be an href like "#skills" or an element
@@ -228,8 +228,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    const keyImg = document.querySelector(".vision_key_obj");
 
-
+    if (keyImg) { // 에러 방지용 안전 장치
+        gsap.fromTo(keyImg,
+            {
+                y: -200,    // 시작: 위쪽 -200px
+                opacity: 0  // 시작: 투명
+            },
+            {
+                y: 0,       // 끝: 원래 위치
+                opacity: 1, // 끝: 불투명
+                duration: 1.5,
+                ease: "power3.out", // 부드러운 감속
+                scrollTrigger: {
+                    trigger: ".vision",
+                    start: "top 60%", // 섹션이 화면의 60% 지점에 오면 시작
+                    // markers: true, // 🚧 테스트용: 안 되면 주석 풀고 확인해보세요
+                }
+            }
+        );
+    }
 
     // ================== about ==================
     const visionCards = gsap.utils.toArray(".vision .card");
@@ -253,42 +272,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // ================== Skillset ==================
-    // const skillReceipt = document.querySelector('.skillset_img');
+    // ================== Skillset (영수증 올라오는 효과) ==================
+    const skillReceipt = document.querySelector('.skillset_img');
 
-    // if (skillReceipt) {
+    // 1. 요소가 진짜로 잡혔는지 콘솔에 출력 (F12 눌러서 Console 탭 확인 가능)
+    if (skillReceipt) {
+        console.log("✅ Skillset 요소 찾음! 애니메이션 준비 완료.");
 
-    //     // 🎯 fromTo는 딱 1번 — 중복 실행 절대 없음
-    //     gsap.fromTo(
-    //         skillReceipt,
-    //         { y: 500, opacity: 0.3 },
-    //         {
-    //             y: 0,
-    //             opacity: 1,
-    //             ease: "power3.out",
-    //             scrollTrigger: {
-    //                 trigger: "#skills",
-    //                 start: "top top",
-    //                 end: () => "+=" + window.innerHeight,
-    //                 scrub: 1,
-    //                 pin: true,
-    //                 anticipatePin: 1,
-    //                 pinSpacing: true,
-    //                 markers: false,
-    //                 onEnter: () => set_active("#skills"),
-    //                 onEnterBack: () => set_active("#skills"),
-    //             }
-    //         }
-    //     );
-    // }
-
-
-
-
-
-
-
-
+        gsap.fromTo(skillReceipt,
+            {
+                y: 300,       // 시작: 300px 아래
+                opacity: 0    // 시작: 투명
+            },
+            {
+                y: 0,         // 끝: 제자리
+                opacity: 1,   // 끝: 선명함
+                duration: 1.5,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#skills", // 트리거 기준: Skills 섹션 전체
+                    start: "top 60%",   // 화면 위에서 60% 지점에 섹션이 닿으면 시작
+                    end: "top 30%",
+                    toggleActions: "play none none reverse",
+                    markers: true,      // 🔥 [중요] 화면에 'start', 'end' 선이 표시됩니다! (확인 후 지우세요)
+                    id: "skill-ani"     // 마커 이름
+                }
+            }
+        );
+    } else {
+        console.error("skillset_img");
+    }
 
 
 

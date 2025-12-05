@@ -386,7 +386,33 @@ main {
     background-position: 30px 0;
     /* 왼쪽에서 40px 정도 띄우고 위에 붙이기 */
     background-size: auto 70vh;
-    background-image: url(../img/key.png);
+    /* background-image: url(../img/key.png); */
+    position: relative;
+    /* 이미지 배치를 위해 필수 */
+    overflow: hidden;
+
+    /* 이미지가 위에서 내려올 때 섹션 밖 영역 안 보이게 처리 */
+    .vision_key_obj {
+        position: absolute;
+        left: 30px;
+        /* 기존 background-position x값 */
+        top: 0;
+        /* 기존 background-position y값 */
+        height: 70vh;
+        /* 기존 background-size 높이 */
+        width: auto;
+        z-index: 1;
+        /* 텍스트보다 뒤에 가려면 0, 앞에 오려면 2 (상황에 맞춰 조절) */
+        pointer-events: none;
+        /* 마우스 이벤트 방해 안 받게 */
+    }
+
+    .vision .sticky {
+        position: relative;
+        z-index: 2;
+        /* 텍스트가 키 이미지 위에 올라오도록 설정 */
+        /* ... 기존 코드 ... */
+    }
 
     /* ===== Sticky wrapper ===== */
     & .sticky {
@@ -396,7 +422,7 @@ main {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 20vh;
+        gap: 2vh;
     }
 
     & .sticky_title {
@@ -629,13 +655,9 @@ section.txt_area {
 
 .skillset_img {
     width: 368px;
-    /* Figma 값 */
     height: 634px;
-    /* Figma 값 */
-    /* background image removed to avoid duplicate rendering; keep the <img> in HTML */
-    /* 처음 상태: 아래에서 올라오도록 */
-    /*     opacity: 0;
-    transform: translateY(80px); */
+    position: relative;
+    z-index: 10;
 }
 
 .skillset_img img {
