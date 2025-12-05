@@ -517,4 +517,50 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+
+    // ==========================================================
+    // CUSTOM CURSOR LOGIC (Visual Section으로 변경됨)
+    // ==========================================================
+    // 1. 타겟을 #projects가 아닌 #visual로 변경
+    const targetSection = document.querySelector("#visual");
+    const cursorIcon = document.querySelector(".project_cursor");
+
+    if (targetSection && cursorIcon) {
+
+        // 2. 커서 중심점 잡기 (마우스 끝이 이미지 중앙에 오도록)
+        gsap.set(cursorIcon, { xPercent: -50, yPercent: -50 });
+
+        // 3. GSAP QuickTo 설정
+        let cursorX = gsap.quickTo(cursorIcon, "x", { duration: 0.2, ease: "power3" });
+        let cursorY = gsap.quickTo(cursorIcon, "y", { duration: 0.2, ease: "power3" });
+
+        // 4. 마우스 움직임 감지
+        window.addEventListener("mousemove", (e) => {
+            cursorX(e.clientX);
+            cursorY(e.clientY);
+        });
+
+        // 5. Visual 섹션 진입 시: 커서 보이기
+        targetSection.addEventListener("mouseenter", () => {
+            gsap.to(cursorIcon, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.3,
+                ease: "power2.out"
+            });
+        });
+
+        // 6. Visual 섹션 이탈 시: 커서 숨기기
+        targetSection.addEventListener("mouseleave", () => {
+            gsap.to(cursorIcon, {
+                opacity: 0,
+                scale: 0.5,
+                duration: 0.3,
+                ease: "power2.out"
+            });
+        });
+    }
+
 }); // DOMContentLoaded 끝
+
+
