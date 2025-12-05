@@ -668,8 +668,6 @@ section.txt_area {
 
 
 
-
-
 #projects.projects_vertical_section {
     width: 100%;
     background: #fff;
@@ -709,13 +707,20 @@ section.txt_area {
     flex-direction: column;
 }
 
-/* (폰트 및 디테일 스타일은 기존 유지) */
 .jn_intro_text h2 {
     font-size: 10vw;
     font-family: 'Times New Roman', serif;
     margin-bottom: 30px;
     line-height: 0.9;
     letter-spacing: -3px;
+}
+
+.jn_intro_text p {
+    font-size: 22px;
+    font-family: "SUIT", sans-serif;
+    color: #555;
+    padding-left: 5px;
+    line-height: 1.2;
 }
 
 .jn_img_wrap {
