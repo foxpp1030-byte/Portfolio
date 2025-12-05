@@ -414,10 +414,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ==========================================================
-    // ICON CLOUD (Matter.js) - 중첩 리스너 제거 및 통합
+    // ICON CLOUD (Matter.js) - 최종 수정 (개수/크기/타이밍 조정)
     // ==========================================================
-    const section = document.querySelector("#icon_cloud_section");
-    if (section) {
+    const cloudSection = document.querySelector("#icon_cloud_section");
+
+    if (cloudSection) {
         // 1. Matter.js 모듈
         const Engine = Matter.Engine,
             Render = Matter.Render,
@@ -433,11 +434,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // 3. 렌더러 생성
         const render = Render.create({
-            element: section,
+            element: cloudSection,
             engine: engine,
             options: {
-                width: section.clientWidth,
-                height: section.clientHeight,
+                width: cloudSection.clientWidth,
+                height: cloudSection.clientHeight,
                 background: 'transparent',
                 wireframes: false,
                 pixelRatio: window.devicePixelRatio
@@ -449,70 +450,118 @@ document.addEventListener("DOMContentLoaded", () => {
         let ground, leftWall, rightWall;
 
         function createWalls() {
-            const width = section.clientWidth;
-            const height = section.clientHeight;
+            const width = cloudSection.clientWidth;
+            const height = cloudSection.clientHeight;
             const wallThick = 100;
 
             if (ground) Composite.remove(world, [ground, leftWall, rightWall]);
 
-            ground = Bodies.rectangle(width / 2, height * 0.85, width, wallThick, wallOptions);
-            leftWall = Bodies.rectangle(0 - wallThick / 2, height / 2, wallThick, height * 2, wallOptions);
-            rightWall = Bodies.rectangle(width + wallThick / 2, height / 2, wallThick, height * 2, wallOptions);
+            ground = Bodies.rectangle(width / 2, height + wallThick / 2 - 40, width, wallThick, wallOptions);
+            leftWall = Bodies.rectangle(0 - wallThick / 2, -height * 2, wallThick, height * 10, wallOptions);
+            rightWall = Bodies.rectangle(width + wallThick / 2, -height * 2, wallThick, height * 10, wallOptions);
 
             Composite.add(world, [ground, leftWall, rightWall]);
         }
         createWalls();
 
-        // 5. 아이콘 생성
-        const iconScale = 0.5;
-        for (let i = 0; i < 12; i++) {
-            const xPos = Math.random() * section.clientWidth;
-            const yPos = Math.random() * -500 - 100;
-            const icon = Bodies.rectangle(xPos, yPos, 80, 80, {
+        // =========================================
+        // 5. 오브젝트 생성 설정 (빵 1개 + 벡터 여러개 분리)
+        // =========================================
+
+        // [A] 빵 생성 함수 (딱 1개만)
+        function addBread() {
+            const xPos = cloudSection.clientWidth / 2; // 화면 중앙
+            const yPos = -200; // 화면 바로 위
+
+            // 빵 크기 줄이기 (scale 0.5)
+            const scaleSize = 0.5;
+
+            const bread = Bodies.rectangle(xPos, yPos, 120 * scaleSize, 80 * scaleSize, {
                 restitution: 0.5,
                 friction: 0.1,
                 angle: Math.random() * Math.PI,
                 render: {
                     sprite: {
-                        texture: './img/icon.png',
-                        xScale: iconScale,
-                        yScale: iconScale
+                        texture: './img/bread01.png',
+                        xScale: scaleSize, // 이미지 크기 줄임
+                        yScale: scaleSize
                     }
                 }
             });
-            Composite.add(world, icon);
+            Composite.add(world, bread);
         }
 
-        // 크루아상 생성
-        const bread = Bodies.rectangle(section.clientWidth / 2, -200, 120, 80, {
-            restitution: 0.6,
-            render: {
-                sprite: {
-                    texture: './img/bread01.png',
-                    xScale: 0.6,
-                    yScale: 0.6
-                }
+        // [B] 벡터 이미지들 생성 함수 (여러개)
+        const vectorImages = [
+            './img/Vector1.png',
+            './img/Vector2.png',
+            './img/Vector3.png',
+            './img/Vector4.png'
+        ];
+
+        function addVectors() {
+            // 개수 조절 (기존 40개 -> 20개로 줄임)
+            const objCount = 10;
+
+            for (let i = 0; i < objCount; i++) {
+                const randomImg = vectorImages[Math.floor(Math.random() * vectorImages.length)];
+
+                const xPos = Math.random() * cloudSection.clientWidth;
+                const yPos = -Math.random() * 3000 - 500;
+
+                // 🔥 크기 수정: 1.2배 ~ 1.8배로 훨씬 크게 설정
+                const scaleSize = 1.2 + Math.random() * 0.6;
+
+                const obj = Bodies.rectangle(xPos, yPos, 80 * scaleSize, 80 * scaleSize, {
+                    restitution: 0.6,
+                    friction: 0.1,
+                    frictionAir: 0.01 + Math.random() * 0.04,
+                    angle: Math.random() * Math.PI,
+                    render: {
+                        sprite: {
+                            texture: randomImg,
+                            xScale: scaleSize,
+                            yScale: scaleSize
+                        }
+                    }
+                });
+                Composite.add(world, obj);
+            }
+        }
+
+        // =========================================
+        // 6. 실행 제어 (ScrollTrigger로 화면에 보일 때 떨어뜨리기)
+        // =========================================
+        Render.run(render);
+        const runner = Runner.create();
+
+        // 스크롤 트리거 (화면 보이면 떨어뜨리기)
+        ScrollTrigger.create({
+            trigger: "#icon_cloud_section",
+            start: "top 60%",
+            once: true,
+            onEnter: () => {
+                addBread();
+                addVectors();
+                Runner.run(runner, engine);
             }
         });
-        Composite.add(world, bread);
 
-        // 6. 마우스 컨트롤
+        // 7. 마우스 컨트롤
         const mouse = Mouse.create(render.canvas);
         const mouseConstraint = MouseConstraint.create(engine, {
             mouse: mouse,
             constraint: { stiffness: 0.2, render: { visible: false } }
         });
-        Composite.add(world, mouseConstraint);
 
-        // 7. 실행
-        Render.run(render);
-        const runner = Runner.create();
-        Runner.run(runner, engine);
+        mouseConstraint.mouse.element.removeEventListener("mousewheel", mouseConstraint.mouse.mousewheel);
+        mouseConstraint.mouse.element.removeEventListener("DOMMouseScroll", mouseConstraint.mouse.mousewheel);
+        Composite.add(world, mouseConstraint);
 
         // 8. 리사이즈 대응
         window.addEventListener('resize', () => {
-            render.canvas.width = section.clientWidth;
-            render.canvas.height = section.clientHeight;
+            render.canvas.width = cloudSection.clientWidth;
+            render.canvas.height = cloudSection.clientHeight;
             createWalls();
         });
     }
