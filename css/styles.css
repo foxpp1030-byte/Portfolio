@@ -497,27 +497,27 @@ main {
 .card_frame {
     display: flex;
     gap: 80px;
-    /* 카드 사이 간격 */
     perspective: 2000px;
+    width: max-content;
+    flex-wrap: nowrap;
 }
 
 /* 3. 개별 카드 설정 */
 .card {
-    width: 400px;
-    /* 카드 너비 */
-    height: 560px;
-    /* 카드 높이 */
+    width: 460px;
+    height: auto;
     position: relative;
     transform-style: preserve-3d;
     cursor: pointer;
     border-radius: 4px;
-    /* 살짝 둥글게 */
+    flex-shrink: 0;
+
 }
 
 /* 카드 내부 이미지 꽉 차게 */
 .card_cover_img {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
     display: block;
     border-radius: 4px;
@@ -525,37 +525,43 @@ main {
 
 /* 앞면/뒷면 공통 */
 .card>div {
-    position: absolute;
     width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    backface-visibility: hidden;
-    /* 뒷면 숨김 */
     border-radius: 4px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     overflow: hidden;
+    backface-visibility: hidden;
 }
 
 /* --- 앞면 (이미지) --- */
 .front {
+    position: relative;
     z-index: 2;
     background-color: #fff;
-    /* 이미지가 없을 때 대비 */
+    display: flex;
+}
+
+/* 이미지 스타일 (기존 유지 확인) */
+.card_cover_img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 /* --- 뒷면 (내용) --- */
 .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     transform: rotateY(180deg);
     background-color: #1a1a1a;
-    /* 뒷면 배경색 (어두운 테마) */
     border: 1px solid #E4D8D8;
-    /* 테두리 포인트 */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding: 40px;
+    padding: 70px 20px;
     text-align: center;
     z-index: 1;
 }
@@ -564,7 +570,7 @@ main {
 .card_head {
     font-family: 'Times New Roman', Times, serif;
     font-size: 32px;
-    color: #E4D8D8;
+    color: #F0C4CB;
     /* 포인트 컬러 */
     margin-bottom: 24px;
     text-transform: uppercase;
@@ -577,28 +583,6 @@ main {
     color: #ccc;
     word-break: keep-all;
 }
-
-/* 반응형 (노트북/태블릿) */
-@media (max-width: 1600px) {
-    .huge_text_bg {
-        font-size: 18vw;
-        /* 화면이 작아지면 비율로 줄임 */
-    }
-
-    .card {
-        width: 25vw;
-        height: 35vw;
-    }
-
-    .card_head {
-        font-size: 2vw;
-    }
-
-    .card_desc {
-        font-size: 1.1vw;
-    }
-}
-
 
 
 

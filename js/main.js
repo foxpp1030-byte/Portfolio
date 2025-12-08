@@ -327,24 +327,24 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    document.querySelectorAll(".jn_card").forEach(card => {
-        card.addEventListener("mousemove", e => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = x - rect.width / 2;
-            const centerY = y - rect.height / 2;
+    // document.querySelectorAll(".jn_card").forEach(card => {
+    //     card.addEventListener("mousemove", e => {
+    //         const rect = card.getBoundingClientRect();
+    //         const x = e.clientX - rect.left;
+    //         const y = e.clientY - rect.top;
+    //         const centerX = x - rect.width / 2;
+    //         const centerY = y - rect.height / 2;
 
-            card.style.transform = `
-      rotateX(${centerY / 20}deg)
-      rotateY(${centerX / 20}deg)
-    `;
-        });
+    //         card.style.transform = `
+    //   rotateX(${centerY / 20}deg)
+    //   rotateY(${centerX / 20}deg)
+    // `;
+    //     });
 
-        card.addEventListener("mouseleave", () => {
-            card.style.transform = "rotateX(0) rotateY(0)";
-        });
-    });
+    //     card.addEventListener("mouseleave", () => {
+    //         card.style.transform = "rotateX(0) rotateY(0)";
+    //     });
+    // });
 
 
     window.addEventListener("resize", () => ScrollTrigger.refresh());
