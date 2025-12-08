@@ -1038,10 +1038,11 @@ a#rainbow-text.active:after {
     position: absolute;
     top: 0;
     right: -9%;
-    /* 위치 살짝 조정 (필요시) */
     width: 470px;
     z-index: 5;
-    /* JS에서 제어하므로 초기 위치는 CSS에서 잡지 않아도 됨 */
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
 }
 
 /* ============================================================

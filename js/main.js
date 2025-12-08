@@ -523,12 +523,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     // [1] 태그: 핀 걸리자마자 '알아서' 툭 떨어짐 (스크롤 무관)
                     if (tagWrap) {
                         gsap.fromTo(tagWrap,
-                            { y: "-100%" },
+                            {
+                                y: "-100%",
+                                autoAlpha: 0 // 시작할 땐 안 보임
+                            },
                             {
                                 y: "0%",
-                                duration: 1.5,      // 떨어지는 데 걸리는 시간
-                                ease: "bounce.out", // 통통 튀는 효과
-                                overwrite: true     // 기존 애니메이션 덮어쓰기 (충돌 방지)
+                                autoAlpha: 1,       // [핵심] 보이게 만듦 (opacity: 1, visibility: visible)
+                                duration: 1.5,
+                                ease: "bounce.out",
+                                overwrite: true
                             }
                         );
                     }
@@ -545,9 +549,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 // 다시 위로 올라가면 초기화
                 onLeaveBack: () => {
                     if (tagWrap) {
-                        gsap.to(tagWrap, { y: "-100%", duration: 0.5 }); // 태그 다시 숨김
+                        // 다시 위로 숨기면서 투명하게 만듦
+                        gsap.to(tagWrap, {
+                            y: "-100%",
+                            autoAlpha: 0, // [핵심] 다시 숨김
+                            duration: 0.5
+                        });
                     }
-                    rbBtn.onMouseLeave(); // 텍스트 효과 끄기
+                    rbBtn.onMouseLeave();
                     rainbowTarget.classList.remove("active");
                 }
             });
