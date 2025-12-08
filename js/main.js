@@ -246,7 +246,56 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
+    // ================== Projects Section Animation (Parallax & Reveal) ==================
+    const projectItems = document.querySelectorAll(".jn_vertical_item");
 
+    projectItems.forEach((item) => {
+        const card = item.querySelector(".jn_card");
+        const image = item.querySelector(".jn_img_wrap img");
+        const texts = item.querySelectorAll(".jn_info_row, .jn_proj_title, .jn_proj_year");
+
+        // 1. 카드 전체가 부드럽게 등장 (Fade Up)
+        gsap.fromTo(card,
+            {
+                y: 100,      // 아래에서 
+                opacity: 0   // 투명하게 시작
+            },
+            {
+                y: 0,        // 제자리로
+                opacity: 1,  // 선명하게
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 85%", // 화면 하단 15% 지점에서 시작
+                    toggleActions: "play none none reverse" // 올리면 다시 사라짐 (원치 않으면 "play none none none")
+                }
+            }
+        );
+
+        // 2. 이미지 패럴랙스 (스크롤 할 때 이미지가 액자 안에서 천천히 움직임)
+        if (image) {
+            gsap.fromTo(image,
+                { scale: 1.2, yPercent: -10 }, // 이미지를 살짝 키우고 위로 올림
+                {
+                    yPercent: 10,              // 스크롤 내리면 아래로 이동
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: item,
+                        start: "top bottom",   // 아이템이 화면 아래에 걸칠 때 시작
+                        end: "bottom top",     // 화면 위로 나갈 때 끝
+                        scrub: 1               // 스크롤 속도에 맞춰 부드럽게 따라옴 (숫자가 클수록 더 부드러움)
+                    }
+                }
+            );
+        }
+
+        // 3. 텍스트 정보는 이미지보다 살짝 늦게 등장 (Stagger)
+        /* 이미 .jn_card 애니메이션에 포함되어 같이 올라오지만, 
+           조금 더 디테일을 주고 싶다면 아래 코드를 활성화하세요.
+           (지금은 깔끔함을 위해 1번 애니메이션으로 통일하는 것을 추천합니다.)
+        */
+    });
 
     window.addEventListener("resize", () => ScrollTrigger.refresh());
     // Reduced Motion 설정이 바뀌면 새로고침 (선택 사항)
