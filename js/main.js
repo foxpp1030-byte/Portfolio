@@ -513,7 +513,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ScrollTrigger.create({
                 trigger: "#philosophy",
                 start: "top top",       // 섹션이 화면 맨 위에 닿으면
-                end: "+=3000",          // 3000px 스크롤 할 동안 고정
+                end: "+=1000",          // 1000px 스크롤 할 동안 고정
                 pin: true,              // 화면 고정
                 // 🚨 [핵심 수정] scrub을 삭제했습니다! 
                 // 이제 스크롤을 내리지 않아도 시간이 지나면 애니메이션이 실행됩니다.
