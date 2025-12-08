@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+@import url('https://fonts.googleapis.com/css2?family=Yarndings+20&display=swap');
 /* .pin-spacer {
     background: #fff;
 } */
@@ -212,6 +212,18 @@ main {
     letter-spacing: -0.5px;
     color: #F0C4CB;
     line-height: 1;
+
+    cursor: pointer;
+    /* 마우스 올리면 손가락 모양 */
+    transition: color 0.3s ease, transform 0.3s ease;
+    /* 부드러운 전환 */
+    transform-origin: left bottom;
+    /* 커질 때 왼쪽 기준 */
+}
+
+.hero_role:hover {
+    font-family: 'Yarndings 20';
+    color: #F0C4CB;
 }
 
 /* 2025: 부모(PORTFOLIO박스) 기준 오른쪽 끝(0) 정렬 */
@@ -576,7 +588,6 @@ main {
     color: #ccc;
     word-break: keep-all;
 }
-
 
 
 
