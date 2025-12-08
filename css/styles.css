@@ -337,7 +337,6 @@ main {
     left: 0;
     width: 100%;
     background: rgba(255, 255, 255, 0.97);
-    display: flex;
     justify-content: center;
     opacity: 0;
     pointer-events: none;
@@ -347,7 +346,10 @@ main {
     /*   margin-top: 200px; */
 }
 
-.overlay .object_page {
+.overlay .object_page {}
+
+.object_page.on {
+    display: flex;
     opacity: 1;
     pointer-events: auto;
     height: 100vh;
