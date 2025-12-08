@@ -251,35 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // ================== 선 그리기 (조선미녀 / heAi / 예술의 전당 공통) ================== 
-    const linePanels = gsap.utils.toArray(".line_panel");
 
-    linePanels.forEach((panel) => {
-        // 해당 패널 안에 있는 모든 라인(path)들 잡기
-        const paths = panel.querySelectorAll(
-            ".bjo_line path, .verra_line_end path"
-        );
-        if (!paths.length) return;
-
-        paths.forEach((path) => {
-            const len = path.getTotalLength();
-            path.style.strokeDasharray = len;
-            path.style.strokeDashoffset = len;
-
-            gsap.to(path, {
-                strokeDashoffset: 0,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: panel,              // 이 패널이 화면 가운데 올 때
-                    containerAnimation: scrollTween, // 가로 스크롤이랑 싱크
-                    start: "left center",
-                    end: "right center",
-                    scrub: true,
-                    // markers: true,
-                }
-            });
-        });
-    });
 
     window.addEventListener("resize", () => ScrollTrigger.refresh());
     // Reduced Motion 설정이 바뀌면 새로고침 (선택 사항)
