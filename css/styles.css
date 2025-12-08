@@ -569,6 +569,9 @@ main {
     padding: 100px 20px;
     text-align: center;
     z-index: 1;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
 }
 
 /* 뒷면 텍스트 스타일 */
@@ -589,7 +592,20 @@ main {
     word-break: keep-all;
 }
 
+/* 첫 번째 카드 뒷면 */
+.back_style_1 {
+    background: url('../img/card1_back.png');
+}
 
+/* 두 번째 카드 뒷면 */
+.back_style_2 {
+    background: url('../img/card2_back.png');
+}
+
+/* 세 번째 카드 뒷면 */
+.back_style_3 {
+    background: url('../img/card3_back.png');
+}
 
 
 
@@ -645,14 +661,25 @@ main {
     margin-bottom: 30px;
     line-height: 0.9;
     letter-spacing: -3px;
+    color: #2B0F0F;
 }
 
 .jn_intro_text p {
     font-size: 30px;
     font-family: "SUIT", sans-serif;
-    color: #555;
+    color: #747474;
     padding-left: 5px;
     line-height: 1.2;
+}
+
+.jn_intro_text p:first-of-type {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.jn_intro_text p:first-of-type:hover {
+    font-family: 'Yarndings 20';
+    color: #F0C4CB;
 }
 
 .jn_img_wrap {
