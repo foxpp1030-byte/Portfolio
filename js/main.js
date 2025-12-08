@@ -288,48 +288,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ================== Projects Section Parallax (Vertical) ==================
-    // 1. 요소들이 실제로 존재하는지 확인 (에러 방지)
-    const projectItems = document.querySelectorAll(".jn_vertical_item .jn_card");
+    // ================== Horizontal Scroll (Averi Style) ==================
 
-    if (projectItems.length > 0) {
-        projectItems.forEach((card) => {
-            const image = card.querySelector("img");
+    const projectSection = document.querySelector("#projects");
+    const track = document.querySelector(".horizontal_track");
 
-            // (1) 카드 등장 애니메이션 (살짝 투명했다가 나타나기)
-            gsap.fromTo(card,
-                { y: 50, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1.2,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 85%", // 화면 하단에 걸리면 시작
-                        toggleActions: "play none none reverse"
-                    }
-                }
-            );
+    if (projectSection && track) {
+        // 1. 가로로 이동할 거리 계산 (전체 길이 - 화면 너비)
+        let getScrollAmount = () => {
+            let trackWidth = track.scrollWidth;
+            return -(trackWidth - window.innerWidth) - 200;
+        };
 
-            // (2) 이미지 패럴랙스 (핵심: 스크롤보다 천천히 움직여 깊이감 생성)
-            if (image) {
-                gsap.fromTo(image,
-                    { scale: 1.1, yPercent: -5 }, // 이미지를 약간 키우고 위로 올린 상태
-                    {
-                        yPercent: 5,              // 스크롤 내리면 아래로 천천히 이동
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: card,
-                            start: "top bottom",  // 카드가 화면 아래 등장할 때부터
-                            end: "bottom top",    // 화면 위로 사라질 때까지
-                            scrub: true           // 스크롤에 맞춰 부드럽게 움직임
-                        }
-                    }
-                );
-            }
+        // 2. 가로 스크롤 애니메이션 정의
+        const tween = gsap.to(track, {
+            x: getScrollAmount, // 왼쪽으로 이동
+            ease: "none",       // 등속 운동
+            duration: 1,
         });
-    }
 
+        // 3. ScrollTrigger 연결
+        ScrollTrigger.create({
+            trigger: "#projects",
+            start: "top top",     // 섹션이 화면 맨 위에 닿으면
+            end: () => `+=${track.scrollWidth - window.innerWidth}`, // 가로 길이만큼 스크롤
+            pin: true,            // 화면 고정 (Pin)
+            animation: tween,     // 위에서 만든 애니메이션 실행
+            scrub: 1,             // 스크롤과 연동 (부드럽게)
+            invalidateOnRefresh: true, // 창 크기 조절 시 재계산
+            // markers: true      // 디버깅용 가이드라인 (확인 후 삭제)
+        });
+
+        // 4. (선택사항) 가로 스크롤 중에도 카드 호버 효과가 잘 작동하도록 refresh
+        ScrollTrigger.refresh();
+    }
     // document.querySelectorAll(".jn_card").forEach(card => {
     //     card.addEventListener("mousemove", e => {
     //         const rect = card.getBoundingClientRect();
