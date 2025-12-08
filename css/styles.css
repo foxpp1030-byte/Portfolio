@@ -422,108 +422,108 @@ main {
     transform: rotate(15deg);
 }
 
-/* SKILL SET */
-#skillset {
-    height: 100vh;
+
+/* ==============================
+   SKILLSET SECTION
+   ============================== */
+
+#skills {
+    width: 100%;
+    min-height: 100vh;
+
     position: relative;
-    z-index: 1;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
-.label_skillset {
-    left: 1280px;
-    top: 730px;
-    transform: rotate(-75deg);
+/* 이미지 감싸는 박스 */
+.skillset_img {
+    width: auto;
+    max-width: 100%;
+    opacity: 0;
+    transform: translateY(400px);
 }
 
 
-
-/* ================= VISION (About Me) SECTION - 최종 수정 ================= */
+/* ================= VISION (About Me) REBOOT ================= */
 .vision {
     width: 100%;
     height: 100vh;
     position: relative;
-    background: #1a1a1a;
-    /* background-color: #fff; */
+    background-color: #070000;
+    /* 요청하신 배경색 */
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
-.position_tit {
+/* 1. 배경 거대 텍스트 (About Me) */
+.huge_text_bg {
     position: absolute;
-    color: rgba(255, 0, 140, 0.5);
-    /* backdrop-filter: blur(10px); */
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    bottom: 0;
-    line-height: 1;
-    font-size: 30rem;
-    font-weight: 900;
-    white-space: nowrap;
-}
-
-.vision_inner {
-    width: 1700px;
-    height: 100%;
-    margin: 0 auto;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* 1. 상단 타이틀 (GNB와 겹치지 않게 120px로 조정) */
-.vision_header {
-    position: absolute;
-    top: 90px;
-    right: 0;
-    z-index: 10;
-    width: 100%;
-    text-align: right;
-    pointer-events: none;
-}
-
-.about_title {
+    transform: translate(-50%, -50%);
     font-family: 'Times New Roman', Times, serif;
-    font-size: 100px;
-    font-weight: 400;
-    color: #fe1382;
-    /* color: #000; */
-    margin: 0;
+    /* 폰트 취향에 맞게 변경 가능 */
+    font-size: 300px;
+    /* 요청하신 크기 */
+    color: #E4D8D8;
+    /* 요청하신 색상 */
+    white-space: nowrap;
+    z-index: 1;
+    /* 카드보다 뒤에 */
+    pointer-events: none;
+    /* 드래그 방지 */
     line-height: 1;
 }
 
-/* 2. 카드 컨테이너 (중앙에서 살짝 아래로) */
+/* 2. 카드 컨테이너 */
 .card_container {
+    position: relative;
+    z-index: 10;
+    /* 텍스트보다 앞에 */
     width: 100%;
+    max-width: 1600px;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 120px;
-    /* 적당한 위치 보정 */
-    box-sizing: border-box;
 }
 
 .card_frame {
-    width: 100%;
     display: flex;
-    justify-content: space-between;
+    gap: 80px;
+    /* 카드 사이 간격 */
     perspective: 2000px;
-    gap: 40px;
 }
 
-/* 개별 카드 */
+/* 3. 개별 카드 설정 */
 .card {
-    width: 466px;
-    height: 608px;
+    width: 400px;
+    /* 카드 너비 */
+    height: 560px;
+    /* 카드 높이 */
     position: relative;
     transform-style: preserve-3d;
     cursor: pointer;
+    border-radius: 4px;
+    /* 살짝 둥글게 */
 }
 
+/* 카드 내부 이미지 꽉 차게 */
+.card_cover_img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 4px;
+}
+
+/* 앞면/뒷면 공통 */
 .card>div {
     position: absolute;
     width: 100%;
@@ -531,116 +531,63 @@ main {
     left: 0;
     top: 0;
     backface-visibility: hidden;
+    /* 뒷면 숨김 */
     border-radius: 4px;
-    box-shadow: 0px 4px 6.2px rgba(0, 0, 0, 0.25);
-    border: 1px solid #fe1382;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
 }
 
-/* --- 앞면 --- */
+/* --- 앞면 (이미지) --- */
 .front {
-    background-color: #f4f4f4;
-    background-size: cover;
-    background-position: center;
     z-index: 2;
+    background-color: #fff;
+    /* 이미지가 없을 때 대비 */
 }
 
-/* --- 뒷면 --- */
+/* --- 뒷면 (내용) --- */
 .back {
     transform: rotateY(180deg);
-
-    /* [수정] 배경 이미지 꽉 차게 설정 */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-color: #1a1a1a;
+    /* 뒷면 배경색 (어두운 테마) */
+    border: 1px solid #E4D8D8;
+    /* 테두리 포인트 */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 70px 25px;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
     z-index: 1;
-    color: #fe1382;
 }
 
-
-.card:nth-child(1) .back {
-    background: #ff3593;
-    background-image: url(../img/card1_back.png);
-
-}
-
-.card:nth-child(2) .back {
-    background: #ff0f7f;
-    background-image: url(../img/card2_back.png);
-    color: #fff;
-}
-
-.card:nth-child(3) .back {
-    background: #ff0a7c;
-    background-image: url(../img/card3_back.png);
-}
-
-/* 뒷면 제목 */
+/* 뒷면 텍스트 스타일 */
 .card_head {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 38px;
-    font-weight: 400;
-    letter-spacing: 0.05em;
-    line-height: 1.1;
+    font-size: 32px;
+    color: #E4D8D8;
+    /* 포인트 컬러 */
+    margin-bottom: 24px;
     text-transform: uppercase;
-    text-align: center;
-    width: 100%;
-    margin-top: 20px;
-    /* color: #fff; */
 }
-
 
 .card_desc {
     font-family: 'SUIT', sans-serif;
-    font-size: 17px;
-    letter-spacing: -0.03em;
+    font-size: 16px;
     line-height: 1.6;
-    font-weight: 400;
-    color: inherit;
-    text-align: center;
+    color: #ccc;
     word-break: keep-all;
-    margin-top: auto;
-    /* color: #fff; */
 }
 
-/* --- 카드별 텍스트 색상 --- */
-.back_style_1 {
-    /* color: #2b1b17; */
-}
-
-.back_style_2 {
-    /* color: #fff; */
-}
-
-.back_style_2 .card_head {
-    /* color: #fff; */
-}
-
-.back_style_2 .card_desc {
-    /* color: rgba(255, 255, 255, 0.9); */
-}
-
-.back_style_3 {
-    /* color: #2b1b17; */
-}
-
-/* --- 반응형 --- */
+/* 반응형 (노트북/태블릿) */
 @media (max-width: 1600px) {
-    .vision_inner {
-        width: 90%;
+    .huge_text_bg {
+        font-size: 18vw;
+        /* 화면이 작아지면 비율로 줄임 */
     }
 
     .card {
-        width: 30vw;
-        height: 44vw;
-        max-height: 600px;
-    }
-
-    .about_title {
-        font-size: 80px;
+        width: 25vw;
+        height: 35vw;
     }
 
     .card_head {
@@ -649,19 +596,8 @@ main {
 
     .card_desc {
         font-size: 1.1vw;
-        line-height: 1.5;
-        padding: 0;
-    }
-
-    .back {
-        padding: 40px 20px;
-    }
-
-    .vision_header {
-        top: 100px;
     }
 }
-
 
 
 
@@ -742,29 +678,6 @@ section.txt_area {
 
 
 
-/* ==============================
-   SKILLSET SECTION
-   ============================== */
-
-#skills {
-    width: 100%;
-    min-height: 100vh;
-
-    position: relative;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-/* 이미지 감싸는 박스 */
-.skillset_img {
-    width: auto;
-    max-width: 100%;
-    opacity: 0;
-    transform: translateY(400px);
-}
 
 
 /* ==============================

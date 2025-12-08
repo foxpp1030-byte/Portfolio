@@ -216,30 +216,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // ================== About Me (Vision) Card Flip ==================
+    // ================== About Me (Vision) Horizontal Slide & Flip ==================
     const visionSection = document.querySelector(".vision");
-    const cards = gsap.utils.toArray(".vision .card");
 
-    if (visionSection && cards.length > 0) {
-        // 1. 타임라인 생성 (섹션 고정 + 카드 뒤집기)
-        const visionTl = gsap.timeline({
+    // GSAP Context를 사용하여 안전하게 애니메이션 적용
+    if (visionSection) {
+
+        let visionTl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".vision",
-                start: "top top",      // 섹션이 화면 맨 위에 닿으면 시작
-                end: "+=2000",         // 스크롤 2000px 동안 고정 (속도 조절은 이 값을 변경)
+                start: "top top",      // 섹션 상단이 화면 상단에 닿으면 시작
+                end: "+=2500",         // 스크롤 길이 (천천히 움직이게 하려면 이 값을 늘리세요)
                 pin: true,             // 섹션 고정
                 scrub: 1,              // 부드러운 스크롤 연동
                 anticipatePin: 1
             }
         });
 
-        // 2. 카드 뒤집기 애니메이션 (순차적)
+        // 1. 초기 상태 설정: 카드를 화면 오른쪽 밖으로 보냄
+        // (CSS에서 transform을 건드리지 않고 GSAP from으로 처리)
+
+        // 2. 애니메이션: 오른쪽에서 중앙으로 슬라이드 (Move In)
+        visionTl.fromTo(".card_frame",
+            { x: "120%" },  // 시작: 화면 오른쪽 밖
+            {
+                x: "0%",    // 끝: 중앙 정렬 위치
+                duration: 5, // 이동하는 시간을 길게 배정 (비중 5)
+                ease: "power2.out"
+            }
+        );
+
+        // 3. 애니메이션: 카드 순차적으로 뒤집기 (Flip)
+        const cards = gsap.utils.toArray(".vision .card");
         cards.forEach((card, i) => {
             visionTl.to(card, {
-                rotationY: 180,    // 180도 회전 (뒤집기)
-                duration: 1,
-                ease: "power2.out"
-            }, i * 0.8); // 0.8초 간격으로 시작 (겹쳐서 진행됨)
+                rotationY: 180,    // 뒤집기
+                duration: 1.8,       // 회전 시간
+                ease: "back.out(1.7)" // 살짝 튕기는 느낌
+            }, "+=0.2"); // 앞 동작 끝나고 0.2초 뒤 혹은 겹쳐서 실행
         });
     }
 
