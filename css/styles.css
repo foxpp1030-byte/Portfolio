@@ -733,6 +733,7 @@ section.txt_area {
    PROJECTS SECTION
    ============================== */
 #projects.projects_vertical_section {
+    margin-top: 50vh;
     width: 100%;
     padding: 150px 0;
     overflow: hidden;
