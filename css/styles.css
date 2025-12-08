@@ -504,12 +504,11 @@ main {
 
 /* 3. 개별 카드 설정 */
 .card {
-    width: 460px;
+    width: 455px;
     height: auto;
     position: relative;
     transform-style: preserve-3d;
     cursor: pointer;
-    border-radius: 4px;
     flex-shrink: 0;
 
 }
@@ -520,7 +519,6 @@ main {
     height: auto;
     object-fit: cover;
     display: block;
-    border-radius: 4px;
 }
 
 /* 앞면/뒷면 공통 */
