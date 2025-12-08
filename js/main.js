@@ -32,10 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.style.overflow = "auto";
             lenis.start();
 
-            // 3. 다음 섹션(#skills 또는 #vision 등 원하는 곳)으로 부드럽게 이동
+            // 3. 다음 섹션(#skills 또는 #About 등 원하는 곳)으로 부드럽게 이동
             // 영수증이 올라오는 곳이 #skills라면 아래와 같이 설정
             gsap.to(window, {
-                scrollTo: "#skills", // 혹은 "#vision" (About Me)
+                scrollTo: "#skills", // 혹은 "#About" (About Me)
                 duration: 1.5,
                 ease: "power4.inOut"
             });
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     // 섹션 맵 정의
     const sub_map = [
-        "#vision",
+        "#About",
         "#skills",
         "#projects",
         "#visual",
@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
      */
 
     /* ================== Section Scroll Active ================== */
-    /*     ["about", "projects", "visual", "skills", "vision"].forEach((id) => {
+    /*     ["about", "projects", "visual", "skills", "About"].forEach((id) => {
             ScrollTrigger.create({
                 trigger: "#" + id,
                 start: "top top",
@@ -219,15 +219,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // ================== About Me (Vision) Horizontal Slide & Flip ==================
-    const visionSection = document.querySelector(".vision");
+    // ================== About Me  Horizontal Slide & Flip ==================
+    const AboutSection = document.querySelector(".About");
 
     // GSAP Context를 사용하여 안전하게 애니메이션 적용
-    if (visionSection) {
+    if (AboutSection) {
 
-        let visionTl = gsap.timeline({
+        let AboutTl = gsap.timeline({
             scrollTrigger: {
-                trigger: ".vision",
+                trigger: ".About",
                 start: "top top",      // 섹션 상단이 화면 상단에 닿으면 시작
                 end: "+=2500",         // 스크롤 길이 (천천히 움직이게 하려면 이 값을 늘리세요)
                 pin: true,             // 섹션 고정
@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // (CSS에서 transform을 건드리지 않고 GSAP from으로 처리)
 
         // 2. 애니메이션: 오른쪽에서 중앙으로 슬라이드 (Move In)
-        visionTl.fromTo(".card_frame",
+        AboutTl.fromTo(".card_frame",
             { x: "120%" },  // 시작: 화면 오른쪽 밖
             {
                 x: "0%",    // 끝: 중앙 정렬 위치
@@ -250,9 +250,9 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         // 3. 애니메이션: 카드 순차적으로 뒤집기 (Flip)
-        const cards = gsap.utils.toArray(".vision .card");
+        const cards = gsap.utils.toArray(".About .card");
         cards.forEach((card, i) => {
-            visionTl.to(card, {
+            AboutTl.to(card, {
                 rotationY: 180,    // 뒤집기
                 duration: 1.8,       // 회전 시간
                 ease: "back.out(1.7)" // 살짝 튕기는 느낌
