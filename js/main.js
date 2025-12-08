@@ -220,27 +220,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-
-    // ================== Skillset (영수증 올라오는 효과 - 강력 수정) ==================
+    // ================== Skillset (영수증 올라오는 효과 - 최종 깊이감 수정) ==================
     const skillReceipt = document.querySelector('.skillset_img');
 
     if (skillReceipt) {
-        // 1. 시작 위치를 화면 저 아래(800px)로 설정하고 투명하게 숨김
-        gsap.set(skillReceipt, { y: 800, opacity: 0 });
-
         gsap.to(skillReceipt, {
-            y: 0,           // 제자리(화면 정중앙)로 올라옴
-            opacity: 1,     // 선명해짐
-            duration: 1.8,  // 이동하는 데 걸리는 시간 (천천히 웅장하게)
-            ease: "power4.out", // 🚀 초반에 '쑥!' 하고 빠르게 올라왔다가 끝에서 아주 부드럽게 멈춤
+            y: 0,              // 400px 아래에서 0으로 올라옴 (이동 거리 큼)
+            opacity: 1,        // 투명도 0 -> 1
+            duration: 2.0,     // 2초 동안 묵직하게 이동
+            ease: "power3.out", // power2보다 끝부분 감속이 더 자연스럽고 고급스러움
             scrollTrigger: {
                 trigger: "#skills",
-                start: "top 60%",     // 섹션이 화면의 60% 지점에 왔을 때 시작 (타이밍)
-                toggleActions: "play none none reverse" // 다시 올리면 내려감
+                start: "top 60%",
+                toggleActions: "play none none reverse"
             }
         });
     }
-
 
     ScrollTrigger.create({
         trigger: "#projects",

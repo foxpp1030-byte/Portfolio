@@ -710,32 +710,28 @@ section.txt_area {
 
 #skills {
     width: 100%;
-    /* 최소 높이를 100vh로 잡아서 스크롤 공간 확보 */
     min-height: 100vh;
 
     position: relative;
     background-color: #fff;
-    /* 배경색 확인 */
-
-    /* 내용물 중앙 정렬 */
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /* 혹시 모를 overflow 문제 방지 */
     overflow: hidden;
 }
 
 /* 이미지 감싸는 박스 */
 .skillset_img {
     width: auto;
-    /* 이미지 크기에 맞게 */
     max-width: 100%;
-    /* 초기에는 JS가 opacity: 0을 줄 테지만, CSS에서도 숨겨놓지 않도록 주의 (opacity: 1 유지) */
+    opacity: 0;
+    transform: translateY(400px);
 }
 
 
-
+/* ==============================
+   PROJECTS SECTION
+   ============================== */
 #projects.projects_vertical_section {
     width: 100%;
     /* background: #fff; */
@@ -744,13 +740,12 @@ section.txt_area {
 }
 
 #projects .inner {
-    width: 90%;
-    max-width: 1400px;
+    width: 100%;
+    max-width: 1700px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 150px;
-    /* 아이템 간 간격 */
 }
 
 .jn_vertical_item {
@@ -770,7 +765,8 @@ section.txt_area {
 }
 
 .jn_card {
-    width: 55%;
+    width: 50%;
+    max-width: 800px;
     display: flex;
     flex-direction: column;
 }
@@ -784,7 +780,7 @@ section.txt_area {
 }
 
 .jn_intro_text p {
-    font-size: 22px;
+    font-size: 30px;
     font-family: "SUIT", sans-serif;
     color: #555;
     padding-left: 5px;
@@ -827,12 +823,12 @@ section.txt_area {
 }
 
 .jn_proj_title {
-    font-size: 28px;
+    font-size: 36px;
     text-transform: uppercase;
 }
 
 .jn_proj_year {
-    font-size: 24px;
+    font-size: 28px;
     color: #777;
 }
 
@@ -841,7 +837,7 @@ section.txt_area {
     font-weight: 600;
     text-decoration: none;
     color: #000;
-    font-size: 18px;
+    font-size: 20px;
     position: relative;
     display: inline-block;
     padding-bottom: 2px;
