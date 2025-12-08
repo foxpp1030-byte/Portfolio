@@ -1112,8 +1112,7 @@ a#rainbow-text:hover:after {
     right: -10%;
     width: 470px;
     z-index: 5;
-    transform-origin: top center;
-    animation: tagSwing 3s ease-in-out infinite alternate;
+    transform: translateY(-100%);
 
 }
 
@@ -1121,16 +1120,21 @@ a#rainbow-text:hover:after {
     width: 100%;
     height: auto;
     display: block;
+
+    /* 흔들리는 애니메이션은 이미지 자체에 적용 */
+    transform-origin: top center;
+    /* 줄의 시작점을 기준으로 흔들림 */
+    animation: tagSwing 3s ease-in-out infinite alternate;
 }
 
 /* 태그가 살랑살랑 흔들리는 효과 */
 @keyframes tagSwing {
     0% {
-        transform: rotate(-3deg);
+        transform: rotate(-5deg);
     }
 
     100% {
-        transform: rotate(3deg);
+        transform: rotate(5deg);
     }
 }
 
@@ -1145,7 +1149,7 @@ a#rainbow-text:hover:after {
     }
 
     .hanging_tag_wrap {
-        width: 60px;
+        width: 70px;
         right: 20px;
     }
 }

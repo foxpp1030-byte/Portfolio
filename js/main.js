@@ -405,6 +405,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+
+    const tagWrap = document.querySelector(".hanging_tag_wrap");
+
+    if (tagWrap) {
+        gsap.to(tagWrap, {
+            y: 0,              // 원래 위치(top:0)로 내려옴
+            duration: 1.5,     // 1.5초 동안 천천히
+            ease: "bounce.out", // 끝에서 살짝 튕기는 느낌 (줄이 툭 떨어지는 느낌)
+            // 부드럽게 멈추려면 "power3.out"으로 변경하세요.
+            scrollTrigger: {
+                trigger: "#philosophy", // 이 섹션이 보이면
+                start: "top 60%",       // 화면의 60% 지점에 도달했을 때 시작
+                toggleActions: "play none none reverse" // 스크롤 올리면 다시 올라감
+            }
+        });
+    }
+
     // ==========================================================
     // ICON CLOUD (Matter.js) - 최종 수정 (개수/크기/타이밍 조정)
     // ==========================================================
