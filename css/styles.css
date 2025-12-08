@@ -611,16 +611,173 @@ main {
 
 
 
+/* ================= Projects Cover Page (목차) ================= */
+.project_cover_section {
+    width: 100%;
+    min-height: 100vh;
+    /* 화면 꽉 차게 */
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
 
+.cover_inner {
+    width: clamp(50vw, 90%, 1700px);
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* 왼쪽 타이틀 영역 */
+.cover_left {
+    position: relative;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.cover_title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 150px;
+    /* 폰트 크기 조절 */
+    font-weight: 400;
+    line-height: 1;
+    color: #2B0F0F;
+    letter-spacing: -2px;
+    margin-bottom: 20px;
+}
+
+.cover_subtitle {
+    font-family: "SUIT", sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+    color: #333;
+    letter-spacing: 1px;
+}
+
+.cover_footer_text {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    font-family: "SUIT", sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #000;
+    transform: rotate(-90deg);
+    transform-origin: left bottom;
+    display: block;
+    text-align: left;
+    gap: 10px;
+}
+
+/* 개별 텍스트 스타일 */
+.cover_footer_text span {
+    display: block;
+    /* [핵심] 한 줄에 하나씩 차지하게 함 (두 줄 만들기) */
+    font-family: "SUIT", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    white-space: nowrap;
+    line-height: 1.2;
+    /* 줄 간격 */
+}
+
+/* 'UXUI DESIGN' 스타일 (첫 번째 줄) */
+.cover_footer_text span:first-child {
+    font-weight: 700;
+    /* 피그마처럼 조금 더 두껍게 */
+    margin-bottom: 5px;
+    /* @2025와의 사이 간격 */
+}
+
+/* '@2025' 스타일 (두 번째 줄) */
+.cover_footer_text span:last-child {
+    font-weight: 400;
+    color: #333;
+}
+
+/* 오른쪽 리스트 영역 */
+.cover_right {
+    width: 50%;
+    border-top: 1px solid #e0e0e0;
+    /* 리스트 상단 라인 */
+    margin-top: 90px;
+}
+
+.cover_list {
+    width: 100%;
+}
+
+.cover_item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 40px 0;
+    border-bottom: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.cover_item:hover {
+    background-color: #f9f9f9;
+    padding-left: 20px;
+    /* 호버 시 살짝 밀림 효과 */
+}
+
+.ci_info {
+    max-width: 70%;
+}
+
+.ci_title {
+    font-family: "SUIT", sans-serif;
+    font-size: 36px;
+    font-weight: 400;
+    margin-bottom: 15px;
+    color: #2B0F0F;
+}
+
+.ci_desc {
+    font-family: "SUIT", sans-serif;
+    font-size: 18px;
+    color: #333;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+.ci_meta {
+    font-family: "SUIT", sans-serif;
+    font-size: 18px;
+    color: #ddd;
+    /* 연한 회색 */
+    white-space: nowrap;
+}
 
 /* ==============================
    PROJECTS SECTION
    ============================== */
-#projects.projects_vertical_section {
-    margin-top: 50vh;
+.projects_horizontal_section {
     width: 100%;
-    padding: 150px 0;
+    height: 100vh;
+    background: #fff;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.projects_horizontal_section .horizontal_track {
+    display: flex;
+    gap: 200px;
+    padding-left: 100px;
+    /* 시작 여백 */
+    padding-right: 200px;
+    box-sizing: border-box;
+    width: max-content;
+    height: 100%;
+    align-items: center;
 }
 
 #projects .inner {

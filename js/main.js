@@ -290,11 +290,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // ================== Projects Section Parallax (Vertical) ==================
     // ================== Horizontal Scroll (Averi Style) ==================
 
-    const projectSection = document.querySelector("#projects");
+    // ================== Horizontal Scroll (Averi Style - Modified) ==================
+
+    // [수정] 표지가 아닌, 실제 가로 스크롤이 일어날 '새로운 섹션 ID'를 선택
+    const projectSection = document.querySelector("#projects_scroll_view");
     const track = document.querySelector(".horizontal_track");
 
     if (projectSection && track) {
-        // 1. 가로로 이동할 거리 계산 (전체 길이 - 화면 너비)
+        // 1. 가로로 이동할 거리 계산
         let getScrollAmount = () => {
             let trackWidth = track.scrollWidth;
             return -(trackWidth - window.innerWidth) - 200;
@@ -302,46 +305,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // 2. 가로 스크롤 애니메이션 정의
         const tween = gsap.to(track, {
-            x: getScrollAmount, // 왼쪽으로 이동
-            ease: "none",       // 등속 운동
+            x: getScrollAmount,
+            ease: "none",
             duration: 1,
         });
 
         // 3. ScrollTrigger 연결
         ScrollTrigger.create({
-            trigger: "#projects",
-            start: "top top",     // 섹션이 화면 맨 위에 닿으면
-            end: () => `+=${track.scrollWidth - window.innerWidth}`, // 가로 길이만큼 스크롤
-            pin: true,            // 화면 고정 (Pin)
-            animation: tween,     // 위에서 만든 애니메이션 실행
-            scrub: 1,             // 스크롤과 연동 (부드럽게)
-            invalidateOnRefresh: true, // 창 크기 조절 시 재계산
-            onEnter: () => set_active("#projects"),
-            onEnterBack: () => set_active("#projects"),
-            // markers: true      // 디버깅용 가이드라인 (확인 후 삭제)
+            trigger: "#projects_scroll_view", // [수정] 트리거 대상 변경
+            start: "top top",
+            end: () => `+=${track.scrollWidth - window.innerWidth}`,
+            pin: true,
+            animation: tween,
+            scrub: 1,
+            invalidateOnRefresh: true,
+
+            // [중요] 네비게이션 활성화 로직
+            // 표지(#Projects)와 가로영역(#projects_scroll_view) 둘 다 'Projects' 메뉴에 해당하므로
+            // 여기서도 #Projects를 활성화하도록 설정
+            onEnter: () => set_active("#Projects"),
+            onEnterBack: () => set_active("#Projects"),
         });
 
-        // 4. (선택사항) 가로 스크롤 중에도 카드 호버 효과가 잘 작동하도록 refresh
         ScrollTrigger.refresh();
     }
-    // document.querySelectorAll(".jn_card").forEach(card => {
-    //     card.addEventListener("mousemove", e => {
-    //         const rect = card.getBoundingClientRect();
-    //         const x = e.clientX - rect.left;
-    //         const y = e.clientY - rect.top;
-    //         const centerX = x - rect.width / 2;
-    //         const centerY = y - rect.height / 2;
-
-    //         card.style.transform = `
-    //   rotateX(${centerY / 20}deg)
-    //   rotateY(${centerX / 20}deg)
-    // `;
-    //     });
-
-    //     card.addEventListener("mouseleave", () => {
-    //         card.style.transform = "rotateX(0) rotateY(0)";
-    //     });
-    // });
 
 
     window.addEventListener("resize", () => ScrollTrigger.refresh());
