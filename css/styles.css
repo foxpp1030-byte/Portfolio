@@ -958,21 +958,13 @@ section.txt_area {
 
 
 /* ================= Philosophy Section (Rainbow Effect) ================= */
-/* 1. Rainbow 효과에 필요한 컬러 변수 선언 */
-:root {
-    --rb-pink: #ff6188;
-    --rb-orange: #fc9867;
-    --rb-yellow: #ffd866;
-    --rb-green: #a9dc76;
-    --rb-blue: #78dce8;
-    --rb-purple: #ab9df2;
-}
+/* 배경색 변경 및 텍스트 컬러 수정 */
 
-/* 2. 섹션 레이아웃 */
 .philosophy_section {
     width: 100%;
     height: 100vh;
-    background-color: #fff;
+    background-color: #070000;
+    /* [수정] 배경색 변경 */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -990,12 +982,15 @@ section.txt_area {
     align-items: center;
 }
 
-/* 3. Rainbow 텍스트 스타일 (제공해주신 코드 이식) */
+/* 텍스트 기본 스타일 (어두운 배경이므로 밝게 변경) */
 a#rainbow-text {
     display: inline-block;
     border-bottom: 2px solid currentColor;
     background: none;
-    color: #211f22;
+
+    color: #E4D8D8;
+    /* [수정] 기본 텍스트 색상 밝게 */
+
     cursor: pointer;
     margin: 0;
     padding: 0.2em 0;
@@ -1007,7 +1002,7 @@ a#rainbow-text {
     transition: transform 450ms ease-in-out;
 }
 
-/* 호버 시 밑줄 인터랙션 */
+/* 밑줄 효과 (호버 시 & .active 클래스 붙었을 때) */
 a#rainbow-text:before,
 a#rainbow-text:after {
     content: "";
@@ -1029,61 +1024,48 @@ a#rainbow-text:after {
     z-index: 2;
 }
 
+/* [추가] .active 클래스가 붙으면 호버한 것처럼 밑줄 생성 */
 a#rainbow-text:hover:before,
-a#rainbow-text:hover:after {
+a#rainbow-text:hover:after,
+a#rainbow-text.active:before,
+a#rainbow-text.active:after {
     transform-origin: left center;
     transform: scale(1, 1);
 }
 
-/* 4. 우측 상단 태그 스타일 */
+/* 우측 상단 태그 스타일 (기존 유지) */
 .hanging_tag_wrap {
     position: absolute;
     top: 0;
-    right: -10%;
+    right: -9%;
+    /* 위치 살짝 조정 (필요시) */
     width: 470px;
     z-index: 5;
-    transform: translateY(-100%);
-
+    /* JS에서 제어하므로 초기 위치는 CSS에서 잡지 않아도 됨 */
 }
 
-.hanging_tag {
-    width: 100%;
-    height: auto;
-    display: block;
+/* ============================================================
+   ▼ 스타일 시트 맨 아래에 이 코드를 추가해주세요 (태그 흔들림 복구)
+   ============================================================ */
 
-    /* 흔들리는 애니메이션은 이미지 자체에 적용 */
+.hanging_tag {
+    /* 이미지는 가만히 있어도 흔들려야 함 */
     transform-origin: top center;
     /* 줄의 시작점을 기준으로 흔들림 */
     animation: tagSwing 3s ease-in-out infinite alternate;
 }
 
-/* 태그가 살랑살랑 흔들리는 효과 */
 @keyframes tagSwing {
     0% {
         transform: rotate(-5deg);
+        /* 왼쪽으로 5도 */
     }
 
     100% {
         transform: rotate(5deg);
+        /* 오른쪽으로 5도 */
     }
 }
-
-/* 모바일 대응 */
-@media (max-width: 768px) {
-    .philosophy_section {
-        height: 40vh;
-    }
-
-    a#rainbow-text {
-        font-size: 32px;
-    }
-
-    .hanging_tag_wrap {
-        width: 70px;
-        right: 20px;
-    }
-}
-
 
 /* =========================================
    Custom Cursor Logic (Visual Section)

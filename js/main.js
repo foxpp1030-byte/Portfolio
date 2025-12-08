@@ -207,7 +207,10 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
         setTimeout(() => {
-            scrollTween.vars.x = () => -total_width();
+            // scrollTween이 존재할 때만 실행하도록 보호
+            if (typeof scrollTween !== "undefined" && scrollTween) {
+                scrollTween.vars.x = () => -total_width();
+            }
             ScrollTrigger.refresh();
         }, 100);
 
@@ -487,7 +490,69 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+    // ================== Philosophy Section Pin & Auto Effect (Final Fix) ==================
+    // (RainbowButton 클래스 코드는 위쪽에 그대로 있어야 합니다)
 
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            // scrollTween 에러 방지용 안전 장치
+            if (typeof scrollTween !== "undefined" && scrollTween) {
+                scrollTween.vars.x = () => -total_width();
+            }
+            ScrollTrigger.refresh();
+        }, 100);
+
+        const philoSection = document.querySelector("#philosophy");
+        const rainbowTarget = document.querySelector("#rainbow-text");
+        const tagWrap = document.querySelector(".hanging_tag_wrap");
+
+        if (philoSection && rainbowTarget) {
+            // 1. 레인보우 효과 인스턴스 생성
+            const rbBtn = new RainbowButton(rainbowTarget);
+
+            ScrollTrigger.create({
+                trigger: "#philosophy",
+                start: "top top",       // 섹션이 화면 맨 위에 닿으면
+                end: "+=3000",          // 3000px 스크롤 할 동안 고정
+                pin: true,              // 화면 고정
+                // 🚨 [핵심 수정] scrub을 삭제했습니다! 
+                // 이제 스크롤을 내리지 않아도 시간이 지나면 애니메이션이 실행됩니다.
+
+                // 섹션 진입 시 실행될 동작들
+                onEnter: () => {
+                    // [1] 태그: 핀 걸리자마자 '알아서' 툭 떨어짐 (스크롤 무관)
+                    if (tagWrap) {
+                        gsap.fromTo(tagWrap,
+                            { y: "-100%" },
+                            {
+                                y: "0%",
+                                duration: 1.5,      // 떨어지는 데 걸리는 시간
+                                ease: "bounce.out", // 통통 튀는 효과
+                                overwrite: true     // 기존 애니메이션 덮어쓰기 (충돌 방지)
+                            }
+                        );
+                    }
+
+                    // [2] 텍스트: 사라지지 않고 효과 즉시 실행
+                    // 기존 텍스트가 사라지는 것을 방지하기 위해 스타일 강제 적용
+                    rainbowTarget.style.opacity = "1";
+                    rainbowTarget.classList.add("active");
+
+                    // Rainbow 효과 실행 (글자 스크램블)
+                    rbBtn.onMouseEnter();
+                },
+
+                // 다시 위로 올라가면 초기화
+                onLeaveBack: () => {
+                    if (tagWrap) {
+                        gsap.to(tagWrap, { y: "-100%", duration: 0.5 }); // 태그 다시 숨김
+                    }
+                    rbBtn.onMouseLeave(); // 텍스트 효과 끄기
+                    rainbowTarget.classList.remove("active");
+                }
+            });
+        }
+    });
     // ==========================================================
     // ICON CLOUD (Matter.js) - 최종 수정 (개수/크기/타이밍 조정)
     // ==========================================================
