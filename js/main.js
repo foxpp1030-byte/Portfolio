@@ -563,7 +563,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     // ==========================================================
-    // ICON CLOUD (Matter.js) - 최종 수정 (개수/크기/타이밍 조정)
+    // ICON CLOUD (Matter.js) - 빵 크기 축소 & 겹침 방지 (Padding)
     // ==========================================================
     const cloudSection = document.querySelector("#icon_cloud_section");
 
@@ -589,109 +589,99 @@ document.addEventListener("DOMContentLoaded", () => {
                 width: cloudSection.clientWidth,
                 height: cloudSection.clientHeight,
                 background: 'transparent',
-                wireframes: false,
+                wireframes: false, // 충돌 박스 안 보이기 (확인용이면 true)
                 pixelRatio: window.devicePixelRatio
             }
         });
 
         // 4. 벽 생성 함수
-        const wallOptions = { isStatic: true, render: { visible: false } };
         let ground, leftWall, rightWall;
+        const wallOptions = { isStatic: true, render: { visible: false } };
 
         function createWalls() {
             const width = cloudSection.clientWidth;
             const height = cloudSection.clientHeight;
             const wallThick = 100;
+            const groundOffset = 60; // 바닥 높이 보정
 
             if (ground) Composite.remove(world, [ground, leftWall, rightWall]);
 
-            ground = Bodies.rectangle(width / 2, height + wallThick / 2 - 40, width, wallThick, wallOptions);
-            leftWall = Bodies.rectangle(0 - wallThick / 2, -height * 2, wallThick, height * 10, wallOptions);
-            rightWall = Bodies.rectangle(width + wallThick / 2, -height * 2, wallThick, height * 10, wallOptions);
+            ground = Bodies.rectangle(width / 2, height - groundOffset + (wallThick / 2), width, wallThick, wallOptions);
+            leftWall = Bodies.rectangle(0 - wallThick / 2, -height * 4, wallThick, height * 10, wallOptions);
+            rightWall = Bodies.rectangle(width + wallThick / 2, -height * 4, wallThick, height * 10, wallOptions);
 
             Composite.add(world, [ground, leftWall, rightWall]);
         }
         createWalls();
 
         // =========================================
-        // 5. 오브젝트 생성 설정 (빵 1개 + 벡터 여러개 분리)
+        // 5. 오브젝트 생성 설정 (개별 크기 조절 기능 추가)
         // =========================================
 
-        // [A] 빵 생성 함수 (딱 1개만)
-        function addBread() {
-            const xPos = cloudSection.clientWidth / 2; // 화면 중앙
-            const yPos = -200; // 화면 바로 위
+        function addObjects() {
+            // [수정] scaleMod: 1.0이 기준, 작게 하려면 0.x 입력
+            const spawnList = [
+                { src: './img/vector7.png', count: 3, scaleMod: 0.9 }, // 핑크 X
+                { src: './img/vector1.png', count: 1, scaleMod: 1.0 }, // 리본
+                { src: './img/vector2.png', count: 1, scaleMod: 0.9 }, // 타르트
+                { src: './img/vector3.png', count: 1, scaleMod: 0.9 }, // 이어폰
+                { src: './img/vector4.png', count: 1, scaleMod: 0.9 }, // 프레첼
+                { src: './img/vector5.png', count: 1, scaleMod: 0.9 }, // 아이스크림
+                { src: './img/vector6.png', count: 1, scaleMod: 0.9 }, // 영수증
+                // [핵심 수정] 빵 크기를 0.6배로 대폭 줄임
+                { src: './img/bread01.png', count: 1, scaleMod: 0.6 }
+            ];
 
-            // 빵 크기 줄이기 (scale 0.5)
-            const scaleSize = 0.5;
+            spawnList.forEach(item => {
+                for (let i = 0; i < item.count; i++) {
+                    createSingleObject(item.src, item.scaleMod);
+                }
+            });
+        }
 
-            const bread = Bodies.rectangle(xPos, yPos, 120 * scaleSize, 80 * scaleSize, {
-                restitution: 0.5,
+        // 개별 오브젝트 생성 함수 (scaleMultiplier 파라미터 추가)
+        function createSingleObject(imgSrc, scaleMultiplier) {
+            // 가로 전체 범위 활용 (겹침 방지 위해 넓게 분포)
+            const xPos = Math.random() * (cloudSection.clientWidth - 150) + 75;
+            // 떨어지는 높이차를 더 둠 (한 번에 뭉치지 않게)
+            const yPos = -Math.random() * 1500 - 200;
+
+            // 기본 랜덤 크기 (0.8~1.1) * 개별 스케일(빵은 작게)
+            const baseScale = 0.8 + Math.random() * 0.3;
+            const finalScale = baseScale * scaleMultiplier;
+
+            // [핵심 수정] 충돌 박스 크기(bodySize)를 이미지보다 약간 크게 설정 (105%)
+            // 이렇게 하면 이미지끼리 닿기 전에 '투명 보호막'이 부딪혀서 시각적으로 겹치지 않음
+            const bodySize = 100 * finalScale * 1.05;
+
+            const obj = Bodies.rectangle(xPos, yPos, bodySize, bodySize, {
+                restitution: 0.6, // 약간 더 잘 튀기게 (뭉침 해소)
                 friction: 0.1,
+                frictionAir: 0.01 + Math.random() * 0.03,
                 angle: Math.random() * Math.PI,
                 render: {
                     sprite: {
-                        texture: './img/bread01.png',
-                        xScale: scaleSize, // 이미지 크기 줄임
-                        yScale: scaleSize
+                        texture: imgSrc,
+                        xScale: finalScale,
+                        yScale: finalScale
                     }
                 }
             });
-            Composite.add(world, bread);
-        }
-
-        // [B] 벡터 이미지들 생성 함수 (여러개)
-        const vectorImages = [
-            './img/Vector1.png',
-            './img/Vector2.png',
-            './img/Vector3.png',
-            './img/Vector4.png'
-        ];
-
-        function addVectors() {
-            // 개수 조절 (기존 40개 -> 20개로 줄임)
-            const objCount = 10;
-
-            for (let i = 0; i < objCount; i++) {
-                const randomImg = vectorImages[Math.floor(Math.random() * vectorImages.length)];
-
-                const xPos = Math.random() * cloudSection.clientWidth;
-                const yPos = -Math.random() * 3000 - 500;
-
-                // 🔥 크기 수정: 1.2배 ~ 1.8배로 훨씬 크게 설정
-                const scaleSize = 1.2 + Math.random() * 0.6;
-
-                const obj = Bodies.rectangle(xPos, yPos, 80 * scaleSize, 80 * scaleSize, {
-                    restitution: 0.6,
-                    friction: 0.1,
-                    frictionAir: 0.01 + Math.random() * 0.04,
-                    angle: Math.random() * Math.PI,
-                    render: {
-                        sprite: {
-                            texture: randomImg,
-                            xScale: scaleSize,
-                            yScale: scaleSize
-                        }
-                    }
-                });
-                Composite.add(world, obj);
-            }
+            Composite.add(world, obj);
         }
 
         // =========================================
-        // 6. 실행 제어 (ScrollTrigger로 화면에 보일 때 떨어뜨리기)
+        // 6. 실행 제어
         // =========================================
         Render.run(render);
         const runner = Runner.create();
 
-        // 스크롤 트리거 (화면 보이면 떨어뜨리기)
         ScrollTrigger.create({
             trigger: "#icon_cloud_section",
             start: "top 60%",
             once: true,
             onEnter: () => {
-                addBread();
-                addVectors();
+                addObjects();
                 Runner.run(runner, engine);
             }
         });
@@ -714,7 +704,6 @@ document.addEventListener("DOMContentLoaded", () => {
             createWalls();
         });
     }
-
 
     // ==========================================================
     // CUSTOM CURSOR LOGIC (Visual Section으로 변경됨)
