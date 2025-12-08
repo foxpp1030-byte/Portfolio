@@ -562,6 +562,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     });
+
+
     // ==========================================================
     // ICON CLOUD (Matter.js) - 빵 크기 축소 & 겹침 방지 (Padding)
     // ==========================================================
@@ -678,7 +680,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         ScrollTrigger.create({
             trigger: "#icon_cloud_section",
-            start: "top 60%",
+            start: "top 20%",
             once: true,
             onEnter: () => {
                 addObjects();
