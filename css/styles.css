@@ -845,14 +845,14 @@ main {
     line-height: 0.9;
     letter-spacing: -3px;
     margin: 0 0 30px 0;
-    color: #000;
+    color: #2B0F0F;
     word-break: keep-all;
 }
 
 .jn_subtitle {
     font-size: 30px;
     font-family: "SUIT", sans-serif;
-    color: #555;
+    color: #333;
     padding-left: 5px;
     line-height: 1.2;
 }
