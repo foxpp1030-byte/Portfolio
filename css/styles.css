@@ -196,7 +196,7 @@ main {
     font-weight: 400;
     line-height: .9;
     letter-spacing: -2px;
-    color: #1d1d1d;
+    color: #2B0F0F;
     margin: 0;
     white-space: nowrap;
 }
@@ -210,7 +210,7 @@ main {
     font-weight: 400;
     font-size: 50px;
     letter-spacing: -0.5px;
-    color: #1d1d1d;
+    color: #F0C4CB;
     line-height: 1;
 }
 
@@ -229,7 +229,7 @@ main {
     font-family: 'SUIT', sans-serif;
     font-weight: 300;
     font-size: 80px;
-    color: #1d1d1d;
+    color: #2B0F0F;
 }
 
 /* 빵 오브젝트 위치 수정 (피그마처럼 위로 올림) */
@@ -244,28 +244,17 @@ main {
     pointer-events: none;
 }
 
-/* 회전 로고 수정 */
-.rotate_logo {
+.hero_ribbon_obj {
     position: absolute;
-    right: 110px;
-    bottom: 150px;
-    width: 130px;
-    height: 130px;
-    z-index: 3;
-
-    /* 애니메이션 적용 */
-    animation: rotate360 18s linear infinite;
-    transform-origin: center center;
+    right: 15%;
+    bottom: 151px;
+    width: 355px;
+    height: auto;
+    z-index: 5;
+    pointer-events: none;
 }
 
-/* SVG 내부 크기 강제 지정 (끊김 방지) */
-.rotate_logo svg {
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    /* 잘림 방지 */
-}
-
+/* 1. 회전 애니메이션 정의 (없다면 파일 맨 아래나 위 아무데나 추가) */
 @keyframes rotate360 {
     from {
         transform: rotate(0deg);
@@ -276,31 +265,54 @@ main {
     }
 }
 
-/* 반응형 (노트북 사이즈) */
-@media (max-width: 1600px) {
-    .hero_title {
-        font-size: 14vw;
-    }
-
-    .hero_role {
-        font-size: 3vw;
-        top: -3vw;
-    }
-
-    .hero_year span {
-        font-size: 5vw;
-    }
-
-    .hero_year {
-        top: -6vw;
-    }
-
-    .hero_bread_obj {
-        width: 180px;
-        left: 8%;
-    }
+.rotate_logo {
+    position: absolute;
+    right: 110px;
+    bottom: 150px;
+    width: 130px;
+    height: 130px;
+    z-index: 20;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.rotate_logo svg {
+    width: 100%;
+    height: 100%;
+    animation: rotate360 18s linear infinite;
+    transform-origin: center center;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+
+.rotate_logo:hover svg {
+    opacity: 0.3;
+    animation-play-state: paused;
+}
+
+
+.center_arrow {
+    position: absolute;
+    z-index: 30;
+    font-size: 30px;
+    color: #2B0F0F;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+
+.rotate_logo:hover .center_arrow {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+
+}
 
 
 

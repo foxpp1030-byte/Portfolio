@@ -2,13 +2,17 @@ let scrollTween;
 document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-    // ==================== Lenis ====================
+    // ==================== Lenis Scroll Locking Logic ====================
     const lenis = new Lenis({
         duration: 0.8,
         easing: (t) => t,
         smooth: true,
         smoothTouch: true,
     });
+
+    // 1. [핵심] 사이트 로드 시 스크롤 잠금 (인트로에서 못 벗어나게)
+    lenis.stop();
+    document.body.style.overflow = "hidden"; // 네이티브 스크롤바도 잠금
 
     function raf(t) {
         lenis.raf(t);
@@ -17,6 +21,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     requestAnimationFrame(raf);
 
+
+    // ==================== Intro Arrow Click Logic ====================
+    const enterBtn = document.querySelector("#enter-btn");
+
+    if (enterBtn) {
+        enterBtn.addEventListener("click", () => {
+
+            // 2. [핵심] 클릭 시 스크롤 잠금 해제
+            document.body.style.overflow = "auto";
+            lenis.start();
+
+            // 3. 다음 섹션(#skills 또는 #vision 등 원하는 곳)으로 부드럽게 이동
+            // 영수증이 올라오는 곳이 #skills라면 아래와 같이 설정
+            gsap.to(window, {
+                scrollTo: "#skills", // 혹은 "#vision" (About Me)
+                duration: 1.5,
+                ease: "power4.inOut"
+            });
+        });
+    }
 
     // ==================== Horizontal gallery helper ====================
     const total_width = () => {
