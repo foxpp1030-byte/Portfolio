@@ -190,47 +190,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    const keyImg = document.querySelector(".vision_key_obj");
 
-    if (keyImg) { // 에러 방지용 안전 장치
-        gsap.fromTo(keyImg,
-            {
-                y: -200,    // 시작: 위쪽 -200px
-                opacity: 0  // 시작: 투명
-            },
-            {
-                y: 0,       // 끝: 원래 위치
-                opacity: 1, // 끝: 불투명
-                duration: 1.5,
-                ease: "power3.out", // 부드러운 감속
-                scrollTrigger: {
-                    trigger: ".vision",
-                    start: "top 60%", // 섹션이 화면의 60% 지점에 오면 시작
-                    // markers: true, // 🚧 테스트용: 안 되면 주석 풀고 확인해보세요
-                }
-            }
-        );
-    }
 
-    // ================== about ==================
-    const visionCards = gsap.utils.toArray(".vision .card");
+    // ================== About Me (Vision) Card Flip ==================
+    const visionSection = document.querySelector(".vision");
+    const cards = gsap.utils.toArray(".vision .card");
 
-    visionCards.forEach((card, i) => {
-        const tl = gsap.timeline({
+    if (visionSection && cards.length > 0) {
+        // 1. 타임라인 생성 (섹션 고정 + 카드 뒤집기)
+        const visionTl = gsap.timeline({
             scrollTrigger: {
-                trigger: visionCards,
-                start: `top  center`,   // ⭐ 시작 늦춰짐
-                end: `top+=${(i + 1) * 800} center`,
-                scrub: 2,                     // ⭐ 천천히 따라감
+                trigger: ".vision",
+                start: "top top",      // 섹션이 화면 맨 위에 닿으면 시작
+                end: "+=2000",         // 스크롤 2000px 동안 고정 (속도 조절은 이 값을 변경)
+                pin: true,             // 섹션 고정
+                scrub: 1,              // 부드러운 스크롤 연동
+                anticipatePin: 1
             }
         });
 
-        tl.fromTo(card, { rotationY: 0 }, {
-            rotationY: 180,
-            transformOrigin: "center center",
-            ease: "power2.out"
+        // 2. 카드 뒤집기 애니메이션 (순차적)
+        cards.forEach((card, i) => {
+            visionTl.to(card, {
+                rotationY: 180,    // 180도 회전 (뒤집기)
+                duration: 1,
+                ease: "power2.out"
+            }, i * 0.8); // 0.8초 간격으로 시작 (겹쳐서 진행됨)
         });
-    });
+    }
 
 
 
