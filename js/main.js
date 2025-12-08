@@ -319,7 +319,91 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     }
+    /* ==========================================================
+       RAINBOW TEXT EFFECT CLASS
+       (소스: 제공해주신 script.js 기반)
+       ========================================================== */
+    const ASCII_CHARS = "abcdefghijklmnñopqrstuvwxyz0123456789!#$%&/?'_-";
+    const RB_COLORS = ["#ff6188", "#fc9867", "#ffd866", "#a9dc76", "#78dce8", "#ab9df2"];
 
+    class RainbowButton {
+        constructor(_btn) {
+            if (!_btn) return; // 요소가 없으면 실행 중지
+            this.el = _btn;
+            this.txt = this.el.innerText;
+            this.overColor = RB_COLORS[0];
+            this.fps = 24;
+            this.over_active = false;
+            this.events();
+        }
+
+        events() {
+            this.el.addEventListener("mouseenter", () => this.onMouseEnter(), false);
+            this.el.addEventListener("mouseleave", () => this.onMouseLeave(), false);
+        }
+
+        onMouseEnter() {
+            this.over_active = true;
+            this.el.innerHTML = "";
+            this.rainbow();
+        }
+
+        rainbow() {
+            let letters = this.txt.split("");
+            for (let i = 0; i < letters.length; i++) {
+                const span = document.createElement("span");
+                this.el.appendChild(span);
+                const letter = letters[i];
+                span.innerText = letter;
+
+                // 공백이 아닐 때만 애니메이션 실행
+                if (letter != " ") {
+                    let idx = ASCII_CHARS.indexOf(letter.toLowerCase());
+                    // 문자가 ASCII 목록에 없으면(예: 공백 등) 기본 처리
+                    let initChar = (idx !== -1 && idx > 10) ? ASCII_CHARS[idx - 9] : ASCII_CHARS[0];
+                    setTimeout(() => this.letterTo(span, initChar, letter), 60 * i);
+                }
+            }
+        }
+
+        onMouseLeave() {
+            this.over_active = false;
+            this.el.innerHTML = this.txt;
+            this.el.style.color = ""; // 원래 색상으로 복구
+        }
+
+        letterTo(span, from, to) {
+            let char = to;
+            let color = this.overColor; // 기본 색상
+
+            // 마우스가 올라가 있고, 글자가 아직 목표 글자가 아닐 때 스크램블
+            if (from != to.toLowerCase() && this.over_active) {
+                const idx = ASCII_CHARS.indexOf(from.toLowerCase());
+                // 랜덤 색상 적용
+                color = RB_COLORS[~~(Math.random() * RB_COLORS.length)];
+                // 대소문자 섞기
+                char = Math.random() > .5 ? from : from.toUpperCase();
+
+                // 다음 프레임 호출
+                setTimeout(() => {
+                    let nextChar = (idx !== -1) ? ASCII_CHARS[idx + 1] : to;
+                    this.letterTo(span, nextChar, to);
+                }, 1000 / this.fps);
+            }
+
+            span.style.color = color;
+            span.innerText = char;
+        }
+    }
+
+    // DOM이 로드된 후 실행 (이미 main.js 상단에 DOMContentLoaded가 있다면 그 안의 맨 끝에 넣으셔도 됩니다)
+    // 만약 이 코드를 파일 맨 끝에 붙인다면 아래와 같이 작성하세요.
+    window.addEventListener('load', () => {
+        const rainbowTarget = document.querySelector("#rainbow-text");
+        if (rainbowTarget) {
+            new RainbowButton(rainbowTarget);
+        }
+    });
 
     // ==========================================================
     // ICON CLOUD (Matter.js) - 최종 수정 (개수/크기/타이밍 조정)
