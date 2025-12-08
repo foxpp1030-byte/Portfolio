@@ -172,7 +172,9 @@ main {
     padding-top: 0;
     position: relative;
     overflow: hidden;
-    background: #fff;
+    background-image: url("../img/bg.png");
+    background-size: cover;
+    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -709,36 +711,30 @@ section.txt_area {
    SKILLSET SECTION
    ============================== */
 
-#skills {}
-
-.vid {
+#skills {
     width: 100%;
-    height: 100vh;
-    /* background: #ccc; */
-    color: rgba(255, 129, 129, .8);
-    transition: .6s;
-    position: relative;
-    padding-bottom: 30vh;
-}
+    /* 최소 높이를 100vh로 잡아서 스크롤 공간 확보 */
+    min-height: 100vh;
 
-.vid.on {}
-
-.vid_box {
-    width: 100%;
-    height: 100vh;
     position: relative;
-    margin-top: 30vh;
+    background-color: #fff;
+    /* 배경색 확인 */
+
+    /* 내용물 중앙 정렬 */
     display: flex;
     justify-content: center;
     align-items: center;
+
+    /* 혹시 모를 overflow 문제 방지 */
+    overflow: hidden;
 }
 
-.vid_box img {
-    /*     position: absolute; */
-    opacity: 1;
-    display: block;
-    /* transform: scale(0.65); */
-    /* transition: 1s .6s; */
+/* 이미지 감싸는 박스 */
+.skillset_img {
+    width: auto;
+    /* 이미지 크기에 맞게 */
+    max-width: 100%;
+    /* 초기에는 JS가 opacity: 0을 줄 테지만, CSS에서도 숨겨놓지 않도록 주의 (opacity: 1 유지) */
 }
 
 
