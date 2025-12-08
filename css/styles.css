@@ -50,8 +50,9 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #fff;
-    border-bottom: 1px solid #eaeaea;
+    background: rgba(255, 255, 255, .5);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, .5);
     position: fixed;
     left: 0;
     top: 0;
@@ -429,11 +430,26 @@ main {
     width: 100%;
     height: 100vh;
     position: relative;
-    background-color: #fff;
+    background: #1a1a1a;
+    /* background-color: #fff; */
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+
+}
+
+.position_tit {
+    position: absolute;
+    color: rgba(255, 0, 140, 0.5);
+    /* backdrop-filter: blur(10px); */
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    line-height: 1;
+    font-size: 30rem;
+    font-weight: 900;
+    white-space: nowrap;
 }
 
 .vision_inner {
@@ -461,7 +477,8 @@ main {
     font-family: 'Times New Roman', Times, serif;
     font-size: 100px;
     font-weight: 400;
-    color: #000;
+    color: #fe1382;
+    /* color: #000; */
     margin: 0;
     line-height: 1;
 }
@@ -504,6 +521,7 @@ main {
     backface-visibility: hidden;
     border-radius: 4px;
     box-shadow: 0px 4px 6.2px rgba(0, 0, 0, 0.25);
+    border: 1px solid #fe1382;
 }
 
 /* --- 앞면 --- */
@@ -527,18 +545,24 @@ main {
     justify-content: space-between;
     padding: 70px 25px;
     z-index: 1;
+    color: #fe1382;
 }
 
 
 .card:nth-child(1) .back {
+    background: #ff3593;
     background-image: url(../img/card1_back.png);
+
 }
 
 .card:nth-child(2) .back {
+    background: #ff0f7f;
     background-image: url(../img/card2_back.png);
+    color: #fff;
 }
 
 .card:nth-child(3) .back {
+    background: #ff0a7c;
     background-image: url(../img/card3_back.png);
 }
 
@@ -553,6 +577,7 @@ main {
     text-align: center;
     width: 100%;
     margin-top: 20px;
+    /* color: #fff; */
 }
 
 
@@ -566,27 +591,28 @@ main {
     text-align: center;
     word-break: keep-all;
     margin-top: auto;
+    /* color: #fff; */
 }
 
 /* --- 카드별 텍스트 색상 --- */
 .back_style_1 {
-    color: #2b1b17;
+    /* color: #2b1b17; */
 }
 
 .back_style_2 {
-    color: #fff;
+    /* color: #fff; */
 }
 
 .back_style_2 .card_head {
-    color: #fff;
+    /* color: #fff; */
 }
 
 .back_style_2 .card_desc {
-    color: rgba(255, 255, 255, 0.9);
+    /* color: rgba(255, 255, 255, 0.9); */
 }
 
 .back_style_3 {
-    color: #2b1b17;
+    /* color: #2b1b17; */
 }
 
 /* --- 반응형 --- */
