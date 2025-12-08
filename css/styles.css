@@ -468,16 +468,11 @@ main {
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: 'Times New Roman', Times, serif;
-    /* 폰트 취향에 맞게 변경 가능 */
     font-size: 300px;
-    /* 요청하신 크기 */
     color: #E4D8D8;
-    /* 요청하신 색상 */
     white-space: nowrap;
     z-index: 1;
-    /* 카드보다 뒤에 */
     pointer-events: none;
-    /* 드래그 방지 */
     line-height: 1;
 }
 
@@ -559,7 +554,7 @@ main {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 70px 20px;
+    padding: 100px 20px;
     text-align: center;
     z-index: 1;
 }
@@ -567,7 +562,7 @@ main {
 /* 뒷면 텍스트 스타일 */
 .card_head {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 32px;
+    font-size: 50px;
     color: #F0C4CB;
     /* 포인트 컬러 */
     margin-bottom: 24px;
@@ -584,79 +579,6 @@ main {
 
 
 
-/* =============================
-     🟡 텍스트 영역 (스크롤 배경)
-     ============================= */
-section.txt_area {
-    font-family: var(--eng-lang2);
-    height: 150vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(to bottom, #000a09, #035f4e) no-repeat;
-    background-size: 100% 0;
-    /* 처음에는 세로 100%, 가로 0% */
-    background-position: left top;
-    transition: none;
-    opacity: 0;
-
-    & h2 {
-        font-size: 4.6vw;
-        font-weight: 200;
-        line-height: 1.36;
-        color: #ccc;
-        text-align: center;
-
-        & .tit {
-            position: relative;
-            display: block;
-            color: rgba(253, 184, 95, 0.2);
-            width: 100%;
-            background: linear-gradient(to top,
-                    var(--primary-color-full),
-                    var(--primary-color),
-                    var(--point-color3)) no-repeat;
-            -webkit-background-clip: text;
-            background-clip: text;
-            background-size: 0%;
-            transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s;
-        }
-
-        & b {
-            font-size: 4.8vw;
-        }
-
-        & em {
-            font-size: 10vw;
-        }
-
-        & span {
-            font-family: var(--eng-lang);
-        }
-    }
-}
-
-/* =============================
-     🟡 공통 섹션 타이틀 (.s_tit)
-     ============================= */
-.s_tit {
-    padding: var(--pd-tit);
-    position: relative;
-
-    & h2 {
-        font-size: 4.4vw;
-        text-transform: uppercase;
-        font-weight: 400;
-        font-family: var(--eng-lang);
-    }
-
-    & p {
-        font-size: 1.2vw;
-        font-weight: 200;
-        line-height: 1.2;
-        margin-top: 20px;
-    }
-}
 
 
 
