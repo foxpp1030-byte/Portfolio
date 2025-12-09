@@ -466,27 +466,34 @@ main {
 
 /* (5) SKILL SET (오른쪽 아래 영수증) */
 .pos_skills {
-    right: 18%;
-    bottom: 8%;
-    width: 260px;
+    right: 15%;
+    bottom: -28%;
+    width: 350px;
+    display: flex;
+    align-items: flex-end;
+    transform: rotate(15deg);
+    transform-origin: bottom center;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .label_skills {
     position: absolute;
-    left: -80px;
-    /* [수정] 텍스트를 왼쪽으로 더 밀어냄 (-60px -> -80px) */
-    top: 40%;
-    /* 높이 중앙 정렬 보정 */
+    left: -120px;
+    top: 30%;
     transform: rotate(-90deg);
     font-family: "SUIT", sans-serif;
     font-weight: 700;
-    font-size: 28px;
+    font-size: 40px;
     color: #000;
     white-space: nowrap;
     transition: color 0.3s ease;
 }
 
-.label_skills:hover {
+.pos_skills:hover .obj_img {
+    transform: translateY(-30px) !important;
+}
+
+.pos_skills:hover .label_skills {
     color: #F0C4CB;
 }
 
