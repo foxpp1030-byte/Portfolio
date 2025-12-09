@@ -107,6 +107,10 @@ header.on .gnb_tit li a {
     color: #fff;
 }
 
+header.on .ham_menu i {
+    color: #fff;
+}
+
 .gnb_tit li a::after {
     content: '';
     display: block;
