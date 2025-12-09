@@ -61,6 +61,7 @@ export function initGnb(lenis) {
         overlayPage.classList.add('on');
         hamIcon.classList.remove("fa-bars-staggered");
         hamIcon.classList.add("fa-xmark");
+        document.querySelector('header').classList.add('menu-open');
     }
 
     function removeOverlay() {
@@ -69,6 +70,7 @@ export function initGnb(lenis) {
         overlayPage.classList.remove('on');
         hamIcon.classList.remove("fa-xmark");
         hamIcon.classList.add("fa-bars-staggered");
+        document.querySelector('header').classList.remove('menu-open');
     }
 
     if (hamMenu) {

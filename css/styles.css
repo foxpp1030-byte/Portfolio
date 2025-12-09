@@ -35,7 +35,7 @@ body main {
     --font_size: 18px;
     --text_color: #000;
     --inactive_opacity: 0.45;
-    --pr-color: red;
+    --pr-color: #F0C4CB;
 }
 
 header {
@@ -149,15 +149,6 @@ header.on .ham_menu i {
 
 }
 
-/* .mobile_menu {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background: #ccc;
-    display: none;
-} */
 
 main {
     position: relative;
@@ -168,6 +159,43 @@ main {
 .full {
     width: 100%;
     height: 100vh;
+}
+
+/* =======================================================
+   [핵심 수정] 햄버거 메뉴 열림(menu-open) 시 GNB 스타일 강제 초기화
+   ======================================================= */
+
+/* 1. 헤더 배경: 검은색 Bar를 없애고 투명하게 (뒤에 흰색 오버레이가 보임) */
+header.menu-open {
+    background: #fff !important;
+    border-bottom: none !important;
+    /* 경계선도 없애서 깔끔하게 */
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+}
+
+/* 2. 메뉴 텍스트: 무조건 검정색 (흰 배경일 때처럼) */
+header.menu-open .gnb_tit li a {
+    color: #000 !important;
+    opacity: 0.45;
+}
+
+/* 3. 활성화된(현재 페이지) 메뉴: 진한 검정 */
+header.menu-open .gnb_tit li.on a {
+    opacity: 1 !important;
+    color: #000 !important;
+}
+
+/* 4. 활성화된 메뉴 밑줄: 포인트 컬러(빨강) 유지 */
+header.menu-open .gnb_tit li.on a::after {
+    background-color: F0C4CB !important;
+    /* 사용하시는 --pr-color 값 */
+    transform: scale(1) !important;
+}
+
+/* 5. 햄버거/닫기 아이콘: 무조건 검정색 */
+header.menu-open .ham_menu i {
+    color: #000 !important;
 }
 
 /* ================= HERO SECTION ================= */
