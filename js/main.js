@@ -769,6 +769,66 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    // 1. 실시간 시간 업데이트 함수
+    function updateTime() {
+        const timeElement = document.getElementById('local-time');
+        const now = new Date();
+
+        // 한국 시간 포맷 (다른 도시 원하시면 수정 가능)
+        const timeString = now.toLocaleTimeString('en-US', {
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            timeZone: 'Asia/Seoul' // 서울 기준
+        });
+
+        timeElement.textContent = `Seoul, Korea ${timeString}`;
+    }
+
+    // 1초마다 시간 갱신
+    setInterval(updateTime, 1000);
+    updateTime(); // 로드 되자마자 실행
+
+
+    // 2. GSAP 애니메이션 (푸터 등장 효과)
+    // 푸터가 화면에 보이면 텍스트들이 아래에서 위로 스르륵 올라옴
+    gsap.from(".footer_link", {
+        scrollTrigger: {
+            trigger: "#footer",
+            start: "top 80%", // 푸터가 화면 하단 80% 지점에 오면 시작
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.1, // 순차적으로 등장
+        ease: "power3.out"
+    });
+
+    gsap.from(".footer_info > div", {
+        scrollTrigger: {
+            trigger: "#footer",
+            start: "top 80%",
+        },
+        y: 30,
+        opacity: 0,
+        duration: 1,
+        delay: 0.3,
+        stagger: 0.1,
+        ease: "power3.out"
+    });
+
+    gsap.from(".big_typo", {
+        scrollTrigger: {
+            trigger: "#footer",
+            start: "top 90%",
+        },
+        y: 100,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power2.out"
+    });
 }); // DOMContentLoaded 끝
 
 

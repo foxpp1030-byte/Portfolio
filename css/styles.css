@@ -1437,3 +1437,118 @@ a#rainbow-text.active:after {
     width: 400px;
     margin-right: 800px;
 }
+
+/* Footer Layout */
+.footer_section {
+    width: 100%;
+    height: 100vh;
+    padding: 80px 40px 40px;
+    /* 상단 여백 넉넉히 */
+    background-color: #fff;
+    /* 배경색 */
+    color: #000;
+    overflow: hidden;
+}
+
+.footer_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Top Section (Nav & Info) */
+.footer_top {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    margin-bottom: 60px;
+}
+
+/* Navigation Links */
+.footer_nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer_link {
+    font-size: 3rem;
+    /* 메뉴 폰트 크기 */
+    font-weight: 700;
+    text-decoration: none;
+    color: #000;
+    line-height: 1.1;
+    transition: opacity 0.3s;
+}
+
+.footer_link:hover {
+    opacity: 0.5;
+}
+
+/* Right Info Area */
+.footer_info {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+
+.cta_text {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+/* 이메일: Serif 폰트 적용 (이탤릭) */
+.footer_email {
+    font-family: "Times New Roman", Times, serif;
+    /* 윈도우/맥 기본 명조체 */
+    font-style: italic;
+    font-size: 3rem;
+    text-decoration: none;
+    color: #000;
+}
+
+.meta_info {
+    margin-top: 20px;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Bottom Big Typo */
+.footer_bottom {
+    border-top: 1px solid #000;
+    /* 구분선 */
+    padding-top: 20px;
+}
+
+.big_typo {
+    font-size: clamp(4rem, 16vw, 20rem);
+    /* 화면 너비에 따라 텍스트 크기 자동 조절 */
+    font-weight: 400;
+    /* 너무 두껍지 않게 */
+    line-height: 0.8;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .footer_top {
+        flex-direction: column;
+        gap: 50px;
+    }
+
+    .footer_info {
+        text-align: left;
+    }
+
+    .footer_email {
+        font-size: 2rem;
+    }
+}
