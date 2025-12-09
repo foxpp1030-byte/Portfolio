@@ -378,7 +378,7 @@ main {
 .pos_profile {
     left: -5%;
     top: -5%;
-    width: 400px;
+    width: 410px;
     z-index: 5;
 }
 
@@ -389,7 +389,7 @@ main {
     transform: translateY(-50%) rotate(276deg);
     font-family: "SUIT", sans-serif;
     font-weight: 700;
-    font-size: 40px;
+    font-size: 37px;
     color: #000;
     letter-spacing: 3px;
     transition: color 0.3s ease;
@@ -409,7 +409,7 @@ main {
     left: 52%;
     top: 40%;
     transform: translate(-50%, -50%);
-    width: 430px;
+    width: 440px;
 }
 
 .type_projects {
@@ -425,8 +425,12 @@ main {
 
 .pos_projects:hover .curved_text_wrap text {
     fill: #F0C4CB;
+
 }
 
+.type_projects text {
+    font-size: 29px !important;
+}
 
 /* (3) DECOR (오른쪽 위 빵) - 클릭 안되는 장식 */
 .pos_bread {
@@ -480,7 +484,7 @@ main {
     transform: rotate(-90deg);
     font-family: "SUIT", sans-serif;
     font-weight: 700;
-    font-size: 40px;
+    font-size: 37px;
     color: #000;
     white-space: nowrap;
     transition: color 0.3s ease;
