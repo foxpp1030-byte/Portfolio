@@ -541,8 +541,6 @@ main {
 .skillset_img {
     width: auto;
     max-width: 100%;
-    opacity: 0;
-    transform: translateY(400px);
 }
 
 
