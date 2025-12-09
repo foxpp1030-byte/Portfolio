@@ -364,18 +364,6 @@ main {
     /* 중요: a태그 자체에 트랜지션을 주지 않고 내부 요소에 따로 줍니다 */
 }
 
-/* 호버 시: 이미지만 커지고, 텍스트는 색상만 변경 (꿀렁거림 방지) */
-.obj_link:hover .obj_img {
-    transform: scale(1.08);
-    /* 이미지 확대 */
-}
-
-.obj_link:hover .obj_label,
-.obj_link:hover .curved_text_wrap text {
-    fill: #F0C4CB;
-    /* 텍스트 색상 변경 (포인트 컬러) */
-    color: #F0C4CB;
-}
 
 .obj_img {
     display: block;
@@ -391,18 +379,18 @@ main {
 .pos_profile {
     left: -5%;
     top: -5%;
-    width: 400px;
+    width: 390px;
     z-index: 5;
 }
 
 .rotate_vertical {
     position: absolute;
-    right: -30px;
+    right: -36px;
     top: 76%;
     transform: translateY(-50%) rotate(275deg);
     font-family: "SUIT", sans-serif;
     font-weight: 700;
-    font-size: 30px;
+    font-size: 34px;
     color: #000;
     letter-spacing: 3px;
     transition: color 0.3s ease;
@@ -412,7 +400,6 @@ main {
     transform: translateY(30px) !important;
 }
 
-
 .pos_profile:hover .rotate_vertical {
     color: #F0C4CB;
 }
@@ -420,19 +407,26 @@ main {
 /* (2) PROJECTS (중앙 디저트) */
 .pos_projects {
     left: 50%;
-    top: 50%;
+    top: 42%;
     transform: translate(-50%, -50%);
-    width: 380px;
+    width: 430px;
     /* 중앙 이미지 크기 */
 }
 
-/* SVG 텍스트가 접시를 가리지 않도록 위치/크기 조정 */
+
 .type_projects {
     width: 160%;
-    /* 곡선 반경을 넓힘 */
     height: 160%;
-    top: 55%;
-    /* [수정] 텍스트 전체를 아래로 내림 (50% -> 55%) */
+    transform: translate(-30%, -30%) rotate(-40deg) !important;
+}
+
+.pos_projects:hover .obj_img {
+    transform: scale(1.05) !important;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.pos_projects:hover .curved_text_wrap text {
+    fill: #F0C4CB;
 }
 
 /* (3) DECOR (오른쪽 위 빵) - 클릭 안되는 장식 */
@@ -448,13 +442,13 @@ main {
     left: 11%;
     bottom: 8%;
     width: 500px;
+    z-index: 20
 }
 
 .type_visual {
     width: 150%;
     height: 150%;
-    top: 55%;
-    /* 위치 미세 조정 */
+    transform: translate(-60%, -52%) rotate(30deg) !important;
 }
 
 .pos_visual:hover .obj_img {
