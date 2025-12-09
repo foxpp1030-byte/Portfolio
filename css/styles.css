@@ -1438,117 +1438,133 @@ a#rainbow-text.active:after {
     margin-right: 800px;
 }
 
-/* Footer Layout */
+/* ================= FOOTER NEW STYLE ================= */
+
 .footer_section {
     width: 100%;
     height: 100vh;
-    padding: 80px 40px 40px;
-    /* 상단 여백 넉넉히 */
     background-color: #fff;
-    /* 배경색 */
     color: #000;
+    position: relative;
     overflow: hidden;
 }
 
-.footer_container {
+/* [상단 영역] 물리 엔진 캔버스 + 텍스트 */
+.footer_top_area {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    min-height: 600px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 60px 50px;
+    border-bottom: 2px solid #000;
+    margin-bottom: 50px;
+}
+
+/* 물리 엔진이 들어갈 컨테이너 (절대 위치로 배경에 깔림) */
+#footer_matter_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    /* 텍스트 뒤에 위치 */
+    pointer-events: auto;
+    /* 마우스로 던지기 가능 */
+}
+
+/* Matter.js가 생성하는 캔버스 스타일 강제 지정 */
+#footer_matter_container canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* 오른쪽 정보 영역 (캔버스 위에 뜸) */
+.footer_info_right {
+    position: relative;
+    z-index: 10;
+    /* 오브제보다 위에 */
+    text-align: right;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
+    /* 위아래로 요소 분산 */
+    pointer-events: none;
+    /* 빈 공간 클릭 시 물리 엔진 방해 안 하게 */
 }
 
-/* Top Section (Nav & Info) */
-.footer_top {
-    display: flex;
-    justify-content: end;
-    align-items: end;
-    margin-bottom: 60px;
+/* 링크들은 클릭 되어야 함 */
+.footer_info_right a {
+    pointer-events: auto;
 }
 
-/* Navigation Links */
-.footer_nav {
+/* 상단 소셜 링크 */
+.social_links {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
+    font-family: "SUIT", sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
 }
 
-.footer_link {
-    font-size: 3rem;
-    /* 메뉴 폰트 크기 */
-    font-weight: 700;
-    text-decoration: none;
-    color: #000;
-    line-height: 1.1;
-    transition: opacity 0.3s;
-}
-
-.footer_link:hover {
-    opacity: 0.5;
-}
-
-/* Right Info Area */
-.footer_info {
-    text-align: right;
+/* 하단 컨택 + 시간 정보 그룹 */
+.contact_wrapper {
     display: flex;
     flex-direction: column;
     gap: 40px;
 }
 
-
 .cta_text {
-    font-size: 0.9rem;
+    font-family: "SUIT", sans-serif;
+    font-size: 14px;
     color: #666;
-    margin-bottom: 5px;
     letter-spacing: 1px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
 }
 
-/* 이메일: Serif 폰트 적용 (이탤릭) */
 .footer_email {
-    font-family: "Times New Roman", Times, serif;
-    /* 윈도우/맥 기본 명조체 */
+    font-family: 'Times New Roman', Times, serif;
+    /* 명조체 */
     font-style: italic;
-    font-size: 3rem;
-    text-decoration: none;
+    font-size: 3.5rem;
+    /* 이메일 크기 키움 */
     color: #000;
+    line-height: 1;
 }
 
 .meta_info {
-    margin-top: 20px;
+    font-family: "SUIT", sans-serif;
     font-size: 1rem;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    color: #000;
 }
 
-/* Bottom Big Typo */
-.footer_bottom {
-    border-top: 1px solid #000;
-    /* 구분선 */
-    padding-top: 20px;
+/* [하단 영역] 빅 타이포 */
+.footer_bottom_area {
+    width: 100%;
+    background: #fff;
+    line-height: 0;
+    /* 높이 최소화 */
 }
 
 .big_typo {
-    font-size: clamp(4rem, 16vw, 20rem);
-    /* 화면 너비에 따라 텍스트 크기 자동 조절 */
+    font-family: "SUIT", sans-serif;
+    font-size: clamp(4rem, 23vw, 30rem);
+    /* 화면 꽉 차게 */
     font-weight: 400;
-    /* 너무 두껍지 않게 */
     line-height: 0.8;
-    letter-spacing: -0.02em;
     margin: 0;
-    text-transform: uppercase;
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .footer_top {
-        flex-direction: column;
-        gap: 50px;
-    }
-
-    .footer_info {
-        text-align: left;
-    }
-
-    .footer_email {
-        font-size: 2rem;
-    }
+    text-align: center;
+    color: #000;
+    letter-spacing: -0.04em;
+    transform: translateY(0);
 }

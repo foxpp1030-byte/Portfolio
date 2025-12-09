@@ -556,145 +556,145 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================
     // ICON CLOUD (Matter.js) - 빵 크기 축소 & 겹침 방지 (Padding)
     // ==========================================================
-    const cloudSection = document.querySelector("#icon_cloud_section");
+    // const cloudSection = document.querySelector("#icon_cloud_section");
 
-    if (cloudSection) {
-        // 1. Matter.js 모듈
-        const Engine = Matter.Engine,
-            Render = Matter.Render,
-            Runner = Matter.Runner,
-            Bodies = Matter.Bodies,
-            Composite = Matter.Composite,
-            Mouse = Matter.Mouse,
-            MouseConstraint = Matter.MouseConstraint;
+    // if (cloudSection) {
+    //     // 1. Matter.js 모듈
+    //     const Engine = Matter.Engine,
+    //         Render = Matter.Render,
+    //         Runner = Matter.Runner,
+    //         Bodies = Matter.Bodies,
+    //         Composite = Matter.Composite,
+    //         Mouse = Matter.Mouse,
+    //         MouseConstraint = Matter.MouseConstraint;
 
-        // 2. 엔진 생성
-        const engine = Engine.create();
-        const world = engine.world;
+    //     // 2. 엔진 생성
+    //     const engine = Engine.create();
+    //     const world = engine.world;
 
-        // 3. 렌더러 생성
-        const render = Render.create({
-            element: cloudSection,
-            engine: engine,
-            options: {
-                width: cloudSection.clientWidth,
-                height: cloudSection.clientHeight,
-                background: 'transparent',
-                wireframes: false, // 충돌 박스 안 보이기 (확인용이면 true)
-                pixelRatio: window.devicePixelRatio
-            }
-        });
+    //     // 3. 렌더러 생성
+    //     const render = Render.create({
+    //         element: cloudSection,
+    //         engine: engine,
+    //         options: {
+    //             width: cloudSection.clientWidth,
+    //             height: cloudSection.clientHeight,
+    //             background: 'transparent',
+    //             wireframes: false, // 충돌 박스 안 보이기 (확인용이면 true)
+    //             pixelRatio: window.devicePixelRatio
+    //         }
+    //     });
 
-        // 4. 벽 생성 함수
-        let ground, leftWall, rightWall;
-        const wallOptions = { isStatic: true, render: { visible: false } };
+    //     // 4. 벽 생성 함수
+    //     let ground, leftWall, rightWall;
+    //     const wallOptions = { isStatic: true, render: { visible: false } };
 
-        function createWalls() {
-            const width = cloudSection.clientWidth;
-            const height = cloudSection.clientHeight;
-            const wallThick = 100;
-            const groundOffset = 60; // 바닥 높이 보정
+    //     function createWalls() {
+    //         const width = cloudSection.clientWidth;
+    //         const height = cloudSection.clientHeight;
+    //         const wallThick = 100;
+    //         const groundOffset = 60; // 바닥 높이 보정
 
-            if (ground) Composite.remove(world, [ground, leftWall, rightWall]);
+    //         if (ground) Composite.remove(world, [ground, leftWall, rightWall]);
 
-            ground = Bodies.rectangle(width / 2, height - groundOffset + (wallThick / 2), width, wallThick, wallOptions);
-            leftWall = Bodies.rectangle(0 - wallThick / 2, -height * 4, wallThick, height * 10, wallOptions);
-            rightWall = Bodies.rectangle(width + wallThick / 2, -height * 4, wallThick, height * 10, wallOptions);
+    //         ground = Bodies.rectangle(width / 2, height - groundOffset + (wallThick / 2), width, wallThick, wallOptions);
+    //         leftWall = Bodies.rectangle(0 - wallThick / 2, -height * 4, wallThick, height * 10, wallOptions);
+    //         rightWall = Bodies.rectangle(width + wallThick / 2, -height * 4, wallThick, height * 10, wallOptions);
 
-            Composite.add(world, [ground, leftWall, rightWall]);
-        }
-        createWalls();
+    //         Composite.add(world, [ground, leftWall, rightWall]);
+    //     }
+    //     createWalls();
 
-        // =========================================
-        // 5. 오브젝트 생성 설정 (개별 크기 조절 기능 추가)
-        // =========================================
+    //     // =========================================
+    //     // 5. 오브젝트 생성 설정 (개별 크기 조절 기능 추가)
+    //     // =========================================
 
-        function addObjects() {
-            // [수정] scaleMod: 1.0이 기준, 작게 하려면 0.x 입력
-            const spawnList = [
-                { src: './img/vector7.png', count: 3, scaleMod: 0.9 }, // 핑크 X
-                { src: './img/vector1.png', count: 1, scaleMod: 1.0 }, // 리본
-                { src: './img/vector2.png', count: 1, scaleMod: 0.9 }, // 타르트
-                { src: './img/vector3.png', count: 1, scaleMod: 0.9 }, // 이어폰
-                { src: './img/vector4.png', count: 1, scaleMod: 0.9 }, // 프레첼
-                { src: './img/vector5.png', count: 1, scaleMod: 0.9 }, // 아이스크림
-                { src: './img/vector6.png', count: 1, scaleMod: 0.9 }, // 영수증
-                // [핵심 수정] 빵 크기를 0.6배로 대폭 줄임
-                { src: './img/bread01.png', count: 1, scaleMod: 0.6 }
-            ];
+    //     function addObjects() {
+    //         // [수정] scaleMod: 1.0이 기준, 작게 하려면 0.x 입력
+    //         const spawnList = [
+    //             { src: './img/vector7.png', count: 3, scaleMod: 0.9 }, // 핑크 X
+    //             { src: './img/vector1.png', count: 1, scaleMod: 1.0 }, // 리본
+    //             { src: './img/vector2.png', count: 1, scaleMod: 0.9 }, // 타르트
+    //             { src: './img/vector3.png', count: 1, scaleMod: 0.9 }, // 이어폰
+    //             { src: './img/vector4.png', count: 1, scaleMod: 0.9 }, // 프레첼
+    //             { src: './img/vector5.png', count: 1, scaleMod: 0.9 }, // 아이스크림
+    //             { src: './img/vector6.png', count: 1, scaleMod: 0.9 }, // 영수증
+    //             // [핵심 수정] 빵 크기를 0.6배로 대폭 줄임
+    //             { src: './img/bread01.png', count: 1, scaleMod: 0.6 }
+    //         ];
 
-            spawnList.forEach(item => {
-                for (let i = 0; i < item.count; i++) {
-                    createSingleObject(item.src, item.scaleMod);
-                }
-            });
-        }
+    //         spawnList.forEach(item => {
+    //             for (let i = 0; i < item.count; i++) {
+    //                 createSingleObject(item.src, item.scaleMod);
+    //             }
+    //         });
+    //     }
 
-        // 개별 오브젝트 생성 함수 (scaleMultiplier 파라미터 추가)
-        function createSingleObject(imgSrc, scaleMultiplier) {
-            // 가로 전체 범위 활용 (겹침 방지 위해 넓게 분포)
-            const xPos = Math.random() * (cloudSection.clientWidth - 150) + 75;
-            // 떨어지는 높이차를 더 둠 (한 번에 뭉치지 않게)
-            const yPos = -Math.random() * 1500 - 200;
+    //     // 개별 오브젝트 생성 함수 (scaleMultiplier 파라미터 추가)
+    //     function createSingleObject(imgSrc, scaleMultiplier) {
+    //         // 가로 전체 범위 활용 (겹침 방지 위해 넓게 분포)
+    //         const xPos = Math.random() * (cloudSection.clientWidth - 150) + 75;
+    //         // 떨어지는 높이차를 더 둠 (한 번에 뭉치지 않게)
+    //         const yPos = -Math.random() * 1500 - 200;
 
-            // 기본 랜덤 크기 (0.8~1.1) * 개별 스케일(빵은 작게)
-            const baseScale = 0.8 + Math.random() * 0.3;
-            const finalScale = baseScale * scaleMultiplier;
+    //         // 기본 랜덤 크기 (0.8~1.1) * 개별 스케일(빵은 작게)
+    //         const baseScale = 0.8 + Math.random() * 0.3;
+    //         const finalScale = baseScale * scaleMultiplier;
 
-            // [핵심 수정] 충돌 박스 크기(bodySize)를 이미지보다 약간 크게 설정 (105%)
-            // 이렇게 하면 이미지끼리 닿기 전에 '투명 보호막'이 부딪혀서 시각적으로 겹치지 않음
-            const bodySize = 100 * finalScale * 1.05;
+    //         // [핵심 수정] 충돌 박스 크기(bodySize)를 이미지보다 약간 크게 설정 (105%)
+    //         // 이렇게 하면 이미지끼리 닿기 전에 '투명 보호막'이 부딪혀서 시각적으로 겹치지 않음
+    //         const bodySize = 100 * finalScale * 1.05;
 
-            const obj = Bodies.rectangle(xPos, yPos, bodySize, bodySize, {
-                restitution: 0.6, // 약간 더 잘 튀기게 (뭉침 해소)
-                friction: 0.1,
-                frictionAir: 0.01 + Math.random() * 0.03,
-                angle: Math.random() * Math.PI,
-                render: {
-                    sprite: {
-                        texture: imgSrc,
-                        xScale: finalScale,
-                        yScale: finalScale
-                    }
-                }
-            });
-            Composite.add(world, obj);
-        }
+    //         const obj = Bodies.rectangle(xPos, yPos, bodySize, bodySize, {
+    //             restitution: 0.6, // 약간 더 잘 튀기게 (뭉침 해소)
+    //             friction: 0.1,
+    //             frictionAir: 0.01 + Math.random() * 0.03,
+    //             angle: Math.random() * Math.PI,
+    //             render: {
+    //                 sprite: {
+    //                     texture: imgSrc,
+    //                     xScale: finalScale,
+    //                     yScale: finalScale
+    //                 }
+    //             }
+    //         });
+    //         Composite.add(world, obj);
+    //     }
 
-        // =========================================
-        // 6. 실행 제어
-        // =========================================
-        Render.run(render);
-        const runner = Runner.create();
+    //     // =========================================
+    //     // 6. 실행 제어
+    //     // =========================================
+    //     Render.run(render);
+    //     const runner = Runner.create();
 
-        ScrollTrigger.create({
-            trigger: "#icon_cloud_section",
-            start: "top 20%",
-            once: true,
-            onEnter: () => {
-                addObjects();
-                Runner.run(runner, engine);
-            }
-        });
+    //     ScrollTrigger.create({
+    //         trigger: "#icon_cloud_section",
+    //         start: "top 20%",
+    //         once: true,
+    //         onEnter: () => {
+    //             addObjects();
+    //             Runner.run(runner, engine);
+    //         }
+    //     });
 
-        // 7. 마우스 컨트롤
-        const mouse = Mouse.create(render.canvas);
-        const mouseConstraint = MouseConstraint.create(engine, {
-            mouse: mouse,
-            constraint: { stiffness: 0.2, render: { visible: false } }
-        });
+    //     // 7. 마우스 컨트롤
+    //     const mouse = Mouse.create(render.canvas);
+    //     const mouseConstraint = MouseConstraint.create(engine, {
+    //         mouse: mouse,
+    //         constraint: { stiffness: 0.2, render: { visible: false } }
+    //     });
 
-        mouseConstraint.mouse.element.removeEventListener("mousewheel", mouseConstraint.mouse.mousewheel);
-        mouseConstraint.mouse.element.removeEventListener("DOMMouseScroll", mouseConstraint.mouse.mousewheel);
-        Composite.add(world, mouseConstraint);
+    //     mouseConstraint.mouse.element.removeEventListener("mousewheel", mouseConstraint.mouse.mousewheel);
+    //     mouseConstraint.mouse.element.removeEventListener("DOMMouseScroll", mouseConstraint.mouse.mousewheel);
+    //     Composite.add(world, mouseConstraint);
 
-        // 8. 리사이즈 대응
-        window.addEventListener('resize', () => {
-            render.canvas.width = cloudSection.clientWidth;
-            render.canvas.height = cloudSection.clientHeight;
-            createWalls();
-        });
-    }
+    //     // 8. 리사이즈 대응
+    //     window.addEventListener('resize', () => {
+    //         render.canvas.width = cloudSection.clientWidth;
+    //         render.canvas.height = cloudSection.clientHeight;
+    //         createWalls();
+    //     });
+    // }
 
     // ==========================================================
     // CUSTOM CURSOR LOGIC (Visual Section으로 변경됨)
@@ -829,6 +829,162 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 1.2,
         ease: "power2.out"
     });
+
+    // ==========================================================
+    // [NEW] FOOTER MATTER.JS (푸터 오브제 물리 엔진 - 수정됨)
+    // ==========================================================
+    const footerContainer = document.querySelector("#footer_matter_container");
+    const footerSection = document.querySelector(".footer_top_area");
+
+    if (footerContainer && footerSection) {
+
+        // 1. 모듈 초기화
+        const Engine = Matter.Engine,
+            Render = Matter.Render,
+            Runner = Matter.Runner,
+            Bodies = Matter.Bodies,
+            Composite = Matter.Composite,
+            Mouse = Matter.Mouse,
+            MouseConstraint = Matter.MouseConstraint;
+
+        // 2. 엔진 생성
+        const engine = Engine.create();
+        const world = engine.world;
+
+        // 3. 렌더러 생성
+        const render = Render.create({
+            element: footerContainer,
+            engine: engine,
+            options: {
+                width: footerSection.clientWidth,
+                height: footerSection.clientHeight,
+                background: 'transparent',
+                wireframes: false,
+                pixelRatio: window.devicePixelRatio // 고해상도 및 비율 유지 필수
+            }
+        });
+
+        // 4. 벽(Wall) 생성 함수
+        let ground, leftWall, rightWall;
+
+        function createWalls() {
+            const width = footerSection.clientWidth;
+            const height = footerSection.clientHeight;
+            const wallThick = 100; // 벽 두께
+
+            // [수정 포인트 1] 바닥을 위로 올리는 간격 (이 숫자를 늘리면 더 높이 쌓입니다)
+            const groundOffset = 40;
+
+            // 기존 벽 제거
+            if (ground) Composite.remove(world, [ground, leftWall, rightWall]);
+
+            // 바닥 생성 (height - groundOffset 위치에 생성)
+            ground = Bodies.rectangle(width / 2, height - groundOffset + (wallThick / 2), width, wallThick, {
+                isStatic: true,
+                render: { visible: false } // 투명하게
+            });
+
+            // 왼쪽 벽
+            leftWall = Bodies.rectangle(0 - wallThick / 2, height / 2, wallThick, height * 5, {
+                isStatic: true,
+                render: { visible: false }
+            });
+
+            // 오른쪽 벽
+            rightWall = Bodies.rectangle(width + wallThick / 2, height / 2, wallThick, height * 5, {
+                isStatic: true,
+                render: { visible: false }
+            });
+
+            Composite.add(world, [ground, leftWall, rightWall]);
+        }
+
+        // 5. 오브제 생성 함수
+        function addFooterObjects() {
+            const width = footerSection.clientWidth;
+
+            // [1] 핑크 X (Cross) - 12개
+            for (let i = 0; i < 12; i++) {
+                createSingleObject('./img/vector7.png', 0.8, width);
+            }
+
+            // [2] 리본 2개
+            createSingleObject('./img/vector1.png', 0.9, width);
+            createSingleObject('./img/vector4.png', 0.9, width);
+
+            // [3] 빵 1개
+            createSingleObject('./img/bread01.png', 0.6, width);
+        }
+
+        function createSingleObject(src, scale, containerWidth) {
+            const xPos = Math.random() * (containerWidth - 100) + 50;
+            const yPos = -Math.random() * 1000 - 100;
+            const bodySize = 50 * scale;
+
+            const body = Bodies.circle(xPos, yPos, bodySize, {
+                restitution: 0.6,
+                friction: 0.1,
+                frictionAir: 0.01,
+                angle: Math.random() * Math.PI * 2,
+                render: {
+                    sprite: {
+                        texture: src,
+                        xScale: scale,
+                        yScale: scale
+                    }
+                }
+            });
+            Composite.add(world, body);
+        }
+
+
+        // 6. 실행 및 리사이즈 처리
+        createWalls();
+
+        ScrollTrigger.create({
+            trigger: "#footer",
+            start: "top 70%",
+            once: true,
+            onEnter: () => {
+                Render.run(render);
+                const runner = Runner.create();
+                Runner.run(runner, engine);
+                addFooterObjects();
+            }
+        });
+
+        // 마우스 컨트롤
+        const mouse = Mouse.create(render.canvas);
+        const mouseConstraint = MouseConstraint.create(engine, {
+            mouse: mouse,
+            constraint: {
+                stiffness: 0.2,
+                render: { visible: false }
+            }
+        });
+
+        mouseConstraint.mouse.element.removeEventListener("mousewheel", mouseConstraint.mouse.mousewheel);
+        mouseConstraint.mouse.element.removeEventListener("DOMMouseScroll", mouseConstraint.mouse.mousewheel);
+        Composite.add(world, mouseConstraint);
+
+        // [수정 포인트 2] 리사이즈 시 캔버스 비율 재조정 (찌그러짐 방지)
+        window.addEventListener('resize', () => {
+            const newWidth = footerSection.clientWidth;
+            const newHeight = footerSection.clientHeight;
+
+            // 캔버스 크기 업데이트
+            render.canvas.width = newWidth;
+            render.canvas.height = newHeight;
+
+            // Matter.js 렌더러 옵션 업데이트 (중요!)
+            render.options.width = newWidth;
+            render.options.height = newHeight;
+            render.bounds.max.x = newWidth;
+            render.bounds.max.y = newHeight;
+
+            createWalls(); // 벽 위치 재조정
+        });
+    }
 }); // DOMContentLoaded 끝
 
 
