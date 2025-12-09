@@ -439,10 +439,11 @@ main {
    SKILLSET SECTION
    ============================== */
 
-#skills {
+#Skills {
     width: 100%;
     min-height: 100vh;
-
+    padding-top: 400px;
+    padding-bottom: 200px;
     position: relative;
     background-color: #fff;
     display: flex;
@@ -614,6 +615,8 @@ main {
     width: 100%;
     min-height: 100vh;
     /* 화면 꽉 차게 */
+    padding-top: 200px;
+    padding-bottom: 200px;
     background: #fff;
     display: flex;
     justify-content: center;

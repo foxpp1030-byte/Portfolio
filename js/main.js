@@ -1,3 +1,12 @@
+// ==================== [필수] 새로고침 시 무조건 맨 위로 강제 이동 ====================
+// 브라우저가 스크롤 위치를 기억하지 못하게 설정 (인트로 꼬임 방지)
+if (history.scrollRestoration) {
+    history.scrollRestoration = "manual";
+}
+
+// 강제로 (0,0) 좌표로 이동
+window.scrollTo(0, 0);
+
 let scrollTween;
 document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -306,7 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // 1. 가로로 이동할 거리 계산
         let getScrollAmount = () => {
             let trackWidth = track.scrollWidth;
-            return -(trackWidth - window.innerWidth) - 200;
+            return -(trackWidth - window.innerWidth);
         };
 
         // 2. 가로 스크롤 애니메이션 정의
@@ -325,6 +334,7 @@ document.addEventListener("DOMContentLoaded", () => {
             animation: tween,
             scrub: 1,
             invalidateOnRefresh: true,
+            anticipatePin: 1, // [추가] 핀이 풀릴 때 덜컥거림을 미리 계산해서 부드럽게 연결
 
             // [중요] 네비게이션 활성화 로직
             // 표지(#Projects)와 가로영역(#projects_scroll_view) 둘 다 'Projects' 메뉴에 해당하므로
@@ -752,17 +762,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     gnbLinks.forEach((link) => {
         link.addEventListener("click", (e) => {
-            e.preventDefault(); // 1. 덜컥거리는 기본 점프 기능 막기
+            e.preventDefault();
 
-            const targetId = link.getAttribute("href"); // 2. 클릭한 곳의 주소 가져오기 (#About 등)
-            const targetSection = document.querySelector(targetId); // 3. 실제 섹션 찾기
+            // [추가된 부분] 메뉴를 누르면 무조건 스크롤 잠금을 해제합니다.
+            document.body.style.overflow = "auto";
+            if (typeof lenis !== "undefined") lenis.start();
+
+            const targetId = link.getAttribute("href");
+            const targetSection = document.querySelector(targetId);
 
             if (targetSection) {
-                // 4. GSAP를 이용해 해당 위치로 부드럽게 이동
                 gsap.to(window, {
                     scrollTo: {
                         y: targetId,
-                        autoKill: false // 사용자가 스크롤해도 멈추지 않게
+                        autoKill: false
                     },
                     duration: 1.2,
                     ease: "power4.inOut"
