@@ -305,6 +305,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 rainbowTarget.classList.add("active");
                 rbBtn.onMouseEnter();
                 document.querySelector('header').classList.add('on'); // 진입 시 어둡게
+                if (tagWrap) {
+                    gsap.to(tagWrap, {
+                        y: "0%",          // 원래 위치로 내려옴
+                        autoAlpha: 1,     // opacity:1, visibility:visible
+                        duration: 1.5,    // 내려오는 시간
+                        ease: "bounce.out" // 텅! 하고 떨어지는 탄성 효과
+                    });
+                }
             },
             onLeaveBack: () => {
                 if (tagWrap) {
