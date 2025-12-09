@@ -1523,7 +1523,7 @@ a#rainbow-text.active:after {
     font-style: italic;
     font-size: 3.5rem;
     /* 이메일 크기 키움 */
-    color: #000;
+    color: #2B0F0F;
     line-height: 1;
 }
 
@@ -1533,7 +1533,7 @@ a#rainbow-text.active:after {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    color: #000;
+    color: #666;
 }
 
 /* [하단 영역] 빅 타이포 */
@@ -1553,7 +1553,7 @@ a#rainbow-text.active:after {
     line-height: 0.8;
     margin: 0;
     text-align: start;
-    color: #000;
+    color: #2B0F0F;
     letter-spacing: -0.04em;
     transform: translateY(0);
 }
