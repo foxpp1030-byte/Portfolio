@@ -1487,30 +1487,18 @@ a#rainbow-text.active:after {
 .footer_info_right {
     position: relative;
     z-index: 10;
-    /* 오브제보다 위에 */
     text-align: right;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
+    gap: 30px;
     height: 100%;
-    /* 위아래로 요소 분산 */
     pointer-events: none;
-    /* 빈 공간 클릭 시 물리 엔진 방해 안 하게 */
 }
 
 /* 링크들은 클릭 되어야 함 */
 .footer_info_right a {
     pointer-events: auto;
-}
-
-/* 상단 소셜 링크 */
-.social_links {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    font-family: "SUIT", sans-serif;
-    font-weight: 600;
-    font-size: 1.2rem;
 }
 
 /* 하단 컨택 + 시간 정보 그룹 */
@@ -1522,7 +1510,7 @@ a#rainbow-text.active:after {
 
 .cta_text {
     font-family: "SUIT", sans-serif;
-    font-size: 14px;
+    font-size: 20px;
     color: #666;
     letter-spacing: 1px;
     margin-bottom: 5px;
@@ -1541,7 +1529,7 @@ a#rainbow-text.active:after {
 
 .meta_info {
     font-family: "SUIT", sans-serif;
-    font-size: 1rem;
+    font-size: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -1552,18 +1540,19 @@ a#rainbow-text.active:after {
 .footer_bottom_area {
     width: 100%;
     background: #fff;
-    line-height: 0;
-    /* 높이 최소화 */
+    padding-bottom: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 .big_typo {
     font-family: "SUIT", sans-serif;
-    font-size: clamp(4rem, 23vw, 30rem);
-    /* 화면 꽉 차게 */
+    font-size: clamp(4rem, 14vw, 20rem);
     font-weight: 400;
     line-height: 0.8;
     margin: 0;
-    text-align: center;
+    text-align: start;
     color: #000;
     letter-spacing: -0.04em;
     transform: translateY(0);
