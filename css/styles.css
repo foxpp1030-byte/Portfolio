@@ -378,7 +378,7 @@ main {
 .pos_profile {
     left: -5%;
     top: -5%;
-    width: 390px;
+    width: 400px;
     z-index: 5;
 }
 
@@ -406,12 +406,10 @@ main {
 
 /* (2) PROJECTS (중앙 디저트) */
 .pos_projects {
-    left: 50%;
-    top: 42%;
+    left: 52%;
+    top: 40%;
     transform: translate(-50%, -50%);
     width: 430px;
-
-    /* 중앙 이미지 크기 */
 }
 
 .type_projects {
@@ -434,14 +432,14 @@ main {
 .pos_bread {
     right: 0;
     top: 12%;
-    width: 300px;
+    width: 350px;
 }
 
 
 
 /* (4) VISUAL ARCHIVE (왼쪽 아래 이어폰) */
 .pos_visual {
-    left: 11%;
+    left: 13%;
     bottom: 8%;
     width: 500px;
     z-index: 20
