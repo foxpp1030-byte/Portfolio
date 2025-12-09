@@ -385,12 +385,12 @@ main {
 
 .rotate_vertical {
     position: absolute;
-    right: -36px;
+    right: -50px;
     top: 76%;
-    transform: translateY(-50%) rotate(275deg);
+    transform: translateY(-50%) rotate(276deg);
     font-family: "SUIT", sans-serif;
     font-weight: 700;
-    font-size: 34px;
+    font-size: 40px;
     color: #000;
     letter-spacing: 3px;
     transition: color 0.3s ease;
@@ -410,6 +410,7 @@ main {
     top: 42%;
     transform: translate(-50%, -50%);
     width: 430px;
+
     /* 중앙 이미지 크기 */
 }
 
@@ -417,7 +418,7 @@ main {
 .type_projects {
     width: 160%;
     height: 160%;
-    transform: translate(-30%, -30%) rotate(-40deg) !important;
+    transform: translate(-29%, -29%) rotate(-40deg) !important;
 }
 
 .pos_projects:hover .obj_img {
