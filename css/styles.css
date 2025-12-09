@@ -8,14 +8,10 @@
     box-sizing: border-box;
 }
 
+
 html,
 body {
     width: 100%;
-}
-
-/* Prevent unexpected horizontal scrolling from wide svgs or layout transforms */
-html,
-body {
     overflow-x: hidden;
 }
 
