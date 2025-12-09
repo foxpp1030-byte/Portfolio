@@ -404,6 +404,7 @@ main {
     color: #F0C4CB;
 }
 
+
 /* (2) PROJECTS (중앙 디저트) */
 .pos_projects {
     left: 50%;
@@ -413,7 +414,6 @@ main {
 
     /* 중앙 이미지 크기 */
 }
-
 
 .type_projects {
     width: 160%;
@@ -430,13 +430,15 @@ main {
     fill: #F0C4CB;
 }
 
+
 /* (3) DECOR (오른쪽 위 빵) - 클릭 안되는 장식 */
 .pos_bread {
-    right: 15%;
+    right: 0;
     top: 12%;
-    width: 220px;
-    pointer-events: none;
+    width: 300px;
 }
+
+
 
 /* (4) VISUAL ARCHIVE (왼쪽 아래 이어폰) */
 .pos_visual {
@@ -460,6 +462,8 @@ main {
     fill: #F0C4CB;
 }
 
+
+
 /* (5) SKILL SET (오른쪽 아래 영수증) */
 .pos_skills {
     right: 18%;
@@ -480,6 +484,10 @@ main {
     color: #000;
     white-space: nowrap;
     transition: color 0.3s ease;
+}
+
+.label_skills:hover {
+    color: #F0C4CB;
 }
 
 /* 공통 SVG 텍스트 스타일 */
