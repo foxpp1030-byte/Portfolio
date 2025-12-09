@@ -271,14 +271,23 @@ document.addEventListener("DOMContentLoaded", () => {
             duration: 2.0,     // 2초 동안 묵직하게 이동
             ease: "power3.out", // power2보다 끝부분 감속이 더 자연스럽고 고급스러움
             scrollTrigger: {
-                trigger: "#skills",
+                trigger: "#Skills",
                 start: "top 60%",
                 toggleActions: "play none none reverse",
-                onEnter: () => set_active('#skills'),
-                onEnterBack: () => set_active('#skills'),
+                onEnter: () => set_active('#Skills'),
+                onEnterBack: () => set_active('#Skills'),
             }
         });
     }
+
+    // [추가] 프로젝트 "표지" 화면에 왔을 때 메뉴 활성화
+    ScrollTrigger.create({
+        trigger: "#Projects", // 대문자 P (표지 섹션 ID)
+        start: "top center",
+        end: "bottom center",
+        onEnter: () => set_active("#Projects"),
+        onEnterBack: () => set_active("#Projects")
+    });
 
     ScrollTrigger.create({
         trigger: "#projects",
@@ -286,9 +295,6 @@ document.addEventListener("DOMContentLoaded", () => {
         end: "bottom center",
     });
 
-
-    // ================== Projects Section Parallax (Vertical) ==================
-    // ================== Horizontal Scroll (Averi Style) ==================
 
     // ================== Horizontal Scroll (Averi Style - Modified) ==================
 
@@ -336,7 +342,13 @@ document.addEventListener("DOMContentLoaded", () => {
     window.matchMedia('(prefers-reduced-motion: reduce)')
         .addEventListener('change', () => location.reload());
 
-
+    ScrollTrigger.create({
+        trigger: "#Visual", // 대문자 V
+        start: "top center",
+        end: "bottom center",
+        onEnter: () => set_active("#Visual"), // 메뉴 활성화
+        onEnterBack: () => set_active("#Visual")
+    });
 
     // ================== Visual Archive Hover Effect ==================
     const jnRows = document.querySelectorAll(".jn_row");
@@ -691,8 +703,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================
     // CUSTOM CURSOR LOGIC (Visual Section으로 변경됨)
     // ==========================================================
-    // 1. 타겟을 #projects가 아닌 #visual로 변경
-    const targetSection = document.querySelector("#visual");
+    // 1. 타겟을 #projects가 아닌 #Visual로 변경
+    const targetSection = document.querySelector("#Visual");
     const cursorIcon = document.querySelector(".project_cursor");
 
     if (targetSection && cursorIcon) {
@@ -731,6 +743,33 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+
+
+    // ==================== GNB Click Scroll Logic (추가된 코드) ====================
+    // 상단 메뉴(About, Skillset...)를 눌렀을 때 부드럽게 이동시키는 코드입니다.
+
+    const gnbLinks = document.querySelectorAll(".gnb_tit li a");
+
+    gnbLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault(); // 1. 덜컥거리는 기본 점프 기능 막기
+
+            const targetId = link.getAttribute("href"); // 2. 클릭한 곳의 주소 가져오기 (#About 등)
+            const targetSection = document.querySelector(targetId); // 3. 실제 섹션 찾기
+
+            if (targetSection) {
+                // 4. GSAP를 이용해 해당 위치로 부드럽게 이동
+                gsap.to(window, {
+                    scrollTo: {
+                        y: targetId,
+                        autoKill: false // 사용자가 스크롤해도 멈추지 않게
+                    },
+                    duration: 1.2,
+                    ease: "power4.inOut"
+                });
+            }
+        });
+    });
 }); // DOMContentLoaded 끝
 
 
