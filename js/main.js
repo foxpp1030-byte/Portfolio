@@ -62,15 +62,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 anticipatePin: 1,
                 onEnter: () => {
                     set_active('#About');
-                    document.querySelector('header').classList.add('on')
+                    document.querySelector('header').classList.add('on'); // 진입 시 어둡게
                 },
                 onLeave: () => {
-                    document.querySelector('header').classList.remove('on')
+                    document.querySelector('header').classList.remove('on'); // 아래로 벗어날 때 밝게
                 },
                 onEnterBack: () => {
-                    set_active('#About')
-                    document.querySelector('header').classList.add('on')
+                    set_active('#About');
+                    document.querySelector('header').classList.add('on'); // 아래에서 다시 올라올 때 어둡게
                 },
+                // [추가] 위로 벗어날 때(Hero로 갈 때) 밝게 원복
+                onLeaveBack: () => {
+                    set_active('#About'); // 혹은 set_active(null) 취향껏
+                    document.querySelector('header').classList.remove('on');
+                }
             }
         });
 
@@ -295,16 +300,11 @@ document.addEventListener("DOMContentLoaded", () => {
             end: "+=1000",
             pin: true,
             onEnter: () => {
-                if (tagWrap) {
-                    gsap.fromTo(tagWrap,
-                        { y: "-100%", autoAlpha: 0 },
-                        { y: "0%", autoAlpha: 1, duration: 1.5, ease: "bounce.out", overwrite: true }
-                    );
-                }
+                // ... (기존 코드)
                 rainbowTarget.style.opacity = "1";
                 rainbowTarget.classList.add("active");
                 rbBtn.onMouseEnter();
-                document.querySelector('header').classList.add('on');
+                document.querySelector('header').classList.add('on'); // 진입 시 어둡게
             },
             onLeaveBack: () => {
                 if (tagWrap) {
@@ -312,12 +312,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 rbBtn.onMouseLeave();
                 rainbowTarget.classList.remove("active");
+
+                // [추가] 위로 올라갈 때 헤더 클래스 제거
+                document.querySelector('header').classList.remove('on');
             },
             onLeave: () => {
-                document.querySelector('header').classList.remove('on')
+                document.querySelector('header').classList.remove('on'); // 아래로 벗어날 때 밝게
             },
             onEnterBack: () => {
-                document.querySelector('header').classList.add('on')
+                document.querySelector('header').classList.add('on'); // 아래에서 다시 올라올 때 어둡게
             },
         });
     }
