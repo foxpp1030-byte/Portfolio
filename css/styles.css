@@ -57,6 +57,12 @@ header.on {
     background: rgba(0, 0, 0, .5);
 }
 
+.ham_menu {
+    position: relative;
+    z-index: 102;
+    cursor: pointer;
+}
+
 .overlay header {
     border-bottom: 0;
     background: transparent;
@@ -80,6 +86,11 @@ header nav {
     display: none;
 }
 
+/* =======================================================
+   [최종 수정] GNB 스타일 (배경 사라짐 & 아이콘 색상 해결)
+   ======================================================= */
+
+/* 1. GNB 레이아웃 및 텍스트 설정 */
 .gnb_tit {
     display: flex;
     height: 100%;
@@ -89,29 +100,65 @@ header nav {
 
 .gnb_tit li {
     height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .gnb_tit li a {
-    display: inline-flex;
-    align-items: center;
-    height: 100%;
+    display: block;
     position: relative;
-    color: var(--text_color);
+    overflow: hidden;
     text-decoration: none;
-    opacity: var(--inactive_opacity);
-    transition: opacity 0.25s ease;
-    user-select: none;
+    color: transparent;
+    font-size: var(--font_size);
+    line-height: 1.2;
+    cursor: pointer;
+    padding: 5px 0;
 }
 
-header.on .gnb_tit li a {
-    color: #fff;
+.gnb_tit li a::before,
+.gnb_tit li a::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    width: 100%;
+    white-space: nowrap;
+    text-align: center;
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.5s ease;
 }
 
-header.on .ham_menu i {
-    color: #fff;
+/* 기본 상태 (흰 배경일 때) */
+.gnb_tit li a::before {
+    top: 5px;
+    font-family: "SUIT", sans-serif;
+    color: #000;
+    opacity: 0.45;
+    transform: translateY(0);
 }
 
 .gnb_tit li a::after {
+    top: 5px;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+    color: #000;
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+.gnb_tit li:hover a::before,
+.gnb_tit li.on a::before {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.gnb_tit li:hover a::after,
+.gnb_tit li.on a::after {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.gnb_tit li::after {
     content: '';
     display: block;
     width: 100%;
@@ -120,82 +167,70 @@ header.on .ham_menu i {
     position: absolute;
     left: 0;
     bottom: 0;
-    transform: scale(0);
-    transition: all 0.25s ease;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.gnb_tit li.on a::after {
-    transform: scale(1);
-}
-
-.gnb_tit li.on a {
-    opacity: 1;
-}
-
-.ham_menu {
-    position: relative;
-    cursor: pointer;
-    pointer-events: auto;
-}
-
-.overlay .ham_menu {
-    margin-left: auto;
-}
-
-.ham_menu i {
-    font-size: 24px;
-    opacity: 0.6;
-    transition: 0.2s;
-
-}
-
-
-main {
-    position: relative;
-    padding-top: var(--gnb_height);
-    width: 100%;
-}
-
-.full {
-    width: 100%;
-    height: 100vh;
+.gnb_tit li:hover::after,
+.gnb_tit li.on::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 /* =======================================================
-   [핵심 수정] 햄버거 메뉴 열림(menu-open) 시 GNB 스타일 강제 초기화
+   [문제 해결 파트 1] 어두운 배경(header.on) 일 때
+   ======================================================= */
+/* 텍스트 흰색 변경 */
+header.on .gnb_tit li a::before {
+    color: #fff !important;
+    opacity: 0.7;
+}
+
+header.on .gnb_tit li a::after {
+    color: #fff !important;
+}
+
+header.on .gnb_tit li::after {
+    background: #fff;
+}
+
+/* [추가됨] 어두운 배경에서 햄버거 아이콘 흰색으로 변경 */
+header.on .ham_menu i {
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+
+/* =======================================================
+   [최종 수정 Part 2] 햄버거 메뉴 열림(menu-open) 시
    ======================================================= */
 
-/* 1. 헤더 배경: 검은색 Bar를 없애고 투명하게 (뒤에 흰색 오버레이가 보임) */
+/* 1. 배경을 흰색(#fff)으로 유지 (오버레이와 연결되게) */
 header.menu-open {
     background: #fff !important;
     border-bottom: none !important;
-    /* 경계선도 없애서 깔끔하게 */
-    box-shadow: none !important;
     backdrop-filter: none !important;
+    box-shadow: none !important;
 }
 
-/* 2. 메뉴 텍스트: 무조건 검정색 (흰 배경일 때처럼) */
-header.menu-open .gnb_tit li a {
-    color: #000 !important;
-    opacity: 0.45;
+/* 2. [핵심 수정] 네비게이션 메뉴(About, Skills 등) 숨기기 */
+/* 글자 색을 바꾸는 게 아니라, 영역 자체를 투명하게 만듭니다. */
+header.menu-open .gnb {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none;
+    /* 숨겨진 메뉴가 클릭되지 않도록 방지 */
+    transition: opacity 0.3s ease;
+    /* 부드럽게 사라짐 */
 }
 
-/* 3. 활성화된(현재 페이지) 메뉴: 진한 검정 */
-header.menu-open .gnb_tit li.on a {
-    opacity: 1 !important;
-    color: #000 !important;
-}
-
-/* 4. 활성화된 메뉴 밑줄: 포인트 컬러(빨강) 유지 */
-header.menu-open .gnb_tit li.on a::after {
-    background-color: F0C4CB !important;
-    /* 사용하시는 --pr-color 값 */
-    transform: scale(1) !important;
-}
-
-/* 5. 햄버거/닫기 아이콘: 무조건 검정색 */
+/* 3. 햄버거(닫기) 아이콘은 무조건 검정색으로 잘 보여야 함 */
 header.menu-open .ham_menu i {
     color: #000 !important;
+    position: relative;
+    z-index: 102;
+    /* 헤더보다 확실히 위에 있게 */
 }
 
 /* ================= HERO SECTION ================= */
