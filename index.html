@@ -45,14 +45,51 @@
         </header>
 
         <!-- object_page -->
-        <div id="object-page" class="object_page mobile-overlay full">
-            <!-- <button class="close-btn"><i class="fa-solid fa-xmark"></i></button> -->
+        <div class="object_page">
             <div class="object_inner">
-                <a href="#About"> <img src="./img/key.png" class="obj obj_key" /></a>
-                <a href="#Projects"> <img src="./img/dessert.png" class="obj obj_dessert" /></a>
-                <img src="./img/bread01.png" class="obj obj_bread" />
-                <a href="#Visual"> <img src="./img/earphone.png" class="obj obj_earphone" /></a>
-                <a href="#Skills"><img src="./img/skillset01.png" class="obj obj_skillset" /></a>
+
+                <a href="#About" class="obj_link pos_profile">
+                    <img src="./img/key.png" class="obj_img" alt="Key">
+                    <span class="obj_label rotate_vertical">PROFILE</span>
+                </a>
+
+                <a href="#Projects" class="obj_link pos_projects">
+                    <img src="./img/dessert.png" class="obj_img" alt="Dessert">
+                    <div class="curved_text_wrap type_projects">
+                        <svg viewBox="0 0 500 500">
+                            <path id="curve_p" d="M50,200 Q250,400 450,200" fill="transparent" />
+                            <text>
+                                <textPath xlink:href="#curve_p" startOffset="50%" text-anchor="middle">
+                                    PROJECTS
+                                </textPath>
+                            </text>
+                        </svg>
+                    </div>
+                </a>
+
+                <div class="obj_link pos_bread">
+                    <img src="./img/bread01.png" class="obj_img" alt="Bread">
+                </div>
+
+                <a href="#Visual" class="obj_link pos_visual">
+                    <img src="./img/earphone.png" class="obj_img" alt="Earphone">
+                    <div class="curved_text_wrap type_visual">
+                        <svg viewBox="0 0 500 500">
+                            <path id="curve_v" d="M50,300 Q250,500 450,300" fill="transparent" />
+                            <text>
+                                <textPath xlink:href="#curve_v" startOffset="50%" text-anchor="middle">
+                                    VISUAL ARCHIVE
+                                </textPath>
+                            </text>
+                        </svg>
+                    </div>
+                </a>
+
+                <a href="#Skills" class="obj_link pos_skills">
+                    <img src="./img/skillset01.png" class="obj_img" alt="Receipt">
+                    <span class="obj_label label_skills">SKILL SET</span>
+                </a>
+
             </div>
         </div>
 

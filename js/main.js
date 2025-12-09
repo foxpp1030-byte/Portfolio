@@ -112,56 +112,42 @@ document.addEventListener("DOMContentLoaded", () => {
         }); */
 
 
-    /* ================== Overlay Control ================== */
-    let overlayActivatedOnce = false;
+    // ================== Overlay Control (수정됨) ==================
     const hamMenu = document.querySelector(".ham_menu");
     const hamIcon = document.querySelector(".ham_menu i");
-    const main = document.querySelector('main');
-    main.dataset.prevHeight = main.offsetHeight;
+    const overlayPage = document.querySelector('.object_page');
 
+    // 토글 버튼 하나로 제어
     hamMenu.addEventListener("click", () => {
-        if (overlayActivatedOnce) {
+        if (overlayPage.classList.contains('on')) {
             removeOverlay();
         } else {
             addOverlay();
         }
     });
 
-
-    /*     const scrollMap = [
-            { selector: ".obj_key", target: "#about" },
-            { selector: ".obj_dessert", target: "#projects" },
-            { selector: ".obj_earphone", target: "#visual" },
-            { selector: ".obj_skillset", target: "#skills" },
-        ]; */
-
-    /*     scrollMap.forEach(item => {
-            const el = document.querySelector(item.selector);
-            const target = document.querySelector(item.target);
-    
-            if (el && target) {
-                el.addEventListener("click", () => {
-                    set_active(item.target);
-                    // removeOverlay(target);
-                });
-            }
-        }); */
-    // 🔥 overlay 강제 제어 함수
     function addOverlay() {
-        lenis.stop();
+        if (typeof lenis !== 'undefined') lenis.stop(); // 스크롤 잠금
         document.body.style.overflow = "hidden";
-        hamIcon.classList.remove("fa-bars");
+
+        overlayPage.classList.add('on'); // 오버레이 열기
+
+        // 아이콘 변경: 햄버거 -> X
+        hamIcon.classList.remove("fa-bars-staggered");
         hamIcon.classList.add("fa-xmark");
-        document.querySelector('.object_page').classList.add('on');
-        overlayActivatedOnce = true;
     }
 
     function removeOverlay() {
-        hamIcon.classList.add("fa-bars");
+        document.body.style.overflow = "auto";
+        if (typeof lenis !== 'undefined') lenis.start(); // 스크롤 해제
+
+        overlayPage.classList.remove('on'); // 오버레이 닫기
+
+        // 아이콘 변경: X -> 햄버거
         hamIcon.classList.remove("fa-xmark");
-        document.querySelector('.object_page').classList.remove('on');
-        overlayActivatedOnce = false;
+        hamIcon.classList.add("fa-bars-staggered");
     }
+
     // ================== OVERLAY NAVIGATION CLICK FIX ==================
     document.querySelectorAll('.object_inner a').forEach((item) => {
         item.addEventListener("click", (e) => {
