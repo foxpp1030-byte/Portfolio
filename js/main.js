@@ -80,26 +80,43 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 2. Skills Section
-    const skillReceipt = document.querySelector('.skillset_img');
-    if (skillReceipt) {
-        // [수정] to 대신 from 사용
-        // 해석: "투명도 0, 아래로 200px 내려간 상태에서 시작해서 -> 원래 자리로 올라와라"
-        gsap.from(skillReceipt, {
-            y: 200,        // 200px 아래에서 시작 (올라오는 거리감)
-            opacity: 0,    // 투명하게 시작
-            duration: 1.5, // 속도 (너무 느리면 답답하니 1.5초 추천)
-            ease: "power3.out", // 부드럽게 감속하며 도착
+    // 2. Skills Section (Absolute Fix)
+    const skillSection = document.querySelector("#Skills");
+    const txtLeft = document.querySelector(".text_left");
+    const txtRight = document.querySelector(".text_right");
+    const centerLine = document.querySelector(".center_line");
+    const receiptImg = document.querySelector(".skillset_img");
+
+    if (skillSection && txtLeft && txtRight && centerLine && receiptImg) {
+
+        // [초기화] 새로고침 시 꼬임 방지
+        gsap.set(centerLine, { width: 0 });
+
+        // 타임라인 설정
+        const skillTl = gsap.timeline({
             scrollTrigger: {
                 trigger: "#Skills",
-                start: "top 60%", // 섹션 윗부분이 화면 60% 지점에 오면 시작
-                toggleActions: "play none none reverse", // 다시 올리면 사라짐
-
-                // 메뉴 활성화 기능 유지
+                start: "top top",
+                end: "+=2000",         // 스크롤 길이 (천천히 보고 싶으면 3000으로 늘리세요)
+                pin: true,
+                scrub: 1,              // 부드러운 역재생
+                anticipatePin: 1,
                 onEnter: () => set_active('#Skills'),
                 onEnterBack: () => set_active('#Skills'),
             }
         });
+
+        skillTl
+            // [1단계] 텍스트 벌어짐 + 선 생김
+            .to(txtLeft, { x: -200, duration: 1, ease: "power2.out" }, "start")
+            .to(txtRight, { x: 200, duration: 1, ease: "power2.out" }, "start")
+            .to(centerLine, { width: 380, duration: 1, ease: "power2.out" }, "start")
+
+            // [2단계] 영수증 내려옴 (fromTo 사용으로 버그 차단)
+            .fromTo(receiptImg,
+                { yPercent: -100 }, // 시작: 100% 위로 숨음
+                { yPercent: 0, duration: 2.5, ease: "none" } // 끝: 0% 원래 위치로
+            );
     }
 
     // 3. Projects Scroll Active
