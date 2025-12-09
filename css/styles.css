@@ -126,7 +126,6 @@ header nav {
 
 .ham_menu {
     position: relative;
-    background: yellow;
     cursor: pointer;
     pointer-events: auto;
 }
