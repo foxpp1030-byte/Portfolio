@@ -60,8 +60,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 pin: true,
                 scrub: 1,
                 anticipatePin: 1,
-                onEnter: () => set_active('#About'),
-                onEnterBack: () => set_active('#About'),
+                onEnter: () => {
+                    set_active('#About');
+                    document.querySelector('header').classList.add('on')
+                },
+                onLeave: () => {
+                    document.querySelector('header').classList.remove('on')
+                },
+                onEnterBack: () => {
+                    set_active('#About')
+                    document.querySelector('header').classList.add('on')
+                },
             }
         });
 
@@ -295,6 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 rainbowTarget.style.opacity = "1";
                 rainbowTarget.classList.add("active");
                 rbBtn.onMouseEnter();
+                document.querySelector('header').classList.add('on');
             },
             onLeaveBack: () => {
                 if (tagWrap) {
@@ -302,7 +312,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 rbBtn.onMouseLeave();
                 rainbowTarget.classList.remove("active");
-            }
+            },
+            onLeave: () => {
+                document.querySelector('header').classList.remove('on')
+            },
+            onEnterBack: () => {
+                document.querySelector('header').classList.add('on')
+            },
         });
     }
 

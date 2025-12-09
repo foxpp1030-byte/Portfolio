@@ -53,6 +53,10 @@ header {
     z-index: 101;
 }
 
+header.on {
+    background: rgba(0, 0, 0, .5);
+}
+
 .overlay header {
     border-bottom: 0;
     background: transparent;
@@ -97,6 +101,10 @@ header nav {
     opacity: var(--inactive_opacity);
     transition: opacity 0.25s ease;
     user-select: none;
+}
+
+header.on .gnb_tit li a {
+    color: #fff;
 }
 
 .gnb_tit li a::after {
