@@ -1,8 +1,6 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Yarndings+20&display=swap');
-/* .pin-spacer {
-    background: #fff;
-} */
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&display=swap');
 
 * {
     margin: 0;
@@ -222,7 +220,7 @@ main {
 }
 
 .hero_role:hover {
-    font-family: 'Yarndings 20';
+    font-family: "Edu AU VIC WA NT Hand", cursive;
     color: #F0C4CB;
 }
 
@@ -652,15 +650,20 @@ main {
 
 .cover_subtitle {
     font-family: "SUIT", sans-serif;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: 400;
-    color: #333;
+    color: #F0C4CB;
     letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.cover_subtitle:hover {
+    font-family: "Edu AU VIC WA NT Hand", cursive;
 }
 
 .cover_footer_text {
     position: absolute;
-    bottom: 40px;
+    bottom: 20px;
     left: 40px;
     font-family: "SUIT", sans-serif;
     font-size: 16px;
@@ -734,7 +737,7 @@ main {
 
 .ci_title {
     font-family: "SUIT", sans-serif;
-    font-size: 36px;
+    font-size: 30px;
     font-weight: 400;
     margin-bottom: 15px;
     color: #2B0F0F;
@@ -770,7 +773,7 @@ main {
 
 .projects_horizontal_section .horizontal_track {
     display: flex;
-    gap: 200px;
+    gap: 500px;
     padding-left: 100px;
     /* 시작 여백 */
     padding-right: 200px;
@@ -883,7 +886,9 @@ main {
 
 .jn_proj_year {
     font-size: 20px;
-    color: #aaa;
+    color: #F0C4CB;
+    font-family: "Edu AU VIC WA NT Hand", cursive;
+
 }
 
 .jn_text_link {
@@ -1009,11 +1014,12 @@ main {
 }
 
 .jn_subtitle {
-    font-size: 30px;
+    font-size: 40px;
     font-family: "SUIT", sans-serif;
-    color: #333;
+    color: #F0C4CB;
     padding-left: 5px;
     line-height: 1.2;
+    font-weight: 400;
 }
 
 /* 리스트 스타일 */
