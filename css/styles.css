@@ -520,22 +520,24 @@ main {
 }
 
 
-/* ================= SKILLS SECTION (FINAL FIX) ================= */
+/* ================= SKILLS SECTION (FINAL PERFECT) ================= */
 
 #Skills {
     width: 100%;
     height: 100vh;
     background-color: #fff;
     position: relative;
-    overflow: hidden;
 
-    /* [핵심 변경] 중앙 정렬(center)을 뺍니다. */
+    /* [문제 3 해결] 영수증이 잘리지 않고 다음 섹션 위로 덮어지게 설정 */
+    overflow: visible;
+    z-index: 10;
+    /* 다음 섹션보다 위에 위치 */
+
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    /* [핵심] 대신 위에서부터 35% 지점에 텍스트를 강제로 위치시킵니다. */
-    /* 이 숫자를 늘리면 텍스트가 더 내려오고, 줄이면 올라갑니다. */
+    /* 텍스트 위치 고정 (화면 상단 35% 지점) */
     padding-top: 35vh;
     box-sizing: border-box;
 }
@@ -546,7 +548,6 @@ main {
     align-items: center;
     position: relative;
     width: 100%;
-    /* 높이 제한을 풀어줍니다 */
     height: auto;
 }
 
@@ -556,10 +557,14 @@ main {
     align-items: center;
     justify-content: center;
     position: relative;
-    z-index: 10;
+    z-index: 20;
+    /* 영수증 마스크보다 더 위에 있어야 선이 깔끔함 */
     background: #fff;
-    padding: 10px 0;
     width: 100%;
+
+    /* [문제 1 해결] 하단 패딩을 0으로 만들어 선과 영수증 사이 틈 제거 */
+    padding-top: 10px;
+    padding-bottom: 0;
 }
 
 .split_text {
@@ -583,10 +588,13 @@ main {
 .receipt_mask {
     width: 400px;
     height: 700px;
-    /* 영수증이 길다면 이 값을 더 늘리세요 */
+    /* 영수증 길이 확보 */
     overflow: hidden;
+    /* 마스크 역할은 유지 */
     position: relative;
-    margin-top: -1px;
+
+    /* [문제 1 보완] 선 바로 밑에 빈틈없이 딱 붙임 */
+    margin-top: 0px;
     z-index: 5;
 }
 
@@ -595,7 +603,8 @@ main {
     display: block;
     width: 100%;
     height: auto;
-    /* CSS에서는 건드리지 않고 JS에서 제어합니다 */
+    /* 그림자 추가로 입체감 (선택사항) */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
 }
 
 /* ================= ABOUT ME ================= */

@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 2. Skills Section (Absolute Fix)
+    // 2. Skills Section (Perfect Fit)
     const skillSection = document.querySelector("#Skills");
     const txtLeft = document.querySelector(".text_left");
     const txtRight = document.querySelector(".text_right");
@@ -89,17 +89,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (skillSection && txtLeft && txtRight && centerLine && receiptImg) {
 
-        // [초기화] 새로고침 시 꼬임 방지
+        // 초기화
         gsap.set(centerLine, { width: 0 });
 
-        // 타임라인 설정
         const skillTl = gsap.timeline({
             scrollTrigger: {
                 trigger: "#Skills",
                 start: "top top",
-                end: "+=2000",         // 스크롤 길이 (천천히 보고 싶으면 3000으로 늘리세요)
+                end: "+=2000",
                 pin: true,
-                scrub: 1,              // 부드러운 역재생
+                scrub: 1,
                 anticipatePin: 1,
                 onEnter: () => set_active('#Skills'),
                 onEnterBack: () => set_active('#Skills'),
@@ -107,15 +106,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         skillTl
-            // [1단계] 텍스트 벌어짐 + 선 생김
-            .to(txtLeft, { x: -200, duration: 1, ease: "power2.out" }, "start")
-            .to(txtRight, { x: 200, duration: 1, ease: "power2.out" }, "start")
-            .to(centerLine, { width: 380, duration: 1, ease: "power2.out" }, "start")
+            // [1단계] 텍스트 벌어짐 + 선 생기기
+            .to(txtLeft, { x: -250, duration: 1, ease: "power2.out" }, "start") // 텍스트 간격도 살짝 더 벌림
+            .to(txtRight, { x: 250, duration: 1, ease: "power2.out" }, "start")
 
-            // [2단계] 영수증 내려옴 (fromTo 사용으로 버그 차단)
+            // [문제 2 해결] 선 길이를 영수증(400px)보다 긴 450px로 설정
+            .to(centerLine, { width: 450, duration: 1, ease: "power2.out" }, "start")
+
+            // [2단계] 영수증 내려옴
             .fromTo(receiptImg,
-                { yPercent: -100 }, // 시작: 100% 위로 숨음
-                { yPercent: 0, duration: 2.5, ease: "none" } // 끝: 0% 원래 위치로
+                { yPercent: -100 },
+                { yPercent: 0, duration: 2.5, ease: "none" }
             );
     }
 
