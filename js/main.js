@@ -382,7 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
        (소스: 제공해주신 script.js 기반)
        ========================================================== */
     const ASCII_CHARS = "abcdefghijklmnñopqrstuvwxyz0123456789!#$%&/?'_-";
-    const RB_COLORS = ["#ff6188", "#fc9867", "#ffd866", "#a9dc76", "#78dce8", "#ab9df2"];
+    const RB_COLORS = ["#F0C4CB", "#fc9867", "#ffd866", "#a9dc76", "#78dce8", "#ab9df2"];
 
     class RainbowButton {
         constructor(_btn) {
