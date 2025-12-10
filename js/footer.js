@@ -1,6 +1,6 @@
 // js/footer.js
 
-export function initFooter() {
+export function initFooter(lenis) {
     // [중요] 모듈 파일에서는 외부 라이브러리를 window 객체에서 확실하게 가져와야 안전합니다.
     const Matter = window.Matter;
     const gsap = window.gsap;
@@ -31,19 +31,24 @@ export function initFooter() {
     updateTime();
 
     // 2. 푸터 등장 애니메이션 (GSAP)
-    gsap.from(".footer_link", {
-        scrollTrigger: { trigger: "#footer", start: "top 80%" },
-        y: 50, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out"
-    });
-
-    gsap.from(".footer_info > div", {
-        scrollTrigger: { trigger: "#footer", start: "top 80%" },
-        y: 30, opacity: 0, duration: 1, delay: 0.3, stagger: 0.1, ease: "power3.out"
-    });
-
+    /*     gsap.from(".footer_link", {
+            scrollTrigger: { trigger: "#footer", start: "top 80%" },
+            y: 50, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out"
+        });
+    
+        gsap.from(".footer_info > div", {
+            scrollTrigger: { trigger: "#footer", start: "top 80%" },
+            y: 30, opacity: 0, duration: 1, delay: 0.3, stagger: 0.1, ease: "power3.out"
+        });
+    
+     */
     gsap.from(".big_typo", {
         scrollTrigger: { trigger: "#footer", start: "top 90%" },
         y: 100, opacity: 0, duration: 1.2, ease: "power2.out"
+    });
+    gsap.from(".contact_area, .meta_info", {
+        scrollTrigger: { trigger: "#footer", start: "top 85%" },
+        y: 50, opacity: 0, duration: 1, stagger: 0.1
     });
 
     // 3. Matter.js 물리 엔진 로직
@@ -123,18 +128,49 @@ export function initFooter() {
         createWalls();
 
         // [핵심] 스크롤이 도달했을 때 엔진 시작 및 오브제 투하
-        ScrollTrigger.create({
-            trigger: "#footer",
-            start: "top 70%", // 푸터가 보이기 시작할 때
-            once: true,       // 한 번만 실행
-            onEnter: () => {
-                // 1. 렌더러와 엔진 실행
-                Render.run(render);
-                const runner = Runner.create();
-                Runner.run(runner, engine);
+        /*         ScrollTrigger.create({
+                    trigger: "#footer",
+                    scroller: document.documentElement,
+                    start: "top bottom-=100",
+                    once: true,
+                    onEnter: () => {
+                        console.log(render);
+                        Render.run(render);
+                        const runner = Runner.create();
+                        Runner.run(runner, engine);
+                        addFooterObjects();
+                    }
+                }); */
+        // ===============================
+        // 푸터 도달 100px 전에 Matter.js 실행
+        // ===============================
+        window.__startFooterMatter = function () {
+            console.log(render);
+            Render.run(render);
+            const runner = Runner.create();
+            Runner.run(runner, engine);
+            addFooterObjects();
+        };
+        let footerStarted = false;
 
-                // 2. 오브제 추가 (엔진이 켜진 후 추가해야 자연스러움)
-                addFooterObjects();
+        lenis.on('scroll', ({ scroll }) => {
+            if (footerStarted) return;
+
+            const scrollY = scroll;                         // 현재 Lenis 스크롤 위치
+            const totalHeight = document.body.scrollHeight; // 전체 문서 길이
+            const viewport = window.innerHeight;
+
+            // 조건: 전체 끝에서 100px 남았을 때
+            if (scrollY + viewport >= totalHeight - 200) {
+
+                footerStarted = true;
+
+                console.log("푸터 100px 전 진입 → Matter.js 실행");
+
+                // 여기서 footer.js의 실행 함수를 직접 호출
+                if (window.__startFooterMatter) {
+                    window.__startFooterMatter();
+                }
             }
         });
 
