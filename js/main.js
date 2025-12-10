@@ -142,27 +142,50 @@ document.addEventListener("DOMContentLoaded", () => {
         onEnterBack: () => set_active("#Projects")
     });
 
-    // 4. Projects Horizontal Scroll
+    // 4. Projects Layered Reveal & Horizontal Scroll (Plus X Style)
     const projectSection = document.querySelector("#projects_scroll_view");
     const track = document.querySelector(".horizontal_track");
+    const coverSection = document.querySelector("#Projects");
 
-    if (projectSection && track) {
-        let getScrollAmount = () => -(track.scrollWidth - window.innerWidth);
-        const tween = gsap.to(track, {
-            x: getScrollAmount, ease: "none", duration: 1,
+    if (projectSection && track && coverSection) {
+
+        // 1. Calculate the movement distance
+        // We want to scroll horizontally: (Track Width - Screen Width)
+        const scrollAmount = track.scrollWidth - window.innerWidth;
+
+        // 2. Create a Timeline attached to the ScrollTrigger
+        const projTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#projects_scroll_view",
+                start: "top top", // Starts immediately because of the negative margin
+                // Total Scroll Duration = Reveal Height (Cover) + Horizontal Scroll Length
+                end: () => `+=${window.innerHeight + scrollAmount}`,
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+                invalidateOnRefresh: true, // Recalculate on resize
+                onEnter: () => set_active("#Projects"),
+                onEnterBack: () => set_active("#Projects"),
+            }
         });
 
-        ScrollTrigger.create({
-            trigger: "#projects_scroll_view",
-            start: "top top",
-            end: () => `+=${track.scrollWidth - window.innerWidth}`,
-            pin: true,
-            animation: tween,
-            scrub: 1,
-            invalidateOnRefresh: true,
-            anticipatePin: 1,
-            onEnter: () => set_active("#Projects"),
-            onEnterBack: () => set_active("#Projects"),
+        // 3. Define the Animation Sequence
+        // Phase A: The Reveal (Wait). 
+        // We add a dummy tween for the duration of the viewport height. 
+        // During this scroll distance, the Cover (#Projects) scrolls up naturally, 
+        // revealing the pinned #projects_scroll_view behind it.
+        projTl.to(track, {
+            x: 0,
+            duration: window.innerHeight,
+            ease: "none"
+        });
+
+        // Phase B: The Horizontal Scroll
+        // After the cover is gone, we start moving the track.
+        projTl.to(track, {
+            x: -scrollAmount,
+            duration: scrollAmount,
+            ease: "none"
         });
     }
 
