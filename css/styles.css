@@ -282,11 +282,8 @@ header.menu-open .ham_menu i {
     line-height: 1;
 
     cursor: pointer;
-    /* 마우스 올리면 손가락 모양 */
     transition: color 0.3s ease, transform 0.3s ease;
-    /* 부드러운 전환 */
     transform-origin: left bottom;
-    /* 커질 때 왼쪽 기준 */
 }
 
 .hero_role:hover {
@@ -431,7 +428,6 @@ header.menu-open .ham_menu i {
     display: block;
     cursor: pointer;
     text-decoration: none;
-    /* 중요: a태그 자체에 트랜지션을 주지 않고 내부 요소에 따로 줍니다 */
 }
 
 
@@ -470,9 +466,6 @@ header.menu-open .ham_menu i {
     transform: translateY(30px) !important;
 }
 
-.pos_profile:hover .rotate_vertical {
-    color: #F0C4CB;
-}
 
 
 /* (2) PROJECTS (중앙 디저트) */
@@ -492,11 +485,6 @@ header.menu-open .ham_menu i {
 .pos_projects:hover .obj_img {
     transform: scale(1.05) !important;
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.pos_projects:hover .curved_text_wrap text {
-    fill: #F0C4CB;
-
 }
 
 .type_projects text {
@@ -530,10 +518,6 @@ header.menu-open .ham_menu i {
     transform: scale(1) rotate(5deg) !important;
 }
 
-.pos_visual:hover .curved_text_wrap text {
-    fill: #F0C4CB;
-}
-
 
 
 /* (5) SKILL SET (오른쪽 아래 영수증) */
@@ -565,9 +549,6 @@ header.menu-open .ham_menu i {
     transform: translateY(-30px) !important;
 }
 
-.pos_skills:hover .label_skills {
-    color: #F0C4CB;
-}
 
 /* 공통 SVG 텍스트 스타일 */
 .curved_text_wrap {
@@ -1231,12 +1212,13 @@ header.menu-open .ham_menu i {
 
 .jn_subtitle {
     font-size: 40px;
-    font-family: "SUIT", sans-serif;
+    font-family: "Edu AU VIC WA NT Hand", cursive;
     color: #F0C4CB;
     padding-left: 5px;
     line-height: 1.2;
     font-weight: 400;
 }
+
 
 /* 리스트 스타일 */
 .jn_list {
