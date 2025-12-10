@@ -114,7 +114,9 @@
             <img src="./img/ob.png" class="hero_ribbon_obj" alt="Ribbon Object">
 
             <div class="rotate_logo" id="enter-btn">
-
+                <div class="enter_guide_text">
+                    <span>CLICK<br>TO<br>ENTER</span>
+                </div>
                 <div class="center_arrow">
                     <i class="fa-solid fa-arrow-right"></i>
                 </div>
@@ -190,12 +192,12 @@
                             <img src="./img/card1.png" alt="cover" class="card_cover_img">
                         </div>
                         <div class="back back_style_1">
-                            <h3 class="card_head">OWNERSHIP</h3>
+                            <h3 class="card_head">HYBRID DESIGNER</h3>
                             <p class="card_desc">
-                                새로운 기술과 툴을 빠르게 습득하고 바로 실무에 적용합니다.<br>
-                                작업 과정에서 발견되는 문제를 스스로 파고들어 개선합니다.<br>
-                                결과물의 완성도를 높이기 위한 반복적인 작업을 수행합니다.<br>
-                                작은 배움도 성장으로 연결시키는 마인드를 가지고 있습니다.
+                                디자인과 개발의 경계를 넘나듭니다.<br>
+                                Figma로 설계한 UI를 GSAP와 WebGL을 활용해<br>
+                                직접 코드로 구현할 수 있습니다.<br>
+                                개발자와의 원활한 소통을 약속합니다.
                             </p>
                         </div>
                     </li>
@@ -205,11 +207,11 @@
                             <img src="./img/card2.png" alt="cover" class="card_cover_img">
                         </div>
                         <div class="back back_style_2">
-                            <h3 class="card_head">GROWTH OBSESSION</h3>
+                            <h3 class="card_head">DATA DRIVEN</h3>
                             <p class="card_desc">
-                                필요한 도구·프로세스를 스스로 탐색하고 빠르게 습득합니다.<br>
-                                반복 작업 중 개선점을 찾아 더 나은 방식으로 개선합니다.<br>
-                                새로운 기술을 프로젝트에 적용해 완성도를 향상시킵니다.
+                                그냥 예쁜 디자인이 아닌 '근거 있는' 설계를 지향합니다.<br>
+                                사용자 데이터를 기반으로 UX 문제를 정의하고,<br>
+                                논리적인 프로세스를 통해 최적의 솔루션을 도출합니다.
                             </p>
                         </div>
                     </li>
@@ -219,11 +221,11 @@
                             <img src="./img/card3.png" alt="cover" class="card_cover_img">
                         </div>
                         <div class="back back_style_3">
-                            <h3 class="card_head">LEADING ATTITUDE</h3>
+                            <h3 class="card_head">PROBLEM SOLVER</h3>
                             <p class="card_desc">
-                                프로젝트 진행 과정에서 필요한 업무를 스스로 파악합니다.<br>
-                                문제 원인을 빠르게 분석하고, 해결 방안을 실행합니다.<br>
-                                팀원과의 커뮤니케이션을 능동적으로 주도합니다.
+                                새로운 툴과 기술 학습에 두려움이 없습니다.<br>
+                                프로젝트 진행 중 발생하는 기술적 난관을<br>
+                                집요하게 파고들어 결국 해결해냅니다.<br>
                             </p>
                         </div>
                     </li>
@@ -250,6 +252,8 @@
         <!-- projects section -->
         <section id="Projects" class="project_cover_section">
             <div class="cover_inner">
+
+
                 <div class="cover_left">
                     <h2 class="cover_title">PROJECTS</h2>
                     <p class="cover_subtitle">SELECTED WORKS</p>
@@ -374,6 +378,10 @@
                     <img src="./img/tag_white.png" alt="Tag" class="hanging_tag">
                 </div>
             </div>
+            <div class="scroll_indicator">
+                <span>SCROLL TO VIEW WORKS</span>
+                <i class="fa-solid fa-arrow-down"></i>
+            </div>
 
         </section>
 
@@ -478,6 +486,11 @@
                 <div class="jn_cursor_inner">
                     <img src="" alt="Visual Preview" id="jn_preview_target">
                 </div>
+            </div>
+
+            <div id="img_modal" class="img_modal_overlay">
+                <div class="modal_close"><i class="fa-solid fa-xmark"></i></div>
+                <img src="" alt="Full Preview" class="modal_img">
             </div>
         </section>
 

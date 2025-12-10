@@ -248,7 +248,45 @@ document.addEventListener("DOMContentLoaded", () => {
             gsap.to(cursorIcon, { opacity: 0, scale: 0.5, duration: 0.3, ease: "power2.out" });
         });
     }
+    const modal = document.querySelector("#img_modal");
+    const modalImg = document.querySelector(".modal_img");
+    const modalClose = document.querySelector(".modal_close");
 
+    jnRows.forEach((row) => {
+        const imgSrc = row.getAttribute("data-img");
+
+        // 1. 마우스 호버 (기존 유지 - 데스크탑용)
+        row.addEventListener("mouseenter", () => {
+            if (imgSrc && jnPreviewImg) {
+                jnPreviewImg.src = imgSrc;
+                gsap.to(jnCursorWrap, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" });
+            }
+        });
+        row.addEventListener("mouseleave", () => {
+            gsap.to(jnCursorWrap, { opacity: 0, scale: 0.8, duration: 0.3, ease: "power2.out" });
+        });
+
+        // 2. [추가] 클릭 시 모달 오픈 (모바일/데스크탑 공용)
+        row.addEventListener("click", () => {
+            if (imgSrc && modal) {
+                modalImg.src = imgSrc;
+                modal.classList.add("active");
+                if (lenis) lenis.stop(); // 스크롤 막기
+            }
+        });
+    });
+
+    // 모달 닫기 기능
+    if (modalClose && modal) {
+        const closeModal = () => {
+            modal.classList.remove("active");
+            if (lenis) lenis.start(); // 스크롤 재개
+        };
+        modalClose.addEventListener("click", closeModal);
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) closeModal(); // 배경 클릭 시 닫기
+        });
+    }
 
     // 6. Rainbow Text Logic (Class)
     const ASCII_CHARS = "abcdefghijklmnñopqrstuvwxyz0123456789!#$%&/?'_-";
@@ -365,4 +403,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 });
+// ==================== Intro Logic (수정됨) ====================
+const enterBtn = document.querySelector("#enter-btn");
+
+// 입장 동작 함수 분리
+const enterSite = () => {
+    document.body.style.overflow = "auto";
+    lenis.start();
+    gsap.to(window, {
+        scrollTo: "#About",
+        duration: 1.5,
+        ease: "power4.inOut"
+    });
+    // 자동 입장 타이머가 있다면 해제 (중복 실행 방지)
+    if (autoEnterTimer) clearTimeout(autoEnterTimer);
+};
+
+// 5초 뒤 자동 입장 (사용자가 아무것도 안 하면)
+let autoEnterTimer = setTimeout(() => {
+    // 이미 스크롤이 되어있거나 다른 섹션이면 실행 X
+    if (window.scrollY < 100) {
+        enterSite();
+    }
+}, 5000); // 5초 설정
+
+if (enterBtn) {
+    enterBtn.addEventListener("click", enterSite);
+}
 

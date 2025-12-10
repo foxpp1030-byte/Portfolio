@@ -362,6 +362,7 @@ header.menu-open .ham_menu i {
     transform-origin: center center;
     transition: opacity 0.3s ease;
     opacity: 1;
+    pointer-events: none;
 }
 
 
@@ -575,6 +576,48 @@ header.menu-open .ham_menu i {
     transition: fill 0.3s ease;
 }
 
+/* Intro Enter Button Style */
+.enter_guide_text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-family: "SUIT", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #2B0F0F;
+    z-index: 30;
+    pointer-events: none;
+    line-height: 1.2;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* 로고에 마우스 올렸을 때 텍스트 숨기고 화살표(기존)나 효과 주기 */
+.rotate_logo:hover .enter_guide_text {
+    opacity: 0;
+}
+
+/* 로고 자체에 펄스 효과를 주어 클릭 유도 */
+.rotate_logo {
+    /* 기존 스타일 유지하고 아래 애니메이션 추가 */
+    animation: pulseLogo 2s infinite;
+}
+
+@keyframes pulseLogo {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
 
 /* ================= SKILLS SECTION (FINAL PERFECT) ================= */
 
@@ -612,7 +655,7 @@ header.menu-open .ham_menu i {
     position: relative;
     z-index: 20;
     /* 영수증 마스크보다 더 위에 있어야 선이 깔끔함 */
-    background: #fff;
+
     width: 100%;
 
     /* [문제 1 해결] 하단 패딩을 0으로 만들어 선과 영수증 사이 틈 제거 */
@@ -643,7 +686,7 @@ header.menu-open .ham_menu i {
     height: 700px;
     overflow: hidden;
     position: relative;
-    margin-top: 0px;
+    margin-top: -19px;
     z-index: 5;
     margin-bottom: 200px;
 }
@@ -781,7 +824,7 @@ header.menu-open .ham_menu i {
 
 .card_desc {
     font-family: 'SUIT', sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.6;
     color: #ccc;
     word-break: keep-all;
@@ -955,6 +998,64 @@ header.menu-open .ham_menu i {
     color: #ddd;
     /* 연한 회색 */
     white-space: nowrap;
+}
+
+/* Scroll Indicator */
+.scroll_indicator {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    animation: bounce 2s infinite;
+    z-index: 10;
+}
+
+.scroll_indicator span {
+    font-family: "SUIT", sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #fff;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+/* Role Tags in Project Card */
+.jn_tags {
+    margin-top: 8px;
+    display: flex;
+    gap: 8px;
+}
+
+.role_tag {
+    font-family: "SUIT", sans-serif;
+    font-size: 12px;
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    color: #666;
+    background: #f9f9f9;
 }
 
 /* ==============================
@@ -1275,6 +1376,81 @@ header.menu-open .ham_menu i {
     text-align: right;
     font-feature-settings: "tnum";
     /* 숫자 등폭 */
+}
+
+/* 모바일 대응 (768px 이하) */
+@media (max-width: 768px) {
+
+    /* 1. Visual Archive 리스트 -> 블록 형태 변경 */
+    .jn_row {
+        flex-direction: column;
+        /* 세로 정렬 */
+        gap: 5px;
+        padding: 20px 0;
+    }
+
+    .jn_title {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .jn_meta {
+        font-size: 14px;
+        color: #888;
+        text-align: left;
+        /* 왼쪽 정렬 */
+    }
+
+    /* 2. Intro/Hero 텍스트 크기 조절 */
+    .hero_title {
+        font-size: 100px;
+    }
+
+    .hero_role {
+        font-size: 30px;
+        top: -40px;
+    }
+
+    .hero_year span {
+        font-size: 40px;
+    }
+}
+
+/* 라이트박스 모달 스타일 */
+.img_modal_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.img_modal_overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal_img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+.modal_close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    color: #fff;
+    font-size: 40px;
+    cursor: pointer;
 }
 
 /* =========================================
