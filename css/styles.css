@@ -27,6 +27,19 @@ body main {
 }
 
 
+/* 텍스트 선택 시 하이라이트 색상 변경 */
+::selection {
+    background-color: #F0C4CB;
+    /* 핫핑크색 (원하는 핑크색 코드로 변경 가능) */
+    color: white;
+    /* 드래그된 텍스트 색상 */
+}
+
+/* 파이어폭스 브라우저 호환성 */
+::-moz-selection {
+    background-color: #F0C4CB;
+    color: white;
+}
 
 :root {
     --gnb_height: 64px;
