@@ -250,7 +250,6 @@ let activeItem = null;
 
 if (scatterItems.length > 0 && hoverOverlay) {
 
-    // 1. 드래그 기능
     Draggable.create(".scatter_item", {
         type: "x,y",
         bounds: "#Projects",
@@ -262,12 +261,50 @@ if (scatterItems.length > 0 && hoverOverlay) {
         onDragEnd: function () {
             if (!this.target.classList.contains('selected')) {
                 this.target.style.zIndex = "";
-                this.target.classList.remove("is-dragging");
             }
-
+            this.target.classList.remove("is-dragging");
         }
     });
 
+    // [핵심] 핀이 걸리는 등장 애니메이션
+    const projTl = gsap.timeline({
+        scrollTrigger: {
+            trigger: "#Projects",
+            start: "top top",      // 섹션이 화면 맨 위에 닿을 때 시작
+            end: "+=4000",         // 4000px 스크롤하는 동안 핀 고정 (길게 잡아서 여유롭게)
+            pin: true,             // 화면 고정!
+            scrub: 1,              // 스크롤 따라서 부드럽게 재생
+            anticipatePin: 1
+        }
+    });
+    projTl
+        // [1단계] 배경 글씨가 양옆에서 '쾅' 하고 닫힘
+        .fromTo(".bg_left",
+            { x: "-100%", opacity: 0 },
+            { x: "0%", opacity: 1, duration: 5, ease: "power3.inOut" }
+        )
+        .fromTo(".bg_right",
+            { x: "100%", opacity: 0 },
+            { x: "0%", opacity: 1, duration: 5, ease: "power3.inOut" }, "<" // 동시에 시작
+        )
+
+        // [2단계] 이미지가 화면 아래에서 튀어 올라옴 (임팩트!)
+        .fromTo(".scatter_item",
+            {
+                y: "150vh",   // 화면 저 아래에서 시작
+                scale: 0.2,   // 아주 작은 상태
+                rotation: 30, // 회전된 상태
+                autoAlpha: 1  // 보이게 설정
+            },
+            {
+                y: 0,         // 제자리로
+                scale: 1,     // 원래 크기
+                rotation: 0,  // 회전 복구
+                duration: 10, // 천천히 묵직하게
+                stagger: 1,   // 하나씩 순차적으로 (다다닥!)
+                ease: "back.out(1.2)" // [중요] 쾅! 하고 박히는 탄성 효과
+            }, "-=2" // 글씨가 다 닫히기 조금 전부터 튀어나오기 시작
+        );
     // 2. 클릭 이벤트
     scatterItems.forEach((item) => {
         item.addEventListener("click", (e) => {
@@ -335,36 +372,7 @@ const projTl = gsap.timeline({
     }
 });
 
-projTl
-    // 1. 배경 글씨 양옆에서 슬라이딩 (PRO -> <- JECTS)
-    .fromTo(".bg_left",
-        { x: "-100%", opacity: 0 },
-        { x: "0%", opacity: 1, duration: 1, ease: "power4.out" }, "start"
-    )
-    .fromTo(".bg_right",
-        { x: "100%", opacity: 0 },
-        { x: "0%", opacity: 1, duration: 1, ease: "power4.out" }, "start"
-    )
 
-    // 2. 이미지들이 탄성감 있게 등장 ("쿵!" 하는 느낌)
-    // autoAlpha: 0 -> 1 (visibility 처리 포함)
-    .fromTo(".scatter_item",
-        {
-            y: 500,       // 아래에서 위로
-            scale: 0,     // 작았다가 커짐
-            rotation: 15, // 살짝 회전된 상태에서 정면으로
-            autoAlpha: 0
-        },
-        {
-            y: 0,
-            scale: 1,
-            rotation: 0,
-            autoAlpha: 1,
-            duration: 1.5,
-            stagger: 0.1, // 0.1초 간격으로 따다닥
-            ease: "elastic.out(1, 0.5)" // [핵심] 팅~ 하고 튕기는 탄성 효과
-        }, "-=0.5" // 배경 글씨가 도착하기 0.5초 전에 시작
-    );
 // 5. Visual Archive
 ScrollTrigger.create({
     trigger: "#Visual",
