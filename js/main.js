@@ -270,13 +270,19 @@ if (scatterItems.length > 0 && hoverOverlay) {
     const projTl = gsap.timeline({
         scrollTrigger: {
             trigger: "#Projects",
-            start: "top top",      // 섹션이 화면 맨 위에 닿을 때 시작
-            end: "+=4000",         // 4000px 스크롤하는 동안 핀 고정 (길게 잡아서 여유롭게)
-            pin: true,             // 화면 고정!
-            scrub: 1,              // 스크롤 따라서 부드럽게 재생
-            anticipatePin: 1
+            start: "top top",
+            end: "+=4000",
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+
+            // ▼▼▼ [추가된 코드] 섹션을 벗어나면 무조건 팝업 닫기 ▼▼▼
+            onLeave: () => deselectAll(),      // 아래로 스크롤해서 벗어날 때
+            onLeaveBack: () => deselectAll(),  // 위로 스크롤해서 벗어날 때
+            // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
         }
     });
+
     projTl
         // [1단계] 배경 글씨가 양옆에서 '쾅' 하고 닫힘
         .fromTo(".bg_left",
