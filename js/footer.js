@@ -96,7 +96,7 @@ export function initFooter(lenis) {
             const width = footerSection.clientWidth;
             // [수정] 겹침 방지를 위해 x축 범위를 안전하게 좁힘 (좌우 여백 100px)
             for (let i = 0; i < 12; i++) createSingleObject('./img/vector7.png', 0.8, width);
-            createSingleObject('./img/vector1.png', 0.9, width);
+            // createSingleObject('./img/vector1.png', 0.9, width);
             createSingleObject('./img/vector4.png', 0.9, width);
             createSingleObject('./img/bread01.png', 0.6, width);
         }
