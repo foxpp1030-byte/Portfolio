@@ -1968,3 +1968,201 @@ a#rainbow-text.active:after {
     width: 100%;
     max-width: 100%;
 }
+
+/* css/styles.css - 프로젝트 모달 (고정 레이아웃 & 슬라이드 효과) */
+
+.project_expand_modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+
+    background: #f4f4f4;
+    /* 고급스러운 그레이 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* 슬라이드 애니메이션 시 넘침 방지 */
+}
+
+.project_expand_modal.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* 닫기 버튼 (우측 상단) */
+.modal_close_btn {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    font-size: 1.5rem;
+    color: #000;
+    cursor: pointer;
+    z-index: 20;
+    transition: transform 0.3s;
+}
+
+.modal_close_btn:hover {
+    transform: rotate(90deg);
+}
+
+/* 컨텐츠 래퍼 (화면 중앙 고정) */
+.expand_content {
+    position: relative;
+    width: 90vw;
+    max-width: 1600px;
+    height: 80vh;
+    /* 높이 고정 */
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    /* 이미지 1.2 : 텍스트 0.8 비율 고정 */
+    gap: 80px;
+    align-items: center;
+    /* 수직 중앙 정렬 */
+}
+
+/* --- 이미지 영역 (고정 크기) --- */
+.expand_img_box {
+    width: 100%;
+    height: 100%;
+    max-height: 75vh;
+    /* 너무 길어지지 않게 제한 */
+    background: #fff;
+    overflow: hidden;
+    /* 그림자 제거, 깔끔한 라인 */
+    border: 1px solid #ddd;
+
+    /* 애니메이션용 초기값 */
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.expand_main_img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 이미지가 박스를 꽉 채우도록 (잘려도 비율 유지) */
+    display: block;
+}
+
+/* --- 텍스트 영역 (위치 고정) --- */
+.expand_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    /* 왼쪽 정렬 */
+    height: 100%;
+
+    /* 애니메이션용 초기값 */
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* 카테고리 */
+.expand_cate {
+    font-family: "SUIT", sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+/* 타이틀 (줄바꿈 허용) */
+.expand_title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 5rem;
+    /* 시원하게 큰 폰트 */
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    margin-bottom: 50px;
+    word-break: keep-all;
+    /* 단어 단위 줄바꿈 */
+}
+
+/* 버튼 그룹 */
+.expand_btns {
+    display: flex;
+    gap: 15px;
+}
+
+.expand_btn {
+    padding: 15px 40px;
+    border: 1px solid #1a1a1a;
+    background: transparent;
+    color: #1a1a1a;
+    font-family: "SUIT", sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.expand_btn:hover {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+/* 스크롤 안내 (우측 하단) */
+.modal_scroll_guide {
+    position: absolute;
+    bottom: 40px;
+    right: 60px;
+    font-family: "SUIT", sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal_scroll_guide i {
+    animation: scrollMouse 1.5s infinite;
+}
+
+@keyframes scrollMouse {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* 모바일 대응 */
+@media (max-width: 1024px) {
+    .expand_content {
+        grid-template-columns: 1fr;
+        /* 1단 레이아웃 */
+        grid-template-rows: 1fr auto;
+        height: auto;
+        gap: 30px;
+    }
+
+    .expand_img_box {
+        max-height: 50vh;
+    }
+
+    .expand_title {
+        font-size: 3rem;
+        margin-bottom: 30px;
+    }
+}

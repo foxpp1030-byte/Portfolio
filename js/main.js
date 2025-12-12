@@ -13,12 +13,12 @@ ScrollTrigger.create({
     end: 99999,
     onUpdate: (self) => {
         const direction = self.direction; // 1: Down, -1: Up
-        
+
         // 스크롤을 내리는 중이고, 최상단이 아니라면 -> 숨김
         if (direction === 1 && self.scroll() > 50) {
             header.classList.add('hide');
             header.classList.remove('menu-open'); // 혹시 열려있으면 닫기 처리 등
-        } 
+        }
         // 스크롤을 올리는 중이면 -> 보임
         else if (direction === -1) {
             header.classList.remove('hide');
@@ -259,150 +259,162 @@ if (skillSection && txtLeft && txtRight && centerLine && receiptImg) {
 // ==============================================
 // 4. [Final] Projects Logic
 // ==============================================
+gsap.registerPlugin(Draggable, ScrollTrigger);
 
-gsap.registerPlugin(Draggable);
-
-const scatterItems = document.querySelectorAll(".scatter_item");
-const hoverOverlay = document.querySelector(".jam_hover_overlay");
-const hoverTitle = document.querySelector(".hover_proj_title");
-const hoverCate = document.querySelector(".hover_proj_cate");
-const btnWeb = document.querySelector(".btn_website");
-const btnLand = document.querySelector(".btn_landing");
 const projectsSection = document.querySelector("#Projects");
+const scatterItems = document.querySelectorAll(".scatter_item");
 
-let activeItem = null;
+// 모달 요소들
+const expandModal = document.querySelector(".project_expand_modal");
+const modalBackdrop = document.querySelector(".modal_backdrop");
+const modalCloseBtn = document.querySelector(".modal_close_btn"); // 닫기 버튼
 
-if (scatterItems.length > 0 && hoverOverlay) {
+// 모달 내부 컨텐츠
+const expandImgBox = document.querySelector(".expand_img_box");
+const expandInfo = document.querySelector(".expand_info");
 
+const expandImg = document.querySelector(".expand_main_img");
+const expandTitle = document.querySelector(".expand_title");
+const expandCate = document.querySelector(".expand_cate");
+const expandWebBtn = document.querySelector(".web_btn");
+const expandLandBtn = document.querySelector(".land_btn");
+
+let currentProjectIndex = 0;
+let isModalOpen = false;
+let isAnimating = false; // 애니메이션 중복 실행 방지
+
+if (projectsSection && scatterItems.length > 0) {
+
+    // [1] 기존 기능 유지: Draggable
     Draggable.create(".scatter_item", {
         type: "x,y",
         bounds: "#Projects",
         inertia: true,
-        onDragStart: function () {
-            this.target.style.zIndex = 100;
-            this.target.classList.add("is-dragging");
-        },
-        onDragEnd: function () {
-            if (!this.target.classList.contains('selected')) {
-                this.target.style.zIndex = "";
-            }
-            this.target.classList.remove("is-dragging");
-        }
+        onDragStart: function () { this.target.classList.add("is-dragging"); },
+        onDragEnd: function () { setTimeout(() => this.target.classList.remove("is-dragging"), 100); }
     });
 
-    // [핵심] 핀이 걸리는 등장 애니메이션
+    // [2] 기존 기능 유지: ScrollTrigger
     const projTl = gsap.timeline({
         scrollTrigger: {
-            trigger: "#Projects",
-            start: "top top",
-            end: "+=4000",
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
-
-            // ▼▼▼ [추가된 코드] 섹션을 벗어나면 무조건 팝업 닫기 ▼▼▼
-            onLeave: () => deselectAll(),      // 아래로 스크롤해서 벗어날 때
-            onLeaveBack: () => deselectAll(),  // 위로 스크롤해서 벗어날 때
-            // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+            trigger: "#Projects", start: "top top", end: "+=4000", pin: true, scrub: 1, anticipatePin: 1
         }
     });
-
     projTl
-        // [1단계] 배경 글씨가 양옆에서 '쾅' 하고 닫힘
-        .fromTo(".bg_left",
-            { x: "-100%", opacity: 0 },
-            { x: "0%", opacity: 1, duration: 5, ease: "power3.inOut" }
-        )
-        .fromTo(".bg_right",
-            { x: "100%", opacity: 0 },
-            { x: "0%", opacity: 1, duration: 5, ease: "power3.inOut" }, "<" // 동시에 시작
-        )
+        .fromTo(".bg_left", { x: "-100%", opacity: 0 }, { x: "0%", opacity: 1, duration: 5 })
+        .fromTo(".bg_right", { x: "100%", opacity: 0 }, { x: "0%", opacity: 1, duration: 5 }, "<")
+        .fromTo(".scatter_item", { y: "150vh", scale: 0.2, rotation: 30 }, { y: 0, scale: 1, rotation: 0, duration: 10, stagger: 1, ease: "back.out(1.2)" }, "-=2");
 
-        // [2단계] 이미지가 화면 아래에서 튀어 올라옴 (임팩트!)
-        .fromTo(".scatter_item",
-            {
-                y: "150vh",   // 화면 저 아래에서 시작
-                scale: 0.2,   // 아주 작은 상태
-                rotation: 30, // 회전된 상태
-                autoAlpha: 1  // 보이게 설정
-            },
-            {
-                y: 0,         // 제자리로
-                scale: 1,     // 원래 크기
-                rotation: 0,  // 회전 복구
-                duration: 10, // 천천히 묵직하게
-                stagger: 1,   // 하나씩 순차적으로 (다다닥!)
-                ease: "back.out(1.2)" // [중요] 쾅! 하고 박히는 탄성 효과
-            }, "-=2" // 글씨가 다 닫히기 조금 전부터 튀어나오기 시작
-        );
-    // 2. 클릭 이벤트
-    scatterItems.forEach((item) => {
+
+    // ==============================================
+    // [NEW] 모달 로직 (부드러운 슬라이드)
+    // ==============================================
+
+    // 1. 클릭 시 모달 열기
+    scatterItems.forEach((item, index) => {
         item.addEventListener("click", (e) => {
             e.stopPropagation();
-            if (activeItem === item) return;
-            selectItem(item);
+            if (item.classList.contains("is-dragging")) return;
+            currentProjectIndex = index;
+            openExpandModal(index);
         });
     });
 
-    // 3. 배경 클릭 시 닫기
-    projectsSection.addEventListener("click", () => {
-        deselectAll();
+    // 2. 모달 열기 (초기 진입)
+    function openExpandModal(index) {
+        if (isModalOpen) return;
+        isModalOpen = true;
+        expandModal.classList.add("active");
+
+        // 내용 채우기
+        setModalData(index);
+
+        // 초기 등장 애니메이션 (아래에서 위로 스윽)
+        gsap.fromTo([expandImgBox, expandInfo],
+            { y: 100, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", stagger: 0.1 }
+        );
+
+        // 스크롤 잠금
+        if (typeof lenis !== 'undefined') lenis.stop();
+        document.body.style.overflow = "hidden";
+    }
+
+    // 3. 모달 닫기
+    function closeExpandModal() {
+        if (!isModalOpen) return;
+
+        // 퇴장 애니메이션
+        gsap.to([expandImgBox, expandInfo], {
+            y: 50, opacity: 0, duration: 0.4, ease: "power2.in",
+            onComplete: () => {
+                expandModal.classList.remove("active");
+                isModalOpen = false;
+                if (typeof lenis !== 'undefined') lenis.start();
+                document.body.style.overflow = "auto";
+            }
+        });
+    }
+
+    // 4. 데이터 세팅 함수
+    function setModalData(index) {
+        const item = scatterItems[index];
+        expandImg.src = item.querySelector("img").src;
+        expandTitle.textContent = item.getAttribute("data-title");
+        expandCate.textContent = item.getAttribute("data-cate");
+        expandWebBtn.href = item.getAttribute("data-web");
+        expandLandBtn.href = item.getAttribute("data-landing");
+    }
+
+    // 5. [핵심] 슬라이드 전환 애니메이션 (방향성 적용)
+    function changeProject(direction) {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        // direction: 1 (Next, 아래로), -1 (Prev, 위로)
+        // 나가는 방향 설정
+        const outY = direction === 1 ? -100 : 100; // 다음 거 볼 땐 현재 거가 위로 올라감
+        const inY = direction === 1 ? 100 : -100;  // 다음 거는 아래에서 올라옴
+
+        // 1. 현재 내용 나가기
+        gsap.to([expandImgBox, expandInfo], {
+            y: outY, opacity: 0, duration: 0.4, ease: "power2.in",
+            onComplete: () => {
+                // 2. 데이터 교체
+                if (direction === 1) {
+                    currentProjectIndex++;
+                    if (currentProjectIndex >= scatterItems.length) currentProjectIndex = 0;
+                } else {
+                    currentProjectIndex--;
+                    if (currentProjectIndex < 0) currentProjectIndex = scatterItems.length - 1;
+                }
+                setModalData(currentProjectIndex);
+
+                // 3. 새 내용 들어오기 준비
+                gsap.set([expandImgBox, expandInfo], { y: inY, opacity: 0 });
+
+                // 4. 새 내용 들어오기
+                gsap.to([expandImgBox, expandInfo], {
+                    y: 0, opacity: 1, duration: 0.6, ease: "power3.out", stagger: 0.05,
+                    onComplete: () => { isAnimating = false; }
+                });
+            }
+        });
+    }
+
+    // 6. 이벤트 리스너 연결
+    if (modalBackdrop) modalBackdrop.addEventListener("click", closeExpandModal);
+    if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeExpandModal);
+
+    // 휠 이벤트 (스크롤 방향 감지)
+    window.addEventListener("wheel", (e) => {
+        if (!isModalOpen || isAnimating) return;
+        // 휠을 아래로(양수) -> 다음 프로젝트(1)
+        // 휠을 위로(음수) -> 이전 프로젝트(-1)
+        const direction = e.deltaY > 0 ? 1 : -1;
+        changeProject(direction);
     });
-
-    // --- 기능 함수 ---
-    function selectItem(item) {
-        if (activeItem) activeItem.classList.remove("selected");
-
-        activeItem = item;
-        item.classList.add("selected");
-
-        // 데이터 가져오기
-        const title = item.getAttribute("data-title");
-        const cate = item.getAttribute("data-cate");
-        const color = item.getAttribute("data_color"); // [추가] 색상 가져오기
-        const webLink = item.getAttribute("data-web");
-        const landLink = item.getAttribute("data-landing");
-
-        // 텍스트 적용
-        hoverTitle.innerText = title;
-        hoverCate.innerText = cate;
-
-        // [추가] 제목 색상 변경
-        if (color) {
-            hoverTitle.style.color = color;
-        } else {
-            hoverTitle.style.color = "#000"; // 색상 없으면 기본 검정
-        }
-
-        // 버튼 링크 적용
-        if (btnWeb) btnWeb.setAttribute("href", webLink);
-        if (btnLand) btnLand.setAttribute("href", landLink);
-
-        hoverOverlay.classList.add("active");
-    }
-
-    function deselectAll() {
-        if (activeItem) {
-            activeItem.classList.remove("selected");
-            activeItem = null;
-        }
-        hoverOverlay.classList.remove("active");
-
-        // 닫을 때 제목 색상 검정으로 초기화 (선택사항)
-        setTimeout(() => {
-            hoverTitle.style.color = "#000";
-        }, 300);
-    }
 }
-const projTl = gsap.timeline({
-    scrollTrigger: {
-        trigger: "#Projects",
-        start: "top 60%", // 화면의 60% 지점에 왔을 때 시작 (조금 일찍)
-        toggleActions: "play none none reverse" // 다시 올라가면 사라졌다가 내려오면 다시 실행
-    }
-});
-
-
 // 5. Visual Archive
 ScrollTrigger.create({
     trigger: "#Visual",
