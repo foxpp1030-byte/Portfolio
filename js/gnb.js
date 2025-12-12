@@ -1,6 +1,6 @@
 // js/gnb.js
 
-// 메뉴 활성화 함수 (main.js에서도 쓰기 위해 export)
+// 메뉴 활성화 함수 (유지)
 export function set_active(target) {
     const navLinks = document.querySelectorAll(".gnb_tit li");
 
@@ -37,20 +37,19 @@ export function initGnb(lenis) {
             if (lenis) lenis.start();
 
             const targetId = link.getAttribute("href");
-            const targetSection = document.querySelector(targetId);
 
-            if (targetSection) {
-                gsap.to(window, {
-                    scrollTo: { y: targetId, autoKill: false },
-                    duration: 1.2,
-                    ease: "power4.inOut",
+            // [수정된 부분] gsap.to 대신 lenis.scrollTo 사용
+            if (targetId && lenis) {
+                lenis.scrollTo(targetId, {
+                    duration: 1.5, // 이동 속도 (초)
+                    easing: (t) => 1 - Math.pow(1 - t, 4), // 부드러운 감속 효과 (power4.out 느낌)
                     onComplete: () => set_active(targetId)
                 });
             }
         });
     });
 
-    // 2. 오버레이(햄버거 메뉴) 제어
+    // 2. 오버레이(햄버거 메뉴) 제어 (유지)
     const hamMenu = document.querySelector(".ham_menu");
     const hamIcon = document.querySelector(".ham_menu i");
     const overlayPage = document.querySelector('.object_page');
@@ -90,11 +89,11 @@ export function initGnb(lenis) {
             const target = item.getAttribute("href");
             removeOverlay();
 
-            if (target) {
-                gsap.to(window, {
-                    scrollTo: target,
-                    duration: 1.2,
-                    ease: "power4.inOut",
+            // [수정된 부분] 오버레이 메뉴도 lenis.scrollTo로 변경
+            if (target && lenis) {
+                lenis.scrollTo(target, {
+                    duration: 1.5,
+                    easing: (t) => 1 - Math.pow(1 - t, 4),
                     onComplete: () => set_active(target)
                 });
             }
