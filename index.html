@@ -19,6 +19,7 @@
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.35/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
 
 
 </head>
@@ -280,126 +281,57 @@
         </section>
 
         <!-- projects section -->
-        <section id="Projects" class="projects_wrapper">
-            <div class="horizontal_track">
+        <section id="Projects" class="jam_scatter_section">
 
-                <div class="project_item cover_slide">
-                    <div class="cover_inner">
+            <div class="jam_bg_text">
+                <span class="bg_left">PRO</span>
 
-                        <div class="cover_left">
-                            <h2 class="cover_title">PROJECTS</h2>
-                            <p class="cover_subtitle">SELECTED WORKS</p>
-
-                            <div class="cover_footer_text">
-                                <span class="v_role">UXUI DESIGN</span>
-                                <span class="v_year">@2025</span>
-                            </div>
-                        </div>
-
-                        <div class="cover_right">
-                            <ul class="cover_list">
-                                <li class="cover_item" data-index="0">
-                                    <div class="ci_info">
-                                        <h3 class="ci_title">Beauty of Joseon Web Site Design</h3>
-                                        <p class="ci_desc">K-beauty 조선미녀 글로벌 웹사이트 리뉴얼 프로젝트</p>
-                                    </div>
-                                    <span class="ci_meta">2025 팀 프로젝트 100%</span>
-                                </li>
-
-                                <li class="cover_item" data-index="1">
-                                    <div class="ci_info">
-                                        <h3 class="ci_title">heAI</h3>
-                                        <p class="ci_desc">더 나은 내가 될수 있게끔 서포트해주는 나만의 AI친구 구현 프로젝트</p>
-                                    </div>
-                                    <span class="ci_meta">2025 팀 프로젝트 100%</span>
-                                </li>
-
-                                <li class="cover_item" data-index="2">
-                                    <div class="ci_info">
-                                        <h3 class="ci_title">Web Site Design</h3>
-                                        <p class="ci_desc">예술의 전당 웹사이트 리뉴얼 프로젝트</p>
-                                    </div>
-                                    <span class="ci_meta">2025 개인 프로젝트 100%</span>
-                                </li>
-
-                                <li class="cover_item" data-index="3">
-                                    <div class="ci_info">
-                                        <h3 class="ci_title">Verra</h3>
-                                        <p class="ci_desc">언어공부를 보다 쉽게할수 있는 sns형태의 언어앱 기획 및 디자인</p>
-                                    </div>
-                                    <span class="ci_meta">2025 개인 프로젝트 100%</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="jam_copy_group">
+                    <p class="jam_copy_main">© DOYEON</p>
+                    <p class="jam_copy_sub">UX/UI DESIGNER<br>BASED IN SEOUL</p>
                 </div>
 
-                <div class="project_item jn_vertical_item">
-                    <div class="jn_card">
-                        <a href="#" class="jn_img_wrap"><img src="./img/Boj1.png" alt=""></a>
-                        <div class="jn_info_row">
-                            <div class="jn_info_left">
-                                <h3 class="jn_proj_title" data-title="BEAUTY OF JOSEON">BEAUTY OF JOSEON</h3>
-                                <span class="jn_proj_year">UXUI Team Project</span>
-                            </div>
-                            <div class="jn_info_right">
-                                <a href="#" class="jn_text_link">WEBSITE</a>
-                                <a href="#" class="jn_text_link">LANDING PAGE</a>
-                            </div>
-                        </div>
-                    </div>
+                <span class="bg_right">JECTS</span>
+            </div>
+
+            <div class="jam_hover_overlay">
+                <h2 class="hover_proj_title">PROJECT TITLE</h2>
+                <p class="hover_proj_cate">CATEGORY / YEAR</p>
+
+                <div class="jam_btn_group">
+                    <a href="#" target="_blank" class="btn_link btn_website">WEBSITE</a>
+                    <a href="#" target="_blank" class="btn_link btn_landing">LANDING</a>
                 </div>
 
-                <div class="project_item jn_vertical_item">
-                    <div class="jn_card">
-                        <a href="#" class="jn_img_wrap"><img src="./img/heai1.png" alt=""></a>
-                        <div class="jn_info_row">
-                            <div class="jn_info_left">
-                                <h3 class="jn_proj_title" data-title="heAi">heAi</h3>
-                                <span class="jn_proj_year">UXUI Team Project</span>
-                            </div>
-                            <div class="jn_info_right">
-                                <a href="#" class="jn_text_link">APP DESIGN</a>
-                                <a href="#" class="jn_text_link">LANDING PAGE</a>
-                            </div>
-                        </div>
-                    </div>
+                <p class="jam_guide_msg">Click Button</p>
+            </div>
+
+            <div class="jam_scatter_container">
+
+                <div class="scatter_item" data-title="BEAUTY OF JOSEON" data-cate="WEB RENEWAL / TEAM"
+                    data_color="#C1843A" data-web="https://www.beautyofjoseon.com" data-landing="#">
+                    <div class="scatter_thumb"><img src="./img/Boj1.png" alt="BoJ"></div>
                 </div>
 
-                <div class="project_item jn_vertical_item">
-                    <div class="jn_card">
-                        <a href="#" class="jn_img_wrap"><img src="./img/sac_main.png" alt=""></a>
-                        <div class="jn_info_row">
-                            <div class="jn_info_left">
-                                <h3 class="jn_proj_title" data-title="SEOUL ARTS CENTER">SEOUL ARTS CENTER</h3>
-                                <span class="jn_proj_year">UXUI Personal Project</span>
-                            </div>
-                            <div class="jn_info_right">
-                                <a href="#" class="jn_text_link">WEBSITE</a>
-                                <a href="#" class="jn_text_link">LANDING PAGE</a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="scatter_item" data-title="heAi APPLICATION" data-cate="APP SERVICE / TEAM"
+                    data_color="#5A54FA" data-web="#" data-landing="#">
+                    <div class="scatter_thumb"><img src="./img/heai1.png" alt="heAi"></div>
                 </div>
 
-                <div class="project_item jn_vertical_item">
-                    <div class="jn_card">
-                        <a href="#" class="jn_img_wrap"><img src="./img/verra1.png" alt=""></a>
-                        <div class="jn_info_row">
-                            <div class="jn_info_left">
-                                <h3 class="jn_proj_title" data-title="VERRA">VERRA</h3>
-                                <span class="jn_proj_year">UXUI Personal Project</span>
-                            </div>
-                            <div class="jn_info_right">
-                                <a href="#" class="jn_text_link">APP DESIGN</a>
-                                <a href="#" class="jn_text_link">LANDING PAGE</a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="scatter_item" data-title="SEOUL ARTS CENTER" data-cate="WEB RENEWAL / PERSONAL"
+                    data_color="#A8001B" data-web="#" data-landing="#">
+                    <div class="scatter_thumb"><img src="./img/sac_main.png" alt="SAC"></div>
+                </div>
+
+                <div class="scatter_item" data-title="VERRA LANGUAGE" data-cate="APP / PERSONAL" data_color="#3E6BA4"
+                    data-web="#" data-landing="#">
+                    <div class="scatter_thumb"><img src="./img/verra1.png" alt="Verra"></div>
                 </div>
 
             </div>
         </section>
+
+
         <!--Philosophy Section -->
         <section id="philosophy" class="philosophy_section">
             <div class="philo_inner">
@@ -415,7 +347,6 @@
             </div>
 
         </section>
-
         <!-- Visual Archive Section -->
         <section id="Visual" class="jn_visual_section">
             <div class="jn_container">

@@ -232,75 +232,139 @@ if (skillSection && txtLeft && txtRight && centerLine && receiptImg) {
             { yPercent: 0, duration: 2.5, ease: "none" }
         );
 }
-
 // ==============================================
-// 4. Projects: Horizontal Scroll + Click Navigation
+// 4. [Final] Projects Logic
 // ==============================================
-const projectSection = document.querySelector("#Projects");
-const track = document.querySelector(".horizontal_track");
-const coverItems = document.querySelectorAll(".cover_item");
-const projectCards = document.querySelectorAll(".jn_vertical_item");
 
-if (projectSection && track) {
-    // 1. 전체 가로 스크롤 거리 계산
-    function getScrollAmount() {
-        return track.scrollWidth - window.innerWidth;
-    }
+gsap.registerPlugin(Draggable);
 
-    // 2. 가로 이동 애니메이션 (GSAP Tween)
-    const tween = gsap.to(track, {
-        x: () => -getScrollAmount(),
-        ease: "none",
-    });
+const scatterItems = document.querySelectorAll(".scatter_item");
+const hoverOverlay = document.querySelector(".jam_hover_overlay");
+const hoverTitle = document.querySelector(".hover_proj_title");
+const hoverCate = document.querySelector(".hover_proj_cate");
+const btnWeb = document.querySelector(".btn_website");
+const btnLand = document.querySelector(".btn_landing");
+const projectsSection = document.querySelector("#Projects");
 
-    // 3. ScrollTrigger 연결 (st 변수에 저장)
-    const st = ScrollTrigger.create({
-        trigger: "#Projects",
-        start: "top top",
-        end: () => `+=${getScrollAmount()}`,
-        pin: true,
-        animation: tween,
-        scrub: 1,
-        invalidateOnRefresh: true,
-        onEnter: () => set_active("#Projects"),
-        onEnterBack: () => set_active("#Projects")
-    });
+let activeItem = null;
 
-    // 4. [기능] 리스트 클릭 시 해당 카드로 이동
-    coverItems.forEach((item) => {
-        item.addEventListener("click", () => {
-            const index = parseInt(item.getAttribute("data-index")); // 0, 1, 2, 3
+if (scatterItems.length > 0 && hoverOverlay) {
 
-            if (!isNaN(index) && projectCards[index]) {
-                const targetCard = projectCards[index];
-
-                // (A) 트랙 내에서 카드의 실제 왼쪽 위치
-                // 화면 중앙에 오게 하려면: cardLeft - (화면너비/2 - 카드너비/2)
-                let targetX = targetCard.offsetLeft;
-                const centerOffset = (window.innerWidth - targetCard.clientWidth) / 2;
-                targetX -= centerOffset;
-
-                // (B) 이동 범위 제한 (0 ~ 최대거리)
-                const maxScroll = track.scrollWidth - window.innerWidth;
-                if (targetX < 0) targetX = 0;
-                if (targetX > maxScroll) targetX = maxScroll;
-
-                // (C) 진행률(0~1) 계산
-                const progress = targetX / maxScroll;
-
-                // (D) 수직 스크롤 위치로 변환 (start + 전체길이 * 비율)
-                const scrollYPos = st.start + (st.end - st.start) * progress;
-
-                // (E) Lenis로 부드럽게 이동
-                if (lenis) {
-                    lenis.scrollTo(scrollYPos, { duration: 2.0, easing: (t) => 1 - Math.pow(1 - t, 4) });
-                } else {
-                    window.scrollTo({ top: scrollYPos, behavior: 'smooth' });
-                }
+    // 1. 드래그 기능
+    Draggable.create(".scatter_item", {
+        type: "x,y",
+        bounds: "#Projects",
+        inertia: true,
+        onDragStart: function () {
+            this.target.style.zIndex = 100;
+            this.target.classList.add("is-dragging");
+        },
+        onDragEnd: function () {
+            if (!this.target.classList.contains('selected')) {
+                this.target.style.zIndex = "";
+                this.target.classList.remove("is-dragging");
             }
+
+        }
+    });
+
+    // 2. 클릭 이벤트
+    scatterItems.forEach((item) => {
+        item.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (activeItem === item) return;
+            selectItem(item);
         });
     });
+
+    // 3. 배경 클릭 시 닫기
+    projectsSection.addEventListener("click", () => {
+        deselectAll();
+    });
+
+    // --- 기능 함수 ---
+    function selectItem(item) {
+        if (activeItem) activeItem.classList.remove("selected");
+
+        activeItem = item;
+        item.classList.add("selected");
+
+        // 데이터 가져오기
+        const title = item.getAttribute("data-title");
+        const cate = item.getAttribute("data-cate");
+        const color = item.getAttribute("data_color"); // [추가] 색상 가져오기
+        const webLink = item.getAttribute("data-web");
+        const landLink = item.getAttribute("data-landing");
+
+        // 텍스트 적용
+        hoverTitle.innerText = title;
+        hoverCate.innerText = cate;
+
+        // [추가] 제목 색상 변경
+        if (color) {
+            hoverTitle.style.color = color;
+        } else {
+            hoverTitle.style.color = "#000"; // 색상 없으면 기본 검정
+        }
+
+        // 버튼 링크 적용
+        if (btnWeb) btnWeb.setAttribute("href", webLink);
+        if (btnLand) btnLand.setAttribute("href", landLink);
+
+        hoverOverlay.classList.add("active");
+    }
+
+    function deselectAll() {
+        if (activeItem) {
+            activeItem.classList.remove("selected");
+            activeItem = null;
+        }
+        hoverOverlay.classList.remove("active");
+
+        // 닫을 때 제목 색상 검정으로 초기화 (선택사항)
+        setTimeout(() => {
+            hoverTitle.style.color = "#000";
+        }, 300);
+    }
 }
+const projTl = gsap.timeline({
+    scrollTrigger: {
+        trigger: "#Projects",
+        start: "top 60%", // 화면의 60% 지점에 왔을 때 시작 (조금 일찍)
+        toggleActions: "play none none reverse" // 다시 올라가면 사라졌다가 내려오면 다시 실행
+    }
+});
+
+projTl
+    // 1. 배경 글씨 양옆에서 슬라이딩 (PRO -> <- JECTS)
+    .fromTo(".bg_left",
+        { x: "-100%", opacity: 0 },
+        { x: "0%", opacity: 1, duration: 1, ease: "power4.out" }, "start"
+    )
+    .fromTo(".bg_right",
+        { x: "100%", opacity: 0 },
+        { x: "0%", opacity: 1, duration: 1, ease: "power4.out" }, "start"
+    )
+
+    // 2. 이미지들이 탄성감 있게 등장 ("쿵!" 하는 느낌)
+    // autoAlpha: 0 -> 1 (visibility 처리 포함)
+    .fromTo(".scatter_item",
+        {
+            y: 500,       // 아래에서 위로
+            scale: 0,     // 작았다가 커짐
+            rotation: 15, // 살짝 회전된 상태에서 정면으로
+            autoAlpha: 0
+        },
+        {
+            y: 0,
+            scale: 1,
+            rotation: 0,
+            autoAlpha: 1,
+            duration: 1.5,
+            stagger: 0.1, // 0.1초 간격으로 따다닥
+            ease: "elastic.out(1, 0.5)" // [핵심] 팅~ 하고 튕기는 탄성 효과
+        }, "-=0.5" // 배경 글씨가 도착하기 0.5초 전에 시작
+    );
 // 5. Visual Archive
 ScrollTrigger.create({
     trigger: "#Visual",

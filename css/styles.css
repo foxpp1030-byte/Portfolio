@@ -973,328 +973,351 @@ header.menu-open .ham_menu i {
     background-clip: border-box;
 }
 
-/* ================= Projects Cover Page (목차) Style Fixed ================= */
+/* =======================================================
+   JAMAREA STYLE FINAL (Hover Light & No Overlap)
+   ======================================================= */
 
-/* 목차 슬라이드 컨테이너 */
-.project_item.cover_slide {
-    width: 100vw;
-    height: 100vh;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
+.jam_scatter_section {
+    position: relative;
+    width: 100%;
+    height: 140vh;
+    /* 여백 확보 */
     background-color: #fff;
-    flex-shrink: 0;
-    /* 가로 스크롤에서 줄어들지 않도록 */
-}
-
-/* 내부 레이아웃 (좌우 2분할) */
-.cover_inner {
-    width: 100%;
-    max-width: 1700px;
-    height: 65vh;
-    /* 화면 높이의 65% 차지 */
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0 50px;
-    box-sizing: border-box;
-    position: relative;
-}
-
-/* --- [좌측] 타이틀 영역 --- */
-.cover_left {
-    position: relative;
-    width: 45%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding-top: 50px;
-    z-index: 2;
-}
-
-/* PROJECTS 타이틀 (inner.png 처럼 매우 크게) */
-.cover_title {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 12vw;
-    font-weight: 400;
-    line-height: 0.9;
-    color: #2B0F0F;
-    margin: 0;
-    letter-spacing: -3px;
-    white-space: nowrap;
-}
-
-/* SELECTED WORKS (깔끔한 고딕, 핑크 아님) */
-.cover_subtitle {
-    font-family: "SUIT", sans-serif;
-    font-size: 30px;
-    font-weight: 300;
-    color: #333;
-    margin-top: 20px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-}
-
-/* 좌측 하단 세로 텍스트 (위치 재조정) */
-.cover_footer_text {
-    position: absolute;
-    bottom: 150px;
-    left: 0;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    transform-origin: left bottom;
-    transform: rotate(-90deg) translateX(0);
-    white-space: nowrap;
-}
-
-.v_role {
-    font-family: "SUIT", sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: #555;
-}
-
-.v_year {
-    font-family: "SUIT", sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    color: #333;
-}
-
-
-/* --- [우측] 리스트 영역 --- */
-.cover_right {
-    width: 50%;
-    margin-top: 150px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-.cover_list {
-    width: 100%;
-    border-top: 1px solid #ddd;
-}
-
-.cover_item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 30px 10px;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-    transition: opacity 0.3s, padding-left 0.3s ease;
-}
-
-.cover_item:hover {
-    opacity: 0.6;
-    background-color: transparent;
-    padding-left: 20px;
-}
-
-.ci_info {
-    max-width: 75%;
-}
-
-/* 리스트 제목 (명조체) */
-.ci_title {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 36px;
-    font-weight: 400;
-    color: #2B0F0F;
-    margin-bottom: 10px;
-    line-height: 1.1;
-}
-
-/* 리스트 설명 (고딕체) */
-.ci_desc {
-    font-family: "SUIT", sans-serif;
-    font-size: 18px;
-    color: #666;
-    font-weight: 300;
-    line-height: 1.4;
-    word-break: keep-all;
-}
-
-.ci_meta {
-    font-family: "SUIT", sans-serif;
-    font-size: 16px;
-    color: #aaa;
-    font-weight: 300;
-    white-space: nowrap;
-    padding-top: 5px;
-}
-
-/* ================= Project Cards (컨텐츠) 스타일 복구 ================= */
-.project_item.jn_vertical_item {
-    width: 900px;
-    /* 카드 너비 */
-    margin-left: 250px;
-    /* 왼쪽 간격 넉넉하게 */
-    margin-right: 50px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.project_item.jn_vertical_item:last-child {
-    margin-right: 300px;
-    /* 마지막 여백 */
-}
-
-.jn_card {
-    width: 100%;
-}
-
-.jn_img_wrap {
-    width: 100%;
-    display: block;
     overflow: hidden;
-    margin-bottom: 25px;
-    /* 이미지 아래 간격 */
-    background: #f4f4f4;
+    z-index: 10;
+    user-select: none;
 }
 
-.jn_img_wrap img {
+/* 1. 배경 텍스트 (PRO ... JECTS) - 겹침 방지 수정 */
+.jam_bg_text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    display: block;
-    transition: transform 0.5s ease;
-}
-
-.jn_img_wrap:hover img {
-    transform: scale(1.03);
-}
-
-/* 카드 하단 정보 영역 */
-.jn_info_row {
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    /* 텍스트 바닥 라인 맞춤 */
-    border-top: 1px solid #000;
-    padding-top: 20px;
+    /* 바닥 정렬 */
+    padding-bottom: 0;
+    /* 바닥에 딱 붙게 */
 }
 
-.jn_info_left {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+/* 왼쪽 텍스트 (PRO) */
+.bg_left {
+    font-family: 'Impact', sans-serif;
+    font-size: 26vw;
+    /* [수정] 크기 축소 (35vw -> 26vw) */
+    line-height: 0.8;
+    color: #1a1a1a;
+    letter-spacing: -5px;
+    margin-left: -1vw;
+    /* 왼쪽 여백 미세 조정 */
 }
 
-.jn_proj_title {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 40px;
-    /* 타이틀 크기 */
-    color: #000;
-    text-transform: uppercase;
-    margin: 0;
-    line-height: 1;
+/* 오른쪽 텍스트 (JECTS) */
+.bg_right {
+    font-family: 'Impact', sans-serif;
+    font-size: 26vw;
+    /* [수정] 크기 축소 */
+    line-height: 0.8;
+    color: #1a1a1a;
+    letter-spacing: -5px;
+    margin-right: -1vw;
+    /* 오른쪽 여백 미세 조정 */
+    text-align: right;
 }
 
-/* [문제 해결 2] 회색 글씨 크기 키움 */
-.jn_proj_year {
+/* 중앙 카피라이트 */
+.jam_copy_group {
+    position: absolute;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
     font-family: "SUIT", sans-serif;
-    font-size: 20px;
-    /* 기존 16px -> 20px로 확대 */
-    color: #888;
-    /* 회색 */
+    color: #000;
+    z-index: 2;
+}
+
+.jam_copy_main {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.jam_copy_sub {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+}
+
+
+/* 2. 중앙 오버레이 (버튼 포함) */
+.jam_hover_overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    text-align: center;
+    z-index: 100;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+
+    width: 90%;
+    max-width: 800px;
+    pointer-events: none;
+}
+
+.jam_hover_overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.hover_proj_title {
+    font-family: 'Times New Roman', serif;
+    font-size: 5vw;
     font-weight: 400;
-}
-
-.jn_info_right {
-    display: flex;
-    gap: 30px;
-}
-
-/* [문제 해결 3] 링크 호버 효과 복구 */
-.jn_text_link {
-    font-family: "SUIT", sans-serif;
-    font-size: 18px;
-    /* 링크 글씨 크기 */
-    font-weight: 600;
     color: #000;
+    margin-bottom: 10px;
+    line-height: 1;
     text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.hover_proj_cate {
+    font-family: "SUIT", sans-serif;
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+/* 버튼 그룹 */
+.jam_btn_group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* 버튼 스타일 */
+.btn_link {
+    display: inline-block;
+    padding: 15px 40px;
+    border: 1px solid #000;
+    border-radius: 50px;
+
+    font-family: "SUIT", sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
     text-decoration: none;
-    position: relative;
-    /* 가상요소 위치 기준 */
-    padding-bottom: 3px;
-    display: inline-block;
+    color: #000;
+    background: transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-/* 밑줄 애니메이션 */
-.jn_text_link::after {
-    content: '';
+.btn_link:hover {
+    background: #000;
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.jam_guide_msg {
+    margin-top: 30px;
+    font-size: 0.8rem;
+    color: #aaa;
+    font-family: "SUIT", sans-serif;
+}
+
+
+/* 3. 흩뿌려진 아이템 (드래그 + 호버) */
+.jam_scatter_container {
     position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    /* 밑줄 두께 */
-    background-color: #000;
-    transform: scaleX(0);
-    /* 처음엔 안 보임 */
-    transform-origin: right;
-    transition: transform 0.3s ease;
-}
-
-.jn_text_link:hover::after {
-    transform: scaleX(1);
-    /* 호버 시 나타남 */
-    transform-origin: left;
-}
-
-/* ================= Projects 롤링 텍스트 효과 (Studio Vague Style) ================= */
-
-.jn_proj_title {
-    position: relative;
-    overflow: hidden;
-    color: transparent;
-    line-height: 1.2;
-    display: inline-block;
-    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.jn_proj_title::before,
-.jn_proj_title::after {
-    content: attr(data-title);
-    position: absolute;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    color: #000;
-    /* 텍스트 색상 (검정) */
-    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-    /* 애니메이션 속도 및 감도 */
+    z-index: 20;
+    pointer-events: none;
+}
+
+.scatter_item {
+    position: absolute;
+    min-width: 180px;
+    cursor: grab;
+    pointer-events: auto;
+    filter: grayscale(100%);
+    z-index: 20;
+}
+
+/* [추가됨] 마우스만 올려도 빛 들어옴 */
+.scatter_item:hover {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+    z-index: 60;
+    /* 호버 시 위로 */
+}
+
+.scatter_item:active {
+    cursor: grabbing;
+}
+
+/* 클릭(선택) 되었을 때 */
+.scatter_item.selected {
+    z-index: 50 !important;
+    transform: scale(1.05);
+    filter: grayscale(0%);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.scatter_thumb {
+    width: 100%;
+    background: #eee;
+    overflow: hidden;
+}
+
+.scatter_thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* 초기 배치 */
+.scatter_item:nth-child(1) {
+    top: 10%;
+    left: 10%;
+}
+
+.scatter_item:nth-child(2) {
+    top: 15%;
+    right: 15%;
+}
+
+.scatter_item:nth-child(3) {
+    top: 40%;
+    left: 20%;
+}
+
+.scatter_item:nth-child(4) {
+    top: 35%;
+    right: 10%;
+}
+
+/* 모바일 */
+@media (max-width: 768px) {
+    .jam_scatter_section {
+        height: auto;
+        padding-bottom: 100px;
+        overflow: visible;
+    }
+
+    .bg_left,
+    .bg_right {
+        font-size: 100px;
+    }
+
+    /* 모바일 글씨 크기 더 축소 */
+    .jam_bg_text {
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .jam_scatter_container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 50px;
+        padding-top: 50px;
+    }
+
+    .scatter_item {
+        position: relative;
+        top: auto !important;
+        left: auto !important;
+        width: 70vw;
+        filter: grayscale(0%);
+    }
+}
+
+/* --- [상태별 스타일] --- */
+
+/* 드래그 중 */
+.scatter_item.is-dragging {
+    cursor: grabbing;
+    z-index: 100 !important;
+    filter: grayscale(0%);
+    transform: scale(1.1);
+    /* 드래그 시 확대 */
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* 호버 */
+.scatter_item:hover {
+    filter: grayscale(0%);
+    z-index: 60;
+    transform: scale(1.05);
+}
+
+/* 선택됨 */
+.scatter_item.selected {
+    z-index: 50 !important;
+    filter: grayscale(0%);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+    visibility: visible !important;
+    /* 혹시 모를 버그 방지 */
 }
 
 
-.jn_proj_title::before {
-    top: 0;
-    font-family: 'Times New Roman', Times, serif;
+/* --- [핵심] 이미지 크기 및 위치 다양화 --- */
 
-    transform: translateY(0);
+/* Item 1: 왼쪽 위 (중간 크기) */
+.scatter_item:nth-child(1) {
+    width: 14vw;
+    top: 10%;
+    left: 10%;
 }
 
-
-.jn_proj_title::after {
-    top: 0;
-    font-family: 'SUIT', sans-serif;
-    transform: translateY(100%);
+/* Item 2: 오른쪽 위 (아주 작게 - 귀여운 느낌) */
+.scatter_item:nth-child(2) {
+    width: 10vw;
+    top: 18%;
+    right: 15%;
 }
 
-.jn_card:hover .jn_proj_title::before {
-    transform: translateY(-100%);
+/* Item 3: 왼쪽 아래 (제일 크게 - 강조) */
+.scatter_item:nth-child(3) {
+    width: 20vw;
+    top: 45%;
+    left: 18%;
 }
 
-.jn_card:hover .jn_proj_title::after {
-    transform: translateY(0);
+/* Item 4: 오른쪽 아래 (길쭉하거나 중간) */
+.scatter_item:nth-child(4) {
+    width: 15vw;
+    top: 40%;
+    right: 12%;
 }
 
+/* 모바일 대응 */
+@media (max-width: 768px) {
+    .scatter_item {
+        visibility: visible;
+        /* 모바일은 애니메이션 생략 시 바로 보이게 */
+        width: 70vw !important;
+        /* 모바일은 통일 */
+    }
+}
 
 /* =========================================
    VISUAL ARCHIVE - Jenny Nordberg Style
