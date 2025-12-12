@@ -18,8 +18,6 @@ const lenis = new Lenis({
     smoothTouch: true,
 });
 
-lenis.stop();
-document.body.style.overflow = "hidden";
 
 
 function raf(t) {
@@ -45,18 +43,77 @@ ScrollTrigger.scrollerProxy(document.documentElement, {
 initGnb(lenis);
 initFooter(lenis);
 
-// ==================== Intro Logic ====================
-const enterBtn = document.querySelector("#enter-btn");
-if (enterBtn) {
-    enterBtn.addEventListener("click", () => {
-        document.body.style.overflow = "auto";
-        lenis.start();
-        gsap.to(window, {
-            scrollTo: "#About",
-            duration: 1.5,
-            ease: "power4.inOut"
-        });
+// ==================== [최종 수정] Hero Scroll Animation ====================
+const heroSection = document.querySelector("#hero");
+
+if (heroSection) {
+    const heroTl = gsap.timeline({
+        scrollTrigger: {
+            trigger: "#hero",
+            start: "top top",
+            end: "+=3000",
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1
+        }
     });
+
+    heroTl
+        .addLabel("start")
+
+        // 1. 기존 텍스트 위로 사라짐
+        .to(".hero_text_group", {
+            y: "-120vh",
+            opacity: 0,
+            duration: 3,
+            ease: "power2.inOut"
+        }, "start")
+
+        // 2. [수정됨] 접시 애니메이션
+        .fromTo("#hero_plate_wrap",
+            {
+                // 시작: 화면 정중앙
+                top: "50%",
+                left: "50%",
+                xPercent: -50,
+                yPercent: -50,
+                rotation: -180,
+                scale: 1  // [수정 1] 크기 줄이지 않고 원래 크기(1)로 시작
+            },
+            {
+                // 끝: 원래 CSS 위치 (GNB 위치)
+                top: "40%",
+                left: "52%",
+                xPercent: -50,
+                yPercent: -50,
+                rotation: 0,
+                scale: 1,
+                duration: 3,
+                ease: "power2.inOut"
+            },
+            "start")
+
+        // 3. 주변 오브젝트들 등장 (Key, Bread, Earphone, Receipt)
+        .to("#hero_synced_objects .obj_link:not(#hero_plate_wrap)", {
+            opacity: 1,
+            duration: 1.5,
+            stagger: 0.1,
+            ease: "power2.out"
+        }, "-=1.5")
+
+        // 4. [추가됨] 접시 안착 후 PROJECTS 텍스트 등장
+        // 접시는 계속 보이지만 텍스트만 나중에 나옴
+        .to("#hero_plate_wrap .type_projects", {
+            opacity: 1,
+            duration: 1,
+            ease: "power2.out"
+        }, "-=1.0") // 주변 오브젝트 나올 때 같이 나옴
+
+        // 5. 로고 사라짐
+        .to(".rotate_logo", {
+            opacity: 0,
+            duration: 0.5
+        }, "-=1.5");
 }
 
 // ==================== Section Animations ====================
@@ -393,40 +450,8 @@ window.addEventListener("load", () => {
 });
 window.addEventListener("resize", () => ScrollTrigger.refresh());
 
-
-
-// ==================== Intro Logic (수정됨) ====================
-const enterBtn2 = document.querySelector("#enter-btn");
-
-// 입장 동작 함수 분리
-const enterSite = () => {
-    document.body.style.overflow = "auto";
-    lenis.start();
-    gsap.to(window, {
-        scrollTo: "#About",
-        duration: 1.5,
-        ease: "power4.inOut"
-    });
-    // 자동 입장 타이머가 있다면 해제 (중복 실행 방지)
-    if (autoEnterTimer) clearTimeout(autoEnterTimer);
-};
-
-// 5초 뒤 자동 입장 (사용자가 아무것도 안 하면)
-let autoEnterTimer = setTimeout(() => {
-    // 이미 스크롤이 되어있거나 다른 섹션이면 실행 X
-    if (window.scrollY < 100) {
-        enterSite();
-    }
-}, 5000); // 5초 설정
-
-if (enterBtn2) {
-    enterBtn2.addEventListener("click", enterSite);
-}
-
-
-
 window.addEventListener("load", () => {
     setTimeout(() => {
         ScrollTrigger.refresh();
-    }, 300); // footer 높이가 계산된 뒤 새로 고침
+    }, 300);
 });

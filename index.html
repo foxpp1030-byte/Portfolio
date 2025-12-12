@@ -52,7 +52,7 @@
 
                 <a href="#About" class="obj_link pos_profile">
                     <img src="./img/key.png" class="obj_img" alt="Key">
-                    <span class="obj_label rotate_vertical">PROFILE</span>
+                    <span class="obj_label rotate_vertical">ABOUT ME</span>
                 </a>
 
                 <a href="#Projects" class="obj_link pos_projects">
@@ -98,28 +98,61 @@
         <!-- hero title section -->
         <section id="hero" class="hero full">
 
-            <div class="hero_align_wrapper">
+            <div class="hero_text_group">
                 <h1 class="hero_title">PORTFOLIO</h1>
-
                 <span class="hero_role">DESIGNER</span>
-                <div class="hero_year">
-                    <span>20</span>
-                    <span>25</span>
+                <div class="hero_year"><span>20</span><span>25</span></div>
+            </div>
+
+            <div class="hero_objects_group">
+                <div class="object_inner" id="hero_synced_objects">
+
+                    <div class="obj_link pos_profile">
+                        <img src="./img/key.png" class="obj_img" alt="Key">
+                        <span class="obj_label rotate_vertical hero_text_fix">ABOUT ME</span>
+                    </div>
+
+                    <div class="obj_link pos_projects" id="hero_plate_wrap">
+                        <img src="./img/dessert.png" class="obj_img" alt="Dessert">
+                        <div class="curved_text_wrap type_projects">
+                            <svg viewBox="0 0 500 500">
+                                <path id="curve_hero_p" d="M50,190 Q250,400 450,155" fill="transparent" />
+                                <text>
+                                    <textPath xlink:href="#curve_hero_p" startOffset="50%" text-anchor="middle">
+                                        PROJECTS
+                                    </textPath>
+                                </text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="obj_link pos_bread">
+                        <img src="./img/bread01.png" class="obj_img" alt="Bread">
+                    </div>
+
+                    <div class="obj_link pos_visual">
+                        <img src="./img/earphone.png" class="obj_img" alt="Earphone">
+                        <div class="curved_text_wrap type_visual">
+                            <svg viewBox="0 0 500 500">
+                                <path id="curve_hero_v" d="M50,300 Q250,500 450,300" fill="transparent" />
+                                <text>
+                                    <textPath xlink:href="#curve_hero_v" startOffset="50%" text-anchor="middle">
+                                        VISUAL ARCHIVE
+                                    </textPath>
+                                </text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="obj_link pos_skills">
+                        <img src="./img/skillset01.png" class="obj_img" alt="Receipt">
+                        <span class="obj_label label_skills">SKILL SET</span>
+                    </div>
+
                 </div>
             </div>
 
-            <img src="./img/bread01.png" class="hero_bread_obj" alt="Bread Object">
-
-            <img src="./img/ob.png" class="hero_ribbon_obj" alt="Ribbon Object">
-
-            <div class="rotate_logo" id="enter-btn">
-                <div class="enter_guide_text">
-                    <span>CLICK<br>TO<br>ENTER</span>
-                </div>
-                <div class="center_arrow">
-                    <i class="fa-solid fa-arrow-right"></i>
-                </div>
-
+            <div class="rotate_logo">
                 <svg xmlns="http://www.w3.org/2000/svg" width="130" height="128" viewBox="0 0 130 128" fill="none">
                     <path
                         d="M13.6057 60.9964C12.854 61.9192 11.8528 62.6071 10.7211 62.9784C9.40175 63.3968 8.0047 63.5117 6.63457 63.3145C5.28462 63.1837 3.98281 62.7449 2.82962 62.032C1.83468 61.403 1.04288 60.5004 0.549407 59.4328C0.129875 58.4041 -0.0480268 57.2931 0.0293609 56.1851C0.106749 55.0771 0.437364 54.0015 0.995831 53.041C1.4535 52.304 2.07959 51.6859 2.82276 51.2373C3.55984 50.7964 4.38087 50.5138 5.23347 50.4075H5.43265L5.206 52.2935H5.08924C4.20845 52.4756 3.40376 52.9204 2.78155 53.5691C2.172 54.2569 1.80105 55.1228 1.72386 56.038C1.59215 56.9294 1.72341 57.8397 2.1016 58.6578C2.49159 59.4442 3.10569 60.098 3.86671 60.5369C4.7761 61.0561 5.78463 61.3785 6.82688 61.4833C7.8942 61.6368 8.98183 61.5668 10.0206 61.2776C10.8929 61.0496 11.6731 60.5573 12.2537 59.8682C12.8342 59.1792 13.1866 58.3274 13.2623 57.4302C13.3707 56.6512 13.2858 55.8575 13.0151 55.119C12.7669 54.4497 12.3334 53.8646 11.7651 53.4319C11.1643 52.982 10.4518 52.7045 9.70463 52.6295H9.45051L8.96287 56.6895L7.38319 56.4975L8.07001 50.6406L9.44363 50.8052C10.6117 50.8913 11.741 51.2609 12.7335 51.882C13.5813 52.4568 14.2349 53.2745 14.6085 54.2275C15.004 55.3057 15.1221 56.4659 14.9519 57.6016C14.8386 58.8388 14.3713 60.0172 13.6057 60.9964Z"
