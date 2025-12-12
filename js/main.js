@@ -146,61 +146,41 @@ if (skillSection && txtLeft && txtRight && centerLine && receiptImg) {
         );
 }
 
-// 3. Projects Scroll Active
-ScrollTrigger.create({
-    trigger: "#Projects",
-    start: "top center", end: "bottom center",
-    onEnter: () => set_active("#Projects"),
-    onEnterBack: () => set_active("#Projects")
-});
-
-// 4. Projects Layered Reveal & Horizontal Scroll (Plus X Style)
-const projectSection = document.querySelector("#projects_scroll_view");
+// ==============================================
+// 4. Projects Integrated Horizontal Scroll
+// ==============================================
+const projectSection = document.querySelector("#Projects");
 const track = document.querySelector(".horizontal_track");
-const coverSection = document.querySelector("#Projects");
 
-if (projectSection && track && coverSection) {
+if (projectSection && track) {
+    // 1. 가로 스크롤 거리 계산
+    // (전체 트랙 길이) - (화면 너비) 만큼 왼쪽으로 이동해야 함
+    function getScrollAmount() {
+        return track.scrollWidth - window.innerWidth;
+    }
 
-    // 1. Calculate the movement distance
-    // We want to scroll horizontally: (Track Width - Screen Width)
-    const scrollAmount = track.scrollWidth - window.innerWidth;
-
-    // 2. Create a Timeline attached to the ScrollTrigger
-    const projTl = gsap.timeline({
-        scrollTrigger: {
-            trigger: "#projects_scroll_view",
-            start: "top top", // Starts immediately because of the negative margin
-            // Total Scroll Duration = Reveal Height (Cover) + Horizontal Scroll Length
-            end: () => `+=${window.innerHeight + scrollAmount}`,
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
-            invalidateOnRefresh: true, // Recalculate on resize
-            onEnter: () => set_active("#Projects"),
-            onEnterBack: () => set_active("#Projects"),
-        }
+    // 2. 가로 스크롤 애니메이션 정의
+    // invalidateOnRefresh: true -> 화면 크기 바뀔 때 거리 다시 계산
+    const tween = gsap.to(track, {
+        x: () => -getScrollAmount(), // 함수로 전달하여 반응형 대응
+        ease: "none",
     });
 
-    // 3. Define the Animation Sequence
-    // Phase A: The Reveal (Wait). 
-    // We add a dummy tween for the duration of the viewport height. 
-    // During this scroll distance, the Cover (#Projects) scrolls up naturally, 
-    // revealing the pinned #projects_scroll_view behind it.
-    projTl.to(track, {
-        x: 0,
-        duration: window.innerHeight,
-        ease: "none"
-    });
-
-    // Phase B: The Horizontal Scroll
-    // After the cover is gone, we start moving the track.
-    projTl.to(track, {
-        x: -scrollAmount,
-        duration: scrollAmount,
-        ease: "none"
+    // 3. ScrollTrigger 연결
+    ScrollTrigger.create({
+        trigger: "#Projects",
+        start: "top top",
+        // 스크롤 길이: (트랙 길이 - 화면 너비) + 여유분(padding)
+        // 너무 빠르면 2000이나 3000 처럼 숫자를 직접 넣거나 곱하기를 늘리세요
+        end: () => `+=${getScrollAmount()}`,
+        pin: true,        // 섹션 고정
+        animation: tween, // 위에서 만든 애니메이션 실행
+        scrub: 1,         // 스크롤 동기화 (부드럽게)
+        invalidateOnRefresh: true, // 리사이즈 시 재계산
+        onEnter: () => set_active("#Projects"),
+        onEnterBack: () => set_active("#Projects")
     });
 }
-
 // 5. Visual Archive
 ScrollTrigger.create({
     trigger: "#Visual",
