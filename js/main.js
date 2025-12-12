@@ -234,38 +234,71 @@ if (skillSection && txtLeft && txtRight && centerLine && receiptImg) {
 }
 
 // ==============================================
-// 4. Projects Integrated Horizontal Scroll
+// 4. Projects: Horizontal Scroll + Click Navigation
 // ==============================================
 const projectSection = document.querySelector("#Projects");
 const track = document.querySelector(".horizontal_track");
+const coverItems = document.querySelectorAll(".cover_item");
+const projectCards = document.querySelectorAll(".jn_vertical_item");
 
 if (projectSection && track) {
-    // 1. 가로 스크롤 거리 계산
-    // (전체 트랙 길이) - (화면 너비) 만큼 왼쪽으로 이동해야 함
+    // 1. 전체 가로 스크롤 거리 계산
     function getScrollAmount() {
         return track.scrollWidth - window.innerWidth;
     }
 
-    // 2. 가로 스크롤 애니메이션 정의
-    // invalidateOnRefresh: true -> 화면 크기 바뀔 때 거리 다시 계산
+    // 2. 가로 이동 애니메이션 (GSAP Tween)
     const tween = gsap.to(track, {
-        x: () => -getScrollAmount(), // 함수로 전달하여 반응형 대응
+        x: () => -getScrollAmount(),
         ease: "none",
     });
 
-    // 3. ScrollTrigger 연결
-    ScrollTrigger.create({
+    // 3. ScrollTrigger 연결 (st 변수에 저장)
+    const st = ScrollTrigger.create({
         trigger: "#Projects",
         start: "top top",
-        // 스크롤 길이: (트랙 길이 - 화면 너비) + 여유분(padding)
-        // 너무 빠르면 2000이나 3000 처럼 숫자를 직접 넣거나 곱하기를 늘리세요
         end: () => `+=${getScrollAmount()}`,
-        pin: true,        // 섹션 고정
-        animation: tween, // 위에서 만든 애니메이션 실행
-        scrub: 1,         // 스크롤 동기화 (부드럽게)
-        invalidateOnRefresh: true, // 리사이즈 시 재계산
+        pin: true,
+        animation: tween,
+        scrub: 1,
+        invalidateOnRefresh: true,
         onEnter: () => set_active("#Projects"),
         onEnterBack: () => set_active("#Projects")
+    });
+
+    // 4. [기능] 리스트 클릭 시 해당 카드로 이동
+    coverItems.forEach((item) => {
+        item.addEventListener("click", () => {
+            const index = parseInt(item.getAttribute("data-index")); // 0, 1, 2, 3
+
+            if (!isNaN(index) && projectCards[index]) {
+                const targetCard = projectCards[index];
+
+                // (A) 트랙 내에서 카드의 실제 왼쪽 위치
+                // 화면 중앙에 오게 하려면: cardLeft - (화면너비/2 - 카드너비/2)
+                let targetX = targetCard.offsetLeft;
+                const centerOffset = (window.innerWidth - targetCard.clientWidth) / 2;
+                targetX -= centerOffset;
+
+                // (B) 이동 범위 제한 (0 ~ 최대거리)
+                const maxScroll = track.scrollWidth - window.innerWidth;
+                if (targetX < 0) targetX = 0;
+                if (targetX > maxScroll) targetX = maxScroll;
+
+                // (C) 진행률(0~1) 계산
+                const progress = targetX / maxScroll;
+
+                // (D) 수직 스크롤 위치로 변환 (start + 전체길이 * 비율)
+                const scrollYPos = st.start + (st.end - st.start) * progress;
+
+                // (E) Lenis로 부드럽게 이동
+                if (lenis) {
+                    lenis.scrollTo(scrollYPos, { duration: 2.0, easing: (t) => 1 - Math.pow(1 - t, 4) });
+                } else {
+                    window.scrollTo({ top: scrollYPos, behavior: 'smooth' });
+                }
+            }
+        });
     });
 }
 // 5. Visual Archive
