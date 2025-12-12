@@ -388,14 +388,21 @@ header.menu-open .ham_menu i {
 
 /* 4. 접시(Plate) 초기 설정 */
 #hero_plate_wrap {
-    opacity: 1;
+    opacity: 0;
     z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* 5. [해결] ABOUT ME 텍스트 겹침 수정 */
 .hero_text_fix {
     right: -70px !important;
     top: 76%;
+}
+
+#hero_plate_wrap .type_projects {
+    opacity: 0;
 }
 
 /* 6. Hero 텍스트 그룹 (기존 유지) */

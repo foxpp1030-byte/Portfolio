@@ -47,11 +47,29 @@ initFooter(lenis);
 const heroSection = document.querySelector("#hero");
 
 if (heroSection) {
+    // 0. 초기 상태 강제 설정 (GSAP로 확실하게 잡기)
+    // 접시는 정중앙, 회전된 상태, 투명하게 시작
+    gsap.set("#hero_plate_wrap", {
+        top: "50%",
+        left: "50%",
+        xPercent: -50,
+        yPercent: -50,
+        rotation: -180, // 회전된 상태로 대기
+        scale: 1,
+        opacity: 0      // 숨김
+    });
+
+    // 주변 아이템들 숨김
+    gsap.set("#hero_synced_objects .obj_link:not(#hero_plate_wrap)", { autoAlpha: 0 });
+    // 접시 안의 프로젝트 글씨 숨김
+    gsap.set("#hero_plate_wrap .type_projects", { opacity: 0 });
+
+
     const heroTl = gsap.timeline({
         scrollTrigger: {
             trigger: "#hero",
             start: "top top",
-            end: "+=3000",
+            end: "+=3000", // 스크롤 길이 확보
             pin: true,
             scrub: 1,
             anticipatePin: 1
@@ -59,61 +77,57 @@ if (heroSection) {
     });
 
     heroTl
-        .addLabel("start")
+        // -------------------------------------------------------
+        // [STEP 1] 스크롤 시작하면: 접시가 제자리에서 '뿅' 하고 나타남 (이동 X)
+        // -------------------------------------------------------
+        .to("#hero_plate_wrap", {
+            opacity: 1,     // 투명도 0 -> 1
+            duration: 1,    // 스크롤 초반 구간 사용
+            ease: "none"
+        })
 
-        // 1. 기존 텍스트 위로 사라짐
+        .addLabel("move_start") // 라벨: 이동 시작점
+
+        // -------------------------------------------------------
+        // [STEP 2] 접시가 회전하며 제자리를 찾아감 + 글씨 위로 사라짐
+        // -------------------------------------------------------
+        // 2-1. 접시 이동 (중앙 -> 우측 하단 지정 위치)
+        .to("#hero_plate_wrap", {
+            top: "40%",     // 목표 CSS top 값
+            left: "52%",    // 목표 CSS left 값
+            xPercent: -50,
+            yPercent: -50,
+            rotation: 0,    // -180도에서 0도로 회전
+            duration: 3,    // 이동은 천천히 우아하게
+            ease: "power2.inOut"
+        }, "move_start")
+
+        // 2-2. 배경 큰 글씨(PORTFOLIO) 위로 사라짐
         .to(".hero_text_group", {
-            y: "-120vh",
+            y: "-100vh",    // 위로 쭉 올림
             opacity: 0,
             duration: 3,
             ease: "power2.inOut"
-        }, "start")
+        }, "move_start") // 접시 이동과 동시에 실행
 
-        // 2. [수정됨] 접시 애니메이션
-        .fromTo("#hero_plate_wrap",
-            {
-                // 시작: 화면 정중앙
-                top: "50%",
-                left: "50%",
-                xPercent: -50,
-                yPercent: -50,
-                rotation: -180,
-                scale: 1  // [수정 1] 크기 줄이지 않고 원래 크기(1)로 시작
-            },
-            {
-                // 끝: 원래 CSS 위치 (GNB 위치)
-                top: "40%",
-                left: "52%",
-                xPercent: -50,
-                yPercent: -50,
-                rotation: 0,
-                scale: 1,
-                duration: 3,
-                ease: "power2.inOut"
-            },
-            "start")
-
-        // 3. 주변 오브젝트들 등장 (Key, Bread, Earphone, Receipt)
+        // -------------------------------------------------------
+        // [STEP 3] 안착 후: 나머지 메뉴 & 프로젝트 글씨 등장
+        // -------------------------------------------------------
         .to("#hero_synced_objects .obj_link:not(#hero_plate_wrap)", {
-            opacity: 1,
-            duration: 1.5,
-            stagger: 0.1,
-            ease: "power2.out"
-        }, "-=1.5")
-
-        // 4. [추가됨] 접시 안착 후 PROJECTS 텍스트 등장
-        // 접시는 계속 보이지만 텍스트만 나중에 나옴
-        .to("#hero_plate_wrap .type_projects", {
-            opacity: 1,
+            autoAlpha: 1,   // 주변 아이콘들 등장
             duration: 1,
-            ease: "power2.out"
-        }, "-=1.0") // 주변 오브젝트 나올 때 같이 나옴
+            stagger: 0.1
+        })
+        .to("#hero_plate_wrap .type_projects", {
+            opacity: 1,     // PROJECTS 글씨 등장
+            duration: 1
+        }, "<") // 아이콘 등장과 동시에 시작
 
-        // 5. 로고 사라짐
+        // 4. 로고 사라짐 (필요하다면)
         .to(".rotate_logo", {
             opacity: 0,
             duration: 0.5
-        }, "-=1.5");
+        }, "-=1");
 }
 
 // ==================== Section Animations ====================
