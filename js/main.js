@@ -150,68 +150,6 @@ if (heroSection) {
         });
     });
 }
-// ==================== Section Animations ====================
-const AboutSection = document.querySelector(".About");
-if (AboutSection) {
-    // [초기 설정]
-    // 열쇠: 위로 숨김
-    gsap.set(".about_key_wrap", { y: "-120%" });
-
-    // 카드: 개별적으로 오른쪽 화면 밖으로 보냄 (컨테이너 이동 X)
-    gsap.set(".card", { x: "100vw", opacity: 1 });
-
-    let AboutTl = gsap.timeline({
-        scrollTrigger: {
-            trigger: ".About",
-            start: "top top",
-            end: "+=3000",
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
-            onEnter: () => {
-                set_active('#About');
-                document.querySelector('header').classList.remove('on');
-            },
-            onLeave: () => document.querySelector('header').classList.remove('on'),
-            onEnterBack: () => {
-                set_active('#About');
-                document.querySelector('header').classList.remove('on');
-            }
-        }
-    });
-
-    AboutTl
-        // [Step 1] 열쇠 내려오기
-        .to(".about_key_wrap", {
-            y: "0%",
-            duration: 2,
-            ease: "power2.out"
-        })
-
-        // [Step 2] 열쇠 올라가기
-        .to(".about_key_wrap", {
-            y: "-120%",
-            duration: 2,
-            ease: "power2.in"
-        }, "+=0.2")
-
-        // [Step 3] 카드들이 하나씩 순차적으로 들어오기 (Stagger)
-        // 뭉텅이가 아니라 따발총처럼 하나씩 착착착 들어옵니다.
-        .to(".card", {
-            x: "0%",         // 제자리로
-            duration: 3,     // 들어오는 속도
-            stagger: 0.2,    // 0.2초 간격으로 출발
-            ease: "power2.out"
-        }, "-=1.5") // 열쇠가 올라가는 도중에 첫 카드가 출발
-
-        // [Step 4] 카드 뒤집기 (역시 순차적으로)
-        .to(".card", {
-            rotationY: 180,
-            duration: 2,
-            stagger: 0.3,    // 뒤집히는 것도 시차를 둠
-            ease: "power1.inOut"
-        }, "+=0.5"); // 카드가 다 도착하고 조금 뒤에 뒤집기 시작
-}
 
 // 2. Skills Section (Perfect Fit)
 const skillSection = document.querySelector("#Skills");
