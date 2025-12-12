@@ -1,6 +1,30 @@
 import { initGnb, set_active } from './gnb.js';
 import { initFooter } from './footer.js';
 
+
+// ==================== GNB Auto Hide/Show ====================
+const header = document.querySelector('header');
+let lastScrollY = 0;
+
+// Lenis 스크롤 이벤트나 window scroll 이벤트를 사용
+// 여기서는 GSAP ScrollTrigger를 활용하는 것이 가장 부드럽습니다.
+ScrollTrigger.create({
+    start: 'top top',
+    end: 99999,
+    onUpdate: (self) => {
+        const direction = self.direction; // 1: Down, -1: Up
+        
+        // 스크롤을 내리는 중이고, 최상단이 아니라면 -> 숨김
+        if (direction === 1 && self.scroll() > 50) {
+            header.classList.add('hide');
+            header.classList.remove('menu-open'); // 혹시 열려있으면 닫기 처리 등
+        } 
+        // 스크롤을 올리는 중이면 -> 보임
+        else if (direction === -1) {
+            header.classList.remove('hide');
+        }
+    }
+});
 // ==================== 새로고침 시 맨 위로 ====================
 if (history.scrollRestoration) {
     history.scrollRestoration = "manual";

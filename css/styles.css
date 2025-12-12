@@ -990,7 +990,7 @@ header.menu-open .ham_menu i {
 /* 1. 배경 텍스트 (PRO ... JECTS) - 겹침 방지 수정 */
 .jam_bg_text {
     position: absolute;
-    bottom: -8vh;
+    bottom: -6vh;
     left: 0;
     width: 100%;
     height: 100%;
@@ -999,34 +999,26 @@ header.menu-open .ham_menu i {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    /* 바닥 정렬 */
     padding-bottom: 0;
-    /* 바닥에 딱 붙게 */
 }
 
-/* 왼쪽 텍스트 (PRO) */
-.bg_left {
-    font-family: 'Impact', sans-serif;
-    font-size: 26vw;
-    /* [수정] 크기 축소 (35vw -> 26vw) */
-    line-height: 0.8;
-    color: #1a1a1a;
-    letter-spacing: -5px;
-    margin-left: -2vw;
-    margin-right: 150px;
-    /* 왼쪽 여백 미세 조정 */
-}
-
-/* 오른쪽 텍스트 (JECTS) */
+.bg_left,
 .bg_right {
     font-family: 'Impact', sans-serif;
     font-size: 26vw;
-    /* [수정] 크기 축소 */
     line-height: 0.8;
     color: #1a1a1a;
+    -webkit-text-stroke: 0;
     letter-spacing: -5px;
-    margin-right: -1vw;
-    /* 오른쪽 여백 미세 조정 */
+    transition: all 0.5s ease;
+}
+
+.bg_left {
+    margin-left: -2vw;
+    margin-right: 150px;
+}
+
+.bg_right {
     text-align: right;
 }
 
@@ -1058,7 +1050,7 @@ header.menu-open .ham_menu i {
 /* 2. 중앙 오버레이 (버튼 포함) */
 .jam_hover_overlay {
     position: absolute;
-    top: 40%;
+    top: 35%;
     left: 50%;
     transform: translate(-50%, -60%);
     text-align: center;
@@ -1080,7 +1072,7 @@ header.menu-open .ham_menu i {
 }
 
 .hover_proj_title {
-    font-family: 'Times New Roman', serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 5vw;
     font-weight: 400;
     color: #000;
@@ -1345,6 +1337,12 @@ header.menu-open .ham_menu i {
 .jn_header {
     margin-bottom: 100px;
     padding-bottom: 20px;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.3s;
+}
+
+header.hide {
+    transform: translateY(-100%);
+    /* 위로 쑥 올라가서 사라짐 */
 }
 
 .jn_page_title {
