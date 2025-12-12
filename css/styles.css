@@ -287,8 +287,7 @@ header.menu-open .ham_menu i {
     width: 90%;
     max-width: 1800px;
     z-index: 10;
-    pointer-events: none;
-    /* [추가] 짤림 방지 */
+    pointer-events: auto;
     height: 75vh;
 }
 
@@ -306,6 +305,7 @@ header.menu-open .ham_menu i {
     line-height: 1;
     white-space: nowrap;
     display: flex;
+    pointer-events: auto;
 }
 
 .hero_role_wrap {
@@ -324,9 +324,9 @@ header.menu-open .ham_menu i {
     color: var(--color-uxui);
     line-height: 1;
     margin-bottom: 10px;
-    /* 간격 축소 */
     white-space: nowrap;
     display: flex;
+    pointer-events: auto;
 }
 
 /* DESIGNER 글자 라인 */
@@ -337,6 +337,7 @@ header.menu-open .ham_menu i {
     line-height: 1;
     white-space: nowrap;
     display: flex;
+    pointer-events: auto;
 }
 
 /* [NEW] Draggable을 위한 개별 글자 span 스타일 */
@@ -358,6 +359,7 @@ header.menu-open .ham_menu i {
     text-align: right;
     line-height: 0.85;
     font-weight: 700;
+    pointer-events: none;
 }
 
 .hero_year span {
@@ -386,6 +388,7 @@ header.menu-open .ham_menu i {
     text-decoration: none;
     line-height: 1.2;
     transition: color 0.3s;
+    pointer-events: auto;
 }
 
 .hero_menu_list a:hover {

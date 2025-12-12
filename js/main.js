@@ -68,8 +68,6 @@ initGnb(lenis);
 initFooter(lenis);
 
 
-// ==================== [NEW] Hero Section Logic (Intro & Drag) ====================
-
 // 1. 초기 애니메이션 (양 옆에서 쾅 나타나기)
 const heroSection = document.querySelector("#hero");
 const portfolioChars = document.querySelectorAll('#title_portfolio .text_split');
@@ -77,6 +75,7 @@ const uxuiChars = document.querySelectorAll('#role_uxui .text_split');
 const designerChars = document.querySelectorAll('#role_designer .text_split');
 
 if (heroSection) {
+    // ... (기존 초기 애니메이션 로직 유지) ...
     // 초기 위치 설정 (화면 밖)
     gsap.set(portfolioChars, { x: "-100vw", opacity: 0 });
     gsap.set(uxuiChars, { x: "100vw", opacity: 0 });
@@ -95,7 +94,7 @@ if (heroSection) {
             opacity: 1,
             stagger: 0.03, // 글자별 시간차
             duration: 0.8
-        }, 0) // 타임라인 시작점
+        }, 0)
 
         // UXUI (오른쪽에서)
         .to(uxuiChars, {
@@ -103,7 +102,7 @@ if (heroSection) {
             opacity: 1,
             stagger: 0.05,
             duration: 0.9
-        }, 0.2) // PORTFOLIO보다 살짝 늦게 시작
+        }, 0.2)
 
         // DESIGNER (오른쪽에서)
         .to(designerChars, {
@@ -111,7 +110,7 @@ if (heroSection) {
             opacity: 1,
             stagger: 0.02,
             duration: 1
-        }, 0.3) // UXUI보다 살짝 늦게 시작
+        }, 0.3)
 
         // 나머지 요소 등장
         .to('.hero_year, .hero_menu_list', {
@@ -120,47 +119,110 @@ if (heroSection) {
             ease: "none"
         }, 0.8);
 
-    // 2. [NEW] 마우스 드래그 탄성 효과 (Draggable)
-    // 모든 글자 요소에 Draggable 적용
+
+    // 2. [최종 수정] 마우스 호버 탄성 스트레칭 효과 로직
     const allChars = [...portfolioChars, ...uxuiChars, ...designerChars];
 
+    let originalColors = new Map();
+
+    // 모든 글자에 원래 색상 저장 및 이벤트 리스너 추가
     allChars.forEach(char => {
-        // 부모의 ID를 기반으로 원래 색상 변수를 가져오는 함수
-        const getOriginalColor = (element) => {
-            const parentId = element.parentElement.id;
+        const getOriginalColor = () => {
+            const parentId = char.parentElement.id;
             switch (parentId) {
                 case 'title_portfolio': return 'var(--color-portfolio)';
                 case 'role_uxui': return 'var(--color-uxui)';
                 case 'role_designer': return 'var(--color-designer)';
-                default: return 'var(--color-designer)'; // 기본 색상
+                default: return 'var(--color-designer)';
             }
         };
+        originalColors.set(char, getOriginalColor());
+    });
 
-        const originalColor = getOriginalColor(char);
+    // Hero Section에 마우스 무브 이벤트 바인딩
+    heroSection.addEventListener('mousemove', (e) => {
+        allChars.forEach(char => {
+            const rect = char.getBoundingClientRect();
+            const charCenterX = rect.left + rect.width / 2;
+            const charCenterY = rect.top + rect.height / 2;
 
-        // 드래그가 가능한 객체 생성
-        Draggable.create(char, {
-            type: "x,y",
-            // [추가] Draggable의 zIndex를 높여 다른 요소보다 위에 오도록 설정
-            zIndex: 1000,
-            onDragStart: function () {
-                // 드래그 시작 시 글자 크기 약간 확대 및 색상 변경
-                gsap.to(this.target, { scale: 1.2, duration: 0.1, color: "var(--color-uxui)" });
-            },
-            onDragEnd: function () {
-                // 드래그 종료 시 원위치로 부드럽게 복귀 (탄성 효과)
-                gsap.to(this.target, {
+            const dx = e.clientX - charCenterX;
+            const dy = e.clientY - charCenterY;
+
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const influenceRadius = 100; // 효과가 미치는 반경 (픽셀)
+
+            if (distance < influenceRadius) {
+                const strength = 1 - distance / influenceRadius; // 0 (멀리) ~ 1 (가까이)
+
+                // 1. 미세한 위치 변화 (글자를 당기는 느낌)
+                const maxTranslate = 10;
+                const targetX = dx * 0.1 * strength;
+                const targetY = dy * 0.1 * strength;
+
+                // 2. [핵심] 늘어남 (ScaleX/ScaleY) 구현
+                // 마우스가 글자 중심으로부터 어느 방향으로 당기는가 (Normalized vector)
+                const normalizedDX = dx / distance || 0;
+                const normalizedDY = dy / distance || 0;
+
+                // 늘어나는 정도 (최대 5% 늘어남, 3% 압축)
+                const maxStretch = 0.05;
+                const maxCompress = -0.03;
+
+                // 마우스가 가로축으로 당기면 -> 가로 늘어남 (scaleX), 세로 압축 (scaleY)
+                // 마우스가 세로축으로 당기면 -> 세로 늘어남 (scaleY), 가로 압축 (scaleX)
+
+                const stretchX = 1 + normalizedDX * maxStretch * strength;
+                const compressY = 1 + normalizedDX * maxCompress * strength;
+
+                const stretchY = 1 + normalizedDY * maxStretch * strength;
+                const compressX = 1 + normalizedDY * maxCompress * strength;
+
+                // 최종 ScaleX, ScaleY는 두 효과를 합성 (가로/세로축의 늘어남/압축 효과)
+                const finalScaleX = (stretchX + compressX) / 2;
+                const finalScaleY = (stretchY + compressY) / 2;
+
+
+                gsap.to(char, {
+                    x: targetX,
+                    y: targetY,
+                    scaleX: finalScaleX,
+                    scaleY: finalScaleY,
+                    color: "var(--color-uxui)", // 효과 발생 시 포인트 색상으로
+                    duration: 0.1, // 반응 속도 빠르게
+                    ease: "power2.out"
+                });
+
+            } else {
+                // 영향 범위 밖, 제자리와 원래 색상으로 돌아오기 (탄성 이징 적용)
+                gsap.to(char, {
                     x: 0,
                     y: 0,
-                    scale: 1,
-                    // [수정] 원래 색상 변수로 복귀
-                    color: originalColor,
+                    scaleX: 1,
+                    scaleY: 1,
+                    color: originalColors.get(char),
                     duration: 0.7,
-                    ease: "elastic.out(1, 0.3)" // 탄성 이징 적용
+                    ease: "elastic.out(1, 0.4)" // 탄성 효과
                 });
             }
         });
     });
+
+    // 마우스가 Hero Section을 떠났을 때 모든 글자를 원래 상태로 복귀
+    heroSection.addEventListener('mouseleave', () => {
+        allChars.forEach(char => {
+            gsap.to(char, {
+                x: 0,
+                y: 0,
+                scaleX: 1,
+                scaleY: 1,
+                color: originalColors.get(char),
+                duration: 0.7,
+                ease: "elastic.out(1, 0.4)"
+            });
+        });
+    });
+
 }
 // ==================== Section Animations ====================
 const AboutSection = document.querySelector(".About");
