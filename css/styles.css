@@ -246,7 +246,7 @@ header.menu-open .ham_menu i {
     /* 헤더보다 확실히 위에 있게 */
 }
 
-/* ================= HERO SECTION ================= */
+/* ================= HERO SECTION (REVISED) ================= */
 .hero {
     width: 100%;
     height: 100vh;
@@ -256,160 +256,140 @@ header.menu-open .ham_menu i {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'SUIT', sans-serif;
 }
 
-.hero_text_group {
-    position: relative;
-    width: fit-content;
-    height: auto;
-    z-index: 1;
-    /* 접시보다 뒤에 있어야 함 */
-    text-align: center;
-    /* 시각적 보정을 위해 살짝 위로 */
-    transform: translateY(-50px);
+:root {
+    --color-portfolio: #BCB9B6;
+    --color-uxui: #871B02;
+    --color-designer: #1C1C1C;
+    --font-suit: "SUIT", sans-serif;
 }
 
-/* PORTFOLIO 타이틀 */
-.hero_title {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 220px;
-    font-weight: 400;
-    line-height: 0.9;
-    letter-spacing: -2px;
-    color: #2B0F0F;
-    /* 타이틀 색상은 유지 (이미지 참조) */
-    margin: 0;
-    white-space: nowrap;
-}
-
-/* DESIGNER 텍스트 (폰트 및 색상 변경) */
-.hero_role {
-    position: absolute;
-    top: -50px;
-    /* 위치 조정 */
-    left: 10px;
-
-    /* 요청하신 폰트와 색상 적용 */
-    font-family: 'SUIT', sans-serif !important;
-    font-weight: 300;
-    font-size: 40px;
-    color: #5E1D1D;
-
-    letter-spacing: -0.5px;
-    line-height: 1;
-}
-
-/* 2025 연도 */
-.hero_year {
-    position: absolute;
-    top: -120px;
-    /* 위치 조정 */
-    right: 10px;
-    display: flex;
-    flex-direction: column;
-    text-align: right;
-    line-height: 0.85;
-}
-
-.hero_year span {
-    font-family: 'SUIT', sans-serif !important;
-    font-weight: 300;
-    font-size: 70px;
-    color: #2B0F0F;
-    /* 혹은 #5E1D1D로 통일하고 싶으면 변경 */
-}
-
-
-/* 우측 하단 로고 (위치만 잡고 클릭 기능 관련 스타일 제거) */
-.rotate_logo {
-    position: absolute;
-    right: 10vw;
-    bottom: 10vh;
-    width: 130px;
-    height: 130px;
-    z-index: 20;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: none !important;
-}
-
-.rotate_logo svg {
-    width: 100%;
-    height: 100%;
-    animation: rotate360 12s linear infinite;
-    transform-origin: center center;
-}
-
-/* 회전 키프레임 (없다면 추가) */
-@keyframes rotate360 {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* 텍스트 그룹 (기존 유지, 위치만 확인) */
-.hero_text_group {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    transform: translateY(-50px);
-}
-
-/* ================= HERO REVISION (Final Fix) ================= */
-
-/* 1. Hero 섹션 내 오브젝트 컨테이너 */
-.hero_objects_group {
+.hero_grid_bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 5;
+    background-image:
+        linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+    background-size: 150px 150px;
+    z-index: 0;
     pointer-events: none;
 }
 
-.hero_objects_group .object_inner {
-    position: relative;
-    width: 100%;
-    max-width: 1700px;
-    height: 100%;
-    margin: 0 auto;
-}
-
-/* 3. [중요] 초기 상태 설정 */
-#hero_synced_objects .obj_link:not(#hero_plate_wrap) {
-    opacity: 0;
-}
-
-/* 4. 접시(Plate) 초기 설정 */
-#hero_plate_wrap {
-    opacity: 0;
-    z-index: 10;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* 5. [해결] ABOUT ME 텍스트 겹침 수정 */
-.hero_text_fix {
-    right: -70px !important;
-    top: 76%;
-}
-
-#hero_plate_wrap .type_projects {
-    opacity: 0;
-}
-
-/* 6. Hero 텍스트 그룹 (기존 유지) */
 .hero_text_group {
-    position: relative;
-    z-index: 2;
-    transform: translateY(-50px);
+    position: absolute;
+    top: 15vh;
+    left: 5vw;
+    width: 90%;
+    max-width: 1800px;
+    z-index: 10;
+    pointer-events: none;
+    /* [추가] 짤림 방지 */
+    height: 75vh;
+}
+
+.hero_title_wrap {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 5vh;
+}
+
+/* PORTFOLIO 글자 라인 */
+#title_portfolio {
+    font-size: clamp(190px, 18vh, 250px);
+    font-weight: 700;
+    color: var(--color-portfolio);
+    line-height: 1;
+    white-space: nowrap;
+    display: flex;
+}
+
+.hero_role_wrap {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* UXUI 글자 라인 */
+#role_uxui {
+    font-size: clamp(180px, 18vh, 250px);
+    font-weight: 700;
+    color: var(--color-uxui);
+    line-height: 1;
+    margin-bottom: 10px;
+    /* 간격 축소 */
+    white-space: nowrap;
+    display: flex;
+}
+
+/* DESIGNER 글자 라인 */
+#role_designer {
+    font-size: clamp(180px, 15vh, 200px);
+    font-weight: 700;
+    color: var(--color-designer);
+    line-height: 1;
+    white-space: nowrap;
+    display: flex;
+}
+
+/* [NEW] Draggable을 위한 개별 글자 span 스타일 */
+.text_split {
+    display: inline-block;
+    cursor: default;
+    transition: color 0.1s ease;
+
+}
+
+/* 2025 연도 */
+.hero_year {
+    position: absolute;
+    top: 20vh;
+    right: 0;
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    line-height: 0.85;
+    font-weight: 700;
+}
+
+.hero_year span {
+    font-family: var(--font-suit);
+    font-weight: 300;
+    font-size: 70px;
+    color: var(--color-designer);
+}
+
+/* 하단 메뉴 목록 (About, Skills...) */
+.hero_menu_list {
+    position: absolute;
+    bottom: 11vh;
+    left: 5vw;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hero_menu_list a {
+    font-family: var(--font-suit);
+    font-size: 30px;
+    font-weight: 400;
+    color: var(--color-designer);
+    text-decoration: none;
+    line-height: 1.2;
+    transition: color 0.3s;
+}
+
+.hero_menu_list a:hover {
+    color: var(--color-uxui);
 }
 
 /* ================= OVERLAY GNB REVISED (위치 및 호버 수정) ================= */

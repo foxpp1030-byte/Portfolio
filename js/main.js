@@ -32,7 +32,7 @@ if (history.scrollRestoration) {
 window.scrollTo(0, 0);
 
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Draggable);
 
 // ==================== Lenis Scroll Setup ====================
 const lenis = new Lenis({
@@ -67,93 +67,101 @@ ScrollTrigger.scrollerProxy(document.documentElement, {
 initGnb(lenis);
 initFooter(lenis);
 
-// ==================== [최종 수정] Hero Scroll Animation ====================
+
+// ==================== [NEW] Hero Section Logic (Intro & Drag) ====================
+
+// 1. 초기 애니메이션 (양 옆에서 쾅 나타나기)
 const heroSection = document.querySelector("#hero");
+const portfolioChars = document.querySelectorAll('#title_portfolio .text_split');
+const uxuiChars = document.querySelectorAll('#role_uxui .text_split');
+const designerChars = document.querySelectorAll('#role_designer .text_split');
 
 if (heroSection) {
-    // 0. 초기 상태 강제 설정 (GSAP로 확실하게 잡기)
-    // 접시는 정중앙, 회전된 상태, 투명하게 시작
-    gsap.set("#hero_plate_wrap", {
-        top: "50%",
-        left: "50%",
-        xPercent: -50,
-        yPercent: -50,
-        rotation: -180, // 회전된 상태로 대기
-        scale: 1,
-        opacity: 0      // 숨김
+    // 초기 위치 설정 (화면 밖)
+    gsap.set(portfolioChars, { x: "-100vw", opacity: 0 });
+    gsap.set(uxuiChars, { x: "100vw", opacity: 0 });
+    gsap.set(designerChars, { x: "100vw", opacity: 0 });
+    gsap.set('.hero_year, .hero_menu_list', { opacity: 0 });
+
+    const introTl = gsap.timeline({
+        delay: 0.5,
+        defaults: { duration: 1, ease: "power3.out" }
     });
 
-    // 주변 아이템들 숨김
-    gsap.set("#hero_synced_objects .obj_link:not(#hero_plate_wrap)", { autoAlpha: 0 });
-    // 접시 안의 프로젝트 글씨 숨김
-    gsap.set("#hero_plate_wrap .type_projects", { opacity: 0 });
+    introTl
+        // PORTFOLIO (왼쪽에서)
+        .to(portfolioChars, {
+            x: 0,
+            opacity: 1,
+            stagger: 0.03, // 글자별 시간차
+            duration: 0.8
+        }, 0) // 타임라인 시작점
 
+        // UXUI (오른쪽에서)
+        .to(uxuiChars, {
+            x: 0,
+            opacity: 1,
+            stagger: 0.05,
+            duration: 0.9
+        }, 0.2) // PORTFOLIO보다 살짝 늦게 시작
 
-    const heroTl = gsap.timeline({
-        scrollTrigger: {
-            trigger: "#hero",
-            start: "top top",
-            end: "+=3000", // 스크롤 길이 확보
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1
-        }
-    });
-
-    heroTl
-        // -------------------------------------------------------
-        // [STEP 1] 스크롤 시작하면: 접시가 제자리에서 '뿅' 하고 나타남 (이동 X)
-        // -------------------------------------------------------
-        .to("#hero_plate_wrap", {
-            opacity: 1,     // 투명도 0 -> 1
-            duration: 1,    // 스크롤 초반 구간 사용
-            ease: "none"
-        })
-
-        .addLabel("move_start") // 라벨: 이동 시작점
-
-        // -------------------------------------------------------
-        // [STEP 2] 접시가 회전하며 제자리를 찾아감 + 글씨 위로 사라짐
-        // -------------------------------------------------------
-        // 2-1. 접시 이동 (중앙 -> 우측 하단 지정 위치)
-        .to("#hero_plate_wrap", {
-            top: "40%",     // 목표 CSS top 값
-            left: "52%",    // 목표 CSS left 값
-            xPercent: -50,
-            yPercent: -50,
-            rotation: 0,    // -180도에서 0도로 회전
-            duration: 3,    // 이동은 천천히 우아하게
-            ease: "power2.inOut"
-        }, "move_start")
-
-        // 2-2. 배경 큰 글씨(PORTFOLIO) 위로 사라짐
-        .to(".hero_text_group", {
-            y: "-100vh",    // 위로 쭉 올림
-            opacity: 0,
-            duration: 3,
-            ease: "power2.inOut"
-        }, "move_start") // 접시 이동과 동시에 실행
-
-        // -------------------------------------------------------
-        // [STEP 3] 안착 후: 나머지 메뉴 & 프로젝트 글씨 등장
-        // -------------------------------------------------------
-        .to("#hero_synced_objects .obj_link:not(#hero_plate_wrap)", {
-            autoAlpha: 1,   // 주변 아이콘들 등장
-            duration: 1,
-            stagger: 0.1
-        })
-        .to("#hero_plate_wrap .type_projects", {
-            opacity: 1,     // PROJECTS 글씨 등장
+        // DESIGNER (오른쪽에서)
+        .to(designerChars, {
+            x: 0,
+            opacity: 1,
+            stagger: 0.02,
             duration: 1
-        }, "<") // 아이콘 등장과 동시에 시작
+        }, 0.3) // UXUI보다 살짝 늦게 시작
 
-        // 4. 로고 사라짐 (필요하다면)
-        .to(".rotate_logo", {
-            opacity: 0,
-            duration: 0.5
-        }, "-=1");
+        // 나머지 요소 등장
+        .to('.hero_year, .hero_menu_list', {
+            opacity: 1,
+            duration: 0.8,
+            ease: "none"
+        }, 0.8);
+
+    // 2. [NEW] 마우스 드래그 탄성 효과 (Draggable)
+    // 모든 글자 요소에 Draggable 적용
+    const allChars = [...portfolioChars, ...uxuiChars, ...designerChars];
+
+    allChars.forEach(char => {
+        // 부모의 ID를 기반으로 원래 색상 변수를 가져오는 함수
+        const getOriginalColor = (element) => {
+            const parentId = element.parentElement.id;
+            switch (parentId) {
+                case 'title_portfolio': return 'var(--color-portfolio)';
+                case 'role_uxui': return 'var(--color-uxui)';
+                case 'role_designer': return 'var(--color-designer)';
+                default: return 'var(--color-designer)'; // 기본 색상
+            }
+        };
+
+        const originalColor = getOriginalColor(char);
+
+        // 드래그가 가능한 객체 생성
+        Draggable.create(char, {
+            type: "x,y",
+            // [추가] Draggable의 zIndex를 높여 다른 요소보다 위에 오도록 설정
+            zIndex: 1000,
+            onDragStart: function () {
+                // 드래그 시작 시 글자 크기 약간 확대 및 색상 변경
+                gsap.to(this.target, { scale: 1.2, duration: 0.1, color: "var(--color-uxui)" });
+            },
+            onDragEnd: function () {
+                // 드래그 종료 시 원위치로 부드럽게 복귀 (탄성 효과)
+                gsap.to(this.target, {
+                    x: 0,
+                    y: 0,
+                    scale: 1,
+                    // [수정] 원래 색상 변수로 복귀
+                    color: originalColor,
+                    duration: 0.7,
+                    ease: "elastic.out(1, 0.3)" // 탄성 이징 적용
+                });
+            }
+        });
+    });
 }
-
 // ==================== Section Animations ====================
 const AboutSection = document.querySelector(".About");
 if (AboutSection) {
