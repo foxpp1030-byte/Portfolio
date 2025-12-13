@@ -191,22 +191,24 @@ if (skillSection && txtLeft && txtRight && centerLine && receiptImg) {
         );
 }
 // ==============================================
-// 4. [Final] Projects Logic
+// ==============================================
+// 4. [Final] Projects Logic (가로 스크롤로 변경)
 // ==============================================
 gsap.registerPlugin(Draggable, ScrollTrigger);
 
 const projectsSection = document.querySelector("#Projects");
-const scatterItems = document.querySelectorAll(".scatter_item");
+// const scatterItems = document.querySelectorAll(".scatter_item"); // 기존 흩뿌려진 아이템
+const projectCards = document.querySelectorAll(".project_card"); // 새로 추가된 카드 아이템
+const horizontalTrack = document.querySelector(".horizontal_track");
 
-// 모달 요소들
+
+// 모달 요소들 (기존과 동일하게 유지)
 const expandModal = document.querySelector(".project_expand_modal");
 const modalBackdrop = document.querySelector(".modal_backdrop");
 const modalCloseBtn = document.querySelector(".modal_close_btn"); // 닫기 버튼
-
-// 모달 내부 컨텐츠
+// ... (나머지 모달 변수 선언은 기존과 동일)
 const expandImgBox = document.querySelector(".expand_img_box");
 const expandInfo = document.querySelector(".expand_info");
-
 const expandImg = document.querySelector(".expand_main_img");
 const expandTitle = document.querySelector(".expand_title");
 const expandCate = document.querySelector(".expand_cate");
@@ -215,55 +217,59 @@ const expandLandBtn = document.querySelector(".land_btn");
 
 let currentProjectIndex = 0;
 let isModalOpen = false;
-let isAnimating = false; // 애니메이션 중복 실행 방지
+let isAnimating = false;
 
-if (projectsSection && scatterItems.length > 0) {
+if (projectsSection && projectCards.length > 0 && horizontalTrack) {
 
-    // [1] 기존 기능 유지: Draggable
-    Draggable.create(".scatter_item", {
-        type: "x,y",
-        bounds: "#Projects",
-        inertia: true,
-        onDragStart: function () { this.target.classList.add("is-dragging"); },
-        onDragEnd: function () { setTimeout(() => this.target.classList.remove("is-dragging"), 100); }
-    });
+    // [1] 기존 Draggable 로직 제거
 
-    // [2] 기존 기능 유지: ScrollTrigger
-    const projTl = gsap.timeline({
+    // [2] 핵심: 가로 스크롤 애니메이션 구현
+    const trackWidth = horizontalTrack.scrollWidth;
+    const scrollEnd = trackWidth - window.innerWidth; // 스크롤을 끝까지 당겼을 때 translateX 값
+
+    gsap.to(horizontalTrack, {
+        x: -scrollEnd, // 가로 트랙을 왼쪽으로 이동
+        ease: "none", // 스크럽이므로 ease 없음
         scrollTrigger: {
-            trigger: "#Projects", start: "top top", end: "+=4000", pin: true, scrub: 1, anticipatePin: 1
+            trigger: projectsSection,
+            start: "top top",
+            end: () => `+=${trackWidth}`, // 트랙 너비만큼 스크롤 영역 확보
+            pin: true,
+            scrub: 1,
+            // [추가] GNB 활성화 로직
+            onUpdate: (self) => {
+                // 스크롤 위치에 따라 GNB 'Projects' 활성화
+                if (self.isActive) {
+                    set_active('#Projects');
+                }
+            }
         }
     });
-    projTl
-        .fromTo(".bg_left", { x: "-100%", opacity: 0 }, { x: "0%", opacity: 1, duration: 5 })
-        .fromTo(".bg_right", { x: "100%", opacity: 0 }, { x: "0%", opacity: 1, duration: 5 }, "<")
-        .fromTo(".scatter_item", { y: "150vh", scale: 0.2, rotation: 30 }, { y: 0, scale: 1, rotation: 0, duration: 10, stagger: 1, ease: "back.out(1.2)" }, "-=2");
-
 
     // ==============================================
-    // [NEW] 모달 로직 (부드러운 슬라이드)
+    // [NEW] 모달 로직 (클릭 대상 변경)
     // ==============================================
 
-    // 1. 클릭 시 모달 열기
-    scatterItems.forEach((item, index) => {
+    // 1. 클릭 시 모달 열기 (대상: projectCards로 변경)
+    projectCards.forEach((item, index) => {
         item.addEventListener("click", (e) => {
             e.stopPropagation();
-            if (item.classList.contains("is-dragging")) return;
+            // if (item.classList.contains("is-dragging")) return; // Draggable 제거로 이 코드 불필요
             currentProjectIndex = index;
             openExpandModal(index);
         });
     });
 
-    // 2. 모달 열기 (초기 진입)
+    // 2. 모달 열기, 3. 모달 닫기, 4. 데이터 세팅 함수는 기존 로직과 동일하게 유지합니다.
     function openExpandModal(index) {
         if (isModalOpen) return;
         isModalOpen = true;
         expandModal.classList.add("active");
 
-        // 내용 채우기
+        // 내용 채우기 (기존 로직)
         setModalData(index);
 
-        // 초기 등장 애니메이션 (아래에서 위로 스윽)
+        // 초기 등장 애니메이션
         gsap.fromTo([expandImgBox, expandInfo],
             { y: 100, opacity: 0 },
             { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", stagger: 0.1 }
@@ -274,7 +280,6 @@ if (projectsSection && scatterItems.length > 0) {
         document.body.style.overflow = "hidden";
     }
 
-    // 3. 모달 닫기
     function closeExpandModal() {
         if (!isModalOpen) return;
 
@@ -290,9 +295,9 @@ if (projectsSection && scatterItems.length > 0) {
         });
     }
 
-    // 4. 데이터 세팅 함수
     function setModalData(index) {
-        const item = scatterItems[index];
+        // 클릭 대상이 projectCards로 변경
+        const item = projectCards[index];
         expandImg.src = item.querySelector("img").src;
         expandTitle.textContent = item.getAttribute("data-title");
         expandCate.textContent = item.getAttribute("data-cate");
@@ -300,27 +305,26 @@ if (projectsSection && scatterItems.length > 0) {
         expandLandBtn.href = item.getAttribute("data-landing");
     }
 
-    // 5. [핵심] 슬라이드 전환 애니메이션 (방향성 적용)
+    // 5. 슬라이드 전환 애니메이션 (기존 로직 동일하게 유지)
     function changeProject(direction) {
         if (isAnimating) return;
         isAnimating = true;
 
         // direction: 1 (Next, 아래로), -1 (Prev, 위로)
-        // 나가는 방향 설정
-        const outY = direction === 1 ? -100 : 100; // 다음 거 볼 땐 현재 거가 위로 올라감
-        const inY = direction === 1 ? 100 : -100;  // 다음 거는 아래에서 올라옴
+        const outY = direction === 1 ? -100 : 100;
+        const inY = direction === 1 ? 100 : -100;
 
         // 1. 현재 내용 나가기
         gsap.to([expandImgBox, expandInfo], {
             y: outY, opacity: 0, duration: 0.4, ease: "power2.in",
             onComplete: () => {
-                // 2. 데이터 교체
+                // 2. 데이터 교체 (대상: projectCards로 변경)
                 if (direction === 1) {
                     currentProjectIndex++;
-                    if (currentProjectIndex >= scatterItems.length) currentProjectIndex = 0;
+                    if (currentProjectIndex >= projectCards.length) currentProjectIndex = 0;
                 } else {
                     currentProjectIndex--;
-                    if (currentProjectIndex < 0) currentProjectIndex = scatterItems.length - 1;
+                    if (currentProjectIndex < 0) currentProjectIndex = projectCards.length - 1;
                 }
                 setModalData(currentProjectIndex);
 
@@ -336,19 +340,18 @@ if (projectsSection && scatterItems.length > 0) {
         });
     }
 
-    // 6. 이벤트 리스너 연결
+    // 6. 이벤트 리스너 연결 (기존 로직 동일하게 유지)
     if (modalBackdrop) modalBackdrop.addEventListener("click", closeExpandModal);
     if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeExpandModal);
 
     // 휠 이벤트 (스크롤 방향 감지)
     window.addEventListener("wheel", (e) => {
         if (!isModalOpen || isAnimating) return;
-        // 휠을 아래로(양수) -> 다음 프로젝트(1)
-        // 휠을 위로(음수) -> 이전 프로젝트(-1)
         const direction = e.deltaY > 0 ? 1 : -1;
         changeProject(direction);
     });
 }
+// ... (나머지 섹션 로직은 기존과 동일하게 유지)
 // 5. Visual Archive
 ScrollTrigger.create({
     trigger: "#Visual",

@@ -701,344 +701,145 @@ header.menu-open .ham_menu i {
 }
 
 
-
 /* =======================================================
-   JAMAREA STYLE FINAL (Hover Light & No Overlap)
+   [핵심 수정] PROJECTS SECTION - 가로 스크롤 레이아웃
    ======================================================= */
 
-.jam_scatter_section {
-    position: relative;
+/* 1. 전체 컨테이너 (고정될 영역) */
+#Projects {
     width: 100%;
     height: 100vh;
-    background-color: #fff;
+    /* 높이를 화면 전체로 */
     overflow: hidden;
-    z-index: 10;
-    user-select: none;
+    /* 넘치는 것 숨김 */
+    background: #fff;
+    position: relative;
+    z-index: 5;
+    padding: 0;
+    /* 기본 패딩 제거 */
 }
 
-/* 1. 배경 텍스트 (PRO ... JECTS) - 겹침 방지 수정 */
-.jam_bg_text {
-    position: absolute;
-    bottom: -6vh;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
+
+/* 2. 트랙 (움직일 영역 - main.js에서 생성할 예정) */
+.horizontal_track {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding-bottom: 0;
+    /* 가로 배치 핵심 */
+    width: max-content;
+    /* 내용물만큼 길어짐 */
+    height: 100%;
+    padding: 0;
+    /* 패딩 초기화 */
+    align-items: center;
+    /* 세로 중앙 정렬 */
 }
 
-.bg_left,
-.bg_right {
-    font-family: 'Impact', sans-serif;
-    font-size: 26vw;
-    line-height: 0.8;
-    color: #1a1a1a;
-    -webkit-text-stroke: 0;
-    letter-spacing: -5px;
-    transition: all 0.5s ease;
-}
-
-.bg_left {
-    margin-left: -2vw;
-    margin-right: 150px;
-}
-
-.bg_right {
-    text-align: right;
-}
-
-/* 중앙 카피라이트 */
-.jam_copy_group {
-    position: absolute;
-    bottom: 5vh;
-    left: 43%;
-    transform: translateX(-50%);
-    text-align: center;
-    font-family: "SUIT", sans-serif;
-    color: #000;
-    z-index: 2;
-}
-
-.jam_copy_main {
-    font-size: 1.5rem;
-    font-weight: 800;
-    margin-bottom: 5px;
-}
-
-.jam_copy_sub {
-    font-size: 0.9rem;
-    color: #666;
-    line-height: 1.4;
-}
-
-
-/* 2. 중앙 오버레이 (버튼 포함) */
-.jam_hover_overlay {
-    position: absolute;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -60%);
-    text-align: center;
-    z-index: 100;
-
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-
-    width: 90%;
-    max-width: 800px;
-    pointer-events: none;
-}
-
-.jam_hover_overlay.active {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-}
-
-.hover_proj_title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 5vw;
-    font-weight: 400;
-    color: #000;
-    margin-bottom: 10px;
-    line-height: 1;
-    text-transform: uppercase;
-    transition: color 0.3s ease;
-}
-
-.hover_proj_cate {
-    font-family: "SUIT", sans-serif;
-    font-size: 1.2rem;
-    color: #555;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-    font-weight: 600;
-}
-
-/* 버튼 그룹 */
-.jam_btn_group {
+/* 3. 목차 슬라이드 (가장 왼쪽) */
+.project_item.cover_slide {
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
     display: flex;
     justify-content: center;
-    gap: 20px;
-}
-
-/* 버튼 스타일 */
-.btn_link {
-    display: inline-block;
-    padding: 15px 40px;
-    border: 1px solid #000;
-    border-radius: 50px;
-
-    font-family: "SUIT", sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    text-decoration: none;
-    color: #000;
-    background: transparent;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.btn_link:hover {
-    background: #000;
-    color: #fff;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.jam_guide_msg {
-    margin-top: 30px;
-    font-size: 0.8rem;
-    color: #aaa;
-    font-family: "SUIT", sans-serif;
-}
-
-
-/* 3. 흩뿌려진 아이템 (드래그 + 호버) */
-.jam_scatter_container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 20;
-    pointer-events: none;
-}
-
-.scatter_item {
-    position: absolute;
-    min-width: 180px;
-    cursor: grab;
-    pointer-events: auto;
-    filter: grayscale(100%);
-    z-index: 20;
-}
-
-/* [추가됨] 마우스만 올려도 빛 들어옴 */
-.scatter_item:hover {
-    filter: grayscale(0%);
-    transform: scale(1.05);
-    z-index: 60;
-    /* 호버 시 위로 */
-}
-
-.scatter_item:active {
-    cursor: grabbing;
-}
-
-/* 클릭(선택) 되었을 때 */
-.scatter_item.selected {
-    z-index: 50 !important;
-    transform: scale(1.05);
-    filter: grayscale(0%);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-}
-
-.scatter_thumb {
-    width: 100%;
-    background: #eee;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: #fff;
+    flex-shrink: 0;
     overflow: hidden;
 }
 
-.scatter_thumb img {
+.cover_inner {
+    width: 100%;
+    max-width: 1800px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 100px 50px;
+    align-items: flex-start;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.cover_title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 8vw;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+}
+
+.cover_menu a {
+    display: block;
+    font-family: "SUIT", sans-serif;
+    font-size: 2rem;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+/* 4. 개별 프로젝트 카드 스타일 */
+.project_item.project_card {
+    width: 800px;
+    /* 카드 영역 너비 */
+    margin-left: 200px;
+    /* 카드 사이 간격 */
+    flex-shrink: 0;
+    justify-content: center;
+    height: 70vh;
+    /* 카드 높이 설정 */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.project_item.project_card:hover {
+    transform: translateY(-20px);
+}
+
+/* 마지막 아이템 오른쪽 여백 */
+.project_item.project_card:last-child {
+    margin-right: 200px;
+}
+
+/* 카드 이미지 및 정보 */
+.card_thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    pointer-events: none;
+    display: block;
 }
 
-/* 초기 배치 */
-.scatter_item:nth-child(1) {
-    top: 10%;
-    left: 10%;
+.card_thumb {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* 그림자 */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.scatter_item:nth-child(2) {
-    top: 15%;
-    right: 15%;
+.card_info {
+    padding-top: 20px;
+    text-align: left;
 }
 
-.scatter_item:nth-child(3) {
-    top: 40%;
-    left: 20%;
+.card_title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.2;
 }
 
-.scatter_item:nth-child(4) {
-    top: 35%;
-    right: 10%;
+.card_cate {
+    font-family: "SUIT", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #888;
+    margin-top: 5px;
 }
 
-/* 모바일 */
-@media (max-width: 768px) {
-    .jam_scatter_section {
-        height: auto;
-        padding-bottom: 100px;
-        overflow: visible;
-    }
-
-    .bg_left,
-    .bg_right {
-        font-size: 100px;
-    }
-
-    /* 모바일 글씨 크기 더 축소 */
-    .jam_bg_text {
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: center;
-    }
-
-    .jam_scatter_container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 50px;
-        padding-top: 50px;
-    }
-
-    .scatter_item {
-        position: relative;
-        top: auto !important;
-        left: auto !important;
-        width: 70vw;
-        filter: grayscale(0%);
-    }
-}
-
-/* --- [상태별 스타일] --- */
-
-/* 드래그 중 */
-.scatter_item.is-dragging {
-    cursor: grabbing;
-    z-index: 100 !important;
-    filter: grayscale(0%);
-    transform: scale(1.1);
-    /* 드래그 시 확대 */
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-}
-
-/* 호버 */
-.scatter_item:hover {
-    filter: grayscale(0%);
-    z-index: 60;
-    transform: scale(1.05);
-}
-
-/* 선택됨 */
-.scatter_item.selected {
-    z-index: 50 !important;
-    filter: grayscale(0%);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-    transform: scale(1.05);
-    visibility: visible !important;
-    /* 혹시 모를 버그 방지 */
-}
-
-
-/* --- [핵심] 이미지 크기 및 위치 다양화 --- */
-
-/* Item 1: 왼쪽 위 (중간 크기) */
-.scatter_item:nth-child(1) {
-    width: 14vw;
-    top: 10%;
-    left: 10%;
-}
-
-/* Item 2: 오른쪽 위 (아주 작게 - 귀여운 느낌) */
-.scatter_item:nth-child(2) {
-    width: 10vw;
-    top: 18%;
-    right: 15%;
-}
-
-/* Item 3: 왼쪽 아래 (제일 크게 - 강조) */
-.scatter_item:nth-child(3) {
-    width: 20vw;
-    top: 45%;
-    left: 18%;
-}
-
-/* Item 4: 오른쪽 아래 (길쭉하거나 중간) */
-.scatter_item:nth-child(4) {
-    width: 15vw;
-    top: 40%;
-    right: 12%;
-}
-
-/* 모바일 대응 */
-@media (max-width: 768px) {
-    .scatter_item {
-        visibility: visible;
-        /* 모바일은 애니메이션 생략 시 바로 보이게 */
-        width: 70vw !important;
-        /* 모바일은 통일 */
-    }
-}
+/* --- [Projects Section] 모달 로직을 위한 임시 변경 --- */
+/* main.js에서 `.scatter_item` 대신 `.project_card`를 사용하도록 변경할 것이므로, 
+   `index.html`의 `.scatter_item`의 `data-*` 속성을 `.project_card`로 이동하거나, 
+   main.js에서 `.project_card`를 클릭 대상으로 지정해야 합니다. */
 
 /* =========================================
    VISUAL ARCHIVE - Jenny Nordberg Style
@@ -1554,285 +1355,4 @@ a#rainbow-text.active:after {
     color: #2B0F0F;
     letter-spacing: -0.04em;
     transform: translateY(0);
-}
-
-/* ================= Projects Integrated Section ================= */
-
-/* 1. 전체 컨테이너 (고정될 영역) */
-.projects_wrapper {
-    width: 100%;
-    height: 100vh;
-    /* 화면 꽉 차게 */
-    overflow: hidden;
-    /* 넘치는 것 숨김 */
-    background: #fff;
-    position: relative;
-    z-index: 5;
-}
-
-/* 2. 트랙 (움직일 영역) */
-.horizontal_track {
-    display: flex;
-    /* 가로 배치 핵심 */
-    width: max-content;
-    /* 내용물만큼 길어짐 */
-    height: 100%;
-    padding: 0;
-    /* 패딩 초기화 (개별 아이템에서 관리) */
-}
-
-/* 3. 공통 아이템 클래스 (목차 + 카드들) */
-.project_item {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    /* 세로 중앙 정렬 */
-    flex-shrink: 0;
-    /* 찌그러짐 방지 */
-}
-
-/* --- [A] 목차 슬라이드 스타일 --- */
-.project_item.cover_slide {
-    width: 100vw;
-    height: 100vh;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    background-color: #fff;
-    flex-shrink: 0;
-    overflow: hidden;
-}
-
-/* 기존 cover_inner 스타일 재활용 */
-.cover_inner {
-    width: 100%;
-    max-width: 1800px;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 100px 50px;
-    align-items: flex-start;
-    box-sizing: border-box;
-    position: relative;
-}
-
-/* --- [B] 개별 프로젝트 카드 스타일 --- */
-.project_item.jn_vertical_item {
-    width: 800px;
-    /* 카드 영역 너비 */
-    margin-left: 200px;
-    /* 카드 사이 간격 */
-    margin-right: 50px;
-    justify-content: center;
-}
-
-/* 마지막 아이템 오른쪽 여백 */
-.project_item.jn_vertical_item:last-child {
-    margin-right: 200px;
-}
-
-/* 기존 jn_card 스타일 유지 */
-.jn_card {
-    width: 100%;
-    max-width: 100%;
-}
-
-/* css/styles.css - 프로젝트 모달 (고정 레이아웃 & 슬라이드 효과) */
-
-.project_expand_modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-
-    background: #f4f4f4;
-    /* 고급스러운 그레이 배경 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    /* 슬라이드 애니메이션 시 넘침 방지 */
-}
-
-.project_expand_modal.active {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-}
-
-/* 닫기 버튼 (우측 상단) */
-.modal_close_btn {
-    position: absolute;
-    top: 40px;
-    right: 40px;
-    font-size: 1.5rem;
-    color: #000;
-    cursor: pointer;
-    z-index: 20;
-    transition: transform 0.3s;
-}
-
-.modal_close_btn:hover {
-    transform: rotate(90deg);
-}
-
-/* 컨텐츠 래퍼 (화면 중앙 고정) */
-.expand_content {
-    position: relative;
-    width: 90vw;
-    max-width: 1600px;
-    height: 80vh;
-    /* 높이 고정 */
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    /* 이미지 1.2 : 텍스트 0.8 비율 고정 */
-    gap: 80px;
-    align-items: center;
-    /* 수직 중앙 정렬 */
-}
-
-/* --- 이미지 영역 (고정 크기) --- */
-.expand_img_box {
-    width: 100%;
-    height: 100%;
-    max-height: 75vh;
-    /* 너무 길어지지 않게 제한 */
-    background: #fff;
-    overflow: hidden;
-    /* 그림자 제거, 깔끔한 라인 */
-    border: 1px solid #ddd;
-
-    /* 애니메이션용 초기값 */
-    opacity: 0;
-    transform: translateY(30px);
-}
-
-.expand_main_img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* 이미지가 박스를 꽉 채우도록 (잘려도 비율 유지) */
-    display: block;
-}
-
-/* --- 텍스트 영역 (위치 고정) --- */
-.expand_info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    /* 왼쪽 정렬 */
-    height: 100%;
-
-    /* 애니메이션용 초기값 */
-    opacity: 0;
-    transform: translateY(30px);
-}
-
-/* 카테고리 */
-.expand_cate {
-    font-family: "SUIT", sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: #888;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
-}
-
-/* 타이틀 (줄바꿈 허용) */
-.expand_title {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 5rem;
-    /* 시원하게 큰 폰트 */
-    font-weight: 400;
-    color: #1a1a1a;
-    line-height: 0.9;
-    letter-spacing: -0.02em;
-    margin-bottom: 50px;
-    word-break: keep-all;
-    /* 단어 단위 줄바꿈 */
-}
-
-/* 버튼 그룹 */
-.expand_btns {
-    display: flex;
-    gap: 15px;
-}
-
-.expand_btn {
-    padding: 15px 40px;
-    border: 1px solid #1a1a1a;
-    background: transparent;
-    color: #1a1a1a;
-    font-family: "SUIT", sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.expand_btn:hover {
-    background: #1a1a1a;
-    color: #fff;
-}
-
-/* 스크롤 안내 (우측 하단) */
-.modal_scroll_guide {
-    position: absolute;
-    bottom: 40px;
-    right: 60px;
-    font-family: "SUIT", sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #aaa;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.modal_scroll_guide i {
-    animation: scrollMouse 1.5s infinite;
-}
-
-@keyframes scrollMouse {
-    0% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(5px);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
-}
-
-/* 모바일 대응 */
-@media (max-width: 1024px) {
-    .expand_content {
-        grid-template-columns: 1fr;
-        /* 1단 레이아웃 */
-        grid-template-rows: 1fr auto;
-        height: auto;
-        gap: 30px;
-    }
-
-    .expand_img_box {
-        max-height: 50vh;
-    }
-
-    .expand_title {
-        font-size: 3rem;
-        margin-bottom: 30px;
-    }
 }
