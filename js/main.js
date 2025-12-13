@@ -351,6 +351,91 @@ if (projectsSection && projectCards.length > 0 && horizontalTrack) {
         changeProject(direction);
     });
 }
+const listRows = document.querySelectorAll(".list_row");
+
+if (listRows.length > 0 && lenis && horizontalTrack) {
+    listRows.forEach((row, index) => {
+        // 첫 번째 슬라이드에는 프로젝트 카드 갯수만큼 가상의 인덱스 부여
+        // index 0 -> 첫 번째 카드 (projectCards[0])와 연결됨
+        row.addEventListener("click", () => {
+
+            // GSAP으로 가로 트랙 이동 거리를 계산하여 스크롤 위치를 설정
+
+            // 1. 목표 프로젝트 카드 요소 가져오기
+            // 목차 순서(0, 1, 2, 3...)는 projectCards의 순서와 동일함
+            const targetCard = projectCards[index];
+
+            if (!targetCard) {
+                console.error(`Project card at index ${index} not found.`);
+                return;
+            }
+
+            // 2. 가로 스크롤 트랙의 현재 위치에서 목표 카드까지의 거리를 계산
+            // 목표 카드의 왼쪽 경계까지 스크롤되어야 함
+            const offset = targetCard.offsetLeft;
+
+            // 3. ScrollTrigger 애니메이션을 강제로 이동시킴
+            // ScrollTrigger.getById('프로젝트-스크롤-트리거-ID')를 사용하거나,
+            // 간단하게 GSAP의 `ScrollToPlugin`을 이용해 Lenis 스크롤을 이동시킵니다.
+
+            // 프로젝트 섹션 시작 위치 + offset 만큼 스크롤 이동
+            const projectsStart = projectsSection.offsetTop;
+
+            // 목표 스크롤 위치 (프로젝트 섹션 시작 위치 + 목표 카드까지의 스크롤 거리)
+            // 가로 스크롤의 start 위치 (top top)를 기준으로 
+            // x: 0% -> 스크롤 시작
+            // x: -scrollEnd -> 스크롤 끝
+            // 목표 카드로 이동하기 위한 스크롤 영역 내의 비율을 계산하고, 이를 전체 스크롤 길이에 곱해야 합니다.
+
+            const projectsScrollTrigger = ScrollTrigger.getById('project-horizontal-scroll');
+            if (projectsScrollTrigger) {
+
+                // 목표 카드가 트랙 시작점으로부터 떨어진 거리 (offset)
+                const distanceToTarget = offset;
+
+                // 전체 스크롤 길이 (horizontalTrack의 총 너비)
+                const totalTrackWidth = horizontalTrack.scrollWidth;
+                const totalScrollRange = totalTrackWidth - window.innerWidth;
+
+                // 해당 카드가 화면 중앙에 올 때까지의 스크롤 위치 비율 계산
+                // 카드 너비의 절반 + 간격 등을 고려할 수 있지만, 여기서는 간단히 offset을 기준으로 합니다.
+
+                // horizontalTrack이 x: -scrollEnd 만큼 움직이므로, 
+                // offset에 해당하는 x 이동을 발생시키는 ScrollTrigger 진행률(Progress)을 찾아야 함.
+                // ScrollTrigger의 진행률(Progress)은 0부터 1까지입니다.
+
+                // 목표 translateX 값: -(targetCard.offsetLeft - window.innerWidth / 2)
+                const targetTranslateX = -(targetCard.offsetLeft - 100); // 100px 여백 
+
+                // targetTranslateX가 전체 움직임(-scrollEnd)에서 차지하는 비율
+                const progress = Math.max(0, Math.min(1, targetTranslateX / (-scrollEnd)));
+
+                // 계산된 진행률(Progress)로 ScrollTrigger를 이동시킵니다.
+                // 이 방법은 Lenis와 ScrollTrigger가 연결되어 있기 때문에 Lenis의 세로 스크롤 위치를 변경합니다.
+                projectsScrollTrigger.scroll(projectsScrollTrigger.start + (projectsScrollTrigger.end - projectsScrollTrigger.start) * progress);
+
+            } else {
+                // 비상 fallback: Lenis.scrollTo를 사용해 Projects 섹션 시작 위치로 강제 이동
+                lenis.scrollTo('#Projects', { offset: 0, duration: 1.2 });
+            }
+        });
+    });
+}
+
+// 기존 ScrollTrigger 로직 (main.js)을 수정하여 ID를 부여합니다.
+/*
+    const projTl = gsap.timeline({
+        scrollTrigger: {
+            id: 'project-horizontal-scroll', // ID 추가
+            trigger: projectsSection,
+            start: "top top",
+            end: () => `+=${trackWidth}`,
+            pin: true,
+            scrub: 1,
+            // ... (나머지 옵션)
+        }
+    });
+*/
 // ... (나머지 섹션 로직은 기존과 동일하게 유지)
 // 5. Visual Archive
 ScrollTrigger.create({

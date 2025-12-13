@@ -747,33 +747,125 @@ header.menu-open .ham_menu i {
     overflow: hidden;
 }
 
-.cover_inner {
+/* styles.css 파일에 아래 스타일을 추가하거나 기존 스타일을 덮어씁니다. */
+
+/* --- [A] 목차 슬라이드 레이아웃 (새로운 디자인) --- */
+.cover_slide {
+    background-color: #fff !important;
+    /* 배경 확실히 흰색 */
+}
+
+.cover_inner_revised {
     width: 100%;
     max-width: 1800px;
     height: 100%;
+    margin: 0 auto;
     display: flex;
-    justify-content: space-between;
-    padding: 100px 50px;
-    align-items: flex-start;
+    padding: 15vh 10vw;
+    /* 패딩 조정 */
     box-sizing: border-box;
     position: relative;
+    justify-content: center;
+    align-items: center;
+    /* 세로 중앙 정렬 */
 }
 
-.cover_title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 8vw;
-    font-weight: 700;
-    line-height: 1;
-    color: #000;
-}
-
-.cover_menu a {
-    display: block;
+/* 왼쪽 세로 텍스트 스타일 */
+.list_side_text {
+    position: absolute;
+    left: 40px;
+    /* 왼쪽에 붙임 */
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: left center;
     font-family: "SUIT", sans-serif;
-    font-size: 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #000;
+    white-space: nowrap;
+}
+
+/* 중앙 컨텐츠 영역 */
+.list_content_wrap {
+    width: 100%;
+    max-width: 1200px;
+    /* 내용물 최대 너비 제한 */
+    padding-left: 100px;
+}
+
+/* SELECTED WORKS */
+.list_title_sub {
+    font-family: "SUIT", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+/* PROJECTS (갈색 폰트) */
+.list_title_main {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 12vw;
+    /* 큰 크기 */
+    font-weight: 700;
+    line-height: 0.9;
+    color: var(--color-uxui);
+    /* #871B02 */
+    margin-bottom: 60px;
+}
+
+/* --- [B] 프로젝트 목록 스타일 --- */
+.project_list_v2 {
+    width: 100%;
+}
+
+.list_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 0;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: transform 0.3s ease-out, border-color 0.3s ease;
+}
+
+/* 호버 시 약간 옆으로 밀리는 효과 */
+.list_row:hover {
+    transform: translateX(15px);
+    border-bottom-color: #000;
+}
+
+.list_row:first-child {
+    border-top: 1px solid #ddd;
+}
+
+.row_title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    flex-basis: 35%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.row_desc {
+    font-family: "SUIT", sans-serif;
+    font-size: 1rem;
+    color: #555;
+    flex-basis: 45%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.row_meta {
+    font-family: "SUIT", sans-serif;
+    font-size: 0.9rem;
     color: #888;
-    text-decoration: none;
-    transition: color 0.3s;
+    text-align: right;
+    flex-basis: 20%;
+    white-space: nowrap;
 }
 
 /* 4. 개별 프로젝트 카드 스타일 */
