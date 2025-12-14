@@ -701,39 +701,25 @@ header.menu-open .ham_menu i {
 }
 
 
-/* =======================================================
-   [핵심 수정] PROJECTS SECTION - 가로 스크롤 레이아웃
-   ======================================================= */
-
-/* 1. 전체 컨테이너 (고정될 영역) */
 #Projects {
     width: 100%;
     height: 100vh;
-    /* 높이를 화면 전체로 */
     overflow: hidden;
-    /* 넘치는 것 숨김 */
     background: #fff;
     position: relative;
     z-index: 5;
     padding: 0;
-    /* 기본 패딩 제거 */
 }
 
-
-/* 2. 트랙 (움직일 영역 - main.js에서 생성할 예정) */
 .horizontal_track {
     display: flex;
-    /* 가로 배치 핵심 */
     width: max-content;
-    /* 내용물만큼 길어짐 */
     height: 100%;
     padding: 0;
-    /* 패딩 초기화 */
     align-items: center;
-    /* 세로 중앙 정렬 */
+
 }
 
-/* 3. 목차 슬라이드 (가장 왼쪽) */
 .project_item.cover_slide {
     width: 100vw;
     height: 100vh;
@@ -747,39 +733,21 @@ header.menu-open .ham_menu i {
     overflow: hidden;
 }
 
-/* styles.css 파일에 아래 스타일을 추가하거나 기존 스타일을 덮어씁니다. */
-
-/* --- [A] 목차 슬라이드 레이아웃 (새로운 디자인) --- */
-.cover_slide {
-    background-color: #fff !important;
-    /* 배경 확실히 흰색 */
-}
-
-
-
-/* 중앙 컨텐츠 영역 */
 .list_content_wrap {
     width: 100%;
     max-width: 1200px;
-    /* 내용물 최대 너비 제한 */
     padding-left: 100px;
 }
 
-
-
-/* PROJECTS (갈색 폰트) */
 .list_title_main {
     font-family: 'SUIT';
     font-size: 12vw;
-    /* 큰 크기 */
     font-weight: 700;
     line-height: 0.9;
     color: var(--color-uxui);
-    /* #871B02 */
     margin-bottom: 60px;
 }
 
-/* --- [B] 프로젝트 목록 스타일 --- */
 .project_list_v2 {
     width: 100%;
 }
@@ -833,16 +801,12 @@ header.menu-open .ham_menu i {
     white-space: nowrap;
 }
 
-/* 4. 개별 프로젝트 카드 스타일 */
 .project_item.project_card {
     width: 800px;
-    /* 카드 영역 너비 */
     margin-left: 200px;
-    /* 카드 사이 간격 */
     flex-shrink: 0;
     justify-content: center;
     height: 70vh;
-    /* 카드 높이 설정 */
     cursor: pointer;
     transition: transform 0.3s ease;
 }
@@ -851,12 +815,10 @@ header.menu-open .ham_menu i {
     transform: translateY(-20px);
 }
 
-/* 마지막 아이템 오른쪽 여백 */
 .project_item.project_card:last-child {
     margin-right: 200px;
 }
 
-/* 카드 이미지 및 정보 */
 .card_thumb img {
     width: 100%;
     height: 100%;
@@ -868,7 +830,6 @@ header.menu-open .ham_menu i {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    /* 그림자 */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
@@ -894,7 +855,6 @@ header.menu-open .ham_menu i {
 }
 
 
-/* 3. 중앙 컨텐츠 영역 (세로 글씨 영역만큼 밀어냄) */
 .list_content_wrap {
     width: 100%;
     max-width: 1200px;
@@ -902,18 +862,15 @@ header.menu-open .ham_menu i {
     padding-top: 0;
 }
 
-/* 4. 타이틀 위치 조정 (위로 올리기) */
 .list_title_sub {
     font-size: 45px;
     margin-top: 5px;
 }
 
-/* --- [B] 프로젝트 목록 스타일 (제목/설명 세로 배치) --- */
 
 .list_row {
     display: flex;
     justify-content: space-between;
-    /* [수정] 메타 정보가 제목/설명 그룹의 중앙에 오도록 정렬 */
     align-items: center;
     padding: 25px 0;
     border-bottom: 1px solid #ddd;
@@ -921,7 +878,6 @@ header.menu-open .ham_menu i {
     transition: transform 0.3s ease-out, border-color 0.3s ease;
 }
 
-/* 호버 시 약간 옆으로 밀리는 효과 */
 .list_row:hover {
     transform: translateX(15px);
     border-bottom-color: #000;
@@ -931,38 +887,31 @@ header.menu-open .ham_menu i {
     border-top: 1px solid #ddd;
 }
 
-/* 제목 + 설명 그룹 */
 .row_text_group {
     display: flex;
     flex-direction: column;
-    /* 세로 정렬 */
     flex-basis: 80%;
-    /* 메타 정보를 위해 남은 공간 */
 }
 
 .row_title {
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.8rem;
     font-weight: 600;
-    /* flex-basis: 35%; 제거 */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     margin-bottom: 5px;
-    /* 제목과 설명 사이 간격 */
 }
 
 .row_desc {
     font-family: "SUIT", sans-serif;
     font-size: 1rem;
     color: #555;
-    /* flex-basis: 45%; 제거 */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* 메타 정보 (오른쪽) */
 .row_meta {
     font-family: "SUIT", sans-serif;
     font-size: 0.9rem;
@@ -970,13 +919,9 @@ header.menu-open .ham_menu i {
     text-align: right;
     flex-basis: 20%;
     flex-shrink: 0;
-    /* 공간 고정 */
     white-space: nowrap;
 }
 
-/* styles.css 파일에 아래 스타일을 수정/추가합니다. */
-
-/* 1. cover_inner_revised: 상단 타이틀, 하단 리스트의 세로 배치를 위한 Flexbox 설정 */
 .cover_inner_revised {
     width: 100%;
     max-width: 1800px;
@@ -986,26 +931,21 @@ header.menu-open .ham_menu i {
     padding: 6vh 5vw;
     position: relative;
     justify-content: flex-start;
-    /* 세로 시작점에 붙임 */
     align-items: flex-start;
 }
 
-/* 2. 메인 타이틀 그룹 (상단) - 가로 폭 전체 사용 */
 .title_group_top {
     width: 100%;
     margin-bottom: 50px;
-    /* 하단 컨텐츠와의 간격 */
 }
 
 .list_title_main {
     font-size: 12vw;
     line-height: 0.9;
-    /* [수정] 아래로 내려오는 PROJECTS 폰트 때문에 마진 조정 */
     margin-bottom: 0;
 }
 
 
-/* 3. 하단 컨텐츠 그룹 (세로 글자 + 리스트) - 수평 배치 */
 .list_content_bottom_wrap {
     width: 100%;
     display: flex;
@@ -1014,7 +954,6 @@ header.menu-open .ham_menu i {
     margin-top: 100px;
 }
 
-/* 4. 세로 텍스트 스타일 (absolute 제거, flex 아이템으로 변경) */
 .list_side_text {
     position: static;
     flex-shrink: 0;
@@ -1031,13 +970,10 @@ header.menu-open .ham_menu i {
     z-index: 10;
 }
 
-/* 5. 프로젝트 리스트 스타일 */
 .project_list_v2 {
     width: 100%;
-    /* 남은 공간 전체를 리스트가 차지 */
 }
 
-/* --- [B] 프로젝트 목록 스타일 (기존 리스트 스타일 유지) --- */
 .list_row {
     display: flex;
     justify-content: space-between;
@@ -1048,11 +984,7 @@ header.menu-open .ham_menu i {
     transition: transform 0.3s ease-out, border-color 0.3s ease;
 }
 
-/* ... (나머지 리스트 관련 CSS 유지) ... */
-/* --- [Projects Section] 모달 로직을 위한 임시 변경 --- */
-/* main.js에서 `.scatter_item` 대신 `.project_card`를 사용하도록 변경할 것이므로, 
-   `index.html`의 `.scatter_item`의 `data-*` 속성을 `.project_card`로 이동하거나, 
-   main.js에서 `.project_card`를 클릭 대상으로 지정해야 합니다. */
+
 
 /* =========================================
    VISUAL ARCHIVE - Jenny Nordberg Style
