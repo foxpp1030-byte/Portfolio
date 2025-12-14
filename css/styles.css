@@ -1569,7 +1569,7 @@ a#rainbow-text.active:after {
 .big_typo {
     font-family: "SUIT", sans-serif;
     font-size: clamp(4rem, 14vw, 20rem);
-    font-weight: 400;
+    font-weight: 600;
     line-height: 0.8;
     margin: 0;
     text-align: start;
