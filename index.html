@@ -19,6 +19,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/SplitText.min.js"></script>
 
 
 </head>
@@ -137,14 +138,12 @@
             </div>
 
             <div class="hero_menu_list">
-                <a href="#Skills">Skills</a>
-                <a href="#Projects">Projects</a>
-                <a href="#Visual">Visual Archive</a>
+                <a href="#">Skills</a>
+                <a href="#">Projects</a>
+                <a href="#">Visual Archive</a>
             </div>
 
         </section>
-
-
 
         <!-- skills section -->
         <section id="Skills" class="vid">
@@ -165,40 +164,39 @@
         <section id="Projects" class="projects_wrapper">
             <div class="hero_grid_bg"></div>
             <div class="horizontal_track">
+                <!-- 목차 슬라이드 -->
                 <div class="project_item cover_slide">
                     <div class="cover_inner_revised">
-
                         <div class="title_group_top">
                             <h2 class="list_title_main">PROJECTS</h2>
                             <p class="list_title_sub">SELECTED WORKS</p>
                         </div>
 
                         <div class="list_content_bottom_wrap">
-
                             <div class="list_side_text">UX/UI DESIGN @2025</div>
                             <ul class="project_list_v2">
-                                <li class="list_row" data-target="#project-0">
+                                <li class="list_row" data-target="0">
                                     <div class="row_text_group">
-                                        <span class="row_title">Beauty of Joseon Web Slte Design</span>
+                                        <span class="row_title">Beauty of Joseon Web Site Design</span>
                                         <span class="row_desc">K-beauty 조선미녀 글로벌 웹사이트 리뉴얼 프로젝트</span>
                                     </div>
                                     <span class="row_meta">2025 팀 프로젝트</span>
                                 </li>
-                                <li class="list_row" data-target="#project-1">
+                                <li class="list_row" data-target="1">
                                     <div class="row_text_group">
                                         <span class="row_title">heAi</span>
-                                        <span class="row_desc">더 나은 내가 될 수 있게끔 서포트해주는 나만의 AI친구 구현 프로젝트</span>
+                                        <span class="row_desc">더 나은 내가 될 수 있게 서포트해주는 나만의 AI친구 구현 프로젝트</span>
                                     </div>
                                     <span class="row_meta">2025 팀 프로젝트</span>
                                 </li>
-                                <li class="list_row" data-target="#project-2">
+                                <li class="list_row" data-target="2">
                                     <div class="row_text_group">
-                                        <span class="row_title">Seoul Arts Center Web Slte Design</span>
+                                        <span class="row_title">Seoul Arts Center Web Site Design</span>
                                         <span class="row_desc">예술의 전당 웹사이트 리뉴얼 프로젝트</span>
                                     </div>
                                     <span class="row_meta">2025 개인 프로젝트</span>
                                 </li>
-                                <li class="list_row" data-target="#project-3">
+                                <li class="list_row" data-target="3">
                                     <div class="row_text_group">
                                         <span class="row_title">Verra</span>
                                         <span class="row_desc">언어공부를 보다 쉽게 할 수 있는 sns형태의 언어앱 기획 및 디자인</span>
@@ -210,48 +208,155 @@
                     </div>
                 </div>
 
-                <div class="project_item project_card" data-title="BEAUTY OF JOSEON" data-cate="WEB RENEWAL / TEAM 100%"
-                    data-web="https://www.beautyofjoseon.com" data-landing="#">
-                    <div class="card_thumb"><img src="./img/Boj1.png" alt="BoJ"></div>
-                    <div class="card_info">
-                        <h3 class="card_title">BEAUTY OF JOSEON</h3>
-                        <p class="card_cate">WEB RENEWAL / TEAM 100%</p>
+                <!-- 프로젝트 카드 1 -->
+                <div class="project_item project_card" data-index="0">
+                    <div class="project_card_inner">
+                        <div class="card_header">
+                            <h2 class="card_title">BEAUTY OF JOSEON</h2>
+                            <svg class="rotating_badge">
+                                <path id="curve1" fill="transparent"
+                                    d="M 75 75 m -50, 0 a 50, 50 0 1, 1 100, 0 a 50, 50 0 1, 1 -100, 0" />
+                                <text textLength="310">
+                                    <textPath href="#curve1">*ORGANIC*PRODUCT*ORGANIC*</textPath>
+                                </text>
+                            </svg>
+                            <span class="vertical_label">WEB DESIGN</span>
+                        </div>
+
+                        <div class="card_images">
+                            <div class="img_wrapper img_main">
+                                <img src="./img/boj_web_main.jpg" alt="BOJ Main">
+                            </div>
+                            <div class="img_wrapper img_sub">
+                                <img src="./img/boj_landing_thumb.jpg" alt="BOJ Landing">
+                            </div>
+                            <div class="img_wrapper img_small">
+                                <img src="./img/boj_mobile_thumb.jpg" alt="BOJ Mobile">
+                            </div>
+                        </div>
+
+                        <div class="card_footer">
+                            <div class="link_buttons">
+                                <a href="https://www.beautyofjoseon.com" target="_blank" class="link_btn">WEBSITE</a>
+                                <a href="https://www.beautyofjoseon.com/landing" target="_blank"
+                                    class="link_btn">LANDING PAGE</a>
+                            </div>
+                            <span class="project_number">01</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="project_item project_card" data-title="heAi APPLICATION" data-cate="APP SERVICE / TEAM 100%"
-                    data-web="#" data-landing="#">
-                    <div class="card_thumb"><img src="./img/heai1.png" alt="heAi"></div>
-                    <div class="card_info">
-                        <h3 class="card_title">heAi APPLICATION</h3>
-                        <p class="card_cate">APP SERVICE / TEAM 100%</p>
+                <!-- 프로젝트 카드 2 -->
+                <div class="project_item project_card" data-index="1">
+                    <div class="project_card_inner">
+                        <div class="card_header">
+                            <h2 class="card_title">heAi APPLICATION</h2>
+                            <svg class="rotating_badge">
+                                <path id="curve2" fill="transparent"
+                                    d="M 75 75 m -50, 0 a 50, 50 0 1, 1 100, 0 a 50, 50 0 1, 1 -100, 0" />
+                                <text textLength="310">
+                                    <textPath href="#curve2">*AI*FRIEND*SERVICE*AI*</textPath>
+                                </text>
+                            </svg>
+                            <span class="vertical_label">APP SERVICE</span>
+                        </div>
+
+                        <div class="card_images">
+                            <div class="img_wrapper img_main">
+                                <img src="./img/heai_web.png" alt="heAi Main">
+                            </div>
+                            <div class="img_wrapper img_sub">
+                                <img src="./img/heai_landing.png" alt="heAi Landing">
+                            </div>
+                            <div class="img_wrapper img_small">
+                                <img src="./img/heai_mobile.png" alt="heAi Mobile">
+                            </div>
+                        </div>
+
+                        <div class="card_footer">
+                            <div class="link_buttons">
+                                <a href="#" target="_blank" class="link_btn">WEBSITE VIEW</a>
+                                <a href="#" target="_blank" class="link_btn">APP DETAIL</a>
+                            </div>
+                            <span class="project_number">02</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="project_item project_card" data-title="SEOUL ARTS CENTER"
-                    data-cate="WEB RENEWAL / PERSONAL 100%" data-web="#" data-landing="#">
-                    <div class="card_thumb"><img src="./img/sac_main.png" alt="SAC"></div>
-                    <div class="card_info">
-                        <h3 class="card_title">SEOUL ARTS CENTER</h3>
-                        <p class="card_cate">WEB RENEWAL / PERSONAL 100%</p>
+                <!-- 프로젝트 카드 3 -->
+                <div class="project_item project_card" data-index="2">
+                    <div class="project_card_inner">
+                        <div class="card_header">
+                            <h2 class="card_title">SEOUL ARTS CENTER</h2>
+                            <svg class="rotating_badge">
+                                <path id="curve3" fill="transparent"
+                                    d="M 75 75 m -50, 0 a 50, 50 0 1, 1 100, 0 a 50, 50 0 1, 1 -100, 0" />
+                                <text textLength="310">
+                                    <textPath href="#curve3">*RENEWAL*DESIGN*ARTS*</textPath>
+                                </text>
+                            </svg>
+                            <span class="vertical_label">WEB RENEWAL</span>
+                        </div>
+
+                        <div class="card_images">
+                            <div class="img_wrapper img_main">
+                                <img src="./img/sac_main.png" alt="SAC Main">
+                            </div>
+                            <div class="img_wrapper img_sub">
+                                <img src="./img/sac_detail1.png" alt="SAC Detail 1">
+                            </div>
+                            <div class="img_wrapper img_small">
+                                <img src="./img/sac_detail2.png" alt="SAC Detail 2">
+                            </div>
+                        </div>
+
+                        <div class="card_footer">
+                            <div class="link_buttons">
+                                <a href="#" target="_blank" class="link_btn">WEBSITE VIEW</a>
+                                <a href="#" target="_blank" class="link_btn">PROTOTYPE</a>
+                            </div>
+                            <span class="project_number">03</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="project_item project_card" data-title="VERRA LANGUAGE" data-cate="APP / PERSONAL 100%"
-                    data-web="#" data-landing="#">
-                    <div class="card_thumb"><img src="./img/verra1.png" alt="Verra"></div>
-                    <div class="card_info">
-                        <h3 class="card_title">VERRA LANGUAGE</h3>
-                        <p class="card_cate">APP / PERSONAL 100%</p>
+                <!-- 프로젝트 카드 4 -->
+                <div class="project_item project_card" data-index="3">
+                    <div class="project_card_inner">
+                        <div class="card_header">
+                            <h2 class="card_title">VERRA LANGUAGE</h2>
+                            <svg class="rotating_badge">
+                                <path id="curve4" fill="transparent"
+                                    d="M 75 75 m -50, 0 a 50, 50 0 1, 1 100, 0 a 50, 50 0 1, 1 -100, 0" />
+                                <text textLength="310">
+                                    <textPath href="#curve4">*LANGUAGE*APP*SOCIAL*</textPath>
+                                </text>
+                            </svg>
+                            <span class="vertical_label">APP DESIGN</span>
+                        </div>
+
+                        <div class="card_images">
+                            <div class="img_wrapper img_main">
+                                <img src="./img/verra1.png" alt="Verra 1">
+                            </div>
+                            <div class="img_wrapper img_sub">
+                                <img src="./img/verra2.png" alt="Verra 2">
+                            </div>
+                            <div class="img_wrapper img_small">
+                                <img src="./img/verra3.png" alt="Verra 3">
+                            </div>
+                        </div>
+
+                        <div class="card_footer">
+                            <div class="link_buttons">
+                                <a href="#" target="_blank" class="link_btn">APP STORE</a>
+                                <a href="#" target="_blank" class="link_btn">DETAIL PAGE</a>
+                            </div>
+                            <span class="project_number">04</span>
+                        </div>
                     </div>
                 </div>
-
             </div>
-
-            <div class="project_expand_modal">
-                <div class="modal_backdrop"></div>
-            </div>
-
         </section>
         <!--Philosophy Section -->
         <section id="philosophy" class="philosophy_section">

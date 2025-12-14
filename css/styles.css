@@ -700,43 +700,41 @@ header.menu-open .ham_menu i {
     height: auto;
 }
 
+/* ================= PROJECTS SECTION (NEW DESIGN) ================= */
 
 #Projects {
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background: #fff;
     position: relative;
     z-index: 5;
-    padding: 0;
 }
 
 .horizontal_track {
     display: flex;
     width: max-content;
     height: 100%;
-    padding: 0;
     align-items: center;
-
 }
 
+/* 목차 슬라이드 (기존 유지) */
 .project_item.cover_slide {
     width: 100vw;
     height: 100vh;
-    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
-    background-color: #fff;
     flex-shrink: 0;
-    overflow: hidden;
+    margin-right: 200px;
 }
 
-.list_content_wrap {
+.cover_inner_revised {
     width: 100%;
-    max-width: 1200px;
-    padding-left: 100px;
+    max-width: 1800px;
+    display: flex;
+    flex-direction: column;
+    padding: 6vh 5vw;
+    justify-content: flex-start;
 }
 
 .list_title_main {
@@ -748,203 +746,10 @@ header.menu-open .ham_menu i {
     margin-bottom: 60px;
 }
 
-.project_list_v2 {
-    width: 100%;
-}
-
-.list_row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px 0;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-    transition: transform 0.3s ease-out, border-color 0.3s ease;
-}
-
-/* 호버 시 약간 옆으로 밀리는 효과 */
-.list_row:hover {
-    transform: translateX(15px);
-    border-bottom-color: #000;
-}
-
-.list_row:first-child {
-    border-top: 1px solid #ddd;
-}
-
-.row_title {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.8rem;
-    font-weight: 600;
-    flex-basis: 35%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.row_desc {
-    font-family: "SUIT", sans-serif;
-    font-size: 1rem;
-    color: #555;
-    flex-basis: 45%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.row_meta {
-    font-family: "SUIT", sans-serif;
-    font-size: 0.9rem;
-    color: #888;
-    text-align: right;
-    flex-basis: 20%;
-    white-space: nowrap;
-}
-
-.project_item.project_card {
-    width: 800px;
-    margin-left: 200px;
-    flex-shrink: 0;
-    justify-content: center;
-    height: 70vh;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.project_item.project_card:hover {
-    transform: translateY(-20px);
-}
-
-.project_item.project_card:last-child {
-    margin-right: 200px;
-}
-
-.card_thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.card_thumb {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.card_info {
-    padding-top: 20px;
-    text-align: left;
-}
-
-.card_title {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 2rem;
-    font-weight: 400;
-    color: #1a1a1a;
-    line-height: 1.2;
-}
-
-.card_cate {
-    font-family: "SUIT", sans-serif;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #888;
-    margin-top: 5px;
-}
-
-
-.list_content_wrap {
-    width: 100%;
-    max-width: 1200px;
-    padding-left: 100px;
-    padding-top: 0;
-}
-
 .list_title_sub {
     font-size: 45px;
     margin-top: 5px;
 }
-
-
-.list_row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px 0;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-    transition: transform 0.3s ease-out, border-color 0.3s ease;
-}
-
-.list_row:hover {
-    transform: translateX(15px);
-    border-bottom-color: #000;
-}
-
-.list_row:first-child {
-    border-top: 1px solid #ddd;
-}
-
-.row_text_group {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 80%;
-}
-
-.row_title {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.8rem;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 5px;
-}
-
-.row_desc {
-    font-family: "SUIT", sans-serif;
-    font-size: 1rem;
-    color: #555;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.row_meta {
-    font-family: "SUIT", sans-serif;
-    font-size: 0.9rem;
-    color: #888;
-    text-align: right;
-    flex-basis: 20%;
-    flex-shrink: 0;
-    white-space: nowrap;
-}
-
-.cover_inner_revised {
-    width: 100%;
-    max-width: 1800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    padding: 6vh 5vw;
-    position: relative;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-
-.title_group_top {
-    width: 100%;
-    margin-bottom: 50px;
-}
-
-.list_title_main {
-    font-size: 12vw;
-    line-height: 0.9;
-    margin-bottom: 0;
-}
-
 
 .list_content_bottom_wrap {
     width: 100%;
@@ -955,19 +760,14 @@ header.menu-open .ham_menu i {
 }
 
 .list_side_text {
-    position: static;
     flex-shrink: 0;
     transform: rotate(-90deg);
     transform-origin: left top;
     margin-top: 25%;
     margin-right: 100px;
-
-    font-family: "SUIT", sans-serif;
     font-size: 1.2rem;
     font-weight: 500;
-    color: #000;
     white-space: nowrap;
-    z-index: 10;
 }
 
 .project_list_v2 {
@@ -981,9 +781,291 @@ header.menu-open .ham_menu i {
     padding: 25px 0;
     border-bottom: 1px solid #ddd;
     cursor: pointer;
-    transition: transform 0.3s ease-out, border-color 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
+.list_row:first-child {
+    border-top: 1px solid #ddd;
+}
+
+.list_row:hover {
+    transform: translateX(15px);
+    border-bottom-color: #000;
+}
+
+.row_text_group {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 75%;
+}
+
+.row_title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.row_desc {
+    font-size: 1rem;
+    color: #555;
+}
+
+.row_meta {
+    font-size: 0.9rem;
+    color: #888;
+    text-align: right;
+    flex-basis: 20%;
+}
+
+/* ================= 프로젝트 카드 (참고 사이트 스타일) ================= */
+
+.project_item.project_card {
+    width: 85vw;
+    height: 100vh;
+    flex-shrink: 0;
+    padding: 60px 0;
+    box-sizing: border-box;
+    margin-right: 250px;
+}
+
+.project_card_inner {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 150px 1fr 100px;
+    grid-gap: 3%;
+    position: relative;
+}
+
+/* === 카드 헤더 (타이틀 + SVG 배지 + 세로 텍스트) === */
+.card_header {
+    grid-row: 1;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    align-items: center;
+    ;
+}
+
+.card_title {
+    font-family: 'SUIT', sans-serif;
+    font-size: clamp(50px, 5vw, 56px);
+    font-weight: 400;
+    letter-spacing: 20px;
+    align-self: center;
+    opacity: 0;
+    transform: translateX(20%);
+    transition: all 2.2s cubic-bezier(0.5, 0, 0.1, 1);
+    transition-delay: 0.4s;
+    line-height: 1;
+    padding-left: 0;
+}
+
+/* 카드가 화면에 보일 때 애니메이션 */
+.project_card.active .card_title {
+    opacity: 1;
+    transform: translateX(0);
+    letter-spacing: 5px;
+}
+
+/* 초기 상태에서는 타이틀 완전히 숨김 */
+.project_card:not(.active) .card_title {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.rotating_badge {
+    position: absolute;
+    top: 160%;
+    left: 55%;
+    /* [수정] 타이틀의 오른쪽 빈 공간으로 이동 (임의의 60% 지점) */
+    transform: translateY(-50%);
+    width: 150px;
+    height: 150px;
+    letter-spacing: 12px;
+    z-index: 5;
+}
+
+.rotating_badge text {
+    transform-origin: 50% 50%;
+    animation: anim_rotate 10s linear infinite;
+    font-size: 14px;
+}
+
+@keyframes anim_rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.vertical_label {
+    position: absolute;
+    top: 155%;
+    right: -14%;
+    transform: translateY(-50%) rotate(90deg);
+
+    font-family: var(--font-suit);
+    font-size: 50px;
+    font-weight: 500;
+    letter-spacing: 12px;
+    white-space: nowrap;
+    color: var(--pr-color);
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+    line-height: 1;
+    padding-right: 0;
+    z-index: 10;
+
+}
+
+/* === 카드 이미지 영역 (3개 이미지 그리드) === */
+.card_images {
+    grid-row: 2;
+    display: flex;
+    position: relative;
+    grid-gap: 5%;
+    align-items: end;
+    padding-top: 40px;
+}
+
+.img_wrapper {
+    position: absolute;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    transition: all 2.2s cubic-bezier(0.5, 0, 0.1, 1);
+}
+
+.img_wrapper img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    backface-visibility: hidden;
+}
+
+/* 각 이미지 위치 및 변환 효과 */
+.img_main {
+    width: 40%;
+    height: 90%;
+    left: 0;
+    bottom: 0;
+    align-self: end;
+    transform: translateX(60%);
+    z-index: 3;
+}
+
+.img_sub {
+    width: 35%;
+    height: 55%;
+    right: 20%;
+    bottom: 0;
+    align-self: end;
+    transform: translateY(0%) translateX(60%);
+    z-index: 2;
+}
+
+.img_small {
+    width: 25%;
+    height: 45%;
+    right: 0;
+    top: 50px;
+    align-self: start;
+    transform: translateX(500%);
+    z-index: 1;
+}
+
+/* 카드가 활성화될 때 이미지 애니메이션 */
+.project_card.active .img_main {
+    transform: translateX(0);
+}
+
+.project_card.active .img_sub {
+    transform: translateY(0%) translateX(0);
+}
+
+.project_card.active .img_small {
+    transform: translateX(0);
+}
+
+/* 비활성 카드 이미지 숨김 */
+.project_card:not(.active) .img_wrapper {
+    opacity: 0;
+}
+
+.project_card.active .img_wrapper {
+    opacity: 1;
+}
+
+/* === 카드 푸터 (링크 버튼 + 프로젝트 번호) === */
+.card_footer {
+    grid-row: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    border-top: 1px solid #555;
+    padding-top: 20px;
+}
+
+.link_buttons {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.link_btn {
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+    color: #000;
+    text-decoration: none;
+    padding: 12px 25px;
+    border: 1px solid #000;
+    transition: all 0.3s ease;
+    display: inline-block;
+    letter-spacing: 1px;
+}
+
+.link_btn:hover {
+    background: #000;
+    color: #fff;
+}
+
+.project_number {
+    font-family: 'Oswald', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+}
+
+.project_number::after {
+    content: "/04";
+    color: #888;
+    margin-left: 5px;
+}
+
+/* 반응형 대응 */
+@media (max-width: 1200px) {
+    .card_title {
+        font-size: 40px;
+    }
+
+    .vertical_label {
+        font-size: 40px;
+    }
+
+    .card_images {
+        grid-template-columns: 2fr 1fr;
+    }
+
+    .img_small {
+        display: none;
+    }
+}
 
 
 /* =========================================

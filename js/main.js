@@ -190,237 +190,106 @@ if (skillSection && txtLeft && txtRight && centerLine && receiptImg) {
             { yPercent: 0, duration: 2.5, ease: "none" }
         );
 }
-// ==============================================
-// ==============================================
-// 4. [Final] Projects Logic (가로 스크롤로 변경)
-// ==============================================
-gsap.registerPlugin(Draggable, ScrollTrigger);
+// ==================== Projects Section (가로 스크롤 + 애니메이션) ====================
 
 const projectsSection = document.querySelector("#Projects");
-// const scatterItems = document.querySelectorAll(".scatter_item"); // 기존 흩뿌려진 아이템
-const projectCards = document.querySelectorAll(".project_card"); // 새로 추가된 카드 아이템
 const horizontalTrack = document.querySelector(".horizontal_track");
+const projectCards = document.querySelectorAll(".project_card");
+const listRows = document.querySelectorAll(".list_row");
 
+let currentProjectIndex = -1; // 초기값을 -1로 설정 (아무것도 활성화 안됨)
 
-// 모달 요소들 (기존과 동일하게 유지)
-const expandModal = document.querySelector(".project_expand_modal");
-const modalBackdrop = document.querySelector(".modal_backdrop");
-const modalCloseBtn = document.querySelector(".modal_close_btn"); // 닫기 버튼
-// ... (나머지 모달 변수 선언은 기존과 동일)
-const expandImgBox = document.querySelector(".expand_img_box");
-const expandInfo = document.querySelector(".expand_info");
-const expandImg = document.querySelector(".expand_main_img");
-const expandTitle = document.querySelector(".expand_title");
-const expandCate = document.querySelector(".expand_cate");
-const expandWebBtn = document.querySelector(".web_btn");
-const expandLandBtn = document.querySelector(".land_btn");
+if (projectsSection && horizontalTrack && projectCards.length > 0) {
 
-let currentProjectIndex = 0;
-let isModalOpen = false;
-let isAnimating = false;
-
-if (projectsSection && projectCards.length > 0 && horizontalTrack) {
-
-    // [1] 기존 Draggable 로직 제거
-
-    // [2] 핵심: 가로 스크롤 애니메이션 구현
+    // 1. 가로 스크롤 애니메이션 설정
     const trackWidth = horizontalTrack.scrollWidth;
-    const scrollEnd = trackWidth - window.innerWidth; // 스크롤을 끝까지 당겼을 때 translateX 값
+    const scrollEnd = trackWidth - window.innerWidth;
 
-    gsap.to(horizontalTrack, {
-        x: -scrollEnd, // 가로 트랙을 왼쪽으로 이동
-        ease: "none", // 스크럽이므로 ease 없음
+    const projectScrollTrigger = gsap.to(horizontalTrack, {
+        x: -scrollEnd,
+        ease: "none",
         scrollTrigger: {
+            id: 'project-horizontal-scroll',
             trigger: projectsSection,
             start: "top top",
-            end: () => `+=${trackWidth}`, // 트랙 너비만큼 스크롤 영역 확보
+            end: () => `+=${trackWidth}`,
             pin: true,
             scrub: 1,
-            // [추가] GNB 활성화 로직
+            anticipatePin: 1,
             onUpdate: (self) => {
-                // 스크롤 위치에 따라 GNB 'Projects' 활성화
                 if (self.isActive) {
                     set_active('#Projects');
                 }
+
+                // 현재 보이는 카드 인덱스 계산
+                const progress = self.progress;
+
+                // 목차 화면(progress 0~0.2): 아무 카드도 활성화 안함
+                // 각 프로젝트 카드: 0.2, 0.4, 0.6, 0.8~1.0
+                let newIndex = -1;
+
+                if (progress < 0.18) {
+                    newIndex = -1; // 목차 화면
+                } else {
+                    // 프로젝트 카드 인덱스 계산
+                    newIndex = Math.floor((progress - 0.18) / (0.82 / projectCards.length));
+                    newIndex = Math.min(newIndex, projectCards.length - 1);
+                }
+
+                // 인덱스가 변경되었을 때만 클래스 업데이트
+                if (newIndex !== currentProjectIndex) {
+                    projectCards.forEach((card, i) => {
+                        if (i === newIndex) {
+                            card.classList.add('active');
+                        } else {
+                            card.classList.remove('active');
+                        }
+                    });
+                    currentProjectIndex = newIndex;
+                }
+            },
+            onLeaveBack: () => {
+                // 섹션을 완전히 벗어날 때 모든 카드 비활성화
+                projectCards.forEach(card => card.classList.remove('active'));
+                currentProjectIndex = -1;
             }
         }
     });
 
-    // ==============================================
-    // [NEW] 모달 로직 (클릭 대상 변경)
-    // ==============================================
-
-    // 1. 클릭 시 모달 열기 (대상: projectCards로 변경)
-    projectCards.forEach((item, index) => {
-        item.addEventListener("click", (e) => {
-            e.stopPropagation();
-            // if (item.classList.contains("is-dragging")) return; // Draggable 제거로 이 코드 불필요
-            currentProjectIndex = index;
-            openExpandModal(index);
-        });
-    });
-
-    // 2. 모달 열기, 3. 모달 닫기, 4. 데이터 세팅 함수는 기존 로직과 동일하게 유지합니다.
-    function openExpandModal(index) {
-        if (isModalOpen) return;
-        isModalOpen = true;
-        expandModal.classList.add("active");
-
-        // 내용 채우기 (기존 로직)
-        setModalData(index);
-
-        // 초기 등장 애니메이션
-        gsap.fromTo([expandImgBox, expandInfo],
-            { y: 100, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", stagger: 0.1 }
-        );
-
-        // 스크롤 잠금
-        if (typeof lenis !== 'undefined') lenis.stop();
-        document.body.style.overflow = "hidden";
-    }
-
-    function closeExpandModal() {
-        if (!isModalOpen) return;
-
-        // 퇴장 애니메이션
-        gsap.to([expandImgBox, expandInfo], {
-            y: 50, opacity: 0, duration: 0.4, ease: "power2.in",
-            onComplete: () => {
-                expandModal.classList.remove("active");
-                isModalOpen = false;
-                if (typeof lenis !== 'undefined') lenis.start();
-                document.body.style.overflow = "auto";
-            }
-        });
-    }
-
-    function setModalData(index) {
-        // 클릭 대상이 projectCards로 변경
-        const item = projectCards[index];
-        expandImg.src = item.querySelector("img").src;
-        expandTitle.textContent = item.getAttribute("data-title");
-        expandCate.textContent = item.getAttribute("data-cate");
-        expandWebBtn.href = item.getAttribute("data-web");
-        expandLandBtn.href = item.getAttribute("data-landing");
-    }
-
-    // 5. 슬라이드 전환 애니메이션 (기존 로직 동일하게 유지)
-    function changeProject(direction) {
-        if (isAnimating) return;
-        isAnimating = true;
-
-        // direction: 1 (Next, 아래로), -1 (Prev, 위로)
-        const outY = direction === 1 ? -100 : 100;
-        const inY = direction === 1 ? 100 : -100;
-
-        // 1. 현재 내용 나가기
-        gsap.to([expandImgBox, expandInfo], {
-            y: outY, opacity: 0, duration: 0.4, ease: "power2.in",
-            onComplete: () => {
-                // 2. 데이터 교체 (대상: projectCards로 변경)
-                if (direction === 1) {
-                    currentProjectIndex++;
-                    if (currentProjectIndex >= projectCards.length) currentProjectIndex = 0;
-                } else {
-                    currentProjectIndex--;
-                    if (currentProjectIndex < 0) currentProjectIndex = projectCards.length - 1;
-                }
-                setModalData(currentProjectIndex);
-
-                // 3. 새 내용 들어오기 준비
-                gsap.set([expandImgBox, expandInfo], { y: inY, opacity: 0 });
-
-                // 4. 새 내용 들어오기
-                gsap.to([expandImgBox, expandInfo], {
-                    y: 0, opacity: 1, duration: 0.6, ease: "power3.out", stagger: 0.05,
-                    onComplete: () => { isAnimating = false; }
-                });
-            }
-        });
-    }
-
-    // 6. 이벤트 리스너 연결 (기존 로직 동일하게 유지)
-    if (modalBackdrop) modalBackdrop.addEventListener("click", closeExpandModal);
-    if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeExpandModal);
-
-    // 휠 이벤트 (스크롤 방향 감지)
-    window.addEventListener("wheel", (e) => {
-        if (!isModalOpen || isAnimating) return;
-        const direction = e.deltaY > 0 ? 1 : -1;
-        changeProject(direction);
-    });
-}
-const listRows = document.querySelectorAll(".list_row");
-
-if (listRows.length > 0 && lenis && horizontalTrack) {
+    // 2. 목차에서 프로젝트로 이동하는 기능
     listRows.forEach((row, index) => {
-        // 첫 번째 슬라이드에는 프로젝트 카드 갯수만큼 가상의 인덱스 부여
-        // index 0 -> 첫 번째 카드 (projectCards[0])와 연결됨
         row.addEventListener("click", () => {
-
-            // GSAP으로 가로 트랙 이동 거리를 계산하여 스크롤 위치를 설정
-
-            // 1. 목표 프로젝트 카드 요소 가져오기
-            // 목차 순서(0, 1, 2, 3...)는 projectCards의 순서와 동일함
             const targetCard = projectCards[index];
-
-            if (!targetCard) {
-                console.error(`Project card at index ${index} not found.`);
-                return;
-            }
-
-            // 2. 가로 스크롤 트랙의 현재 위치에서 목표 카드까지의 거리를 계산
-            // 목표 카드의 왼쪽 경계까지 스크롤되어야 함
-            const offset = targetCard.offsetLeft;
-
-            // 3. ScrollTrigger 애니메이션을 강제로 이동시킴
-            // ScrollTrigger.getById('프로젝트-스크롤-트리거-ID')를 사용하거나,
-            // 간단하게 GSAP의 `ScrollToPlugin`을 이용해 Lenis 스크롤을 이동시킵니다.
-
-            // 프로젝트 섹션 시작 위치 + offset 만큼 스크롤 이동
-            const projectsStart = projectsSection.offsetTop;
-
-            // 목표 스크롤 위치 (프로젝트 섹션 시작 위치 + 목표 카드까지의 스크롤 거리)
-            // 가로 스크롤의 start 위치 (top top)를 기준으로 
-            // x: 0% -> 스크롤 시작
-            // x: -scrollEnd -> 스크롤 끝
-            // 목표 카드로 이동하기 위한 스크롤 영역 내의 비율을 계산하고, 이를 전체 스크롤 길이에 곱해야 합니다.
+            if (!targetCard) return;
 
             const projectsScrollTrigger = ScrollTrigger.getById('project-horizontal-scroll');
             if (projectsScrollTrigger) {
-
-                // 목표 카드가 트랙 시작점으로부터 떨어진 거리 (offset)
-                const distanceToTarget = offset;
-
-                // 전체 스크롤 길이 (horizontalTrack의 총 너비)
-                const totalTrackWidth = horizontalTrack.scrollWidth;
-                const totalScrollRange = totalTrackWidth - window.innerWidth;
-
-                // 해당 카드가 화면 중앙에 올 때까지의 스크롤 위치 비율 계산
-                // 카드 너비의 절반 + 간격 등을 고려할 수 있지만, 여기서는 간단히 offset을 기준으로 합니다.
-
-                // horizontalTrack이 x: -scrollEnd 만큼 움직이므로, 
-                // offset에 해당하는 x 이동을 발생시키는 ScrollTrigger 진행률(Progress)을 찾아야 함.
-                // ScrollTrigger의 진행률(Progress)은 0부터 1까지입니다.
-
-                // 목표 translateX 값: -(targetCard.offsetLeft - window.innerWidth / 2)
-                const targetTranslateX = -(targetCard.offsetLeft - 100); // 100px 여백 
-
-                // targetTranslateX가 전체 움직임(-scrollEnd)에서 차지하는 비율
+                // 목표 카드까지의 거리 계산
+                const offset = targetCard.offsetLeft;
+                const targetTranslateX = -(offset - 100);
                 const progress = Math.max(0, Math.min(1, targetTranslateX / (-scrollEnd)));
 
-                // 계산된 진행률(Progress)로 ScrollTrigger를 이동시킵니다.
-                // 이 방법은 Lenis와 ScrollTrigger가 연결되어 있기 때문에 Lenis의 세로 스크롤 위치를 변경합니다.
-                projectsScrollTrigger.scroll(projectsScrollTrigger.start + (projectsScrollTrigger.end - projectsScrollTrigger.start) * progress);
+                // 해당 위치로 스크롤 이동
+                const targetScroll = projectsScrollTrigger.start +
+                    (projectsScrollTrigger.end - projectsScrollTrigger.start) * progress;
 
-            } else {
-                // 비상 fallback: Lenis.scrollTo를 사용해 Projects 섹션 시작 위치로 강제 이동
-                lenis.scrollTo('#Projects', { offset: 0, duration: 1.2 });
+                gsap.to(window, {
+                    scrollTo: targetScroll,
+                    duration: 1.5,
+                    ease: "power2.inOut"
+                });
             }
         });
     });
 }
+
+// ==================== 페이지 로드 시 ScrollTrigger 새로고침 ====================
+window.addEventListener("load", () => {
+    ScrollTrigger.refresh();
+    setTimeout(() => ScrollTrigger.refresh(), 300);
+});
+
+window.addEventListener("resize", () => ScrollTrigger.refresh());
 
 // 기존 ScrollTrigger 로직 (main.js)을 수정하여 ID를 부여합니다.
 /*
