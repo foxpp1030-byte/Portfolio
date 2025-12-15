@@ -275,7 +275,7 @@ header.menu-open .ham_menu i {
     background-image:
         linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-    background-size: 150px 150px;
+    background-size: 250px 250px;
     z-index: 0;
     pointer-events: none;
 }
@@ -850,9 +850,9 @@ header.menu-open .ham_menu i {
 
 .card_title {
     font-family: 'SUIT', sans-serif;
-    font-size: clamp(50px, 5vw, 56px);
-    font-weight: 400;
-    letter-spacing: 20px;
+    font-size: 70px;
+    font-weight: 600;
+    letter-spacing: 10px;
     align-self: center;
     opacity: 0;
     transform: translateX(20%);
