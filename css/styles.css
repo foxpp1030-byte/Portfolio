@@ -936,7 +936,7 @@ header.on.menu-open .header_logo a {
 
 .img_main {
     width: 40%;
-    height: 90%;
+    height: 100%;
     left: 0;
     bottom: 0;
     align-self: end;
@@ -947,7 +947,7 @@ header.on.menu-open .header_logo a {
 .img_sub {
     width: 35%;
     height: 55%;
-    right: 20%;
+    right: 23%;
     bottom: 0;
     align-self: end;
     transform: translateY(0%) translateX(60%);
@@ -956,9 +956,9 @@ header.on.menu-open .header_logo a {
 
 .img_small {
     width: 20%;
-    height: 45%;
-    right: 8%;
-    top: -10%;
+    height: 65%;
+    right: 1%;
+    top: -30%;
     align-self: start;
     transform: translateX(500%);
     z-index: 1;
