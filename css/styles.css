@@ -859,7 +859,7 @@ header.on.menu-open .header_logo a {
     flex-basis: 20%;
 }
 
-/* ================= 프로젝트 카드 (UPDATED LAYOUT - NON-OVERLAPPING) ================= */
+/* ================= 프로젝트 카드 (UPDATED: Sidebar Left, Content Right) ================= */
 
 .project_item.project_card {
     width: 85vw;
@@ -875,13 +875,13 @@ header.on.menu-open .header_logo a {
     margin-right: 0 !important;
 }
 
-/* Grid Layout: Content (Left) | Sidebar (Right) */
+/* Grid Layout: Sidebar (Left) | Content (Right) */
 .project_card_inner {
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 1fr 140px;
-    /* Left takes space, Right fixed width */
+    /* [변경] 사이드바(140px)를 왼쪽으로 보냄 */
+    grid-template-columns: 140px 1fr;
     grid-template-rows: 150px 1fr;
     /* Header Height | Body */
     position: relative;
@@ -889,14 +889,42 @@ header.on.menu-open .header_logo a {
     margin: 0 auto;
 }
 
-/* === Area 1: Header (Title) === */
-.card_header {
+/* === Area 3: Sidebar (Left) === */
+/* [변경] Grid Column 1번 영역 차지 */
+.card_side_info {
     grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* [변경] 오른쪽에 선을 긋기 */
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    border-left: none;
+    padding: 20px 0 0 0;
+    height: 100%;
+}
+
+/* === Area 1: Header (Title) === */
+/* [변경] Grid Column 2번 영역 차지 */
+.card_header {
+    grid-column: 2 / 3;
     grid-row: 1;
     display: flex;
     align-items: center;
     position: relative;
-    padding-left: 20px;
+    padding-left: 50px;
+    /* 사이드바와의 간격 */
+}
+
+/* === Area 2: Images (Separated Layouts) === */
+/* [변경] Grid Column 2번 영역 차지 */
+.card_images {
+    grid-column: 2 / 3;
+    grid-row: 2;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 .card_title {
@@ -924,15 +952,8 @@ header.on.menu-open .header_logo a {
     display: block;
 }
 
-/* === Area 2: Images (Separated Layouts) === */
-.card_images {
-    grid-column: 1 / 2;
-    grid-row: 2;
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
 
+/* === Image Styles & Positioning === */
 .img_wrapper {
     position: absolute;
     overflow: hidden;
@@ -940,7 +961,7 @@ header.on.menu-open .header_logo a {
     background: #fff;
     transition: all 1.2s cubic-bezier(0.5, 0, 0.1, 1);
     opacity: 0;
-    /* 초기값: 살짝 이동 (애니메이션 효과) */
+    /* 초기값: 살짝 이동 */
     transform: translateY(10%) scale(0.95);
 }
 
@@ -951,137 +972,109 @@ header.on.menu-open .header_logo a {
     object-fit: cover;
 }
 
-/* 활성화 시 원래 위치로 복귀 */
+/* 활성화 시 복귀 */
 .project_card.active .img_wrapper {
     opacity: 1;
     transform: translate(0, 0) scale(1);
 }
 
-/* --- [Variation 0] Beauty of Joseon (펼쳐진 배치) --- */
-/* 수정: 겹치지 않게 왼쪽, 오른쪽, 중앙 하단으로 분산 */
+/* --- [Variation 0] Beauty of Joseon (좌/우/중앙 분산) --- */
 .project_card[data-index="0"] .img_main {
-    width: 40%;
-    height: 60%;
+    width: 42%;
+    height: 62%;
     left: 2%;
-    top: 10%;
-    /* 왼쪽 위 */
+    top: 5%;
 }
 
 .project_card[data-index="0"] .img_sub {
-    width: 35%;
-    height: 45%;
-    right: 5%;
-    top: 5%;
-    /* 오른쪽 위 */
+    width: 38%;
+    height: 48%;
+    right: 3%;
+    top: 2%;
 }
 
 .project_card[data-index="0"] .img_small {
-    width: 25%;
-    height: 35%;
-    left: 45%;
+    width: 28%;
+    height: 38%;
+    right: 25%;
     bottom: 5%;
-    /* 중앙 아래쪽 */
 }
 
 
-/* --- [Variation 1] HeAi (중앙 중심 배치) --- */
-/* 수정: 메인을 중앙에 두고, 좌우에 작은 이미지 배치 */
+/* --- [Variation 1] HeAi (중앙 메인 + 양옆 서브) --- */
 .project_card[data-index="1"] .img_main {
-    width: 32%;
+    width: 34%;
     height: 75%;
-    left: 34%;
-    top: 10%;
-    /* 정중앙 */
+    left: 33%;
+    top: 5%;
 }
 
 .project_card[data-index="1"] .img_sub {
-    width: 25%;
-    height: 40%;
-    left: 5%;
-    bottom: 20%;
-    /* 왼쪽 하단 */
+    width: 26%;
+    height: 42%;
+    left: 3%;
+    bottom: 15%;
 }
 
 .project_card[data-index="1"] .img_small {
-    width: 25%;
-    height: 35%;
-    right: 5%;
-    bottom: 15%;
-    /* 오른쪽 하단 */
+    width: 26%;
+    height: 38%;
+    right: 3%;
+    bottom: 10%;
 }
 
 
-/* --- [Variation 2] SAC (사선 배치) --- */
-/* 수정: 대각선 흐름으로 배치하여 겹침 방지 */
+/* --- [Variation 2] SAC (사선형 배치) --- */
 .project_card[data-index="2"] .img_main {
-    width: 45%;
+    width: 46%;
     height: 60%;
-    right: 5%;
-    top: 5%;
-    /* 오른쪽 상단 */
+    right: 2%;
+    top: 2%;
 }
 
 .project_card[data-index="2"] .img_sub {
-    width: 35%;
+    width: 36%;
     height: 50%;
-    left: 5%;
-    top: 20%;
-    /* 왼쪽 상단 */
+    left: 2%;
+    top: 15%;
 }
 
 .project_card[data-index="2"] .img_small {
-    width: 25%;
-    height: 25%;
-    left: 45%;
+    width: 26%;
+    height: 26%;
+    left: 42%;
     bottom: 5%;
-    /* 중앙 하단 */
 }
 
-/* --- [Variation 3] Verra (자유 분방 배치) --- */
-/* 수정: 구석구석 배치 */
+/* --- [Variation 3] Verra (지그재그) --- */
 .project_card[data-index="3"] .img_main {
-    width: 35%;
-    height: 55%;
-    left: 5%;
-    top: 10%;
-    /* 왼쪽 상단 */
+    width: 38%;
+    height: 58%;
+    left: 4%;
+    top: 8%;
 }
 
 .project_card[data-index="3"] .img_sub {
-    width: 40%;
-    height: 45%;
-    right: 5%;
-    top: 15%;
-    /* 오른쪽 상단 */
+    width: 42%;
+    height: 48%;
+    right: 4%;
+    top: 12%;
 }
 
 .project_card[data-index="3"] .img_small {
-    width: 30%;
-    height: 30%;
-    right: 30%;
-    bottom: 5%;
-    /* 오른쪽 하단 */
+    width: 32%;
+    height: 32%;
+    right: 35%;
+    bottom: 3%;
 }
 
 
-/* === Area 3: Sidebar (Right) === */
-.card_side_info {
-    grid-column: 2 / 3;
-    grid-row: 1 / 3;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 20px 0 0 0;
-    height: 100%;
-}
+/* === Sidebar Elements === */
 
 .vertical_label {
     writing-mode: vertical-rl;
     text-orientation: mixed;
     transform: rotate(180deg);
-    /* 텍스트 방향 조정 */
     font-family: var(--font-suit);
     font-size: 18px;
     font-weight: 700;
@@ -1108,6 +1101,7 @@ header.on.menu-open .header_logo a {
     align-items: center;
 }
 
+/* [수정] 링크 스타일: 호버 시 커지거나 밑줄 생기지 않고 색상만 변경 */
 .link_btn_v {
     display: block;
     writing-mode: vertical-rl;
@@ -1119,16 +1113,18 @@ header.on.menu-open .header_logo a {
     text-decoration: none;
     letter-spacing: 1px;
     padding: 15px 5px;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease;
+    /* 색상만 부드럽게 변경 */
     border: 1px solid transparent;
-    /* 공간 확보 */
 }
 
 .link_btn_v:hover {
-    color: #000;
-    font-weight: 500;
-    border-right: 2px solid var(--pr-color);
-    /* 호버 시 라인 효과 */
+    color: var(--pr-color);
+    /* 색상 변경 */
+    font-weight: 400;
+    /* 폰트 굵기 유지 (커짐 방지) */
+    border: 1px solid transparent;
+    /* 테두리 없음 */
 }
 
 .project_number {
@@ -1157,8 +1153,8 @@ header.on.menu-open .header_logo a {
     }
 
     .project_card_inner {
-        grid-template-columns: 1fr 60px;
-        /* 사이드바 축소 */
+        /* 모바일에서는 사이드바 폭을 줄이거나 숨길 수 있음 */
+        grid-template-columns: 60px 1fr;
     }
 
     .card_side_info {
@@ -1167,6 +1163,10 @@ header.on.menu-open .header_logo a {
 
     .vertical_label {
         font-size: 14px;
+    }
+
+    .card_header {
+        padding-left: 20px;
     }
 
     .img_small {
@@ -1180,7 +1180,6 @@ header.on.menu-open .header_logo a {
         left: 50% !important;
         transform: translateX(-50%) !important;
         top: 20% !important;
-        /* 상단 여백 확보 */
     }
 
     .project_card[data-index] .img_sub {
