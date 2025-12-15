@@ -621,6 +621,40 @@ header.on.menu-open .header_logo a {
     }
 }
 
+.obj_number {
+    position: absolute;
+    font-family: 'SUIT', sans-serif;
+    font-size: 50px;
+    font-weight: 700;
+    color: #5E1D1D;
+    z-index: 50;
+    pointer-events: none;
+    padding: 5px 15px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px var(--pr-color);
+}
+
+/* Projects (접시) - 2번 */
+.pos_projects .num_projects {
+    top: -9%;
+    left: -3%;
+}
+
+/* Visual Archive (이어폰) - 3번 */
+.pos_visual .num_visual {
+    top: -6%;
+    left: -6%;
+}
+
+/* Skills (영수증) - 1번 */
+.pos_skills .num_skills {
+    top: -6%;
+    right: 370px;
+    transform: rotate(-15deg);
+
+}
+
 /* ================= SKILLS SECTION (FINAL PERFECT) ================= */
 
 #Skills {
