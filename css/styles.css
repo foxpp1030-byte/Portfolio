@@ -257,6 +257,7 @@ header.menu-open {
 header.on.menu-open {
     background: #fff !important;
     border-bottom: 1px solid #ddd !important;
+    backdrop-filter: none !important;
 }
 
 header.menu-open .menu_icon_svg {
@@ -954,6 +955,13 @@ header.on.menu-open .header_logo a {
 
 
 /* === Image Styles & Positioning === */
+/* [수정] a 태그로 변경하면서 기본 스타일 리셋 */
+a.img_wrapper {
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+}
+
 .img_wrapper {
     position: absolute;
     overflow: hidden;
@@ -971,6 +979,41 @@ header.on.menu-open .header_logo a {
     height: 100%;
     object-fit: cover;
 }
+
+/* [NEW] 커스텀 커서 스타일 (프로젝트 섹션 전용) */
+.cursor_follower {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 120px;
+    height: 120px;
+    background-color: #fff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    /* 배경과 반전 효과 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.cursor_follower span {
+    color: #000;
+    /* mix-blend-mode 때문에 실제론 반전된 색상으로 보임 */
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* 오버레이 제거 (이제 커서가 대신함) */
+.img_overlay {
+    display: none;
+}
+
 
 /* 활성화 시 복귀 */
 .project_card.active .img_wrapper {

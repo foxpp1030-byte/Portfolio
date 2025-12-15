@@ -136,7 +136,7 @@ if (skillSection && txtLeft && txtRight && centerLine && receiptImg) {
         );
 }
 
-// ==================== Projects Section ====================
+// ==================== Projects Section (Updated for Speed & Cut-off) ====================
 const projectsSection = document.querySelector("#Projects");
 const horizontalTrack = document.querySelector(".horizontal_track");
 const projectCards = document.querySelectorAll(".project_card");
@@ -144,17 +144,20 @@ const listRows = document.querySelectorAll(".list_row");
 let currentProjectIndex = -1;
 
 if (projectsSection && horizontalTrack && projectCards.length > 0) {
+    // 1. 트랙 전체 너비 계산
     const trackWidth = horizontalTrack.scrollWidth;
-    const scrollEnd = trackWidth - window.innerWidth;
+    // 2. 실제 스크롤해야 할 거리 (트랙 너비 - 뷰포트 너비) + 여유분(200px)
+    const scrollEnd = trackWidth - window.innerWidth + 200;
 
     const projectScrollTrigger = gsap.to(horizontalTrack, {
-        x: -scrollEnd,
+        x: -scrollEnd, // 왼쪽으로 이동
         ease: "none",
         scrollTrigger: {
             id: 'project-horizontal-scroll',
             trigger: projectsSection,
             start: "top top",
-            end: () => `+=${trackWidth}`,
+            // 3. 스크롤 길이를 3배로 늘려 속도를 늦춤 (trackWidth * 3)
+            end: () => `+=${trackWidth * 3}`,
             pin: true,
             scrub: 1,
             anticipatePin: 1,
@@ -194,8 +197,10 @@ if (projectsSection && horizontalTrack && projectCards.length > 0) {
             const projectsScrollTrigger = ScrollTrigger.getById('project-horizontal-scroll');
             if (projectsScrollTrigger) {
                 const offset = targetCard.offsetLeft;
+                // 약간의 오차 보정
                 const targetTranslateX = -(offset - 100);
-                const progress = Math.max(0, Math.min(1, targetTranslateX / (-scrollEnd)));
+                // 전체 이동 범위 대비 비율 계산
+                const progress = Math.max(0, Math.min(1, Math.abs(targetTranslateX) / scrollEnd));
                 const targetScroll = projectsScrollTrigger.start +
                     (projectsScrollTrigger.end - projectsScrollTrigger.start) * progress;
 
@@ -208,6 +213,59 @@ if (projectsSection && horizontalTrack && projectCards.length > 0) {
         });
     });
 }
+
+// ==================== [NEW] Project Section Custom Cursor ====================
+const cursorFollower = document.querySelector('.cursor_follower');
+const cursorTextSpan = cursorFollower?.querySelector('span');
+const projectImages = document.querySelectorAll('.project_card .img_wrapper');
+
+if (cursorFollower && projectImages.length > 0) {
+    // 1. 마우스 따라다니기
+    gsap.set(cursorFollower, { xPercent: -50, yPercent: -50, scale: 0, opacity: 0 });
+
+    let xTo = gsap.quickTo(cursorFollower, "x", { duration: 0.4, ease: "power3" });
+    let yTo = gsap.quickTo(cursorFollower, "y", { duration: 0.4, ease: "power3" });
+
+    // 프로젝트 섹션 안에서만 마우스 추적
+    projectsSection.addEventListener("mousemove", (e) => {
+        xTo(e.clientX);
+        yTo(e.clientY);
+    });
+
+    // 2. 이미지 호버 효과
+    projectImages.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            const text = link.getAttribute('data-cursor-text') || "VIEW";
+            if (cursorTextSpan) cursorTextSpan.textContent = text;
+
+            gsap.to(cursorFollower, {
+                scale: 1,
+                opacity: 1,
+                duration: 0.3,
+                ease: "back.out(1.7)"
+            });
+            // 기본 커서 숨기기 (CSS로 처리하지만 확실하게)
+            document.body.style.cursor = 'none';
+        });
+
+        link.addEventListener('mouseleave', () => {
+            gsap.to(cursorFollower, {
+                scale: 0,
+                opacity: 0,
+                duration: 0.3,
+                ease: "power2.in"
+            });
+            document.body.style.cursor = 'auto';
+        });
+    });
+
+    // 섹션을 벗어날 때도 커서 숨기기
+    projectsSection.addEventListener('mouseleave', () => {
+        gsap.to(cursorFollower, { scale: 0, opacity: 0 });
+        document.body.style.cursor = 'auto';
+    });
+}
+
 
 // 5. Visual Archive
 ScrollTrigger.create({

@@ -23,6 +23,9 @@
 
 <body class="">
 
+    <!-- 커스텀 커서 (프로젝트 섹션용) -->
+    <div class="cursor_follower"><span>VIEW</span></div>
+
     <!-- main -->
     <main class="wrap">
         <!-- header -->
@@ -214,26 +217,11 @@
                     </div>
                 </div>
 
-                <!-- 프로젝트 카드 1 (Variation 0: Standard) -->
+                <!-- 프로젝트 카드 1 (Variation 0: Standard) - BOJ -->
                 <div class="project_item project_card" data-index="0">
                     <div class="project_card_inner">
-                        <div class="card_header">
-                            <h2 class="card_title">BEAUTY OF JOSEON</h2>
-                        </div>
 
-                        <div class="card_images">
-                            <div class="img_wrapper img_main">
-                                <img src="./img/Boj1.png" alt="BOJ Main">
-                            </div>
-                            <div class="img_wrapper img_sub">
-                                <img src="./img/Boj2.png" alt="BOJ Landing">
-                            </div>
-                            <div class="img_wrapper img_small">
-                                <img src="./img/Boj3.png" alt="BOJ Mobile">
-                            </div>
-                        </div>
-
-                        <!-- 사이드바: 오른쪽 영역 (라벨, 버튼, 넘버링) -->
+                        <!-- 사이드바: 왼쪽 영역 (라벨, 버튼, 넘버링) -->
                         <div class="card_side_info">
                             <span class="vertical_label">WEB DESIGN</span>
 
@@ -246,27 +234,35 @@
                                 <div class="project_number">01</div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- 프로젝트 카드 2 (Variation 1: Center Focus) -->
-                <div class="project_item project_card" data-index="1">
-                    <div class="project_card_inner">
+                        <!-- 컨텐츠: 헤더 & 이미지 -->
                         <div class="card_header">
-                            <h2 class="card_title">HEAI</h2>
+                            <h2 class="card_title">BEAUTY OF JOSEON</h2>
                         </div>
 
                         <div class="card_images">
-                            <div class="img_wrapper img_main">
-                                <img src="./img/heai_web.png" alt="heAi Main">
-                            </div>
-                            <div class="img_wrapper img_sub">
-                                <img src="./img/heai_landing.png" alt="heAi Landing">
-                            </div>
-                            <div class="img_wrapper img_small">
-                                <img src="./img/heai_mobile.png" alt="heAi Mobile">
-                            </div>
+                            <!-- Main: Website -->
+                            <a href="https://foxpp1030-byte.github.io/boj/" target="_blank" class="img_wrapper img_main"
+                                data-cursor-text="WEBSITE">
+                                <img src="./img/Boj1.png" alt="BOJ Main">
+                            </a>
+                            <!-- Sub: Landing -->
+                            <a href="https://zrr.kr/tz17oR" target="_blank" class="img_wrapper img_sub"
+                                data-cursor-text="LANDING">
+                                <img src="./img/Boj2.png" alt="BOJ Landing">
+                            </a>
+                            <!-- Small: Mobile/Web -->
+                            <a href="https://foxpp1030-byte.github.io/boj/" target="_blank"
+                                class="img_wrapper img_small" data-cursor-text="MOBILE">
+                                <img src="./img/Boj3.png" alt="BOJ Mobile">
+                            </a>
                         </div>
+                    </div>
+                </div>
+
+                <!-- 프로젝트 카드 2 (Variation 1: Center Focus) - HeAi -->
+                <div class="project_item project_card" data-index="1">
+                    <div class="project_card_inner">
 
                         <div class="card_side_info">
                             <span class="vertical_label">APP DESIGN</span>
@@ -280,27 +276,34 @@
                                 <div class="project_number">02</div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- 프로젝트 카드 3 (Variation 2: Reversed) -->
-                <div class="project_item project_card" data-index="2">
-                    <div class="project_card_inner">
                         <div class="card_header">
-                            <h2 class="card_title">SEOUL ARTS CENTER</h2>
+                            <h2 class="card_title">HEAI</h2>
                         </div>
 
                         <div class="card_images">
-                            <div class="img_wrapper img_main">
-                                <img src="./img/sac_main.png" alt="SAC Main">
-                            </div>
-                            <div class="img_wrapper img_sub">
-                                <img src="./img/sac_detail1.png" alt="SAC Detail 1">
-                            </div>
-                            <div class="img_wrapper img_small">
-                                <img src="./img/sac_detail2.png" alt="SAC Detail 2">
-                            </div>
+                            <!-- Main: App View -->
+                            <a href="https://heai-five.vercel.app" target="_blank" class="img_wrapper img_main"
+                                data-cursor-text="APP VIEW">
+                                <img src="./img/heai_web.png" alt="heAi Main">
+                            </a>
+                            <!-- Sub: Landing -->
+                            <a href="https://zrr.kr/gV7ILu" target="_blank" class="img_wrapper img_sub"
+                                data-cursor-text="LANDING">
+                                <img src="./img/heai_landing.png" alt="heAi Landing">
+                            </a>
+                            <!-- Small: Prototype -->
+                            <a href="https://zrr.kr/uy6prn" target="_blank" class="img_wrapper img_small"
+                                data-cursor-text="PROTOTYPE">
+                                <img src="./img/heai_mobile.png" alt="heAi Mobile">
+                            </a>
                         </div>
+                    </div>
+                </div>
+
+                <!-- 프로젝트 카드 3 (Variation 2: Reversed) - SAC -->
+                <div class="project_item project_card" data-index="2">
+                    <div class="project_card_inner">
 
                         <div class="card_side_info">
                             <span class="vertical_label">WEB RENEWAL</span>
@@ -312,27 +315,31 @@
                                 <div class="project_number">03</div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- 프로젝트 카드 4 (Variation 3: Scattered) -->
-                <div class="project_item project_card" data-index="3">
-                    <div class="project_card_inner">
                         <div class="card_header">
-                            <h2 class="card_title">VERRA</h2>
+                            <h2 class="card_title">SEOUL ARTS CENTER</h2>
                         </div>
 
                         <div class="card_images">
-                            <div class="img_wrapper img_main">
-                                <img src="./img/verra1.png" alt="Verra 1">
-                            </div>
-                            <div class="img_wrapper img_sub">
-                                <img src="./img/verra2.png" alt="Verra 2">
-                            </div>
-                            <div class="img_wrapper img_small">
-                                <img src="./img/verra3.png" alt="Verra 3">
-                            </div>
+                            <!-- Main: Website -->
+                            <a href="#" target="_blank" class="img_wrapper img_main" data-cursor-text="WEBSITE">
+                                <img src="./img/sac_main.png" alt="SAC Main">
+                            </a>
+                            <!-- Sub: Landing -->
+                            <a href="#" target="_blank" class="img_wrapper img_sub" data-cursor-text="LANDING">
+                                <img src="./img/sac_detail1.png" alt="SAC Detail 1">
+                            </a>
+                            <!-- Small: Detail -->
+                            <a href="#" target="_blank" class="img_wrapper img_small" data-cursor-text="PROTOTYPE">
+                                <img src="./img/sac_detail2.png" alt="SAC Detail 2">
+                            </a>
                         </div>
+                    </div>
+                </div>
+
+                <!-- 프로젝트 카드 4 (Variation 3: Scattered) - Verra -->
+                <div class="project_item project_card" data-index="3">
+                    <div class="project_card_inner">
 
                         <div class="card_side_info">
                             <span class="vertical_label">APP DESIGN</span>
@@ -343,6 +350,27 @@
                                 </div>
                                 <div class="project_number">04</div>
                             </div>
+                        </div>
+
+                        <div class="card_header">
+                            <h2 class="card_title">VERRA</h2>
+                        </div>
+
+                        <div class="card_images">
+                            <!-- Main: Prototype -->
+                            <a href="https://zrr.kr/xSCzoA" target="_blank" class="img_wrapper img_main"
+                                data-cursor-text="PROTOTYPE">
+                                <img src="./img/verra1.png" alt="Verra 1">
+                            </a>
+                            <!-- Sub: Landing -->
+                            <a href="https://zrr.kr/z8Dd8P" target="_blank" class="img_wrapper img_sub"
+                                data-cursor-text="LANDING">
+                                <img src="./img/verra2.png" alt="Verra 2">
+                            </a>
+                            <!-- Small: App View -->
+                            <a href="#" target="_blank" class="img_wrapper img_small" data-cursor-text="APP VIEW">
+                                <img src="./img/verra3.png" alt="Verra 3">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -485,7 +513,7 @@
                 <div class="contact_wrapper">
                     <div class="contact_area">
                         <p class="cta_text">LET'S CREATE TOGETHER</p>
-                        <a href="mailto:your.email@example.com" class="footer_email">foxpp1030@gmail.com</a>
+                        <a href="mailto:your.email@example.com" class="footer_email">your.email@example.com</a>
                     </div>
                     <div class="meta_info">
                         <span id="local-time">Seoul, Korea 00:00:00</span>
