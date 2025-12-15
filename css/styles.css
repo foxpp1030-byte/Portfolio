@@ -665,6 +665,139 @@ header.on.menu-open .header_logo a {
 
 }
 
+/* ================= ABOUT SECTION (UPDATED) ================= */
+.about_section {
+    width: 100%;
+    padding: 200px 0;
+    background: #fff;
+    position: relative;
+    z-index: 5;
+    overflow: hidden;
+    /* 라인이 밖으로 나가지 않도록 */
+}
+
+.about_inner {
+    width: clamp(50vw, 90%, 1700px);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+}
+
+.about_top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+}
+
+.about_title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: #000;
+    flex-shrink: 0;
+    /* 제목 줄어들지 않게 */
+}
+
+/* 라인 수정: 왼쪽에서 오른쪽으로 그려지도록 */
+.about_deco_line {
+    flex-grow: 1;
+    height: 1px;
+    background: #000;
+    transform-origin: left center;
+    /* 왼쪽 기준 */
+    transform: scaleX(0);
+    /* 초기 상태 0 */
+}
+
+.about_content {
+    display: flex;
+    justify-content: flex-end;
+    /* 우측 정렬 */
+    width: 100%;
+}
+
+.about_text_group {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-end;
+    /* 내부 아이템 우측 정렬 */
+    text-align: right;
+    /* 텍스트 우측 정렬 */
+}
+
+.about_main_text {
+    font-family: 'SUIT', sans-serif;
+    font-size: clamp(3rem, 5vw, 6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--color-uxui);
+    word-break: keep-all;
+    position: relative;
+    /* 텍스트 이펙트 준비 (JS에서 글자 쪼개기용) */
+}
+
+/* 텍스트 한 글자씩 효과 */
+.char-effect {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    /* 살짝 회전하면서 올라오는 느낌 */
+    transform-origin: bottom center;
+}
+
+
+.about_sub_text {
+    font-family: 'SUIT', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #333;
+    max-width: 800px;
+    word-break: keep-all;
+}
+
+.about_keywords {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    justify-content: flex-end;
+    /* 키워드도 우측부터 시작 */
+}
+
+.about_keywords span {
+    font-family: 'SUIT', sans-serif;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: 1px solid #000;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: default;
+    background: transparent;
+}
+
+.about_keywords span:hover {
+    background: var(--color-uxui);
+    color: #fff;
+    border-color: var(--color-uxui);
+}
+
+@media (max-width: 1024px) {
+    .about_text_group {
+        width: 100%;
+    }
+
+    .about_main_text {
+        font-size: 3rem;
+    }
+}
+
+
 /* ================= SKILLS SECTION (FINAL PERFECT) ================= */
 
 #Skills {

@@ -18,14 +18,8 @@
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.35/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/SplitText.min.js"></script>
-    <link rel="icon" href="./img/favicon.png" type="image/png">
-
-
+    <!-- SplitText는 유료 플러그인이거나 CDN 제한이 있을 수 있으므로, JS에서 직접 구현하는 방식으로 변경하여 안정성 확보 -->
 </head>
-
-
 
 <body class="">
 
@@ -55,14 +49,14 @@
             </div>
         </header>
 
-        <!-- object_page -->
+        <!-- object_page (오버레이) -->
         <div class="object_page">
             <div class="object_inner">
 
                 <div class="obj_link pos_profile">
                     <img src="./img/key.png" class="obj_img" alt="Key">
-
                 </div>
+
                 <a href="#Projects" class="obj_link pos_projects">
                     <img src="./img/dessert.png" class="obj_img" alt="Dessert">
                     <div class="curved_text_wrap type_projects">
@@ -76,7 +70,6 @@
                         </svg>
                     </div>
                     <span class="obj_number num_projects">02</span>
-                </a>
                 </a>
 
                 <div class="obj_link pos_bread">
@@ -97,12 +90,11 @@
                     </div>
                     <span class="obj_number num_visual">03</span>
                 </a>
-                </a>
 
                 <a href="#Skills" class="obj_link pos_skills">
                     <img src="./img/skillset01.png" class="obj_img" alt="Receipt">
                     <span class="obj_label label_skills">SKILL SET</span>
-                    <span class="obj_number num_skills">01</span> </a>
+                    <span class="obj_number num_skills">01</span>
                 </a>
 
             </div>
@@ -150,12 +142,15 @@
             </div>
 
             <div class="hero_menu_list">
-                <a href="#">Skills</a>
-                <a href="#">Projects</a>
-                <a href="#">Visual Archive</a>
+                <!-- [New] About 메뉴 추가 -->
+                <a href="#About">About</a>
+                <a href="#Skills">Skills</a>
+                <a href="#Projects">Projects</a>
+                <a href="#Visual">Visual Archive</a>
             </div>
 
         </section>
+
 
         <!-- skills section -->
         <section id="Skills" class="vid">
@@ -454,6 +449,31 @@
             <div id="img_modal" class="img_modal_overlay">
                 <div class="modal_close"><i class="fa-solid fa-xmark"></i></div>
                 <img src="" alt="Full Preview" class="modal_img">
+            </div>
+        </section>
+
+        <section id="About" class="about_section">
+            <div class="about_inner">
+                <div class="about_top">
+                    <h2 class="about_title">THANK YOU</h2>
+                    <!-- 라인이 자동으로 그어지는 효과를 위해 -->
+                    <span class="about_deco_line"></span>
+                </div>
+
+                <div class="about_content">
+                    <div class="about_text_group">
+                        <!-- 텍스트 이펙트를 위해 클래스 및 구조 유지 -->
+                        <p class="about_main_text text_animate">
+                            Designing with Logic,<br>
+                            Moving with Emotion.
+                        </p>
+                        <div class="about_keywords">
+                            <span>#Creative Strategy</span>
+                            <span>#Visual Storytelling</span>
+                            <span>#User-Centric</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 

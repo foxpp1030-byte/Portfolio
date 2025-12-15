@@ -151,6 +151,91 @@ if (heroSection) {
     });
 }
 
+// ==================== [NEW] ABOUT Section Animation (Updated) ====================
+// About 섹션 스크롤 애니메이션 + 텍스트 이펙트
+const aboutSection = document.querySelector("#About");
+const mainTextElement = document.querySelector(".about_main_text");
+
+// [기능] 텍스트를 한 글자씩 쪼개서 span으로 감싸는 함수 (SplitText 대용)
+function splitTextToSpans(element) {
+    if (!element) return;
+    const text = element.innerText; // <br> 태그가 있으면 innerText는 줄바꿈을 포함
+    // 기존 내용 비우기
+    element.innerHTML = '';
+
+    // 줄바꿈 기준으로 나누기
+    const lines = text.split('\n');
+
+    lines.forEach((line, lineIndex) => {
+        // 각 글자 생성
+        const chars = line.split('');
+        chars.forEach(char => {
+            const span = document.createElement('span');
+            span.classList.add('char-effect'); // CSS에서 스타일 정의
+            span.textContent = char === ' ' ? '\u00A0' : char; // 공백 처리
+            element.appendChild(span);
+        });
+
+        // 줄바꿈 추가 (마지막 줄 제외)
+        if (lineIndex < lines.length - 1) {
+            const br = document.createElement('br');
+            element.appendChild(br);
+        }
+    });
+}
+
+if (aboutSection) {
+    // 1. 텍스트 쪼개기 실행
+    if (mainTextElement) splitTextToSpans(mainTextElement);
+
+    const aboutTl = gsap.timeline({
+        scrollTrigger: {
+            trigger: "#About",
+            start: "top 60%", // 화면의 60% 지점에 오면 시작 (조금 더 빨리)
+            end: "bottom bottom",
+            toggleActions: "play none none reverse", // 다시 올라가면 리버스
+            onEnter: () => set_active('#About'),
+            onEnterBack: () => set_active('#About'),
+        }
+    });
+
+    // 애니메이션 순서: 타이틀 -> 라인 긋기 -> 텍스트 효과 -> 나머지
+    aboutTl
+        .from(".about_title", {
+            y: 30, opacity: 0, duration: 0.8, ease: "power3.out"
+        })
+        // [수정] 라인이 왼쪽에서 오른쪽으로 쭉 그려짐 (width가 아닌 scaleX 사용 for performance)
+        .to(".about_deco_line", {
+            scaleX: 1,
+            duration: 1.2,
+            ease: "expo.out"
+        }, "-=0.4")
+
+        // [수정] 메인 텍스트 한 글자씩 등장 (Stagger)
+        .to(".char-effect", {
+            opacity: 1,
+            y: 0,
+            rotation: 0,
+            stagger: 0.03, // 글자 간 딜레이
+            duration: 0.6,
+            ease: "back.out(1.7)"
+        }, "-=0.8")
+
+        // 서브 텍스트 등장
+        .from(".about_sub_text", {
+            y: 30, opacity: 0, duration: 1, ease: "power3.out"
+        }, "-=0.4")
+
+        // 키워드 등장
+        .from(".about_keywords span", {
+            y: 20,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "power2.out"
+        }, "-=0.6");
+}
+
 // 2. Skills Section (Perfect Fit)
 const skillSection = document.querySelector("#Skills");
 const txtLeft = document.querySelector(".text_left");
