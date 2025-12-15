@@ -407,7 +407,7 @@ if (modalClose && modal) {
 
 // 6. Rainbow Text Logic (Class)
 const ASCII_CHARS = "abcdefghijklmnñopqrstuvwxyz0123456789!#$%&/?'_-";
-const RB_COLORS = ["#ee637aff", "#fc9867", "#ffd866", "#a9dc76", "#78dce8", "#ab9df2"];
+const RB_COLORS = ["#ffffffff", "#f77f06ff", "#672817ff", "#2b381fff", "#78dce8", "#ab9df2"];
 
 class RainbowButton {
     constructor(_btn) {
