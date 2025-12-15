@@ -156,8 +156,8 @@ if (projectsSection && horizontalTrack && projectCards.length > 0) {
             id: 'project-horizontal-scroll',
             trigger: projectsSection,
             start: "top top",
-            // 3. 스크롤 길이를 3배로 늘려 속도를 늦춤 (trackWidth * 3)
-            end: () => `+=${trackWidth * 3}`,
+            // 3. 스크롤 길이를 다시 원래대로 (trackWidth)로 줄여서 속도 올림
+            end: () => `+=${trackWidth}`,
             pin: true,
             scrub: 1,
             anticipatePin: 1,
