@@ -955,14 +955,11 @@ header.on.menu-open .header_logo a {
 
 
 /* === Image Styles & Positioning === */
-/* [수정] a 태그로 변경하면서 기본 스타일 리셋 */
-a.img_wrapper {
+/* [수정] a 태그와 div 모두에 적용 */
+a.img_wrapper,
+div.img_wrapper {
     display: block;
-    cursor: pointer;
     text-decoration: none;
-}
-
-.img_wrapper {
     position: absolute;
     overflow: hidden;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
@@ -971,6 +968,17 @@ a.img_wrapper {
     opacity: 0;
     /* 초기값: 살짝 이동 */
     transform: translateY(10%) scale(0.95);
+}
+
+a.img_wrapper {
+    cursor: pointer;
+}
+
+/* div.img_wrapper는 클릭 불가하므로 기본 커서 유지 및 호버 효과 없음 */
+div.img_wrapper {
+    cursor: default;
+    pointer-events: none;
+    /* 호버 이벤트 자체를 막음 */
 }
 
 .img_wrapper img {
