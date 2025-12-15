@@ -76,9 +76,42 @@ header.on {
     cursor: pointer;
 }
 
+.menu_icon_svg {
+    width: 25px;
+    height: 25px;
+    display: block;
+    filter: invert(0);
+    transition: filter 0.3s ease;
+}
+
+
+header.on .menu_icon_svg {
+    filter: invert(1);
+}
+
+header.menu-open .menu_icon_svg {
+    filter: invert(0) !important;
+}
+
 .overlay header {
     border-bottom: 0;
     background: transparent;
+}
+
+.header_logo a {
+    font-family: 'Times New Roman', Times, serif;
+    /* 이미지 참고 */
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--text_color);
+    /* #000 */
+    text-decoration: none;
+    z-index: 10;
+}
+
+header.on .header_logo a {
+    color: #fff;
+    /* 어두운 배경일 때 흰색 */
 }
 
 header .inner {
@@ -89,6 +122,7 @@ header .inner {
     align-items: center;
     font-family: var(--font);
     font-size: var(--font_size);
+    position: relative;
 }
 
 header nav {
@@ -97,6 +131,25 @@ header nav {
 
 .overlay header nav {
     display: none;
+}
+
+.header_center_wrap {
+    position: absolute;
+    /* .inner 기준으로 절대 위치 */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /* 정확히 중앙 정렬 */
+    z-index: 5;
+    /* 로고보다 낮게 설정 가능 */
+}
+
+/* header.menu-open 일 때 .gnb 숨김 유지 */
+header.menu-open .gnb {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
 /* =======================================================
@@ -222,13 +275,11 @@ header.on .ham_menu i {
 /* 1. 배경을 흰색(#fff)으로 유지 (오버레이와 연결되게) */
 header.menu-open {
     background: #fff !important;
-    border-bottom: none !important;
+    border-bottom: 1px solid #ddd !important;
     backdrop-filter: none !important;
-    box-shadow: none !important;
 }
 
 /* 2. [핵심 수정] 네비게이션 메뉴(About, Skills 등) 숨기기 */
-/* 글자 색을 바꾸는 게 아니라, 영역 자체를 투명하게 만듭니다. */
 header.menu-open .gnb {
     opacity: 0 !important;
     visibility: hidden !important;
@@ -244,6 +295,39 @@ header.menu-open .ham_menu i {
     position: relative;
     z-index: 102;
     /* 헤더보다 확실히 위에 있게 */
+}
+
+header.on.menu-open {
+    background: #fff !important;
+    border-bottom: 1px solid #ddd !important;
+}
+
+/* styles.css */
+
+/* ⭐ [문제 1 해결] 햄버거 메뉴가 열리면 중앙 GNB 메뉴를 무조건 숨김 ⭐ */
+header.menu-open .header_center_wrap {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* ⭐ [문제 2 해결] 햄버거 메뉴가 열리면 (스크롤 위치 무관) 무조건 흰색 배경 ⭐ */
+header.menu-open {
+    background: #fff !important;
+    border-bottom: 1px solid #ddd !important;
+    backdrop-filter: none !important;
+}
+
+/* 스크롤 다운 상태 (header.on) 일지라도 menu-open이면 흰색 */
+header.on.menu-open {
+    background: #fff !important;
+    border-bottom: 1px solid #ddd !important;
+}
+
+/* 햄버거 아이콘은 무조건 검정색 (흰색 오버레이 위) */
+header.menu-open .menu_icon_svg {
+    filter: invert(0) !important;
 }
 
 /* ================= HERO SECTION (REVISED) ================= */

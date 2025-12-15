@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portfolio</title>
-
+    <link rel="icon" href="./img/favicon.png" type="image/png">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
     <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
@@ -20,6 +20,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/SplitText.min.js"></script>
+    <link rel="icon" href="./img/favicon.png" type="image/png">
 
 
 </head>
@@ -33,15 +34,23 @@
         <!-- header -->
         <header class="">
             <div class="inner">
-                <nav class="gnb">
-                    <ul class="gnb_tit">
-                        <li><a href="#Skills" data-text="Skillset">Skillset</a></li>
-                        <li><a href="#Projects" data-text="Projects">Projects</a></li>
-                        <li><a href="#Visual" data-text="Visual Archive">Visual Archive</a></li>
-                    </ul>
-                </nav>
+
+                <h1 class="header_logo">
+                    <a href="#hero">DD's</a>
+                </h1>
+
+                <div class="header_center_wrap">
+                    <nav class="gnb">
+                        <ul class="gnb_tit">
+                            <li><a href="#Skills" data-text="Skillset">Skillset</a></li>
+                            <li><a href="#Projects" data-text="Projects">Projects</a></li>
+                            <li><a href="#Visual" data-text="Visual Archive">Visual Archive</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                
                 <div class="ham_menu">
-                    <i class="fa-solid fa-bars-staggered"></i>
+                    <img src="./img/menu.svg" alt="Menu Icon" class="menu_icon_svg">
                 </div>
             </div>
         </header>
