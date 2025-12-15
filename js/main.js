@@ -151,32 +151,25 @@ if (heroSection) {
     });
 }
 
-// ==================== [NEW] ABOUT Section Animation (Updated) ====================
-// About 섹션 스크롤 애니메이션 + 텍스트 이펙트
+// ==================== [NEW] ABOUT Section Animation (Revised) ====================
 const aboutSection = document.querySelector("#About");
 const mainTextElement = document.querySelector(".about_main_text");
 
-// [기능] 텍스트를 한 글자씩 쪼개서 span으로 감싸는 함수 (SplitText 대용)
+// [기능] 텍스트를 한 글자씩 쪼개서 span으로 감싸는 함수 (유지)
 function splitTextToSpans(element) {
     if (!element) return;
-    const text = element.innerText; // <br> 태그가 있으면 innerText는 줄바꿈을 포함
-    // 기존 내용 비우기
+    const text = element.innerText;
     element.innerHTML = '';
-
-    // 줄바꿈 기준으로 나누기
     const lines = text.split('\n');
 
     lines.forEach((line, lineIndex) => {
-        // 각 글자 생성
         const chars = line.split('');
         chars.forEach(char => {
             const span = document.createElement('span');
-            span.classList.add('char-effect'); // CSS에서 스타일 정의
-            span.textContent = char === ' ' ? '\u00A0' : char; // 공백 처리
+            span.classList.add('char-effect');
+            span.textContent = char === ' ' ? '\u00A0' : char;
             element.appendChild(span);
         });
-
-        // 줄바꿈 추가 (마지막 줄 제외)
         if (lineIndex < lines.length - 1) {
             const br = document.createElement('br');
             element.appendChild(br);
@@ -188,52 +181,57 @@ if (aboutSection) {
     // 1. 텍스트 쪼개기 실행
     if (mainTextElement) splitTextToSpans(mainTextElement);
 
+    // [핵심 변경] scrub 대신 toggleActions 사용으로 "자동 재생" 느낌 강화
     const aboutTl = gsap.timeline({
         scrollTrigger: {
             trigger: "#About",
-            start: "top 60%", // 화면의 60% 지점에 오면 시작 (조금 더 빨리)
+            start: "top 60%",     // 화면 60% 진입 시 시작
             end: "bottom bottom",
-            toggleActions: "play none none reverse", // 다시 올라가면 리버스
+            toggleActions: "play none none reverse", // 스크롤 내리면 재생, 다시 올리면 역재생
             onEnter: () => set_active('#About'),
             onEnterBack: () => set_active('#About'),
         }
     });
 
-    // 애니메이션 순서: 타이틀 -> 라인 긋기 -> 텍스트 효과 -> 나머지
     aboutTl
+        // 1. 타이틀 등장
         .from(".about_title", {
             y: 30, opacity: 0, duration: 0.8, ease: "power3.out"
         })
-        // [수정] 라인이 왼쪽에서 오른쪽으로 쭉 그려짐 (width가 아닌 scaleX 사용 for performance)
+
+        // 2. 라인 긋기 (왼쪽 -> 오른쪽)
         .to(".about_deco_line", {
             scaleX: 1,
             duration: 1.2,
             ease: "expo.out"
         }, "-=0.4")
 
-        // [수정] 메인 텍스트 한 글자씩 등장 (Stagger)
+        // 3. 메인 텍스트 한 글자씩 등장 (Stagger 효과 극대화)
         .to(".char-effect", {
             opacity: 1,
             y: 0,
             rotation: 0,
-            stagger: 0.03, // 글자 간 딜레이
+            stagger: 0.03,
             duration: 0.6,
             ease: "back.out(1.7)"
         }, "-=0.8")
 
-        // 서브 텍스트 등장
+        // 4. 서브 텍스트 등장
         .from(".about_sub_text", {
             y: 30, opacity: 0, duration: 1, ease: "power3.out"
         }, "-=0.4")
 
-        // 키워드 등장
-        .from(".about_keywords span", {
-            y: 20,
-            opacity: 0,
+        // 5. 키워드 태그 등장 (문제 해결: 투명도 0 -> 1로 확실하게 변경)
+        .to(".about_keywords span", {
+            y: 0,
+            opacity: 1, // 확실하게 보이도록 설정
             duration: 0.6,
             stagger: 0.1,
-            ease: "power2.out"
-        }, "-=0.6");
+            ease: "back.out(1.7)"
+        }, "-=0.4");
+
+    // 초기 상태 설정 (JS 로드 시점에 깜빡임 방지)
+    gsap.set(".about_keywords span", { y: 20, opacity: 0 });
 }
 
 // 2. Skills Section (Perfect Fit)

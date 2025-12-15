@@ -779,6 +779,8 @@ header.on.menu-open .header_logo a {
     transition: all 0.3s ease;
     cursor: default;
     background: transparent;
+    opacity: 0;
+    /* JS 없어도 초기엔 안 보이게 */
 }
 
 .about_keywords span:hover {
