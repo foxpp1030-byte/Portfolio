@@ -161,22 +161,18 @@ header.menu-open .gnb {
     position: relative;
     overflow: hidden;
     text-decoration: none;
-    color: transparent;
+    color: var(--color-portfolio);
     font-size: var(--font_size);
     line-height: 1.2;
     cursor: pointer;
     padding: 5px 0;
+    transition: color 0.3s ease;
 }
 
-.gnb_tit li a::before,
-.gnb_tit li a::after {
-    content: attr(data-text);
-    position: absolute;
-    left: 0;
-    width: 100%;
-    white-space: nowrap;
-    text-align: center;
-    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.5s ease;
+.gnb_tit li:hover a,
+.gnb_tit li.on a {
+    color: var(--color-designer);
+    /* 포인트 색상으로 변경 */
 }
 
 .gnb_tit li a::before {
@@ -196,37 +192,6 @@ header.menu-open .gnb {
     transform: translateY(100%);
 }
 
-.gnb_tit li:hover a::before,
-.gnb_tit li.on a::before {
-    transform: translateY(-100%);
-    opacity: 0;
-}
-
-.gnb_tit li:hover a::after,
-.gnb_tit li.on a::after {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.gnb_tit li::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 1px;
-    background: var(--pr-color);
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.gnb_tit li:hover::after,
-.gnb_tit li.on::after {
-    transform: scaleX(1);
-    transform-origin: left;
-}
 
 header.on .gnb_tit li a::before {
     color: #fff !important;
