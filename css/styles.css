@@ -859,17 +859,16 @@ header.on.menu-open .header_logo a {
     flex-basis: 20%;
 }
 
-/* ================= 프로젝트 카드 (UPDATED LAYOUT) ================= */
+/* ================= 프로젝트 카드 (UPDATED LAYOUT - NON-OVERLAPPING) ================= */
 
 .project_item.project_card {
     width: 85vw;
-    /* 카드를 좀 더 넓게 사용 */
+    /* 카드를 넓게 */
     height: 100vh;
     flex-shrink: 0;
     padding: 40px 0;
     box-sizing: border-box;
     margin-right: 150px;
-    /* 간격 조정 */
 }
 
 .horizontal_track .project_item:last-child {
@@ -925,7 +924,7 @@ header.on.menu-open .header_logo a {
     display: block;
 }
 
-/* === Area 2: Images (Diverse Layouts) === */
+/* === Area 2: Images (Separated Layouts) === */
 .card_images {
     grid-column: 1 / 2;
     grid-row: 2;
@@ -941,6 +940,8 @@ header.on.menu-open .header_logo a {
     background: #fff;
     transition: all 1.2s cubic-bezier(0.5, 0, 0.1, 1);
     opacity: 0;
+    /* 초기값: 살짝 이동 (애니메이션 효과) */
+    transform: translateY(10%) scale(0.95);
 }
 
 .img_wrapper img {
@@ -950,145 +951,116 @@ header.on.menu-open .header_logo a {
     object-fit: cover;
 }
 
+/* 활성화 시 원래 위치로 복귀 */
 .project_card.active .img_wrapper {
     opacity: 1;
+    transform: translate(0, 0) scale(1);
 }
 
-
-/* --- [Variation 0] Default (Beauty of Joseon) --- */
+/* --- [Variation 0] Beauty of Joseon (펼쳐진 배치) --- */
+/* 수정: 겹치지 않게 왼쪽, 오른쪽, 중앙 하단으로 분산 */
 .project_card[data-index="0"] .img_main {
-    width: 45%;
-    height: 85%;
-    left: 5%;
-    bottom: 0;
-    z-index: 2;
-    transform: translateY(20%);
+    width: 40%;
+    height: 60%;
+    left: 2%;
+    top: 10%;
+    /* 왼쪽 위 */
 }
 
 .project_card[data-index="0"] .img_sub {
-    width: 40%;
-    height: 50%;
-    right: 10%;
-    bottom: 0;
-    z-index: 1;
-    transform: translateX(20%);
+    width: 35%;
+    height: 45%;
+    right: 5%;
+    top: 5%;
+    /* 오른쪽 위 */
 }
 
 .project_card[data-index="0"] .img_small {
-    width: 20%;
+    width: 25%;
     height: 35%;
-    right: 5%;
-    top: 10%;
-    z-index: 3;
-    transform: translateY(-20%);
+    left: 45%;
+    bottom: 5%;
+    /* 중앙 아래쪽 */
 }
 
-/* --- [Variation 1] Center Focus (HeAi) --- */
+
+/* --- [Variation 1] HeAi (중앙 중심 배치) --- */
+/* 수정: 메인을 중앙에 두고, 좌우에 작은 이미지 배치 */
 .project_card[data-index="1"] .img_main {
-    width: 35%;
-    height: 80%;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%) translateY(20%);
-    /* Center bottom */
-    z-index: 3;
+    width: 32%;
+    height: 75%;
+    left: 34%;
+    top: 10%;
+    /* 정중앙 */
 }
 
 .project_card[data-index="1"] .img_sub {
     width: 25%;
-    height: 50%;
-    left: 10%;
+    height: 40%;
+    left: 5%;
     bottom: 20%;
-    transform: translateX(-20%);
-    z-index: 1;
+    /* 왼쪽 하단 */
 }
 
 .project_card[data-index="1"] .img_small {
-    width: 22%;
-    height: 40%;
-    right: 15%;
-    top: 15%;
-    transform: translateX(20%);
-    z-index: 2;
-}
-
-.project_card[data-index="1"].active .img_main {
-    transform: translateX(-50%) translateY(0);
-}
-
-
-/* --- [Variation 2] Reversed (SAC) --- */
-.project_card[data-index="2"] .img_main {
-    width: 50%;
-    height: 75%;
+    width: 25%;
+    height: 35%;
     right: 5%;
-    bottom: 5%;
-    transform: translateX(20%);
-    z-index: 1;
+    bottom: 15%;
+    /* 오른쪽 하단 */
+}
+
+
+/* --- [Variation 2] SAC (사선 배치) --- */
+/* 수정: 대각선 흐름으로 배치하여 겹침 방지 */
+.project_card[data-index="2"] .img_main {
+    width: 45%;
+    height: 60%;
+    right: 5%;
+    top: 5%;
+    /* 오른쪽 상단 */
 }
 
 .project_card[data-index="2"] .img_sub {
     width: 35%;
-    height: 60%;
+    height: 50%;
     left: 5%;
-    bottom: 0;
-    transform: translateY(20%);
-    z-index: 2;
+    top: 20%;
+    /* 왼쪽 상단 */
 }
 
 .project_card[data-index="2"] .img_small {
     width: 25%;
-    height: 30%;
-    left: 15%;
-    top: 5%;
-    transform: translateY(-20%);
-    z-index: 3;
+    height: 25%;
+    left: 45%;
+    bottom: 5%;
+    /* 중앙 하단 */
 }
 
-/* --- [Variation 3] Scattered (Verra) --- */
+/* --- [Variation 3] Verra (자유 분방 배치) --- */
+/* 수정: 구석구석 배치 */
 .project_card[data-index="3"] .img_main {
-    width: 40%;
-    height: 70%;
-    left: 0;
-    bottom: 10%;
-    transform: translateX(-20%);
-    z-index: 2;
+    width: 35%;
+    height: 55%;
+    left: 5%;
+    top: 10%;
+    /* 왼쪽 상단 */
 }
 
 .project_card[data-index="3"] .img_sub {
-    width: 25%;
-    height: 50%;
-    right: 25%;
-    top: 0;
-    transform: translateY(-20%);
-    z-index: 1;
+    width: 40%;
+    height: 45%;
+    right: 5%;
+    top: 15%;
+    /* 오른쪽 상단 */
 }
 
 .project_card[data-index="3"] .img_small {
     width: 30%;
-    height: 40%;
-    right: 0;
-    bottom: 0;
-    transform: translateX(20%);
-    z-index: 3;
-}
-
-/* Active States for Variations (Reset Transforms) */
-.project_card.active[data-index="0"] .img_main,
-.project_card.active[data-index="0"] .img_sub,
-.project_card.active[data-index="0"] .img_small,
-.project_card.active[data-index="2"] .img_main,
-.project_card.active[data-index="2"] .img_sub,
-.project_card.active[data-index="2"] .img_small,
-.project_card.active[data-index="3"] .img_main,
-.project_card.active[data-index="3"] .img_sub,
-.project_card.active[data-index="3"] .img_small {
-    transform: translate(0, 0) !important;
-}
-
-.project_card.active[data-index="1"] .img_sub,
-.project_card.active[data-index="1"] .img_small {
-    transform: translate(0, 0) !important;
+    height: 30%;
+    right: 30%;
+    bottom: 5%;
+    /* 오른쪽 하단 */
 }
 
 
@@ -1207,6 +1179,8 @@ header.on.menu-open .header_logo a {
         width: 70% !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
+        top: 20% !important;
+        /* 상단 여백 확보 */
     }
 
     .project_card[data-index] .img_sub {
