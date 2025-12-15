@@ -103,7 +103,7 @@ if (heroSection) {
 }
 
 
-// 2. Skills Section
+// 2. Skills Section (수정됨: 역스크롤 튕김 현상 해결)
 const skillSection = document.querySelector("#Skills");
 const txtLeft = document.querySelector(".text_left");
 const txtRight = document.querySelector(".text_right");
@@ -111,13 +111,15 @@ const centerLine = document.querySelector(".center_line");
 const receiptImg = document.querySelector(".skillset_img");
 
 if (skillSection && txtLeft && txtRight && centerLine && receiptImg) {
+    // [수정] 초기 상태를 미리 CSS로 고정 (fromTo 대신 set + to 사용)
     gsap.set(centerLine, { width: 0 });
+    gsap.set(receiptImg, { yPercent: -100 });
 
     const skillTl = gsap.timeline({
         scrollTrigger: {
             trigger: "#Skills",
             start: "top top",
-            end: "+=2000",
+            end: "+=2500", // 스크롤 길이를 조금 늘려 안정감 확보
             pin: true,
             scrub: 1,
             anticipatePin: 1,
@@ -130,10 +132,8 @@ if (skillSection && txtLeft && txtRight && centerLine && receiptImg) {
         .to(txtLeft, { x: -250, duration: 1, ease: "power2.out" }, "start")
         .to(txtRight, { x: 250, duration: 1, ease: "power2.out" }, "start")
         .to(centerLine, { width: 450, duration: 1, ease: "power2.out" }, "start")
-        .fromTo(receiptImg,
-            { yPercent: -100 },
-            { yPercent: 0, duration: 2.5, ease: "none" }
-        );
+        // [수정] fromTo 대신 to 사용 및 시작 타이밍 조정 ("-=0.5"로 자연스럽게 연결)
+        .to(receiptImg, { yPercent: 0, duration: 2.5, ease: "none" }, "-=0.5");
 }
 
 // ==================== Projects Section (Updated for Speed & Cut-off) ====================
