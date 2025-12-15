@@ -891,7 +891,7 @@ header.on.menu-open .header_logo a {
 .vertical_label {
     position: absolute;
     top: 155%;
-    right: -14%;
+    right: -19%;
     transform: translateY(-50%) rotate(90deg);
 
     font-family: var(--font-suit);
