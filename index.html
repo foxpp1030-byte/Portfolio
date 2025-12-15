@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
     <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/styles.css" />
     <script src="https://kit.fontawesome.com/1b41f4f82b.js" crossorigin="anonymous"></script>
@@ -18,7 +19,6 @@
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.35/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
-    <!-- SplitText는 유료 플러그인이거나 CDN 제한이 있을 수 있으므로, JS에서 직접 구현하는 방식으로 변경하여 안정성 확보 -->
 </head>
 
 <body class="">
@@ -142,7 +142,6 @@
             </div>
 
             <div class="hero_menu_list">
-                <!-- [New] About 메뉴 추가 -->
                 <a href="#About">About</a>
                 <a href="#Skills">Skills</a>
                 <a href="#Projects">Projects</a>
@@ -215,13 +214,11 @@
                     </div>
                 </div>
 
-                <!-- 프로젝트 카드 1 -->
+                <!-- 프로젝트 카드 1 (Variation 0: Standard) -->
                 <div class="project_item project_card" data-index="0">
                     <div class="project_card_inner">
                         <div class="card_header">
                             <h2 class="card_title">BEAUTY OF JOSEON</h2>
-                            <img src="./img/cursor_logo.svg" alt="Logo Badge" class="rotating_badge">
-                            <span class="vertical_label">WEB DESIGN</span>
                         </div>
 
                         <div class="card_images">
@@ -235,20 +232,28 @@
                                 <img src="./img/Boj3.png" alt="BOJ Mobile">
                             </div>
                         </div>
-                        <div class="link_buttons">
-                            <a href="https://foxpp1030-byte.github.io/boj/" target="_blank" class="link_btn">WEBSITE</a>
-                            <a href="https://zrr.kr/tz17oR" target="_blank" class="link_btn">LANDING PAGE</a>
+
+                        <!-- 사이드바: 오른쪽 영역 (라벨, 버튼, 넘버링) -->
+                        <div class="card_side_info">
+                            <span class="vertical_label">WEB DESIGN</span>
+
+                            <div class="side_bottom_group">
+                                <div class="link_buttons_vertical">
+                                    <a href="https://foxpp1030-byte.github.io/boj/" target="_blank"
+                                        class="link_btn_v">WEBSITE</a>
+                                    <a href="https://zrr.kr/tz17oR" target="_blank" class="link_btn_v">LANDING</a>
+                                </div>
+                                <div class="project_number">01</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 프로젝트 카드 2 -->
+                <!-- 프로젝트 카드 2 (Variation 1: Center Focus) -->
                 <div class="project_item project_card" data-index="1">
                     <div class="project_card_inner">
                         <div class="card_header">
                             <h2 class="card_title">HEAI</h2>
-                            <img src="./img/cursor_logo.svg" alt="Logo Badge" class="rotating_badge">
-                            <span class="vertical_label">APP DESIGN</span>
                         </div>
 
                         <div class="card_images">
@@ -262,22 +267,27 @@
                                 <img src="./img/heai_mobile.png" alt="heAi Mobile">
                             </div>
                         </div>
-                        <div class="link_buttons">
-                            <a href="https://heai-five.vercel.app" target="_blank" class="link_btn">APP</a>
-                            <a href="https://zrr.kr/uy6prn" target="_blank" class="link_btn">PROTOTYPE</a>
-                            <a href="https://zrr.kr/gV7ILu" target="_blank" class="link_btn">LANDING PAGE</a>
-                        </div>
 
+                        <div class="card_side_info">
+                            <span class="vertical_label">APP DESIGN</span>
+                            <div class="side_bottom_group">
+                                <div class="link_buttons_vertical">
+                                    <a href="https://heai-five.vercel.app" target="_blank" class="link_btn_v">APP
+                                        VIEW</a>
+                                    <a href="https://zrr.kr/uy6prn" target="_blank" class="link_btn_v">PROTOTYPE</a>
+                                    <a href="https://zrr.kr/gV7ILu" target="_blank" class="link_btn_v">LANDING</a>
+                                </div>
+                                <div class="project_number">02</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 프로젝트 카드 3 -->
+                <!-- 프로젝트 카드 3 (Variation 2: Reversed) -->
                 <div class="project_item project_card" data-index="2">
                     <div class="project_card_inner">
                         <div class="card_header">
                             <h2 class="card_title">SEOUL ARTS CENTER</h2>
-                            <img src="./img/cursor_logo.svg" alt="Logo Badge" class="rotating_badge">
-                            <span class="vertical_label">WEB RENEWAL</span>
                         </div>
 
                         <div class="card_images">
@@ -292,20 +302,24 @@
                             </div>
                         </div>
 
-                        <div class="link_buttons">
-                            <a href="#" target="_blank" class="link_btn">LANDING PAGE</a>
-                            <a href="#" target="_blank" class="link_btn">PROTOTYPE</a>
+                        <div class="card_side_info">
+                            <span class="vertical_label">WEB RENEWAL</span>
+                            <div class="side_bottom_group">
+                                <div class="link_buttons_vertical">
+                                    <a href="#" target="_blank" class="link_btn_v">LANDING</a>
+                                    <a href="#" target="_blank" class="link_btn_v">PROTOTYPE</a>
+                                </div>
+                                <div class="project_number">03</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 프로젝트 카드 4 -->
+                <!-- 프로젝트 카드 4 (Variation 3: Scattered) -->
                 <div class="project_item project_card" data-index="3">
                     <div class="project_card_inner">
                         <div class="card_header">
                             <h2 class="card_title">VERRA</h2>
-                            <img src="./img/cursor_logo.svg" alt="Logo Badge" class="rotating_badge">
-                            <span class="vertical_label">APP DESIGN</span>
                         </div>
 
                         <div class="card_images">
@@ -320,11 +334,16 @@
                             </div>
                         </div>
 
-                        <div class="link_buttons">
-                            <a href="https://zrr.kr/xSCzoA" target="_blank" class="link_btn">PROTOTYPE</a>
-                            <a href="https://zrr.kr/z8Dd8P" target="_blank" class="link_btn">LANDING PAGE</a>
+                        <div class="card_side_info">
+                            <span class="vertical_label">APP DESIGN</span>
+                            <div class="side_bottom_group">
+                                <div class="link_buttons_vertical">
+                                    <a href="https://zrr.kr/xSCzoA" target="_blank" class="link_btn_v">PROTOTYPE</a>
+                                    <a href="https://zrr.kr/z8Dd8P" target="_blank" class="link_btn_v">LANDING</a>
+                                </div>
+                                <div class="project_number">04</div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
