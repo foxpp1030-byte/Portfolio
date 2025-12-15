@@ -29,15 +29,12 @@ body main {
 
 /* 텍스트 선택 시 하이라이트 색상 변경 */
 ::selection {
-    background-color: #F0C4CB;
-    /* 핫핑크색 (원하는 핑크색 코드로 변경 가능) */
+    background-color: var(--pr-color);
     color: white;
-    /* 드래그된 텍스트 색상 */
 }
 
-/* 파이어폭스 브라우저 호환성 */
 ::-moz-selection {
-    background-color: #F0C4CB;
+    background-color: var(--pr-color);
     color: white;
 }
 
@@ -100,18 +97,15 @@ header.menu-open .menu_icon_svg {
 
 .header_logo a {
     font-family: 'Times New Roman', Times, serif;
-    /* 이미지 참고 */
     font-size: 30px;
     font-weight: 700;
     color: var(--text_color);
-    /* #000 */
     text-decoration: none;
     z-index: 10;
 }
 
 header.on .header_logo a {
     color: #fff;
-    /* 어두운 배경일 때 흰색 */
 }
 
 header .inner {
@@ -135,16 +129,12 @@ header nav {
 
 .header_center_wrap {
     position: absolute;
-    /* .inner 기준으로 절대 위치 */
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    /* 정확히 중앙 정렬 */
     z-index: 5;
-    /* 로고보다 낮게 설정 가능 */
 }
 
-/* header.menu-open 일 때 .gnb 숨김 유지 */
 header.menu-open .gnb {
     opacity: 0 !important;
     visibility: hidden !important;
@@ -152,11 +142,6 @@ header.menu-open .gnb {
     transition: opacity 0.3s ease;
 }
 
-/* =======================================================
-   [최종 수정] GNB 스타일 (배경 사라짐 & 아이콘 색상 해결)
-   ======================================================= */
-
-/* 1. GNB 레이아웃 및 텍스트 설정 */
 .gnb_tit {
     display: flex;
     height: 100%;
@@ -194,7 +179,6 @@ header.menu-open .gnb {
     transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.5s ease;
 }
 
-/* 기본 상태 (흰 배경일 때) */
 .gnb_tit li a::before {
     top: 5px;
     font-family: "SUIT", sans-serif;
@@ -244,10 +228,6 @@ header.menu-open .gnb {
     transform-origin: left;
 }
 
-/* =======================================================
-   [문제 해결 파트 1] 어두운 배경(header.on) 일 때
-   ======================================================= */
-/* 텍스트 흰색 변경 */
 header.on .gnb_tit li a::before {
     color: #fff !important;
     opacity: 0.7;
@@ -261,40 +241,28 @@ header.on .gnb_tit li::after {
     background: #fff;
 }
 
-/* [추가됨] 어두운 배경에서 햄버거 아이콘 흰색으로 변경 */
 header.on .ham_menu i {
     color: #fff;
     transition: color 0.3s ease;
 }
 
-
-/* =======================================================
-   [최종 수정 Part 2] 햄버거 메뉴 열림(menu-open) 시
-   ======================================================= */
-
-/* 1. 배경을 흰색(#fff)으로 유지 (오버레이와 연결되게) */
 header.menu-open {
     background: #fff !important;
     border-bottom: 1px solid #ddd !important;
     backdrop-filter: none !important;
 }
 
-/* 2. [핵심 수정] 네비게이션 메뉴(About, Skills 등) 숨기기 */
 header.menu-open .gnb {
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none;
-    /* 숨겨진 메뉴가 클릭되지 않도록 방지 */
     transition: opacity 0.3s ease;
-    /* 부드럽게 사라짐 */
 }
 
-/* 3. 햄버거(닫기) 아이콘은 무조건 검정색으로 잘 보여야 함 */
 header.menu-open .ham_menu i {
     color: #000 !important;
     position: relative;
     z-index: 102;
-    /* 헤더보다 확실히 위에 있게 */
 }
 
 header.on.menu-open {
@@ -302,9 +270,6 @@ header.on.menu-open {
     border-bottom: 1px solid #ddd !important;
 }
 
-/* styles.css */
-
-/* ⭐ [문제 1 해결] 햄버거 메뉴가 열리면 중앙 GNB 메뉴를 무조건 숨김 ⭐ */
 header.menu-open .header_center_wrap {
     opacity: 0 !important;
     visibility: hidden !important;
@@ -312,22 +277,27 @@ header.menu-open .header_center_wrap {
     transition: opacity 0.3s ease;
 }
 
-/* ⭐ [문제 2 해결] 햄버거 메뉴가 열리면 (스크롤 위치 무관) 무조건 흰색 배경 ⭐ */
 header.menu-open {
     background: #fff !important;
     border-bottom: 1px solid #ddd !important;
     backdrop-filter: none !important;
 }
 
-/* 스크롤 다운 상태 (header.on) 일지라도 menu-open이면 흰색 */
 header.on.menu-open {
     background: #fff !important;
     border-bottom: 1px solid #ddd !important;
 }
 
-/* 햄버거 아이콘은 무조건 검정색 (흰색 오버레이 위) */
 header.menu-open .menu_icon_svg {
     filter: invert(0) !important;
+}
+
+header.menu-open .header_logo a {
+    color: #000 !important;
+}
+
+header.on.menu-open .header_logo a {
+    color: #000 !important;
 }
 
 /* ================= HERO SECTION (REVISED) ================= */
@@ -424,7 +394,6 @@ header.menu-open .menu_icon_svg {
     pointer-events: auto;
 }
 
-/* [NEW] Draggable을 위한 개별 글자 span 스타일 */
 .text_split {
     display: inline-block;
     cursor: default;
@@ -453,7 +422,6 @@ header.menu-open .menu_icon_svg {
     color: var(--color-designer);
 }
 
-/* 하단 메뉴 목록 (About, Skills...) */
 .hero_menu_list {
     position: absolute;
     bottom: 11vh;
@@ -481,7 +449,6 @@ header.menu-open .menu_icon_svg {
 
 /* ================= OVERLAY GNB REVISED (위치 및 호버 수정) ================= */
 
-/* 1. 배경 설정 (흰색 배경 확실하게) */
 .object_page {
     position: fixed;
     top: 0;
@@ -509,7 +476,6 @@ header.menu-open .menu_icon_svg {
     margin: 0 auto;
 }
 
-/* 2. 링크 공통 스타일 (호버 효과 수정) */
 .obj_link {
     position: absolute;
     display: block;
@@ -526,9 +492,6 @@ header.menu-open .menu_icon_svg {
     transform-origin: center center;
 }
 
-
-
-/* (1) PROFILE (왼쪽 위 열쇠) */
 .pos_profile {
     left: -5%;
     top: -5%;
@@ -553,9 +516,6 @@ header.menu-open .menu_icon_svg {
     transform: translateY(30px) !important;
 }
 
-
-
-/* (2) PROJECTS (중앙 디저트) */
 .pos_projects {
     left: 52%;
     top: 40%;
@@ -578,16 +538,12 @@ header.menu-open .menu_icon_svg {
     font-size: 29px !important;
 }
 
-/* (3) DECOR (오른쪽 위 빵) - 클릭 안되는 장식 */
 .pos_bread {
     right: 0;
     top: 12%;
     width: 350px;
 }
 
-
-
-/* (4) VISUAL ARCHIVE (왼쪽 아래 이어폰) */
 .pos_visual {
     left: 13%;
     bottom: 8%;
@@ -605,9 +561,6 @@ header.menu-open .menu_icon_svg {
     transform: scale(1) rotate(5deg) !important;
 }
 
-
-
-/* (5) SKILL SET (오른쪽 아래 영수증) */
 .pos_skills {
     right: 15%;
     bottom: -28%;
@@ -636,8 +589,6 @@ header.menu-open .menu_icon_svg {
     transform: translateY(-30px) !important;
 }
 
-
-/* 공통 SVG 텍스트 스타일 */
 .curved_text_wrap {
     position: absolute;
     top: 50%;
@@ -662,7 +613,6 @@ header.menu-open .menu_icon_svg {
     transition: fill 0.3s ease;
 }
 
-/* Intro Enter Button Style */
 .enter_guide_text {
     position: absolute;
     top: 50%;
@@ -680,14 +630,11 @@ header.menu-open .menu_icon_svg {
     transition: opacity 0.3s ease;
 }
 
-/* 로고에 마우스 올렸을 때 텍스트 숨기고 화살표(기존)나 효과 주기 */
 .rotate_logo:hover .enter_guide_text {
     opacity: 0;
 }
 
-/* 로고 자체에 펄스 효과를 주어 클릭 유도 */
 .rotate_logo {
-    /* 기존 스타일 유지하고 아래 애니메이션 추가 */
     animation: pulseLogo 2s infinite;
 }
 
@@ -733,18 +680,13 @@ header.menu-open .menu_icon_svg {
     height: auto;
 }
 
-/* 1. 텍스트와 선 영역 */
 .skill_header {
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     z-index: 20;
-    /* 영수증 마스크보다 더 위에 있어야 선이 깔끔함 */
-
     width: 100%;
-
-    /* [문제 1 해결] 하단 패딩을 0으로 만들어 선과 영수증 사이 틈 제거 */
     padding-top: 10px;
     padding-bottom: 0;
 }
@@ -758,7 +700,6 @@ header.menu-open .menu_icon_svg {
     line-height: 1;
 }
 
-/* 가운데 라인 */
 .center_line {
     width: 0px;
     height: 1px;
@@ -766,7 +707,6 @@ header.menu-open .menu_icon_svg {
     margin: 0;
 }
 
-/* 2. 영수증 마스크 (숨김 영역) */
 .receipt_mask {
     width: 400px;
     height: 700px;
@@ -777,7 +717,6 @@ header.menu-open .menu_icon_svg {
     margin-bottom: 200px;
 }
 
-/* 영수증 이미지 */
 .skillset_img {
     display: block;
     width: 100%;
@@ -801,7 +740,6 @@ header.menu-open .menu_icon_svg {
     align-items: center;
 }
 
-/* 목차 슬라이드 (기존 유지) */
 .project_item.cover_slide {
     width: 100vw;
     height: 100vh;
@@ -906,7 +844,7 @@ header.menu-open .menu_icon_svg {
     flex-basis: 20%;
 }
 
-/* ================= 프로젝트 카드 (참고 사이트 스타일) ================= */
+/* ================= 프로젝트 카드 ================= */
 
 .project_item.project_card {
     width: 85vw;
@@ -926,14 +864,12 @@ header.menu-open .menu_icon_svg {
     position: relative;
 }
 
-/* === 카드 헤더 (타이틀 + SVG 배지 + 세로 텍스트) === */
 .card_header {
     grid-row: 1;
     display: flex;
     justify-content: space-between;
     position: relative;
     align-items: center;
-    ;
 }
 
 .card_title {
@@ -950,14 +886,12 @@ header.menu-open .menu_icon_svg {
     padding-left: 0;
 }
 
-/* 카드가 화면에 보일 때 애니메이션 */
 .project_card.active .card_title {
     opacity: 1;
     transform: translateX(0);
     letter-spacing: 5px;
 }
 
-/* 초기 상태에서는 타이틀 완전히 숨김 */
 .project_card:not(.active) .card_title {
     opacity: 0;
     visibility: hidden;
@@ -967,7 +901,6 @@ header.menu-open .menu_icon_svg {
     position: absolute;
     top: 150%;
     left: 55%;
-    /* [수정] 타이틀의 오른쪽 빈 공간으로 이동 (임의의 60% 지점) */
     transform: translateY(-50%);
     width: 150px;
     height: 150px;
@@ -977,7 +910,6 @@ header.menu-open .menu_icon_svg {
 
 }
 
-/* SVG가 아닌 이미지일 때 스타일 */
 .rotating_badge img {
     width: 100%;
     height: 100%;
@@ -1005,7 +937,6 @@ header.menu-open .menu_icon_svg {
 
 }
 
-/* === 카드 이미지 영역 (3개 이미지 그리드) === */
 .card_images {
     grid-row: 2;
     display: flex;
@@ -1031,7 +962,6 @@ header.menu-open .menu_icon_svg {
     backface-visibility: hidden;
 }
 
-/* 각 이미지 위치 및 변환 효과 */
 .img_main {
     width: 40%;
     height: 90%;
@@ -1062,7 +992,6 @@ header.menu-open .menu_icon_svg {
     z-index: 1;
 }
 
-/* 카드가 활성화될 때 이미지 애니메이션 */
 .project_card.active .img_main {
     transform: translateX(0);
 }
@@ -1075,7 +1004,6 @@ header.menu-open .menu_icon_svg {
     transform: translateX(0);
 }
 
-/* 비활성 카드 이미지 숨김 */
 .project_card:not(.active) .img_wrapper {
     opacity: 0;
 }
@@ -1084,7 +1012,6 @@ header.menu-open .menu_icon_svg {
     opacity: 1;
 }
 
-/* === 카드 푸터 (링크 버튼 + 프로젝트 번호) === */
 .card_footer {
     grid-row: 3;
     display: flex;
@@ -1130,7 +1057,6 @@ header.menu-open .menu_icon_svg {
     margin-left: 5px;
 }
 
-/* 반응형 대응 */
 @media (max-width: 1200px) {
     .card_title {
         font-size: 40px;
@@ -1173,7 +1099,6 @@ header.menu-open .menu_icon_svg {
     color: #000;
     z-index: 10;
     background: #fff;
-    /* 배경 확실하게 흰색 */
 }
 
 .jn_container {
@@ -1181,7 +1106,6 @@ header.menu-open .menu_icon_svg {
     margin: 0 auto;
 }
 
-/* 헤더 스타일 */
 .jn_header {
     padding-bottom: 100px;
     transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.3s;
@@ -1189,7 +1113,6 @@ header.menu-open .menu_icon_svg {
 
 header.hide {
     transform: translateY(-100%);
-    /* 위로 쑥 올라가서 사라짐 */
 }
 
 .jn_page_title {
@@ -1217,32 +1140,24 @@ header.hide {
     word-break: keep-all;
 }
 
-
-
-/* 리스트 스타일 */
 .jn_list {
     display: flex;
     flex-direction: column;
     gap: 0;
-    /* 아이템 간 간격 없음 (보더로 구분) */
 }
 
 .jn_row {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    /* 텍스트 베이스라인 정렬 */
     padding: 18px 0;
-    /* 각 줄 높이 */
     border-bottom: 1px solid #e0e0e0;
-    /* 연한 회색 라인 */
     cursor: pointer;
     transition: opacity 0.3s ease;
     position: relative;
     z-index: 2;
 }
 
-/* 마우스 올렸을 때: 해당 아이템 제외하고 흐리게 하기 */
 .jn_list:hover .jn_row {
     opacity: 0.3;
 }
@@ -1250,35 +1165,26 @@ header.hide {
 .jn_list:hover .jn_row:hover {
     opacity: 1;
     border-bottom-color: #000;
-    /* 호버 시 라인 진하게 */
 }
 
-/* 타이틀 폰트 */
 .jn_title {
     font-size: 28px;
     font-weight: 400;
-    /* 너무 두껍지 않게 */
     letter-spacing: -0.5px;
     color: #000;
 }
 
-/* 오른쪽 메타 정보 (Category / Year) */
 .jn_meta {
     font-size: 16px;
     font-weight: 400;
     color: #555;
     text-align: right;
     font-feature-settings: "tnum";
-    /* 숫자 등폭 */
 }
 
-/* 모바일 대응 (768px 이하) */
 @media (max-width: 768px) {
-
-    /* 1. Visual Archive 리스트 -> 블록 형태 변경 */
     .jn_row {
         flex-direction: column;
-        /* 세로 정렬 */
         gap: 5px;
         padding: 20px 0;
     }
@@ -1292,10 +1198,8 @@ header.hide {
         font-size: 14px;
         color: #888;
         text-align: left;
-        /* 왼쪽 정렬 */
     }
 
-    /* 2. Intro/Hero 텍스트 크기 조절 */
     .hero_title {
         font-size: 100px;
     }
@@ -1310,7 +1214,6 @@ header.hide {
     }
 }
 
-/* 라이트박스 모달 스타일 */
 .img_modal_overlay {
     position: fixed;
     top: 0;
@@ -1355,13 +1258,10 @@ header.hide {
     top: 0;
     left: 0;
     width: 350px;
-    /* 이미지 최대 너비 */
     height: auto;
     pointer-events: none;
-    /* 마우스 클릭 통과 */
     z-index: 999;
     opacity: 0;
-    /* 평소엔 안 보임 */
     transform: translate(-50%, -50%) scale(0.8);
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
@@ -1370,12 +1270,10 @@ header.hide {
     width: 100%;
     height: auto;
     display: block;
-    /* 이미지에 그림자 줘서 떠있는 느낌 */
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
     background: #fff;
 }
 
-/* 모바일 대응 */
 @media (max-width: 768px) {
     .jn_page_title {
         font-size: 40px;
@@ -1392,19 +1290,14 @@ header.hide {
     .jn_cursor_img {
         display: none;
     }
-
-    /* 모바일에서는 플로팅 이미지 숨김 */
 }
 
 
 /* ================= Philosophy Section (Rainbow Effect) ================= */
-/* 배경색 변경 및 텍스트 컬러 수정 */
-
 .philosophy_section {
     width: 100%;
     height: 100vh;
     background-color: #030303;
-    /* [수정] 배경색 변경 */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1422,7 +1315,6 @@ header.hide {
     align-items: center;
 }
 
-/* 텍스트 기본 스타일 (어두운 배경이므로 밝게 변경) */
 a#rainbow-text {
     display: inline-block;
     border-bottom: 2px solid currentColor;
@@ -1436,10 +1328,8 @@ a#rainbow-text {
     text-decoration: none;
     position: relative;
     z-index: 10;
-    /* transition: transform 450ms ease-in-out; */
 }
 
-/* 밑줄 효과 (호버 시 & .active 클래스 붙었을 때) */
 a#rainbow-text:before,
 a#rainbow-text:after {
     content: "";
@@ -1461,7 +1351,6 @@ a#rainbow-text:after {
     z-index: 2;
 }
 
-/* [추가] .active 클래스가 붙으면 호버한 것처럼 밑줄 생성 */
 a#rainbow-text:hover:before,
 a#rainbow-text:hover:after,
 a#rainbow-text.active:before,
@@ -1470,7 +1359,6 @@ a#rainbow-text.active:after {
     transform: scale(1, 1);
 }
 
-/* 우측 상단 태그 스타일 (기존 유지) */
 .hanging_tag_wrap {
     position: absolute;
     top: 0;
@@ -1482,34 +1370,24 @@ a#rainbow-text.active:after {
     visibility: hidden;
 }
 
-/* ============================================================
-   ▼ 스타일 시트 맨 아래에 이 코드를 추가해주세요 (태그 흔들림 복구)
-   ============================================================ */
-
 .hanging_tag {
-    /* 이미지는 가만히 있어도 흔들려야 함 */
     transform-origin: top center;
-    /* 줄의 시작점을 기준으로 흔들림 */
     animation: tagSwing 3s ease-in-out infinite alternate;
 }
 
 @keyframes tagSwing {
     0% {
         transform: rotate(-5deg);
-        /* 왼쪽으로 5도 */
     }
 
     100% {
         transform: rotate(5deg);
-        /* 오른쪽으로 5도 */
     }
 }
 
 /* =========================================
    Custom Cursor Logic (Visual Section)
    ========================================= */
-
-
 #visual {
     cursor: none;
 }
@@ -1567,7 +1445,6 @@ a#rainbow-text.active:after {
     overflow: hidden;
 }
 
-/* [상단 영역] 물리 엔진 캔버스 + 텍스트 */
 .footer_top_area {
     position: relative;
     width: 100%;
@@ -1581,7 +1458,6 @@ a#rainbow-text.active:after {
     margin-bottom: 50px;
 }
 
-/* 물리 엔진이 들어갈 컨테이너 (절대 위치로 배경에 깔림) */
 #footer_matter_container {
     position: absolute;
     top: 0;
@@ -1589,19 +1465,15 @@ a#rainbow-text.active:after {
     width: 100%;
     height: 100%;
     z-index: 1;
-    /* 텍스트 뒤에 위치 */
     pointer-events: auto;
-    /* 마우스로 던지기 가능 */
 }
 
-/* Matter.js가 생성하는 캔버스 스타일 강제 지정 */
 #footer_matter_container canvas {
     display: block;
     width: 100%;
     height: 100%;
 }
 
-/* 오른쪽 정보 영역 (캔버스 위에 뜸) */
 .footer_info_right {
     position: relative;
     z-index: 10;
@@ -1614,12 +1486,10 @@ a#rainbow-text.active:after {
     pointer-events: none;
 }
 
-/* 링크들은 클릭 되어야 함 */
 .footer_info_right a {
     pointer-events: auto;
 }
 
-/* 하단 컨택 + 시간 정보 그룹 */
 .contact_wrapper {
     display: flex;
     flex-direction: column;
@@ -1637,10 +1507,8 @@ a#rainbow-text.active:after {
 
 .footer_email {
     font-family: 'Times New Roman', Times, serif;
-    /* 명조체 */
     font-style: italic;
     font-size: 3.5rem;
-    /* 이메일 크기 키움 */
     color: #2B0F0F;
     line-height: 1;
 }
@@ -1654,7 +1522,6 @@ a#rainbow-text.active:after {
     color: #666;
 }
 
-/* [하단 영역] 빅 타이포 */
 .footer_bottom_area {
     width: 100%;
     background: #fff;
