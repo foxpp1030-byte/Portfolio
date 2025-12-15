@@ -224,15 +224,18 @@ if (projectsSection && horizontalTrack && projectCards.length > 0) {
                 // 현재 보이는 카드 인덱스 계산
                 const progress = self.progress;
 
+                const START_THRESHOLD = 0.05; // 스크롤 시작 5% 지점부터 카드 활성화 시작
+                const ACTIVE_RANGE = 1 - START_THRESHOLD; // 카드가 활성화될 전체 스크롤 범위 (0.95)
+
                 // 목차 화면(progress 0~0.2): 아무 카드도 활성화 안함
                 // 각 프로젝트 카드: 0.2, 0.4, 0.6, 0.8~1.0
                 let newIndex = -1;
 
-                if (progress < 0.18) {
+                if (progress < START_THRESHOLD) {
                     newIndex = -1; // 목차 화면
                 } else {
                     // 프로젝트 카드 인덱스 계산
-                    newIndex = Math.floor((progress - 0.18) / (0.82 / projectCards.length));
+                    newIndex = Math.floor((progress - START_THRESHOLD) / (ACTIVE_RANGE / projectCards.length));
                     newIndex = Math.min(newIndex, projectCards.length - 1);
                 }
 

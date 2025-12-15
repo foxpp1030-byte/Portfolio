@@ -845,8 +845,10 @@ header.on.menu-open .header_logo a {
     align-self: center;
     opacity: 0;
     transform: translateX(20%);
-    transition: all 2.2s cubic-bezier(0.5, 0, 0.1, 1);
-    transition-delay: 0.4s;
+    /* [수정] 전환 시간 단축 (2.2s -> 0.8s) */
+    transition: all 0.8s cubic-bezier(0.5, 0, 0.1, 1);
+    /* [수정] 지연 시간 단축 (0.4s -> 0.1s) */
+    transition-delay: 0.1s;
     line-height: 1;
     padding-left: 0;
 }
@@ -916,7 +918,8 @@ header.on.menu-open .header_logo a {
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     background: #fff;
-    transition: all 2.2s cubic-bezier(0.5, 0, 0.1, 1);
+    /* [수정] 전환 시간 단축 (2.2s -> 1.0s) */
+    transition: all 1.2s cubic-bezier(0.5, 0, 0.1, 1);
 }
 
 .img_wrapper img {

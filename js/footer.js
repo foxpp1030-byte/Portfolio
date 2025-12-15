@@ -161,7 +161,7 @@ export function initFooter(lenis) {
             const viewport = window.innerHeight;
 
             // 조건: 전체 끝에서 100px 남았을 때
-            if (scrollY + viewport >= totalHeight - 200) {
+            if (scrollY + viewport >= totalHeight - 1500) {
 
                 footerStarted = true;
 
