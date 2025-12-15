@@ -712,7 +712,7 @@ header.on.menu-open .header_logo a {
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
-    margin-right: 200px;
+    margin-right: 0px;
 }
 
 .cover_inner_revised {
@@ -812,12 +812,16 @@ header.on.menu-open .header_logo a {
 /* ================= 프로젝트 카드 ================= */
 
 .project_item.project_card {
-    width: 85vw;
+    width: 75vw;
     height: 100vh;
     flex-shrink: 0;
     padding: 60px 0;
     box-sizing: border-box;
-    margin-right: 300px;
+    margin-right: 350px;
+}
+
+.horizontal_track .project_item:last-child {
+    margin-right: 0 !important;
 }
 
 .project_card_inner {
