@@ -874,7 +874,7 @@ header.on.menu-open .header_logo a {
 
 .rotating_badge {
     position: absolute;
-    top: 150%;
+    top: 120%;
     left: 55%;
     transform: translateY(-50%);
     width: 150px;
