@@ -124,31 +124,37 @@ export function initFooter(lenis) {
         }
 
         function createSingleObject(src, scale, containerWidth, index) {
-            // [수정] 안전한 X 좌표 범위 (좌우 여백 150px)
-            const safeWidth = Math.max(containerWidth - 300, 100);
-            const xPos = Math.random() * safeWidth + 150;
+            const img = new Image();
+            img.src = src;
+            img.onload = () => {
+                // [수정] 안전한 X 좌표 범위 (좌우 여백 150px)
+                const safeWidth = Math.max(containerWidth - 300, 100);
+                const xPos = Math.random() * safeWidth + 150;
 
-            // [수정] Y 좌표를 더 높이, 그리고 분산시켜서 배치
-            const yPos = -500 - (index * 200);
+                // [수정] Y 좌표를 더 높이, 그리고 분산시켜서 배치
+                const yPos = -500 - (index * 200);
 
-            const bodySize = 50 * scale;
+                const bodySize = 50 * scale;
 
-            const body = Bodies.circle(xPos, yPos, bodySize, {
-                restitution: 0.5, // 탄성 약간 감소 (너무 튀지 않게)
-                friction: 0.1,
-                frictionAir: 0.02, // 공기 저항 약간 증가 (너무 빨리 떨어지지 않게)
-                angle: Math.random() * Math.PI * 2,
-                render: {
-                    sprite: {
-                        texture: src,
-                        xScale: scale,
-                        yScale: scale
+                const body = Bodies.circle(xPos, yPos, bodySize, {
+                    restitution: 0.5, // 탄성 약간 감소 (너무 튀지 않게)
+                    friction: 0.1,
+                    frictionAir: 0.02, // 공기 저항 약간 증가 (너무 빨리 떨어지지 않게)
+                    angle: Math.random() * Math.PI * 2,
+                    render: {
+                        sprite: {
+                            texture: src,
+                            xScale: scale,
+                            yScale: scale
+                        }
                     }
-                }
-            });
-            Composite.add(world, body);
+                });
+                Composite.add(world, body);
+            }
+            img.onerror = () => {
+                console.warn("❌ Footer 이미지 로드 실패:", src);
+            };
         }
-
         // 초기 벽 생성
         createWalls();
 
