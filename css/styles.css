@@ -1621,6 +1621,7 @@ a#rainbow-text.active:after {
     margin-bottom: 50px;
 }
 
+/* [수정] 캔버스 컨테이너가 클릭 이벤트를 받을 수 있도록 명시 */
 #footer_matter_container {
     position: absolute;
     top: 0;
@@ -1629,6 +1630,7 @@ a#rainbow-text.active:after {
     height: 100%;
     z-index: 1;
     pointer-events: auto;
+    /* 클릭 가능 */
 }
 
 #footer_matter_container canvas {
@@ -1647,16 +1649,26 @@ a#rainbow-text.active:after {
     gap: 30px;
     height: 100%;
     pointer-events: none;
+    /* [수정] 텍스트 박스 자체는 클릭 통과 */
 }
 
 .footer_info_right a {
     pointer-events: auto;
+    /* [수정] 링크는 클릭 가능 */
 }
 
 .contact_wrapper {
     display: flex;
     flex-direction: column;
     gap: 40px;
+    pointer-events: none;
+    /* [수정] 래퍼도 클릭 통과 */
+}
+
+.contact_area,
+.meta_info {
+    pointer-events: auto;
+    /* [수정] 실제 텍스트 내용은 선택/클릭 가능 */
 }
 
 .cta_text {
