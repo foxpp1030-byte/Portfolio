@@ -1,40 +1,27 @@
 import { initGnb, set_active } from './gnb.js';
 import { initFooter } from './footer.js';
 
-
-// ==================== GNB Auto Hide/Show ====================
-const header = document.querySelector('header');
-let lastScrollY = 0;
-
-ScrollTrigger.create({
-    start: 'top top',
-    end: 99999,
-    onUpdate: (self) => {
-        const direction = self.direction;
-        if (direction === 1 && self.scroll() > 50) {
-            header.classList.add('hide');
-            header.classList.remove('menu-open');
-        } else if (direction === -1) {
-            header.classList.remove('hide');
-        }
-    }
-});
-// ==================== 새로고침 시 맨 위로 ====================
+// ==================== 1. Scroll Restoration (가장 먼저 실행) ====================
+// 브라우저의 자동 스크롤 복원 기능을 끄고 수동으로 제어
 if (history.scrollRestoration) {
     history.scrollRestoration = "manual";
 }
-window.scrollTo(0, 0);
 
+// 페이지 로드 즉시 최상단으로 이동 (깜빡임 방지)
+window.scrollTo(0, 0);
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Draggable);
 
-// ==================== Lenis Scroll Setup ====================
+// ==================== 2. Lenis Scroll Setup ====================
 const lenis = new Lenis({
     duration: 0.8,
     easing: (t) => t,
     smooth: true,
     smoothTouch: true,
 });
+
+// Lenis 내부 상태도 0으로 강제 초기화
+lenis.scrollTo(0, { immediate: true });
 
 function raf(t) {
     lenis.raf(t);
@@ -55,12 +42,27 @@ ScrollTrigger.scrollerProxy(document.documentElement, {
     }
 });
 
-// ==================== [모듈 실행] ====================
+// ==================== 3. Module Execution ====================
 initGnb(lenis);
 initFooter(lenis);
 
+// ==================== 4. GNB Hide/Show Logic ====================
+const header = document.querySelector('header');
+ScrollTrigger.create({
+    start: 'top top',
+    end: 99999,
+    onUpdate: (self) => {
+        const direction = self.direction;
+        if (direction === 1 && self.scroll() > 50) {
+            header.classList.add('hide');
+            header.classList.remove('menu-open');
+        } else if (direction === -1) {
+            header.classList.remove('hide');
+        }
+    }
+});
 
-// ==================== [Hero Section Logic] ====================
+// ==================== 5. Hero Section Logic ====================
 const heroSection = document.querySelector("#hero");
 const portfolioChars = document.querySelectorAll('#title_portfolio .text_split');
 const uxuiChars = document.querySelectorAll('#role_uxui .text_split');
@@ -103,7 +105,7 @@ if (heroSection) {
 }
 
 
-// 2. Skills Section (수정됨: 역스크롤 튕김 현상 해결)
+// ==================== 6. Skills Section (Modified for Speed) ====================
 const skillSection = document.querySelector("#Skills");
 const txtLeft = document.querySelector(".text_left");
 const txtRight = document.querySelector(".text_right");
@@ -111,7 +113,7 @@ const centerLine = document.querySelector(".center_line");
 const receiptImg = document.querySelector(".skillset_img");
 
 if (skillSection && txtLeft && txtRight && centerLine && receiptImg) {
-    // [수정] 초기 상태를 미리 CSS로 고정 (fromTo 대신 set + to 사용)
+    // 초기값 설정
     gsap.set(centerLine, { width: 0 });
     gsap.set(receiptImg, { yPercent: -100 });
 
@@ -119,12 +121,14 @@ if (skillSection && txtLeft && txtRight && centerLine && receiptImg) {
         scrollTrigger: {
             trigger: "#Skills",
             start: "top top",
-            end: "+=2500", // 스크롤 길이를 조금 늘려 안정감 확보
+            // [수정] 스크롤 길이 단축 (2500 -> 1500) : 더 빨리 끝남
+            end: "+=1500",
             pin: true,
             scrub: 1,
             anticipatePin: 1,
             onEnter: () => set_active('#Skills'),
             onEnterBack: () => set_active('#Skills'),
+            invalidateOnRefresh: true
         }
     });
 
@@ -132,11 +136,10 @@ if (skillSection && txtLeft && txtRight && centerLine && receiptImg) {
         .to(txtLeft, { x: -250, duration: 1, ease: "power2.out" }, "start")
         .to(txtRight, { x: 250, duration: 1, ease: "power2.out" }, "start")
         .to(centerLine, { width: 450, duration: 1, ease: "power2.out" }, "start")
-        // [수정] fromTo 대신 to 사용 및 시작 타이밍 조정 ("-=0.5"로 자연스럽게 연결)
         .to(receiptImg, { yPercent: 0, duration: 2.5, ease: "none" }, "-=0.5");
 }
 
-// ==================== Projects Section (Updated for Speed & Cut-off) ====================
+// ==================== 7. Projects Section ====================
 const projectsSection = document.querySelector("#Projects");
 const horizontalTrack = document.querySelector(".horizontal_track");
 const projectCards = document.querySelectorAll(".project_card");
@@ -144,23 +147,21 @@ const listRows = document.querySelectorAll(".list_row");
 let currentProjectIndex = -1;
 
 if (projectsSection && horizontalTrack && projectCards.length > 0) {
-    // 1. 트랙 전체 너비 계산
     const trackWidth = horizontalTrack.scrollWidth;
-    // 2. 실제 스크롤해야 할 거리 (트랙 너비 - 뷰포트 너비) + 여유분(200px)
     const scrollEnd = trackWidth - window.innerWidth + 200;
 
     const projectScrollTrigger = gsap.to(horizontalTrack, {
-        x: -scrollEnd, // 왼쪽으로 이동
+        x: -scrollEnd,
         ease: "none",
         scrollTrigger: {
             id: 'project-horizontal-scroll',
             trigger: projectsSection,
             start: "top top",
-            // 3. 스크롤 길이를 다시 원래대로 (trackWidth)로 줄여서 속도 올림
             end: () => `+=${trackWidth}`,
             pin: true,
             scrub: 1,
             anticipatePin: 1,
+            invalidateOnRefresh: true,
             onUpdate: (self) => {
                 if (self.isActive) set_active('#Projects');
                 const progress = self.progress;
@@ -197,9 +198,7 @@ if (projectsSection && horizontalTrack && projectCards.length > 0) {
             const projectsScrollTrigger = ScrollTrigger.getById('project-horizontal-scroll');
             if (projectsScrollTrigger) {
                 const offset = targetCard.offsetLeft;
-                // 약간의 오차 보정
                 const targetTranslateX = -(offset - 100);
-                // 전체 이동 범위 대비 비율 계산
                 const progress = Math.max(0, Math.min(1, Math.abs(targetTranslateX) / scrollEnd));
                 const targetScroll = projectsScrollTrigger.start +
                     (projectsScrollTrigger.end - projectsScrollTrigger.start) * progress;
@@ -214,25 +213,22 @@ if (projectsSection && horizontalTrack && projectCards.length > 0) {
     });
 }
 
-// ==================== [NEW] Project Section Custom Cursor ====================
+// ==================== 8. Project Cursor & Interaction ====================
 const cursorFollower = document.querySelector('.cursor_follower');
 const cursorTextSpan = cursorFollower?.querySelector('span');
 const projectImages = document.querySelectorAll('.project_card .img_wrapper');
 
 if (cursorFollower && projectImages.length > 0) {
-    // 1. 마우스 따라다니기
     gsap.set(cursorFollower, { xPercent: -50, yPercent: -50, scale: 0, opacity: 0 });
 
     let xTo = gsap.quickTo(cursorFollower, "x", { duration: 0.4, ease: "power3" });
     let yTo = gsap.quickTo(cursorFollower, "y", { duration: 0.4, ease: "power3" });
 
-    // 프로젝트 섹션 안에서만 마우스 추적
     projectsSection.addEventListener("mousemove", (e) => {
         xTo(e.clientX);
         yTo(e.clientY);
     });
 
-    // 2. 이미지 호버 효과
     projectImages.forEach(link => {
         link.addEventListener('mouseenter', () => {
             const text = link.getAttribute('data-cursor-text') || "VIEW";
@@ -244,7 +240,6 @@ if (cursorFollower && projectImages.length > 0) {
                 duration: 0.3,
                 ease: "back.out(1.7)"
             });
-            // 기본 커서 숨기기 (CSS로 처리하지만 확실하게)
             document.body.style.cursor = 'none';
         });
 
@@ -259,7 +254,6 @@ if (cursorFollower && projectImages.length > 0) {
         });
     });
 
-    // 섹션을 벗어날 때도 커서 숨기기
     projectsSection.addEventListener('mouseleave', () => {
         gsap.to(cursorFollower, { scale: 0, opacity: 0 });
         document.body.style.cursor = 'auto';
@@ -267,7 +261,7 @@ if (cursorFollower && projectImages.length > 0) {
 }
 
 
-// 5. Visual Archive
+// ==================== 9. Visual Archive ====================
 ScrollTrigger.create({
     trigger: "#Visual",
     start: "top center", end: "bottom center",
@@ -351,7 +345,7 @@ if (modalClose && modal) {
     });
 }
 
-// 7. Philosophy Section
+// ==================== 10. Philosophy Section ====================
 const philoSection = document.querySelector("#philosophy");
 const rainbowTarget = document.querySelector("#rainbow-text");
 const tagWrap = document.querySelector(".hanging_tag_wrap");
@@ -452,14 +446,24 @@ if (philoSection && rainbowTarget) {
     });
 }
 
+// ==================== 11. Final Refresh & Scroll to Top Logic ====================
+// 페이지가 완전히 로드된 후 스크롤을 최상단으로 강제 이동하고 ScrollTrigger를 갱신합니다.
 window.addEventListener("load", () => {
-    ScrollTrigger.refresh();
-    setTimeout(() => ScrollTrigger.refresh(), 100);
-});
-window.addEventListener("resize", () => ScrollTrigger.refresh());
+    // 1. Lenis로 즉시 상단 이동 (강제)
+    if (lenis) lenis.scrollTo(0, { immediate: true });
 
-window.addEventListener("load", () => {
+    // 2. 브라우저 기본 스크롤도 상단 이동
+    window.scrollTo(0, 0);
+
+    // 3. ScrollTrigger 계산 갱신
+    ScrollTrigger.refresh();
+
+    // 4. 혹시 모를 로딩 지연을 대비해 약간 뒤에 한 번 더 갱신
     setTimeout(() => {
+        if (lenis) lenis.scrollTo(0, { immediate: true });
         ScrollTrigger.refresh();
-    }, 300);
+    }, 100);
 });
+
+// 리사이즈 시 갱신
+window.addEventListener("resize", () => ScrollTrigger.refresh());
