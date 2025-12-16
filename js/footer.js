@@ -115,12 +115,12 @@ export function initFooter(lenis) {
             // Y축 위치를 -500부터 -3000까지 넓게 퍼뜨려 순차적으로 떨어지게 함
             for (let i = 0; i < 10; i++) {
                 setTimeout(() => {
-                    createSingleObject('/img/vector7.png', 0.8, width, i);
+                    createSingleObject('./img/vector7.png', 0.8, width, i);
                 }, i * 100); // 0.1초 간격으로 생성하여 겹침 방지
             }
 
-            setTimeout(() => createSingleObject('/img/vector4.png', 0.9, width, 10), 1000);
-            setTimeout(() => createSingleObject('/img/bread01.png', 0.6, width, 11), 1200);
+            setTimeout(() => createSingleObject('./img/Vector4.png', 0.9, width, 10), 1000);
+            setTimeout(() => createSingleObject('./img/bread01.png', 0.6, width, 11), 1200);
         }
 
         function createSingleObject(src, scale, containerWidth, index) {
