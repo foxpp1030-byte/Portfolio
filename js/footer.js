@@ -78,13 +78,13 @@ export function initFooter(lenis) {
             const width = footerSection.clientWidth;
             const height = footerSection.clientHeight;
             const wallThick = 500; // 두께를 500px로 대폭 증가
-            const groundOffset = 0; // 바닥 위치 보정
 
+            const floorOffset = 30;
             // 기존 벽 제거
             if (ground) Composite.remove(world, [ground, leftWall, rightWall]);
 
             // 바닥 (화면 아래쪽에 두껍게 배치)
-            ground = Bodies.rectangle(width / 2, height + (wallThick / 2) - 10, width + 200, wallThick, {
+            ground = Bodies.rectangle(width / 2, height + (wallThick / 2) - floorOffset, width + 200, wallThick, {
                 isStatic: true,
                 render: { visible: false },
                 label: "Ground"
