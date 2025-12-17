@@ -1680,7 +1680,7 @@ a#rainbow-text.active:after {
     width: 120px;
     height: 120px;
 
-    z-index: 9999;
+    z-index: 90;
     pointer-events: none;
     opacity: 0;
 }
