@@ -17,6 +17,14 @@ body {
 
 body {
     width: 100%;
+    -webkit-user-select: none;
+    /* 크롬, 사파리 */
+    -moz-user-select: none;
+    /* 파이어폭스 */
+    -ms-user-select: none;
+    /* 인터넷 익스플로러 */
+    user-select: none;
+    /* 표준 */
     height: 100%;
 
 }
@@ -24,6 +32,16 @@ body {
 body main {
     position: relative;
     width: 100%;
+}
+
+img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    pointer-events: none;
+    /* 이미지가 마우스 이벤트를 가로채지 않게 함 */
 }
 
 
@@ -666,6 +684,29 @@ header.on.menu-open .header_logo a {
 
 }
 
+/* 오버레이 메뉴 안의 이미지가 드래그되지 않도록 막기 (깜빡임 해결) */
+.object_page img {
+    -webkit-user-drag: none;
+    /* 크롬, 사파리 등 */
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    user-select: none;
+    /* 이미지 선택 방지 */
+    pointer-events: none;
+    /* 이미지가 마우스 이벤트를 가로채지 않게 함 */
+}
+
+/* 링크 기능이 없는 장식용 오브제(Key, Bread 등)는 커서를 기본 화살표로 */
+div.obj_link {
+    cursor: default;
+}
+
+/* 링크 기능이 있는 오브제(Projects, Visual 등)는 커서를 손가락으로 */
+a.obj_link {
+    cursor: pointer;
+}
 
 /* ================= SKILLS SECTION (FINAL PERFECT) ================= */
 
@@ -1829,4 +1870,35 @@ a#rainbow-text.active:after {
     color: #131313;
     letter-spacing: -0.04em;
     transform: translateY(0);
+}
+
+.footer_email,
+.goal_desc,
+.project_desc,
+.jn_list,
+.contact_area {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    pointer-events: auto;
+    /* 텍스트는 클릭/드래그 가능해야 함 */
+}
+
+/* [예외 처리] 링크가 걸린 이미지는 클릭이 되어야 하므로 pointer-events 허용 */
+a .img_wrapper img,
+.project_card a img,
+.jn_row img,
+.obj_link img {
+    pointer-events: none;
+    /* 이미지는 클릭 안 되게 하고, 감싸는 a태그가 받도록 함 (권장) */
+}
+
+/* [중요] 링크 버튼(a 태그)들은 클릭이 되어야 함 */
+a,
+button,
+.ham_menu,
+.list_row,
+.jn_row {
+    pointer-events: auto;
 }
