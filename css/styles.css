@@ -1041,37 +1041,37 @@ div.img_wrapper {
     width: 38%;
     height: 48%;
     right: 3%;
-    top: 2%;
+    top: -9%;
 }
 
 .project_card[data-index="0"] .img_small {
     width: 28%;
     height: 38%;
     right: 25%;
-    bottom: 5%;
+    bottom: 10%;
 }
 
 
 /* --- [Variation 1] HeAi (중앙 메인 + 양옆 서브) --- */
 .project_card[data-index="1"] .img_main {
     width: 34%;
-    height: 75%;
-    left: 33%;
-    top: 5%;
+    height: 90%;
+    left: 3%;
+    bottom: 10%;
 }
 
 .project_card[data-index="1"] .img_sub {
-    width: 26%;
+    width: 30%;
     height: 42%;
-    left: 3%;
-    bottom: 15%;
+    left: 40%;
+    bottom: 10%;
 }
 
 .project_card[data-index="1"] .img_small {
-    width: 26%;
-    height: 38%;
-    right: 3%;
-    bottom: 10%;
+    width: 20%;
+    height: auto;
+    right: -2%;
+    top: -18%;
 }
 
 
