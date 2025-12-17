@@ -1,6 +1,7 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Yarndings+20&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700&display=swap');
 
 * {
     margin: 0;
@@ -64,6 +65,10 @@ img {
     --text_color: #000;
     --inactive_opacity: 0.45;
     --pr-color: #5E1D1D;
+
+    /* Button Custom Variable */
+    --btn-slide-bg: #131313;
+    /* 버튼 호버 시 채워질 색상 (검정) */
 }
 
 header {
@@ -257,6 +262,7 @@ header.menu-open .ham_menu i {
 header.on.menu-open {
     background: #fff !important;
     border-bottom: 1px solid #ddd !important;
+    backdrop-filter: none !important;
 }
 
 header.menu-open .header_center_wrap {
@@ -953,7 +959,10 @@ a.obj_link {
     grid-column: 2 / 3;
     grid-row: 1;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    /* 제목과 기여도 세로 정렬 */
+    justify-content: center;
+    align-items: flex-start;
     position: relative;
     padding-left: 50px;
     /* 사이드바와의 간격 */
@@ -981,19 +990,30 @@ a.obj_link {
     line-height: 1;
 }
 
-.project_card.active .card_title {
+/* [NEW] Contribution Text Style (Under Title) */
+.card_contribution {
+    font-family: "SUIT", sans-serif;
+    font-size: 20px;
+    color: #666;
+    /* 조금 연한 색상 */
+    margin-top: 10px;
+    opacity: 0;
+    transform: translateX(20%);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0.1, 1);
+    transition-delay: 0.2s;
+    /* 제목보다 살짝 늦게 */
+}
+
+.project_card.active .card_title,
+.project_card.active .card_contribution {
     opacity: 1;
     transform: translateX(0);
+}
+
+.project_card.active .card_title {
     letter-spacing: 5px;
 }
 
-.rotating_badge {
-    margin-left: 30px;
-    width: 100px;
-    height: 100px;
-    animation: anim_rotate 10s linear infinite;
-    display: block;
-}
 
 /* ================= [NEW] Project Goal & Info Styling ================= */
 .project_goal_area {
@@ -1039,72 +1059,178 @@ a.obj_link {
     /* 한글 줄바꿈 예쁘게 */
 }
 
+/* ========================================================= */
+/* [UPDATED] PROJECT LAYOUTS (Based on new index)      */
+/* ========================================================= */
+
 
 /* --- [Variation 0] BOJ Position (좌측 하단 빈 공간) --- */
 .project_card[data-index="0"] .project_goal_area {
     right: -18%;
-    bottom: 16%;
+    bottom: 18%;
     width: 40%;
 }
 
-/* --- [Variation 1] HeAi Position (중앙 상단 빈 공간) --- */
+/* --- [Variation 1] Verra (Originally Style 3) Position (우측 상단 빈 공간) --- */
+/* Was [data-index="3"] */
 .project_card[data-index="1"] .project_goal_area {
+    right: -48%;
+    top: -1%;
+    width: 100%;
+}
+
+/* --- [Variation 2] HeAi (Originally Style 1) Position (중앙 상단 빈 공간) --- */
+/* Was [data-index="1"] */
+.project_card[data-index="2"] .project_goal_area {
     right: -38%;
     bottom: 27%;
     transform: translateX(-50%) translateY(30px);
-    /* 중앙 정렬 보정 + 초기 애니메이션 값 */
     width: 50%;
 }
 
-.project_card[data-index="1"].active .project_goal_area {
+.project_card[data-index="2"].active .project_goal_area {
     transform: translateX(-50%) translateY(0);
 }
 
-/* --- [Variation 2] SAC Position (좌측 하단 빈 공간) --- */
-.project_card[data-index="2"] .project_goal_area {
+/* --- [Variation 3] SAC (Originally Style 2) Position (좌측 하단 빈 공간) --- */
+/* Was [data-index="2"] */
+.project_card[data-index="3"] .project_goal_area {
     right: -8%;
     bottom: 20%;
     width: 40%;
 }
 
-/* --- [Variation 3] Verra Position (우측 상단 빈 공간 - Sub 위쪽) --- */
-.project_card[data-index="3"] .project_goal_area {
-    right: -48%;
-    top: 18%;
-    width: 100%;
 
-}
-
-/* 링크 버튼 */
+/* 링크 버튼 영역 */
 .goal_links {
     display: flex;
     gap: 15px;
     margin-top: 30px;
     pointer-events: auto;
-
 }
 
-/* 개별 버튼 스타일 */
-.goal_btn {
-    display: inline-block;
-    font-family: 'suit', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
+/* =========================================================== */
+/* [NEW BUTTON STYLE] Sliding Arrow Hover Effect (Uploaded)    */
+/* =========================================================== */
+
+.btn_hover_slide {
+    --width: 180px;
+    --height: 60px;
+    --icon-size: 25px;
+    border: 0;
+    position: relative;
+    min-width: var(--width);
+    height: var(--height);
+    border-radius: 60px;
+    /* Fully rounded */
     color: #131313;
-    border: 1px solid #131313;
-    padding: 8px 20px;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    /* 부드러운 효과 */
+    /* 기본 텍스트 색상 (배경이 흰색일 때 잘 보이게) */
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
     background: transparent;
+    /* 초기 배경 투명 */
+    border: 1px solid #131313;
+    /* 초기 테두리 */
     cursor: pointer;
+    overflow: hidden;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    /* margin-right: 15px; removed margin to let flex gap handle it */
 }
 
-/* 버튼에 마우스 올렸을 때 효과 */
-.goal_btn:hover {
-    background-color: #131313;
+.btn_hover_slide .text,
+.btn_hover_slide .icon-container {
+    position: relative;
+    z-index: 2;
+    transition: color 0.5s ease;
+}
+
+/* 아이콘 컨테이너 */
+.btn_hover_slide .icon-container {
+    position: relative;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    margin-left: 15px;
+    transition: transform 500ms ease;
+}
+
+/* 아이콘 공통 */
+.btn_hover_slide .icon-container .icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    transition: transform 500ms ease, opacity 250ms ease;
+}
+
+/* 왼쪽 아이콘 (호버 시 등장) */
+.btn_hover_slide .icon-container .icon--left {
+    transform: translateX(-200%);
+    opacity: 0;
+}
+
+/* SVG 스타일 */
+.btn_hover_slide .icon-container .icon svg {
+    width: 100%;
+    height: 100%;
+    fill: #131313;
+    /* 기본 아이콘 색상 */
+    transition: fill 0.5s ease;
+}
+
+/* 배경 애니메이션 (가상요소) */
+.btn_hover_slide::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--btn-slide-bg);
+    /* 호버 배경색 */
+    border-radius: 60px;
+    z-index: 1;
+    transition: transform 500ms ease;
+    transform: translateX(-101%);
+    /* 왼쪽 밖에서 대기 */
+}
+
+/* === HOVER EFFECTS === */
+
+/* 배경 슬라이드 진입 */
+.btn_hover_slide:hover::after {
+    transform: translateX(0);
+    /* 전체 덮음 */
+}
+
+/* 텍스트 및 아이콘 색상 반전 (흰색으로) */
+.btn_hover_slide:hover .text {
     color: #fff;
-    border-color: #131313;
+}
+
+.btn_hover_slide:hover .icon-container .icon svg {
+    fill: #fff;
+}
+
+/* 아이콘 컨테이너 이동 */
+.btn_hover_slide:hover .icon-container {
+    transform: translateX(100%);
+    /* 오른쪽으로 살짝 이동해 보이게 하거나, 원래 로직대로 */
+}
+
+/* 원래 있던 오른쪽 아이콘은 밖으로 이동 */
+.btn_hover_slide:hover .icon-container .icon--right {
+    transform: translateX(200%);
+    opacity: 0;
+}
+
+/* 왼쪽 아이콘이 들어옴 */
+.btn_hover_slide:hover .icon-container .icon--left {
+    transform: translateX(0);
+    opacity: 1;
 }
 
 /* 모바일/태블릿 대응 */
@@ -1191,6 +1317,7 @@ div.img_wrapper {
 }
 
 /* --- [Variation 0] Beauty of Joseon (좌/우/중앙 분산) --- */
+/* Index 0: No Change */
 .project_card[data-index="0"] .img_main {
     width: 42%;
     height: 62%;
@@ -1202,7 +1329,7 @@ div.img_wrapper {
     width: 38%;
     height: 48%;
     right: 3%;
-    top: -9%;
+    top: -18%;
 }
 
 .project_card[data-index="0"] .img_small {
@@ -1213,64 +1340,67 @@ div.img_wrapper {
 }
 
 
-/* --- [Variation 1] HeAi (중앙 메인 + 양옆 서브) --- */
+/* --- [Variation 1] Verra (Originally Style 3) (지그재그) --- */
+/* Was [data-index="3"] -> Now [data-index="1"] */
 .project_card[data-index="1"] .img_main {
-    width: 34%;
-    height: 90%;
-    left: 3%;
-    bottom: 10%;
-}
-
-.project_card[data-index="1"] .img_sub {
-    width: 20%;
-    height: 42%;
-    left: 40%;
-    bottom: 20%;
-}
-
-.project_card[data-index="1"] .img_small {
-    width: 30%;
-    height: 40%;
-    right: -5%;
-    top: -15%;
-}
-
-
-/* --- [Variation 2] SAC (사선형 배치) --- */
-.project_card[data-index="2"] .img_main {
-    left: 2%;
-    top: 15%;
-    width: 46%;
-    height: auto;
-}
-
-.project_card[data-index="2"] .img_sub {
-    width: 36%;
-    height: 50%;
-    right: 2%;
-    top: -10%;
-}
-
-.project_card[data-index="2"] .img_small {
-    width: 15%;
-    height: auto;
-    left: 50%;
-    bottom: 5%;
-}
-
-/* --- [Variation 3] Verra (지그재그) --- */
-.project_card[data-index="3"] .img_main {
     width: 38%;
     height: 58%;
     left: 4%;
     top: 8%;
 }
 
-.project_card[data-index="3"] .img_sub {
+.project_card[data-index="1"] .img_sub {
     width: 42%;
     height: 48%;
     right: 4%;
-    top: 50%;
+    top: 40%;
+}
+
+
+/* --- [Variation 2] HeAi (Originally Style 1) (중앙 메인 + 양옆 서브) --- */
+/* Was [data-index="1"] -> Now [data-index="2"] */
+.project_card[data-index="2"] .img_main {
+    width: 34%;
+    height: 90%;
+    left: 3%;
+    bottom: 10%;
+}
+
+.project_card[data-index="2"] .img_sub {
+    width: 20%;
+    height: 42%;
+    left: 40%;
+    bottom: 20%;
+}
+
+.project_card[data-index="2"] .img_small {
+    width: 30%;
+    height: 40%;
+    right: -5%;
+    top: -15%;
+}
+
+/* --- [Variation 3] SAC (Originally Style 2) (사선형 배치) --- */
+/* Was [data-index="2"] -> Now [data-index="3"] */
+.project_card[data-index="3"] .img_main {
+    left: 2%;
+    top: 15%;
+    width: 46%;
+    height: auto;
+}
+
+.project_card[data-index="3"] .img_sub {
+    width: 36%;
+    height: 50%;
+    right: 2%;
+    top: -15%;
+}
+
+.project_card[data-index="3"] .img_small {
+    width: 15%;
+    height: auto;
+    left: 50%;
+    bottom: 5%;
 }
 
 
