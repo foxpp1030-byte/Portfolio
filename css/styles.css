@@ -1077,23 +1077,23 @@ div.img_wrapper {
 
 /* --- [Variation 2] SAC (사선형 배치) --- */
 .project_card[data-index="2"] .img_main {
+    left: 2%;
+    top: 15%;
     width: 46%;
-    height: 60%;
-    right: 2%;
-    top: 2%;
+    height: auto;
 }
 
 .project_card[data-index="2"] .img_sub {
     width: 36%;
     height: 50%;
-    left: 2%;
-    top: 15%;
+    right: 2%;
+    top: -10%;
 }
 
 .project_card[data-index="2"] .img_small {
-    width: 26%;
-    height: 26%;
-    left: 42%;
+    width: 15%;
+    height: auto;
+    left: 50%;
     bottom: 5%;
 }
 
@@ -1109,14 +1109,7 @@ div.img_wrapper {
     width: 42%;
     height: 48%;
     right: 4%;
-    top: 12%;
-}
-
-.project_card[data-index="3"] .img_small {
-    width: 32%;
-    height: 32%;
-    right: 35%;
-    bottom: 3%;
+    top: 50%;
 }
 
 
