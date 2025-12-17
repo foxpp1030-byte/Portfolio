@@ -1710,3 +1710,93 @@ a#rainbow-text.active:after {
     letter-spacing: -0.04em;
     transform: translateY(0);
 }
+
+/* ================= [NEW] Project Goal & Info Styling ================= */
+.project_goal_area {
+    position: absolute;
+    width: 320px;
+    font-family: var(--font-suit);
+    color: #131313;
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.2s;
+    /* 이미지가 뜰 때 살짝 늦게 */
+}
+
+/* 카드가 활성화되면 등장 */
+.project_card.active .project_goal_area {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.goal_item {
+    margin-bottom: 30px;
+}
+
+.goal_title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-uxui);
+    /* 포인트 컬러 */
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.goal_desc {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #222;
+    word-break: keep-all;
+    /* 한글 줄바꿈 예쁘게 */
+}
+
+
+/* --- [Variation 0] BOJ Position (좌측 하단 빈 공간) --- */
+.project_card[data-index="0"] .project_goal_area {
+    right: -3%;
+    bottom: 25%;
+}
+
+/* --- [Variation 1] HeAi Position (중앙 상단 빈 공간) --- */
+.project_card[data-index="1"] .project_goal_area {
+    left: 42%;
+    top: 5%;
+    transform: translateX(-50%) translateY(30px);
+    /* 중앙 정렬 보정 + 초기 애니메이션 값 */
+}
+
+.project_card[data-index="1"].active .project_goal_area {
+    transform: translateX(-50%) translateY(0);
+}
+
+.link_btn {
+    cursor: pointer;
+    
+}
+
+/* --- [Variation 2] SAC Position (좌측 하단 빈 공간) --- */
+.project_card[data-index="2"] .project_goal_area {
+    left: 5%;
+    bottom: 5%;
+}
+
+/* --- [Variation 3] Verra Position (우측 상단 빈 공간 - Sub 위쪽) --- */
+.project_card[data-index="3"] .project_goal_area {
+    right: 5%;
+    top: 10%;
+    text-align: right;
+    /* 우측 정렬 */
+}
+
+/* 모바일/태블릿 대응 */
+@media (max-width: 1200px) {
+    .project_goal_area {
+        display: none;
+        /* 화면 작으면 숨김 (복잡해짐 방지) */
+    }
+}
