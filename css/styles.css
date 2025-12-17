@@ -953,6 +953,121 @@ header.on.menu-open .header_logo a {
     display: block;
 }
 
+/* ================= [NEW] Project Goal & Info Styling ================= */
+.project_goal_area {
+    position: absolute;
+    width: 320px;
+    font-family: var(--font-suit);
+    color: #131313;
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.2s;
+    /* 이미지가 뜰 때 살짝 늦게 */
+}
+
+/* 카드가 활성화되면 등장 */
+.project_card.active .project_goal_area {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.goal_item {
+    margin-bottom: 30px;
+}
+
+.goal_title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-uxui);
+    /* 포인트 컬러 */
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.goal_desc {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #222;
+    word-break: keep-all;
+    /* 한글 줄바꿈 예쁘게 */
+}
+
+
+/* --- [Variation 0] BOJ Position (좌측 하단 빈 공간) --- */
+.project_card[data-index="0"] .project_goal_area {
+    right: -3%;
+    bottom: 20%;
+}
+
+/* --- [Variation 1] HeAi Position (중앙 상단 빈 공간) --- */
+.project_card[data-index="1"] .project_goal_area {
+    right: 0%;
+    bottom: 27%;
+    transform: translateX(-50%) translateY(30px);
+    /* 중앙 정렬 보정 + 초기 애니메이션 값 */
+}
+
+.project_card[data-index="1"].active .project_goal_area {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* --- [Variation 2] SAC Position (좌측 하단 빈 공간) --- */
+.project_card[data-index="2"] .project_goal_area {
+    right: 10%;
+    bottom: 20%;
+}
+
+/* --- [Variation 3] Verra Position (우측 상단 빈 공간 - Sub 위쪽) --- */
+.project_card[data-index="3"] .project_goal_area {
+    right: 30%;
+    top: 10%;
+
+}
+
+/* 링크 버튼 */
+.goal_links {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    pointer-events: auto;
+
+}
+
+/* 개별 버튼 스타일 */
+.goal_btn {
+    display: inline-block;
+    font-family: 'suit', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #131313;
+    border: 1px solid #131313;
+    padding: 8px 20px;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    /* 부드러운 효과 */
+    background: transparent;
+    cursor: pointer;
+}
+
+/* 버튼에 마우스 올렸을 때 효과 */
+.goal_btn:hover {
+    background-color: #131313;
+    color: #fff;
+    border-color: #131313;
+}
+
+/* 모바일/태블릿 대응 */
+@media (max-width: 1200px) {
+    .project_goal_area {
+        display: none;
+        /* 화면 작으면 숨김 (복잡해짐 방지) */
+    }
+}
 
 /* === Image Styles & Positioning === */
 /* [수정] a 태그와 div 모두에 적용 */
@@ -1061,17 +1176,17 @@ div.img_wrapper {
 }
 
 .project_card[data-index="1"] .img_sub {
-    width: 30%;
+    width: 20%;
     height: 42%;
     left: 40%;
-    bottom: 10%;
+    bottom: 20%;
 }
 
 .project_card[data-index="1"] .img_small {
-    width: 20%;
-    height: auto;
-    right: -2%;
-    top: -18%;
+    width: 30%;
+    height: 40%;
+    right: -5%;
+    top: -15%;
 }
 
 
@@ -1709,94 +1824,4 @@ a#rainbow-text.active:after {
     color: #131313;
     letter-spacing: -0.04em;
     transform: translateY(0);
-}
-
-/* ================= [NEW] Project Goal & Info Styling ================= */
-.project_goal_area {
-    position: absolute;
-    width: 320px;
-    font-family: var(--font-suit);
-    color: #131313;
-    pointer-events: none;
-    z-index: 5;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    transition-delay: 0.2s;
-    /* 이미지가 뜰 때 살짝 늦게 */
-}
-
-/* 카드가 활성화되면 등장 */
-.project_card.active .project_goal_area {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.goal_item {
-    margin-bottom: 30px;
-}
-
-.goal_title {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--color-uxui);
-    /* 포인트 컬러 */
-    margin-bottom: 4px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.goal_desc {
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.5;
-    color: #222;
-    word-break: keep-all;
-    /* 한글 줄바꿈 예쁘게 */
-}
-
-
-/* --- [Variation 0] BOJ Position (좌측 하단 빈 공간) --- */
-.project_card[data-index="0"] .project_goal_area {
-    right: -3%;
-    bottom: 25%;
-}
-
-/* --- [Variation 1] HeAi Position (중앙 상단 빈 공간) --- */
-.project_card[data-index="1"] .project_goal_area {
-    left: 42%;
-    top: 5%;
-    transform: translateX(-50%) translateY(30px);
-    /* 중앙 정렬 보정 + 초기 애니메이션 값 */
-}
-
-.project_card[data-index="1"].active .project_goal_area {
-    transform: translateX(-50%) translateY(0);
-}
-
-.link_btn {
-    cursor: pointer;
-    
-}
-
-/* --- [Variation 2] SAC Position (좌측 하단 빈 공간) --- */
-.project_card[data-index="2"] .project_goal_area {
-    left: 5%;
-    bottom: 5%;
-}
-
-/* --- [Variation 3] Verra Position (우측 상단 빈 공간 - Sub 위쪽) --- */
-.project_card[data-index="3"] .project_goal_area {
-    right: 5%;
-    top: 10%;
-    text-align: right;
-    /* 우측 정렬 */
-}
-
-/* 모바일/태블릿 대응 */
-@media (max-width: 1200px) {
-    .project_goal_area {
-        display: none;
-        /* 화면 작으면 숨김 (복잡해짐 방지) */
-    }
 }
