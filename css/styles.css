@@ -543,8 +543,8 @@ header.on.menu-open .header_logo a {
 
 .pos_skills {
     right: 15%;
-    bottom: -28%;
-    width: 350px;
+    bottom: -26%;
+    width: 420px;
     display: flex;
     align-items: flex-end;
     transform: rotate(15deg);
@@ -660,8 +660,8 @@ header.on.menu-open .header_logo a {
 
 /* Skills (영수증) - 1번 */
 .pos_skills .num_skills {
-    top: -6%;
-    right: 370px;
+    top: -1%;
+    right: 100%;
     transform: rotate(-15deg);
 
 }
