@@ -1153,6 +1153,8 @@ a.obj_link {
     width: var(--icon-size);
     height: var(--icon-size);
     margin-left: 15px;
+    /* [수정] 컨테이너 자체의 이동(translateX)을 제거하여 클리핑 방지 */
+    transform: translateX(0);
     transition: transform 500ms ease;
 }
 
@@ -1167,8 +1169,9 @@ a.obj_link {
 }
 
 /* 왼쪽 아이콘 (호버 시 등장) */
+/* [수정] 이동 거리를 -30px 정도로 좁혀서 자연스럽게 들어오도록 변경 */
 .btn_hover_slide .icon-container .icon--left {
-    transform: translateX(-200%);
+    transform: translateX(-30px);
     opacity: 0;
 }
 
@@ -1215,15 +1218,15 @@ a.obj_link {
     fill: #fff;
 }
 
-/* 아이콘 컨테이너 이동 */
+/* [수정] 아이콘 컨테이너 이동 삭제 */
 .btn_hover_slide:hover .icon-container {
-    transform: translateX(100%);
-    /* 오른쪽으로 살짝 이동해 보이게 하거나, 원래 로직대로 */
+    transform: translateX(0);
 }
 
 /* 원래 있던 오른쪽 아이콘은 밖으로 이동 */
+/* [수정] 이동 거리를 30px로 조정 */
 .btn_hover_slide:hover .icon-container .icon--right {
-    transform: translateX(200%);
+    transform: translateX(30px);
     opacity: 0;
 }
 

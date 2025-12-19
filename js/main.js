@@ -178,13 +178,21 @@ if (projectsSection && horizontalTrack && projectCards.length > 0) {
 
                 if (newIndex !== currentProjectIndex) {
                     projectCards.forEach((card, i) => {
-                        if (i === newIndex) card.classList.add('active');
-                        else card.classList.remove('active');
+                        // [수정됨] 한번 활성화된 카드는 active 클래스를 제거하지 않음
+                        if (i === newIndex) {
+                            card.classList.add('active');
+                        }
+                        // else { card.classList.remove('active'); } // 제거 로직 주석 처리
                     });
                     currentProjectIndex = newIndex;
                 }
             },
             onLeaveBack: () => {
+                // 스크롤을 완전히 다시 올려서 프로젝트 섹션을 벗어났을 때만 초기화할지 결정
+                // "한번 나타나면 안사라지게" 요청에 따라 이 부분도 주석 처리하거나, 
+                // 완전히 섹션을 벗어나면 리셋하고 싶다면 유지.
+                // 일단 사용자가 '프로젝트 부분'을 보고 있을 때를 의미한다고 판단하여,
+                // 섹션을 완전히 떠났다 돌아올 때는 리셋되도록 유지합니다. (원치 않으면 아래 줄 주석 처리)
                 projectCards.forEach(card => card.classList.remove('active'));
                 currentProjectIndex = -1;
             }
